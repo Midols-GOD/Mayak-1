@@ -1,21 +1,13 @@
 <!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
-    <!DOCTYPE html>
-<html lang="uk" class="scroll-smooth">
-<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>База відпочинку «Маяк»</title>
+    
+    <!-- Фавіконка -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
-    <!-- ВОТ СЮДА ВСТАВЬ ЭТУ СТРОЧКУ -->
-   <link rel="icon" type="image/jpeg" href="favicon.jpg">
-
-    <!-- Tailwind CSS CDN -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База відпочинку «Маяк»</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -27,6 +19,7 @@
                         cardBg: '#111827',
                         accentCyan: '#06b6d4',
                         accentBlue: '#3b82f6',
+                        accentGold: '#fca5a5', /* Колір для кнопки на плашці, схожий на скріншот */
                     }
                 }
             }
@@ -43,7 +36,6 @@
 </head>
 <body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden">
 
-    <!-- Примусова прокрутка наверх при завантаженні -->
     <script>
         window.scrollTo(0, 0);
     </script>
@@ -51,7 +43,6 @@
     <!-- НАВІГАЦІЯ (ШАПКА) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/95 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between w-full">
-            <!-- Збільшений логотип з файлом LOGO.jpg -->
             <a href="#" class="flex items-center space-x-3">
                 <div class="w-14 h-14 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-lg shadow-cyan-500/30 flex items-center justify-center">
                     <img src="LOGO.jpg" alt="Логотип Маяк" class="w-full h-full object-contain" onerror="this.src='logo.png'">
@@ -59,7 +50,6 @@
                 <span class="text-xl font-bold tracking-wider text-white">МАЯК</span>
             </a>
 
-            <!-- Меню для ПК -->
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
                 <a href="#about" class="hover:text-accentCyan transition-colors">Про нас</a>
                 <a href="#rooms" class="hover:text-accentCyan transition-colors">Номери</a>
@@ -69,14 +59,12 @@
                 <a href="#contacts" class="hover:text-accentCyan transition-colors">Контакти</a>
             </nav>
 
-            <!-- Кнопка швидкого зв'язку -->
             <div class="hidden sm:block">
                 <a href="tel:+380935754668" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                    <i class="fa-solid fa-phone mr-2"></i>Бронювати
+                    <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
                 </a>
             </div>
 
-            <!-- Мобільна кнопка меню -->
             <div class="md:hidden flex items-center">
                 <button id="menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
                     <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
@@ -84,7 +72,6 @@
             </div>
         </div>
 
-        <!-- Випадаюче мобільне меню з плавною анімацією -->
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
             <a href="#about" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Про нас</a>
             <a href="#rooms" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Номери</a>
@@ -116,24 +103,52 @@
                 <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
                     Подивитися номери
                 </a>
-                <a href="#contacts" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardBg border border-gray-700 text-white font-bold text-base hover:bg-gray-800 transition-all text-center">
-                    Зв'язатися з нами
-                </a>
             </div>
         </div>
     </section>
 
-    <!-- ПРО НАС -->
-    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full">
+    <!-- ІНФОРМАЦІЙНА ПЛАШКА ДЛЯ ДЗВІНКА -->
+    <section class="px-4 -mt-10 relative z-20 w-full max-w-4xl mx-auto">
+        <div class="bg-[#1a1f2e] border border-gray-700/50 p-6 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-1">Мангали, рибалка та затишок поруч</h3>
+                <p class="text-sm text-gray-400">Бронюйте номери заздалегідь для кращого відпочинку</p>
+            </div>
+            <a href="tel:+380935754668" class="w-full md:w-auto px-8 py-3 bg-[#fca5a5] text-black font-bold rounded hover:bg-opacity-90 transition-colors text-center shadow-lg">
+                Набрати номер
+            </a>
+        </div>
+    </section>
+
+    <!-- РОЗШИРЕНИЙ БЛОК "ПРО НАС" -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 mt-10 w-full">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
                 <p class="text-gray-300 mb-4 leading-relaxed">
-                    Це ідеальне місце для тих, хто втомився від міського шуму та метушні. Тут на вас чекає чисте повітря, простора територія, чудові краєвиди та все необхідне для спокійного проведення часу з родиною чи друзями.
+                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
                 </p>
-                <p class="text-gray-300 mb-6 leading-relaxed">
-                    Ми пропонуємо затишні номери зі зручностями, облаштовані місця для відпочинку біля води та унікальну атмосферу справжнього заміського релаксу.
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    <strong>Що ми пропонуємо нашим гостям:</strong>
                 </p>
+                <ul class="space-y-3 text-gray-300 mb-6 pl-4 border-l-2 border-accentCyan/30">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-leaf text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зелена територія:</strong> Доглянуті газони, тінь від дерев та простір для прогулянок на свіжому повітрі.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зони барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-bed text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Комфортне проживання:</strong> Затишні номери з усіма необхідними зручностями.</span>
+                    </li>
+                </ul>
                 <div class="grid grid-cols-2 gap-4 text-center">
                     <div class="p-4 rounded-2xl bg-cardBg border border-gray-800">
                         <div class="text-3xl font-extrabold text-accentCyan mb-1">12+</div>
@@ -145,18 +160,28 @@
                     </div>
                 </div>
             </div>
+            
+            <!-- Слайдер території -->
             <div class="relative">
-                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer group relative" onclick="openModal('1.png')">
-                    <img src="1.png" alt="База відпочинку Маяк" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
-                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                        <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
+                    <img id="about-slider-img" src="1.png" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                    
+                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm">
+                        <span id="about-current">1</span> / <span id="about-total">3</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- НОМЕРИ -->
+    <!-- НОМЕРИ (ЗІ СЛАЙДЕРАМИ КІМНАТ) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -164,12 +189,21 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- 1. Покращений номер -->
+                
+                <!-- 1. Покращений номер (Слайдер) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2 (1).png')">
-                        <img src="2 (1).png" alt="Покращений номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
+                    <div class="h-64 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img id="room1-slider-img" src="2 (1).png" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                        
+                        <button onclick="prevRoom1Slide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextRoom1Slide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-2.5 py-0.5 rounded-full text-[11px] text-white backdrop-blur-sm">
+                            <span id="room1-current">1</span> / <span id="room1-total">3</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -191,12 +225,20 @@
                     </div>
                 </div>
 
-                <!-- 2. Стандартний номер -->
+                <!-- 2. Стандартний номер (Слайдер) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('3.png')">
-                        <img src="3.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
+                    <div class="h-64 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img id="room2-slider-img" src="3.png" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                        
+                        <button onclick="prevRoom2Slide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextRoom2Slide()" class="absolute right-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-2.5 py-0.5 rounded-full text-[11px] text-white backdrop-blur-sm">
+                            <span id="room2-current">1</span> / <span id="room2-total">3</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -217,6 +259,7 @@
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -370,9 +413,9 @@
         <p>&copy; 2026 База відпочинку «Маяк». Усі права захищено.</p>
     </footer>
 
-    <!-- СКРИПТИ -->
+    <!-- СКРИПТИ ДЛЯ СЛАЙДЕРІВ ТА МЕНЮ -->
     <script>
-        // Плавна анімація випадаючого мобільного меню
+        // Мобільне меню
         const btn = document.getElementById('menu-btn');
         const menu = document.getElementById('mobile-menu');
         const menuIcon = document.getElementById('menu-icon');
@@ -389,7 +432,6 @@
             }
         });
 
-        // Закриття меню при кліку на посилання
         document.querySelectorAll('.mobile-link').forEach(link => {
             link.addEventListener('click', () => {
                 menu.style.maxHeight = "0px";
@@ -398,7 +440,90 @@
             });
         });
 
-        // Модальне вікно для фото
+        // ================= СЛАЙДЕРИ ФОТО =================
+        
+        // 1. Слайдер "Про нас" (територія)
+        const aboutImages = ['1.png', '2 (1).png', '3.png']; 
+        let aboutIndex = 0;
+
+        function updateAboutSlide() {
+            const imgEl = document.getElementById('about-slider-img');
+            const currentEl = document.getElementById('about-current');
+            document.getElementById('about-total').innerText = aboutImages.length;
+            
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                imgEl.src = aboutImages[aboutIndex];
+                imgEl.style.opacity = 1;
+                currentEl.innerText = aboutIndex + 1;
+            }, 150);
+        }
+
+        function nextAboutSlide() {
+            aboutIndex = (aboutIndex + 1) % aboutImages.length;
+            updateAboutSlide();
+        }
+
+        function prevAboutSlide() {
+            aboutIndex = (aboutIndex - 1 + aboutImages.length) % aboutImages.length;
+            updateAboutSlide();
+        }
+
+        // 2. Слайдер "Покращений номер"
+        const room1Images = ['2 (1).png', '1.png', '3.png'];
+        let room1Index = 0;
+
+        function updateRoom1Slide() {
+            const imgEl = document.getElementById('room1-slider-img');
+            const currentEl = document.getElementById('room1-current');
+            document.getElementById('room1-total').innerText = room1Images.length;
+            
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                imgEl.src = room1Images[room1Index];
+                imgEl.style.opacity = 1;
+                currentEl.innerText = room1Index + 1;
+            }, 150);
+        }
+
+        function nextRoom1Slide() {
+            room1Index = (room1Index + 1) % room1Images.length;
+            updateRoom1Slide();
+        }
+
+        function prevRoom1Slide() {
+            room1Index = (room1Index - 1 + room1Images.length) % room1Images.length;
+            updateRoom1Slide();
+        }
+
+        // 3. Слайдер "Стандартний номер"
+        const room2Images = ['3.png', '1.png', '2 (1).png'];
+        let room2Index = 0;
+
+        function updateRoom2Slide() {
+            const imgEl = document.getElementById('room2-slider-img');
+            const currentEl = document.getElementById('room2-current');
+            document.getElementById('room2-total').innerText = room2Images.length;
+            
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                imgEl.src = room2Images[room2Index];
+                imgEl.style.opacity = 1;
+                currentEl.innerText = room2Index + 1;
+            }, 150);
+        }
+
+        function nextRoom2Slide() {
+            room2Index = (room2Index + 1) % room2Images.length;
+            updateRoom2Slide();
+        }
+
+        function prevRoom2Slide() {
+            room2Index = (room2Index - 1 + room2Images.length) % room2Images.length;
+            updateRoom2Slide();
+        }
+
+        // ================= МОДАЛЬНЕ ВІКНО =================
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
 
@@ -416,7 +541,6 @@
         }
 
         modal.addEventListener('click', (e) => {
-            e.stopPropagation();
             if (e.target === modal) {
                 closeModal();
             }
