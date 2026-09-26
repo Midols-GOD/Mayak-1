@@ -135,15 +135,16 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (ТІЛЬКИ ПОКРАЩЕНИЙ НОМЕР З ЦІНОЮ 1500 ГРН) -->
+    <!-- НОМЕРИ (ДВА БЛОКИ: ПОКРАЩЕНИЙ ТА СТАНДАРТНИЙ) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
-                <p class="text-gray-400">Оберіть комфортний варіант для вашого проживання</p>
             </div>
 
-            <div class="max-w-md mx-auto">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+                
+                <!-- 1. Покращений номер -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
                     <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
                         <img src="2.png" alt="Покращений номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -157,12 +158,11 @@
                                 <h3 class="text-xl font-bold text-white">Покращений номер</h3>
                                 <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">Чудовий вибір для комфортного відпочинку вдвох чи невеликою компанією.</p>
+                            <p class="text-gray-400 text-sm mb-4">Просторіший варіант із сучасним ремонтом та максимальним затишком.</p>
                             <ul class="space-y-2 text-sm text-gray-300 mb-6">
                                 <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
                                 <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Холодильник, чайник</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер</li>
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
                             </ul>
                         </div>
                         <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
@@ -170,6 +170,34 @@
                         </a>
                     </div>
                 </div>
+
+                <!-- 2. Стандартний номер -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
+                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('1.png')">
+                        <img src="1.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
+                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-xl font-bold text-white">Стандартний номер</h3>
+                                <span class="text-accentCyan font-bold text-lg">За домовленістю</span>
+                            </div>
+                            <p class="text-gray-400 text-sm mb-4">Затишний вибір для комфортного відпочинку.</p>
+                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Комфортне спальне місце</li>
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Основні зручності</li>
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Тиша та спокій</li>
+                            </ul>
+                        </div>
+                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
+                            Забронювати номер
+                        </a>
+                    </div>
+                </div>
+
             </div>
         </div>
     </section>
