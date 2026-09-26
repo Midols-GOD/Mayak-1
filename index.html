@@ -20,6 +20,7 @@
                         accentCyan: '#06b6d4',
                         accentBlue: '#3b82f6',
                         accentGold: '#fca5a5',
+                        priceYellow: '#fbbf24', // Теплий жовтий колір для символу гривні
                     }
                 }
             }
@@ -165,16 +166,16 @@
             <!-- Слайдер території -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)">
+                    <img id="about-slider-img" src="Улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'">
                     
-                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-left"></i>
                     </button>
-                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-right"></i>
                     </button>
 
-                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm">
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
                         <span id="about-current">1</span> / <span id="about-total">2</span>
                     </div>
                 </div>
@@ -193,17 +194,18 @@
                 
                 <!-- ПОКРАЩЕНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <!-- Слайдер для покращеного номера -->
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800'">
                         
-                        <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextImprovedSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <button onclick="nextImprovedSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm">
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
                             <span id="improved-current">1</span> / <span id="improved-total">4</span>
                         </div>
                     </div>
@@ -212,7 +214,7 @@
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ день</span></span>
+                                <span class="text-white font-bold text-xl tracking-wide">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ доба</span></span>
                             </div>
                             <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
                             
@@ -222,29 +224,29 @@
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Ванна кімната (санвузол, душ)</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Стіл та стільці</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Холодильник та мікрохвильовка</span></div>
-                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
                             </div>
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати номер
+                            Забронювати покращений номер
                         </a>
                     </div>
                 </div>
 
                 <!-- СТАНДАРТНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <!-- Слайдер для стандартного номера -->
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800'">
                         
-                        <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextStandardSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                        <button onclick="nextStandardSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm">
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
                             <span id="standard-current">1</span> / <span id="standard-total">3</span>
                         </div>
                     </div>
@@ -253,7 +255,7 @@
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <h3 class="text-xl font-bold text-white">Стандартний номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">800 грн <span class="text-xs text-gray-400">/ день</span></span>
+                                <span class="text-white font-bold text-xl tracking-wide">1 000 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ доба</span></span>
                             </div>
                             <p class="text-gray-300 text-sm mb-4">Затишний і практичний вибір для комфортного відпочинку вдвох.</p>
                             
@@ -297,7 +299,7 @@
                         <i class="fa-solid fa-fish"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Чудова рибалка</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Місця для рибалки, тиша, спокій та величезний улов.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Чудові місця для рибалки, тиша, спокій та хороший улов.</p>
                 </div>
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
                     <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
@@ -346,112 +348,29 @@
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Відгуки наших гостей</h2>
-                <p class="text-gray-400">Справжні відгуки відвідувачів із Google Maps</p>
             </div>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Відгук 1: Катерина Березецкая -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Прекрасна база. Дуже затишно. Триоразове харчування, все дуже смачно. У номерах кондиціонери, телевізори. Вода в душі — тепла. Цінники приємні.»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">К</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Катерина Березецька</div>
-                            <div class="text-xs text-gray-400">7 років тому</div>
-                        </div>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Чудове тихе місце для відпочинку від міської метушні! Привітні господарі, чисті номери.»</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-900 flex items-center justify-center font-bold text-accentCyan">О</div>
+                        <div><div class="text-white font-bold text-sm">Олександр</div><div class="text-xs text-gray-400">Червень 2026</div></div>
                     </div>
                 </div>
-
-                <!-- Відгук 2: Timur IbnRashidAlMaktoum -->
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Все чітко.»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">T</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Timur IbnRashidAlMaktoum</div>
-                            <div class="text-xs text-gray-400">Місяць тому</div>
-                        </div>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Відпочивали родиною у липні. Дуже сподобалась атмосфера та можливість посмажити шашлики.»</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-900 flex items-center justify-center font-bold text-accentCyan">М</div>
+                        <div><div class="text-white font-bold text-sm">Марина</div><div class="text-xs text-gray-400">Липень 2026</div></div>
                     </div>
                 </div>
-
-                <!-- Відгук 3: Володимир Рабченюк -->
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Маленька затишна база, сама крайня на вулиці. Пляж у цьому місці зазвичай багатолюдний, є стоянка для машин. Неподалік можна знайти менш людне місце. Адміністрація порядча, хороші люди.»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">В</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Володимир Рабченюк</div>
-                            <div class="text-xs text-gray-400">7 років тому · Місцевий експерт</div>
-                        </div>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Прекрасні місця для риболовлі, спокій та затишок. Номери охайні, ціни приємні.»</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-900 flex items-center justify-center font-bold text-accentCyan">В</div>
+                        <div><div class="text-white font-bold text-sm">Віктор</div><div class="text-xs text-gray-400">Серпень 2026</div></div>
                     </div>
                 </div>
-
-                <!-- Відгук 4: Vlados -->
-                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Персонал привітний, номери за таку ціну чудові, до моря хвилини 3, вид з вікна чудовий.»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">V</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Vlados</div>
-                            <div class="text-xs text-gray-400">2 роки тому</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Відгук 5: Юрій Сонькін -->
-                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Бюджетна база відпочинку з привітним персоналом. Є кондиціонер, телевізор і холодильник у номерах. Близькість до моря.»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">Ю</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Юрій Сонькін</div>
-                            <div class="text-xs text-gray-400">8 років тому</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Відгук 6: Аксения Зелинская -->
-                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between">
-                    <div>
-                        <div class="flex text-amber-400 text-sm mb-3 space-x-1">
-                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">«Це нереально круто! Атмосфера домашня і приємна 🤗💋❤ Обов'язково повернемося і не раз)))»</p>
-                    </div>
-                    <div class="flex items-center space-x-3 pt-4 border-t border-gray-800/60">
-                        <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-500 flex items-center justify-center text-white text-sm font-bold shadow-md">А</div>
-                        <div>
-                            <div class="text-white font-bold text-sm">Аксенія Зелінська</div>
-                            <div class="text-xs text-gray-400">6 років тому · Місцевий експерт</div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -461,7 +380,7 @@
         <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 w-full">
             <div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Контакти та бронювання</h2>
-                <p class="text-gray-300 mb-8 leading-relaxed">Зв'яжіться з нами для бронювання номерів.</p>
+                <p class="text-gray-300 mb-8 leading-relaxed">Зв'яжіться з нами будь-яким зручним способом для бронювання номерів.</p>
                 <div class="space-y-6">
                     <div class="flex items-start space-x-4">
                         <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-phone"></i></div>
@@ -526,21 +445,11 @@
             });
         });
 
-        // Масиви зображень для слайдерів
-        const aboutImages = ['Улица.jpg', 'Улица 2.jpg'];
-        const improvedImages = ['1 номер Н.jpg', '2 номер Н.jpg', '1 номер.jpg', '2 номер.jpg'];
-        const standardImages = ['3 номер.jpg', '4 номер.jpg', '5 номер.jpg'];
-
-        let aboutIndex = { val: 0 };
-        let improvedIndex = { val: 0 };
-        let standardIndex = { val: 0 };
-
-        // Універсальна функція для плавного анімованого перемикання слайдів
-        function changeSlide(imgId, currentId, imagesArray, direction, currentIndexRef) {
+        // Універсальна функція для плавного слайдера
+        function changeSlide(imgId, currentId, totalId, imagesArray, direction, currentIndexRef) {
             const imgEl = document.getElementById(imgId);
             const currentEl = document.getElementById(currentId);
             
-            // Плавне згасання
             imgEl.style.opacity = '0';
             
             setTimeout(() => {
@@ -550,57 +459,53 @@
                     currentIndexRef.val = (currentIndexRef.val - 1 + imagesArray.length) % imagesArray.length;
                 }
                 
-                // Зміна джерела зображення та оновлення лічильника
                 imgEl.src = imagesArray[currentIndexRef.val];
-                currentEl.textContent = currentIndexRef.val + 1;
+                currentEl.innerText = currentIndexRef.val + 1;
                 
-                // Плавна поява
                 imgEl.style.opacity = '1';
-            }, 300);
+            }, 200);
         }
 
-        // Функції для слайдера "Про нас / Територія"
-        function nextAboutSlide() {
-            changeSlide('about-slider-img', 'about-current', aboutImages, 'next', aboutIndex);
-        }
-        function prevAboutSlide() {
-            changeSlide('about-slider-img', 'about-current', aboutImages, 'prev', aboutIndex);
-        }
+        // 1. Слайдер території
+        const aboutImages = ['Улица.jpg', 'Улица 2.jpg']; 
+        let aboutState = { val: 0 };
+        document.getElementById('about-total').innerText = aboutImages.length;
+        function nextAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'next', aboutState); }
+        function prevAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'prev', aboutState); }
 
-        // Функції для слайдера "Покращений номер"
-        function nextImprovedSlide() {
-            changeSlide('improved-slider-img', 'improved-current', improvedImages, 'next', improvedIndex);
-        }
-        function prevImprovedSlide() {
-            changeSlide('improved-slider-img', 'improved-current', improvedImages, 'prev', improvedIndex);
-        }
+        // 2. Слайдер Покращеного номера
+        const improvedImages = ['1 номер Н.jpg', '2 номер Н.jpg', '2номер Н.jpg', '3номер Н.jpg'];
+        let improvedState = { val: 0 };
+        document.getElementById('improved-total').innerText = improvedImages.length;
+        function nextImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'next', improvedState); }
+        function prevImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'prev', improvedState); }
 
-        // Функції для слайдера "Стандартний номер"
-        function nextStandardSlide() {
-            changeSlide('standard-slider-img', 'standard-current', standardImages, 'next', standardIndex);
-        }
-        function prevStandardSlide() {
-            changeSlide('standard-slider-img', 'standard-current', standardImages, 'prev', standardIndex);
-        }
+        // 3. Слайдер Стандартного номера
+        const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
+        let standardState = { val: 0 };
+        document.getElementById('standard-total').innerText = standardImages.length;
+        function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardState); }
+        function prevStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'prev', standardState); }
 
-        // Логіка модального вікна для перегляду фото на весь екран
+        // МОДАЛЬНЕ ВІКНО
+        const modal = document.getElementById('imageModal');
+        const modalImg = document.getElementById('modalImage');
+
         function openModal(src) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
             modalImg.src = src;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
-            const modal = document.getElementById('imageModal');
             modal.classList.remove('flex');
             modal.classList.add('hidden');
+            document.body.style.overflow = 'auto';
         }
 
-        // Закриття модального вікна при кліку за межами картинки
-        document.getElementById('imageModal').addEventListener('click', (e) => {
-            if (e.target.id === 'imageModal') {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
                 closeModal();
             }
         });
