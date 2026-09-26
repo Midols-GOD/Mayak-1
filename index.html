@@ -120,7 +120,7 @@
         </div>
     </section>
 
-    <!-- РОЗШИРЕНИЙ БЛОК "ПРО НАС" ( ТЕРИТОРІЯ: Улица ) -->
+    <!-- РОЗШИРЕНИЙ БЛОК "ПРО НАС" ( ТЕРИТОРІЯ ) -->
     <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 mt-10 w-full">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
@@ -161,10 +161,10 @@
                 </div>
             </div>
             
-            <!-- Слайдер території (Улица) -->
+            <!-- Слайдер території -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица1.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                    <img id="about-slider-img" src="улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
                     
                     <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -190,10 +190,10 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 
-                <!-- 1. Покращений номер ( Улица Н + Номера Н 1-4 ) -->
+                <!-- 1. Покращений номер -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
                     <div class="h-64 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="room1-slider-img" src="Улица_Н1.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                        <img id="room1-slider-img" src="номер 1 N.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
                         
                         <button onclick="prevRoom1Slide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -203,7 +203,7 @@
                         </button>
 
                         <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-2.5 py-0.5 rounded-full text-[11px] text-white backdrop-blur-sm">
-                            <span id="room1-current">1</span> / <span id="room1-total">5</span>
+                            <span id="room1-current">1</span> / <span id="room1-total">3</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -225,10 +225,10 @@
                     </div>
                 </div>
 
-                <!-- 2. Стандартний номер ( Номери 1-12 ) -->
+                <!-- 2. Стандартний номер -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
                     <div class="h-64 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="room2-slider-img" src="room1.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                        <img id="room2-slider-img" src="номер 3.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
                         
                         <button onclick="prevRoom2Slide()" class="absolute left-2 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -238,7 +238,7 @@
                         </button>
 
                         <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-2.5 py-0.5 rounded-full text-[11px] text-white backdrop-blur-sm">
-                            <span id="room2-current">1</span> / <span id="room2-total">12</span>
+                            <span id="room2-current">1</span> / <span id="room2-total">3</span>
                         </div>
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -442,8 +442,8 @@
 
         // ================= СЛАЙДЕРИ ФОТО =================
         
-        // 1. Слайдер "Про нас" (Територія: Улица)
-        const aboutImages = ['Улица1.jpg', 'Улица2.jpg', 'Улица3.jpg']; 
+        // 1. Слайдер "Про нас" (Територія)
+        const aboutImages = ['улица.jpg', 'улица 2.jpg', 'улица снизу.jpg']; 
         let aboutIndex = 0;
 
         function updateAboutSlide() {
@@ -469,8 +469,8 @@
             updateAboutSlide();
         }
 
-        // 2. Слайдер "Покращений номер" (Улица Н + Номера Н 1-4)
-        const room1Images = ['Улица_Н1.jpg', 'room_h1.jpg', 'room_h2.jpg', 'room_h3.jpg', 'room_h4.jpg'];
+        // 2. Слайдер "Покращений номер"
+        const room1Images = ['номер 1 N.jpg', 'номер 2 N.jpg', 'номер 3 N.jpg'];
         let room1Index = 0;
 
         function updateRoom1Slide() {
@@ -496,8 +496,8 @@
             updateRoom1Slide();
         }
 
-        // 3. Слайдер "Стандартний номер" (Номери 1-12)
-        const room2Images = ['room1.jpg', 'room2.jpg', 'room3.jpg', 'room4.jpg', 'room5.jpg', 'room6.jpg', 'room7.jpg', 'room8.jpg', 'room9.jpg', 'room10.jpg', 'room11.jpg', 'room12.jpg'];
+        // 3. Слайдер "Стандартний номер"
+        const room2Images = ['номер 3.jpg', 'номер 8.jpg', 'номер 12.jpg'];
         let room2Index = 0;
 
         function updateRoom2Slide() {
