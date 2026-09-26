@@ -6,12 +6,12 @@
     <title>База відпочинку Маяк</title>
     <!-- Иконка вкладки сайта -->
     <link rel="icon" type="image/png" href="logo.png">
-    <!-- Подключаем Tailwind CSS для красивого и адаптивного дизайна -->
+    <!-- Подключаем Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-slate-50 text-slate-800 font-sans antialiased">
 
-    <!-- Принудительная прокрутка в самый верх при загрузке -->
+    <!-- Принудительная прокрутка в самый верх -->
     <script>
         window.scrollTo(0, 0);
     </script>
@@ -27,25 +27,69 @@
                 </div>
             </div>
             <nav class="hidden md:flex space-x-6 text-sm font-medium text-slate-600">
-                <a href="#gallery" class="hover:text-blue-600 transition">Фото</a>
                 <a href="#about" class="hover:text-blue-600 transition">Про нас</a>
+                <a href="#rooms" class="hover:text-blue-600 transition">Номери</a>
+                <a href="#gallery" class="hover:text-blue-600 transition">Фото</a>
                 <a href="#contacts" class="hover:text-blue-600 transition">Контакти</a>
             </nav>
         </div>
     </header>
 
-    <!-- Главный блок -->
+    <!-- Главный баннер -->
     <main class="max-w-6xl mx-auto px-4 py-8">
         <section class="text-center py-12 bg-blue-900 text-white rounded-2xl mb-12 shadow-md">
             <h2 class="text-3xl md:text-4xl font-bold mb-4">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
-            <p class="text-blue-200 max-w-xl mx-auto text-lg px-4">Чудове місце для вашого незабутнього відпочинку біля моря.</p>
+            <p class="text-blue-200 max-w-xl mx-auto text-lg px-4">Побільше природи, спокою та затишку для вашого відпочинку біля води.</p>
+        </section>
+
+        <!-- О нас / Преимущества -->
+        <section id="about" class="mb-16">
+            <div class="grid md:grid-cols-3 gap-6 text-center">
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="text-3xl mb-3">🌊</div>
+                    <h3 class="font-bold text-lg mb-2 text-blue-900">Близько до води</h3>
+                    <p class="text-sm text-slate-600">Идеальное место для любителей рыбалки, природы и размеренного отдыха на свежем воздухе.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="text-3xl mb-3">🔥</div>
+                    <h3 class="font-bold text-lg mb-2 text-blue-900">Зручності для гостей</h3>
+                    <p class="text-sm text-slate-600">Бесплатные мангалы для шашлыков, уютные беседки и чистая территория.</p>
+                </div>
+                <div class="bg-white p-6 rounded-xl shadow-sm border border-slate-100">
+                    <div class="text-3xl mb-3">⭐</div>
+                    <h3 class="font-bold text-lg mb-2 text-blue-900">12+ років досвіду</h3>
+                    <p class="text-sm text-slate-600">Честный отдых по доступным ценам без лишнего пафоса и скрытых доплат.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Номера -->
+        <section id="rooms" class="mb-16">
+            <h3 class="text-2xl font-bold mb-6 text-slate-800 text-center">Наші номери</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-100">
+                    <img src="1.png" alt="Стандарт" class="w-full h-64 object-cover cursor-pointer" onclick="openModal('1.png')">
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-2 text-blue-900">Стандартний номер</h4>
+                        <p class="text-sm text-slate-600 mb-4">Простой и комфортный номер для проживания. Есть всё необходимое для отдыха после рыбалки или пляжа.</p>
+                        <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-3 py-1 rounded-full">Уютно и практично</span>
+                    </div>
+                </div>
+                <div class="bg-white rounded-xl shadow-sm overflow-hidden border border-slate-100">
+                    <img src="2.png" alt="Покращений" class="w-full h-64 object-cover cursor-pointer" onclick="openModal('2.png')">
+                    <div class="p-6">
+                        <h4 class="font-bold text-xl mb-2 text-blue-900">Покращений номер</h4>
+                        <p class="text-sm text-slate-600 mb-4">Больше пространства и улучшенные условия для тех, кто ценит повышенный комфорт.</p>
+                        <span class="text-xs bg-blue-50 text-blue-700 font-semibold px-3 py-1 rounded-full">Популярный выбор</span>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <!-- Галерея фотографий -->
         <section id="gallery" class="mb-16">
             <h3 class="text-2xl font-bold mb-6 text-slate-800 text-center">Фото нашої бази</h3>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                <!-- Картинки с возможностью увеличения -->
                 <div class="bg-white rounded-xl shadow overflow-hidden cursor-pointer transition transform hover:-translate-y-1 hover:shadow-lg" onclick="openModal('1.png')">
                     <img src="1.png" alt="Фото 1" class="w-full h-56 object-cover">
                 </div>
@@ -68,20 +112,25 @@
         </section>
     </main>
 
-    <!-- Подвал сайта -->
-    <footer id="contacts" class="bg-white border-t border-slate-200 py-8 text-center text-sm text-slate-500">
-        <p>&copy; 2026 База відпочинку «Маяк». Усі права захищені.</p>
+    <!-- Контакты и подвал -->
+    <footer id="contacts" class="bg-white border-t border-slate-200 py-12">
+        <div class="max-w-6xl mx-auto px-4 text-center">
+            <h3 class="text-xl font-bold mb-4 text-blue-900">Контакти</h3>
+            <p class="text-slate-600 mb-2">Зв'яжіться з нами для бронювання та уточнення деталей.</p>
+            <p class="text-blue-600 font-semibold text-lg mb-6">+38 (XXX) XXX-XX-XX</p>
+            <p class="text-xs text-slate-400">&copy; 2026 База відпочинку «Маяк». Усі права захищені.</p>
+        </div>
     </footer>
 
     <!-- Модальное окно для просмотра фото на весь экран -->
-    <div id="imageModal" class="fixed inset-0 bg-black bg-z-50 bg-opacity-90 hidden items-center justify-center p-4 z-50" onclick="closeModal()">
+    <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-90 hidden items-center justify-center p-4 z-50" onclick="closeModal()">
         <div class="relative max-w-4xl max-h-full">
             <button class="absolute -top-10 right-0 text-white text-3xl font-bold hover:text-slate-300">&times;</button>
             <img id="modalImage" src="" alt="Повний розмір" class="max-w-full max-h-[85vh] rounded-lg shadow-2xl object-contain mx-auto">
         </div>
     </div>
 
-    <!-- Скрипты для модального окна -->
+    <!-- Скрипты модального окна -->
     <script>
         function openModal(imageSrc) {
             const modal = document.getElementById('imageModal');
