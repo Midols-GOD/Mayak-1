@@ -23,7 +23,6 @@
     <!-- FontAwesome для іконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* М'яке згладжування для всіх картинок */
         img {
             image-rendering: auto;
             -webkit-font-smoothing: antialiased;
@@ -40,10 +39,10 @@
     <!-- НАВІГАЦІЯ (ШАПКА) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/95 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between w-full">
-            <!-- Логотип (використовує PicsArt_Alimaj_Enge_Hunter.png) -->
+            <!-- Збільшений логотип для кращої видимості -->
             <a href="#" class="flex items-center space-x-3">
-                <div class="w-11 h-11 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-md shadow-cyan-500/20 flex items-center justify-center">
-                    <img src="PicsArt_Alimaj_Enge_Hunter.png" alt="Логотип Маяк" class="w-full h-full object-contain">
+                <div class="w-14 h-14 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-lg shadow-cyan-500/30 flex items-center justify-center">
+                    <img src="LOGO.jpg" alt="Логотип Маяк" class="w-full h-full object-contain" onerror="this.src='logo.png'">
                 </div>
                 <span class="text-xl font-bold tracking-wider text-white">МАЯК</span>
             </a>
