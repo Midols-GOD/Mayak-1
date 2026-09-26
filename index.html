@@ -120,7 +120,7 @@
         </div>
     </section>
 
-    <!-- БЛОК "ЛАСКОВО ПРОСИМО" (ТІЛЬКИ Улица.jpg ТА Улица 2.jpg) -->
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
     <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 mt-10 w-full">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
@@ -161,7 +161,7 @@
                 </div>
             </div>
             
-            <!-- Слайдер території (тільки Улица.jpg та Улица 2.jpg) -->
+            <!-- Слайдер території (Улица.jpg та Улица 2.jpg) -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
                     <img id="about-slider-img" src="Улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
@@ -188,29 +188,52 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-                <!-- Покращений номер -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- ПОКРАЩЕНИЙ НОМЕР (Зі слайдером на 4 фото та детальним описом) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
-                    <div class="h-64 overflow-hidden relative bg-gray-900 flex items-center justify-center">
-                        <img src="номер 1 N.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer" onclick="openModal(this.src)">
+                    <!-- Слайдер для покращеного номера (4 фото) -->
+                    <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer transition-opacity duration-300" onclick="openModal(this.src)">
+                        
+                        <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextImprovedSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm">
+                            <span id="improved-current">1</span> / <span id="improved-total">4</span>
+                        </div>
                     </div>
+
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
                             <div class="flex justify-between items-center mb-3">
                                 <h3 class="text-xl font-bold text-white">Покращений номер</h3>
                                 <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">Просторіший варіант із сучасним ремонтом та максимальним затишком.</p>
+                            <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, покращеним затишком та повним набором зручностей для ідеального відпочинку.</p>
+                            
+                            <!-- Що входить в покращений номер -->
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасне двоспальне ліжко та меблі</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Кондиціонер та плазмовий телевізор</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Власний санвузол (душ, гаряча вода 24/7)</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Холодильник та швидкісний Wi-Fi</span></div>
+                            </div>
                         </div>
-                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            Забронювати покращений номер
                         </a>
                     </div>
                 </div>
 
-                <!-- Стандартний номер -->
+                <!-- СТАНДАРТНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
-                    <div class="h-64 overflow-hidden relative bg-gray-900 flex items-center justify-center">
+                    <div class="h-72 overflow-hidden relative bg-gray-900 flex items-center justify-center">
                         <img src="номер 3.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer" onclick="openModal(this.src)">
                     </div>
                     <div class="p-6 flex-1 flex flex-col justify-between">
@@ -219,13 +242,22 @@
                                 <h3 class="text-xl font-bold text-white">Стандартний номер</h3>
                                 <span class="text-accentCyan font-bold text-lg">1 000 грн <span class="text-xs text-gray-400">/ доба</span></span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">Затишний вибір для комфортного відпочинку вдвох.</p>
+                            <p class="text-gray-300 text-sm mb-4">Затишний і практичний вибір для комфортного відпочинку вдвох.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Зручні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
+                            </div>
                         </div>
+
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
+                            Забронювати стандартний номер
                         </a>
                     </div>
                 </div>
+
             </div>
         </div>
     </section>
@@ -397,7 +429,7 @@
             });
         });
 
-        // Слайдер блоку "Ласкаво просимо" (тільки Улица.jpg та Улица 2.jpg)
+        // 1. Слайдер блоку "Ласкаво просимо" (Улица.jpg та Улица 2.jpg)
         const aboutImages = ['Улица.jpg', 'Улица 2.jpg']; 
         let aboutIndex = 0;
 
@@ -424,7 +456,34 @@
             updateAboutSlide();
         }
 
-        // МОДАЛЬНЕ ВІКНО
+        // 2. Слайдер для "Покращеного номера" (4 фотографії)
+        const improvedImages = ['1 номер Н.jpg', '2 номер Н.jpg', '2номер Н.jpg', '3номер Н.jpg'];
+        let improvedIndex = 0;
+
+        function updateImprovedSlide() {
+            const imgEl = document.getElementById('improved-slider-img');
+            const currentEl = document.getElementById('improved-current');
+            document.getElementById('improved-total').innerText = improvedImages.length;
+            
+            imgEl.style.opacity = 0;
+            setTimeout(() => {
+                imgEl.src = improvedImages[improvedIndex];
+                imgEl.style.opacity = 1;
+                currentEl.innerText = improvedIndex + 1;
+            }, 150);
+        }
+
+        function nextImprovedSlide() {
+            improvedIndex = (improvedIndex + 1) % improvedImages.length;
+            updateImprovedSlide();
+        }
+
+        function prevImprovedSlide() {
+            improvedIndex = (improvedIndex - 1 + improvedImages.length) % improvedImages.length;
+            updateImprovedSlide();
+        }
+
+        // МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
 
