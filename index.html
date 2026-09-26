@@ -33,7 +33,7 @@
     <!-- НАВІГАЦІЯ (ШАПКА) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Логотип (з реальним фото замість іконки) -->
+            <!-- Логотип -->
             <a href="#" class="flex items-center space-x-3">
                 <div class="w-11 h-11 rounded-xl overflow-hidden border border-cyan-500/40 shadow-md shadow-cyan-500/20">
                     <img src="2.png" alt="Логотип Маяк" class="w-full h-full object-cover">
@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <!-- ПРО НАС (З ДОДАНИМ ФОТО) -->
+    <!-- ПРО НАС (Фото 1.png) -->
     <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
@@ -127,7 +127,7 @@
                     </div>
                 </div>
             </div>
-            <!-- Фото у блоці Про нас з можливістю збільшення -->
+            <!-- Фото 1.png у блоці Про нас -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer group relative" onclick="openModal('1.png')">
                     <img src="1.png" alt="База відпочинку Маяк" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
@@ -139,7 +139,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (ДВА БЛОКИ З ФОТОГРАФІЯМИ 2.png) -->
+    <!-- НОМЕРИ (Покращений - 2.png, Стандартний - 3.png) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -148,7 +148,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
                 
-                <!-- 1. Покращений номер -->
+                <!-- 1. Покращений номер (Фото 2.png) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
                     <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
                         <img src="2.png" alt="Покращений номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
@@ -175,10 +175,10 @@
                     </div>
                 </div>
 
-                <!-- 2. Стандартний номер -->
+                <!-- 2. Стандартний номер (Фото 3.png) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
-                        <img src="2.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('3.png')">
+                        <img src="3.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
                             <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
                         </div>
@@ -396,7 +396,7 @@
         <i class="fa-solid fa-phone"></i>
     </a>
 
-    <!-- ПРОСТЕ МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО (БЕЗ ЛУПИ) -->
+    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
         <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-accentCyan focus:outline-none z-50">
             <i class="fa-solid fa-xmark"></i>
@@ -421,7 +421,7 @@
             menu.classList.toggle('hidden');
         });
 
-        // Модальне вікно (чистий перегляд без зайвого зуму)
+        // Модальне вікно
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
 
@@ -438,7 +438,6 @@
             document.body.style.overflow = 'auto';
         }
 
-        // Закриття модального вікна при кліку за межами картинки
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
@@ -447,4 +446,3 @@
     </script>
 </body>
 </html>
-
