@@ -128,28 +128,25 @@
                 </div>
             </div>
             <div class="relative">
-                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer" onclick="openModal('1.png')">
-                    <img src="1.png" alt="Номер на базі Маяк" class="w-full h-auto object-cover hover:scale-105 transition-transform duration-500">
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer" onclick="openModal('2.png')">
+                    <img src="2.png" alt="Номер на базі Маяк" class="w-full h-auto object-cover">
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- НОМЕРИ (ПОКРАЩЕНІ НОМЕРИ З ФОТОГРАФІЯМИ 1-6) -->
+    <!-- НОМЕРИ (ТІЛЬКИ ПОКРАЩЕНИЙ НОМЕР З ЦІНОЮ 1500 ГРН) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Покращені номери</h2>
-                <p class="text-gray-400">Оберіть комфортний варіант для вашого проживання. Ціна: <span class="text-accentCyan font-bold">1 500 грн / доба</span></p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
+                <p class="text-gray-400">Оберіть комфортний варіант для вашого проживання</p>
             </div>
 
-            <!-- Сітка карток для всіх 6 фото -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                
-                <!-- Фото 1 -->
+            <div class="max-w-md mx-auto">
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('1.png')">
-                        <img src="1.png" alt="Покращений номер 1" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
+                        <img src="2.png" alt="Покращений номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
                             <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
                         </div>
@@ -160,11 +157,12 @@
                                 <h3 class="text-xl font-bold text-white">Покращений номер</h3>
                                 <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
                             </div>
-                            <p class="text-gray-400 text-sm mb-4">Просторіший варіант із сучасним ремонтом та затишною атмосферою.</p>
+                            <p class="text-gray-400 text-sm mb-4">Чудовий вибір для комфортного відпочинку вдвох чи невеликою компанією.</p>
                             <ul class="space-y-2 text-sm text-gray-300 mb-6">
                                 <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
                                 <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Холодильник, чайник</li>
+                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер</li>
                             </ul>
                         </div>
                         <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
@@ -172,142 +170,6 @@
                         </a>
                     </div>
                 </div>
-
-                <!-- Фото 2 -->
-                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
-                        <img src="2.png" alt="Покращений номер 2" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4">Чудовий вибір для комфортного відпочинку вдвох.</p>
-                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
-                            </ul>
-                        </div>
-                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Фото 3 -->
-                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('3.png')">
-                        <img src="3.png" alt="Покращений номер 3" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4">Затишна атмосфера та необхідні зручності.</p>
-                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
-                            </ul>
-                        </div>
-                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Фото 4 -->
-                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('4.png')">
-                        <img src="4.png" alt="Покращений номер 4" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4">Ідеальний варіант для спокійного відпочинку.</p>
-                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
-                            </ul>
-                        </div>
-                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Фото 5 -->
-                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('5.png')">
-                        <img src="5.png" alt="Покращений номер 5" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4">Просторий номер з усіма зручностями.</p>
-                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
-                            </ul>
-                        </div>
-                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Фото 6 -->
-                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-56 overflow-hidden cursor-pointer relative group" onclick="openModal('6.png')">
-                        <img src="6.png" alt="Покращений номер 6" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                        <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
-                            <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
-                        </div>
-                    </div>
-                    <div class="p-6 flex-1 flex flex-col justify-between">
-                        <div>
-                            <div class="flex justify-between items-center mb-3">
-                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
-                                <span class="text-accentCyan font-bold text-lg">1 500 грн <span class="text-xs text-gray-400">/ доба</span></span>
-                            </div>
-                            <p class="text-gray-400 text-sm mb-4">Максимальний комфорт та затишок для гостей.</p>
-                            <ul class="space-y-2 text-sm text-gray-300 mb-6">
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Зручне двоспальне ліжко</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Санвузол і душ у номері</li>
-                                <li><i class="fa-solid fa-check text-accentCyan mr-2"></i>Кондиціонер та техніка</li>
-                            </ul>
-                        </div>
-                        <a href="tel:+380000000000" class="block w-full py-3 rounded-xl bg-gray-800 hover:bg-accentCyan hover:text-darkBg text-white text-center font-bold text-sm transition-all">
-                            Забронювати номер
-                        </a>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -357,7 +219,7 @@
         </div>
     </section>
 
-    <!-- ПРЕИМУЩЕСТВА -->
+    <!-- ПЕРЕВАГИ -->
     <section id="advantages" class="py-20 px-4 bg-[#0c101c]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -520,7 +382,7 @@
         <p>&copy; 2026 База відпочинку «Маяк». Усі права захищено.</p>
     </footer>
 
-    <!-- СКРИПТИ (МОБІЛЬНЕ МЕНЮ ТА ЗБІЛЬШЕННЯ ФОТО) -->
+    <!-- СКРИПТИ -->
     <script>
         // Мобільне меню
         const btn = document.getElementById('menu-btn');
@@ -530,7 +392,7 @@
             menu.classList.toggle('hidden');
         });
 
-        // Функції для модального вікна та двохуровневого зуму
+        // Модальне вікно та двохуровневий зум
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
         let isZoomed = false;
@@ -539,7 +401,7 @@
             modalImg.src = src;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
-            document.body.style.overflow = 'hidden'; // Зупиняємо прокрутку сторінки під модалкою
+            document.body.style.overflow = 'hidden';
             isZoomed = false;
             modalImg.style.transform = 'scale(1)';
             modalImg.style.cursor = 'zoom-in';
@@ -548,10 +410,9 @@
         function closeModal() {
             modal.classList.remove('flex');
             modal.classList.add('hidden');
-            document.body.style.overflow = 'auto'; // Відновлюємо прокрутку
+            document.body.style.overflow = 'auto';
         }
 
-        // Подвійний клік (зум / оригінальний розмір)
         function toggleZoom(img) {
             if (!isZoomed) {
                 img.style.transform = 'scale(2)';
@@ -564,7 +425,6 @@
             }
         }
 
-        // Закриття модального вікна при кліку за межами картинки
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
