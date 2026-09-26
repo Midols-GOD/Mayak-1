@@ -33,10 +33,10 @@
     <!-- НАВІГАЦІЯ (ШАПКА) -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/90 backdrop-blur-md border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-            <!-- Логотип / Назва -->
+            <!-- Логотип (з реальним фото замість іконки) -->
             <a href="#" class="flex items-center space-x-3">
-                <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-accentCyan to-accentBlue flex items-center justify-center text-darkBg font-bold text-xl">
-                    <i class="fa-solid fa-lighthouse text-white text-lg"></i>
+                <div class="w-11 h-11 rounded-xl overflow-hidden border border-cyan-500/40 shadow-md shadow-cyan-500/20">
+                    <img src="2.png" alt="Логотип Маяк" class="w-full h-full object-cover">
                 </div>
                 <span class="text-xl font-bold tracking-wider text-white">МАЯК</span>
             </a>
@@ -105,7 +105,7 @@
         </div>
     </section>
 
-    <!-- ПРО НАС -->
+    <!-- ПРО НАС (З ДОДАНИМ ФОТО) -->
     <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <div>
@@ -127,15 +127,19 @@
                     </div>
                 </div>
             </div>
+            <!-- Фото у блоці Про нас з можливістю збільшення -->
             <div class="relative">
-                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer" onclick="openModal('2.png')">
-                    <img src="2.png" alt="Номер на базі Маяк" class="w-full h-auto object-cover">
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 cursor-pointer group relative" onclick="openModal('1.png')">
+                    <img src="1.png" alt="База відпочинку Маяк" class="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
+                        <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- НОМЕРИ (ДВА БЛОКИ: ПОКРАЩЕНИЙ ТА СТАНДАРТНИЙ З ЦІНОЮ 1500 ГРН) -->
+    <!-- НОМЕРИ (ДВА БЛОКИ З ФОТОГРАФІЯМИ 2.png) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c]">
         <div class="max-w-7xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -173,8 +177,8 @@
 
                 <!-- 2. Стандартний номер -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col hover:border-cyan-500/50 transition-all">
-                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('1.png')">
-                        <img src="1.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <div class="h-64 overflow-hidden cursor-pointer relative group" onclick="openModal('2.png')">
+                        <img src="2.png" alt="Стандартний номер" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                         <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center text-white text-sm font-bold">
                             <i class="fa-solid fa-magnifying-glass-plus mr-2 text-lg"></i> Натисніть для збільшення
                         </div>
@@ -392,16 +396,13 @@
         <i class="fa-solid fa-phone"></i>
     </a>
 
-    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО (2 РІВНІ ЗУМУ) -->
+    <!-- ПРОСТЕ МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО (БЕЗ ЛУПИ) -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
         <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-accentCyan focus:outline-none z-50">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <div class="overflow-auto max-h-full max-w-full flex items-center justify-center">
-            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl transition-transform duration-300 cursor-zoom-in" onclick="toggleZoom(this)">
-        </div>
-        <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 text-gray-400 text-xs sm:text-sm bg-black/60 px-4 py-2 rounded-full border border-gray-800 pointer-events-none">
-            Клікніть на фото ще раз для додаткового збільшення
+        <div class="max-h-full max-w-full flex items-center justify-center">
+            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl">
         </div>
     </div>
 
@@ -420,19 +421,15 @@
             menu.classList.toggle('hidden');
         });
 
-        // Модальне вікно та двохуровневий зум
+        // Модальне вікно (чистий перегляд без зайвого зуму)
         const modal = document.getElementById('imageModal');
         const modalImg = document.getElementById('modalImage');
-        let isZoomed = false;
 
         function openModal(src) {
             modalImg.src = src;
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
-            isZoomed = false;
-            modalImg.style.transform = 'scale(1)';
-            modalImg.style.cursor = 'zoom-in';
         }
 
         function closeModal() {
@@ -441,18 +438,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        function toggleZoom(img) {
-            if (!isZoomed) {
-                img.style.transform = 'scale(2)';
-                img.style.cursor = 'zoom-out';
-                isZoomed = true;
-            } else {
-                img.style.transform = 'scale(1)';
-                img.style.cursor = 'zoom-in';
-                isZoomed = false;
-            }
-        }
-
+        // Закриття модального вікна при кліку за межами картинки
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {
                 closeModal();
