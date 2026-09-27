@@ -356,66 +356,56 @@
     <section id="reviews" class="py-20 px-4 bg-darkBg w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Відгуки наших гостей</h2>
-                <p class="text-gray-400 text-sm">Поділіться своїми враженнями про відпочинок у нас</p>
+                <div class="text-xs tracking-widest text-accentCyan uppercase mb-2">Відгуки</div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Що кажуть гості</h2>
             </div>
 
-            <!-- Контейнер слайдера відгуків -->
-            <div class="relative max-w-4xl mx-auto mb-16">
-                <div id="reviews-slider-container" class="overflow-hidden">
-                    <div id="reviews-track" class="flex transition-transform duration-500 ease-in-out">
-                        <!-- Відгук 1 -->
-                        <div class="w-full flex-shrink-0 px-2">
-                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
-                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Чудове тихе місце для відпочинку від міської метушні! Привітні господарі, чисті номери та неймовірна атмосфера близько до моря.»</p>
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">О</div>
-                                    <div><div class="text-white font-bold text-base">Олександр</div><div class="text-xs text-gray-400">Червень 2026</div></div>
-                                </div>
-                            </div>
+            <!-- Блок карток відгуків (без перелистування, сітка як на зразку) -->
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+                <!-- Відгук 1 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <!-- Відгук 2 -->
-                        <div class="w-full flex-shrink-0 px-2">
-                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
-                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Відпочивали родиною у липні. Дуже сподобалась територія, доглянуті газони та можливість посмажити шашлики у затишній зоні барбекю.»</p>
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">М</div>
-                                    <div><div class="text-white font-bold text-base">Марина</div><div class="text-xs text-gray-400">Липень 2026</div></div>
-                                </div>
-                            </div>
-                        </div>
-                        <!-- Відгук 3 -->
-                        <div class="w-full flex-shrink-0 px-2">
-                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
-                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
-                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
-                                </div>
-                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Прекрасні місця для риболовлі, тиша, спокій та затишок. Номери охайні, є кондиціонер і все необхідне. Ціни дуже приємні!»</p>
-                                <div class="flex items-center space-x-3">
-                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">В</div>
-                                    <div><div class="text-white font-bold text-base">Віктор</div><div class="text-xs text-gray-400">Серпень 2026</div></div>
-                                </div>
-                            </div>
-                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Приїхали на дві ночі, залишились на п'ять. Вечеря біля вогнища на березі — найкраще, що траплялось із нами цього року.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="text-white font-semibold text-base mb-0.5">Олена та Дмитро</div>
+                        <div class="text-xs text-gray-400">Морське бунгало, вересень</div>
                     </div>
                 </div>
 
-                <!-- Кнопки керування слайдером відгуків -->
-                <button onclick="prevReview()" class="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-cardBg border border-gray-700 hover:bg-cyan-950 text-white flex items-center justify-center transition-all shadow-xl z-10">
-                    <i class="fa-solid fa-chevron-left"></i>
-                </button>
-                <button onclick="nextReview()" class="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-cardBg border border-gray-700 hover:bg-cyan-950 text-white flex items-center justify-center transition-all shadow-xl z-10">
-                    <i class="fa-solid fa-chevron-right"></i>
-                </button>
+                <!-- Відгук 2 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Тиша, яку чути. Прокидатися від хвиль, а не від будильника — заради цього варто було їхати.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="text-white font-semibold text-base mb-0.5">Марина</div>
+                        <div class="text-xs text-gray-400">Дім на дюнах, серпень</div>
+                    </div>
+                </div>
+
+                <!-- Відгук 3 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Чан під зорями над самим морем — і жодної людини на кілометр берегової лінії. Це не відпочинок, це перезавантаження.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4">
+                        <div class="text-white font-semibold text-base mb-0.5">Андрій</div>
+                        <div class="text-xs text-gray-400">Панорамний люкс, липень</div>
+                    </div>
+                </div>
             </div>
 
-            <!-- Форма додавання відгуку -->
+            <!-- Форма додавання нового відгуку -->
             <div class="max-w-2xl mx-auto bg-cardBg border border-gray-800 p-8 rounded-2xl shadow-xl">
                 <h3 class="text-xl font-bold text-white mb-4 text-center">Залишити свій відгук</h3>
                 <form id="review-form" onsubmit="addReview(event)" class="space-y-4">
@@ -548,25 +538,7 @@
         function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardIndex); }
         function prevStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'prev', standardIndex); }
 
-        // 4. Слайдер відгуків
-        let currentReviewIndex = 0;
-        function updateReviewsSlider() {
-            const track = document.getElementById('reviews-track');
-            const totalSlides = track.children.length;
-            if (currentReviewIndex >= totalSlides) currentReviewIndex = 0;
-            if (currentReviewIndex < 0) currentReviewIndex = totalSlides - 1;
-            track.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
-        }
-        function nextReview() {
-            currentReviewIndex++;
-            updateReviewsSlider();
-        }
-        function prevReview() {
-            currentReviewIndex--;
-            updateReviewsSlider();
-        }
-
-        // Функція додавання нового відгуку динамічно
+        // Функція динамічного додавання відгуку у сітку
         function addReview(event) {
             event.preventDefault();
             const nameInput = document.getElementById('review-name');
@@ -577,30 +549,24 @@
             
             if(!name || !text) return;
 
-            const track = document.getElementById('reviews-track');
-            const firstLetter = name.charAt(0).toUpperCase();
-            const currentDate = "Вересень 2026";
+            const container = document.getElementById('reviews-container');
 
             const newReviewCard = document.createElement('div');
-            newReviewCard.className = 'w-full flex-shrink-0 px-2';
+            newReviewCard.className = 'p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl';
             newReviewCard.innerHTML = `
-                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
-                    <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
+                <div>
+                    <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
-                    <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«${text}»</p>
-                    <div class="flex items-center space-x-3">
-                        <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">${firstLetter}</div>
-                        <div><div class="text-white font-bold text-base">${name}</div><div class="text-xs text-gray-400">${currentDate}</div></div>
-                    </div>
+                    <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«${text}»</p>
+                </div>
+                <div class="border-t border-gray-800/80 pt-4">
+                    <div class="text-white font-semibold text-base mb-0.5">${name}</div>
+                    <div class="text-xs text-gray-400">Вересень 2026</div>
                 </div>
             `;
 
-            track.appendChild(newReviewCard);
-            
-            // Переходимо до новоствореного відгуку
-            currentReviewIndex = track.children.length - 1;
-            updateReviewsSlider();
+            container.appendChild(newReviewCard);
 
             // Очищуємо форму
             nameInput.value = '';
