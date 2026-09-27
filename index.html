@@ -29,7 +29,7 @@
                         accentCyan: '#06b6d4',
                         accentBlue: '#3b82f6',
                         accentGold: '#fca5a5',
-                        priceYellow: '#fbbf24', // Теплий жовтий колір для символу гривні
+                        priceYellow: '#fbbf24', // Теплий жовтий колір для символу гривні, ініціалів та зірочок
                     }
                 }
             }
@@ -360,49 +360,111 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white">Що кажуть гості</h2>
             </div>
 
-            <!-- Блок карток відгуків (без перелистування, сітка як на зразку) -->
-            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto mb-16">
+            <!-- Сітка відгуків (без перелистування, з переписаним текстом та стилізованими ініціалами/зірочками) -->
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto mb-16">
+                
                 <!-- Відгук 1 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
-                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Приїхали на дві ночі, залишились на п'ять. Вечеря біля вогнища на березі — найкраще, що траплялось із нами цього року.»</p>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Хороша, простая база для семейного отдыха. Главное тихо, есть зелень и чисто. Природа здесь есть, и она вправду очень красивая. Мы отлично провели время, дети тоже довольны. Рекомендую, если хочется просто спокойно провести время, купаясь в море, отдыхая и жаря шашлыки. До моря метров 150.»</p>
                     </div>
-                    <div class="border-t border-gray-800/80 pt-4">
-                        <div class="text-white font-semibold text-base mb-0.5">Олена та Дмитро</div>
-                        <div class="text-xs text-gray-400">Морське бунгало, вересень</div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">С</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Себастьян Бах</div>
+                            <div class="text-xs text-gray-400">месяц назад</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Відгук 2 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
-                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Тиша, яку чути. Прокидатися від хвиль, а не від будильника — заради цього варто було їхати.»</p>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Я была там, когда была маленькой в 2016-2017 году. Остались очень тёплые впечатления. Воспоминания до сих пор живы: приятные люди, доброжелательный персонал, уютная атмосфера. Сейчас это место далеко, но я часто вспоминаю те моменты. Надеюсь, там всё так же хорошо, как тогда.»</p>
                     </div>
-                    <div class="border-t border-gray-800/80 pt-4">
-                        <div class="text-white font-semibold text-base mb-0.5">Марина</div>
-                        <div class="text-xs text-gray-400">Дім на дюнах, серпень</div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">M</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Milana Tsvikilevych</div>
+                            <div class="text-xs text-gray-400">год назад</div>
+                        </div>
                     </div>
                 </div>
 
                 <!-- Відгук 3 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
-                        <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
                             <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                         </div>
-                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Чан під зорями над самим морем — і жодної людини на кілометр берегової лінії. Це не відпочинок, це перезавантаження.»</p>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Для своих цен, лучше не видел. Вода теплая и горячая, кондеи, интернет, кухня, уют, к морю идти 1 мин. Что еще нужно. Ребята, а вид на море с номеров, террасы и столовой, не везде такое увидишь вообще по всему побережью.»</p>
                     </div>
-                    <div class="border-t border-gray-800/80 pt-4">
-                        <div class="text-white font-semibold text-base mb-0.5">Андрій</div>
-                        <div class="text-xs text-gray-400">Панорамний люкс, липень</div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">Ц</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Цыганков Владимир</div>
+                            <div class="text-xs text-gray-400">4 года назад</div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Відгук 4 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Маленькая уютная база, самая крайняя на улице. Пляж в этом месте обычно многолюдный, есть стоянка для машин. Недалеко можно найти менее многолюдное место. Администрация порядочная, хорошие люди.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">В</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Володимир Рабченюк</div>
+                            <div class="text-xs text-gray-400">7 лет назад</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Відгук 5 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Персонал приветливый, номера за такую цену отличные, до моря минуты 3, вид из окна отличный.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">V</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Vlados</div>
+                            <div class="text-xs text-gray-400">2 года назад</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Відгук 6 -->
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Это нереально круто! Атмосфера домашняя и приятная. Обязательно вернёмся и не раз)))»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">А</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Аксения Зелинская</div>
+                            <div class="text-xs text-gray-400">6 лет назад</div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
             <!-- Форма додавання нового відгуку -->
@@ -550,19 +612,23 @@
             if(!name || !text) return;
 
             const container = document.getElementById('reviews-container');
+            const firstLetter = name.charAt(0).toUpperCase();
 
             const newReviewCard = document.createElement('div');
             newReviewCard.className = 'p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl';
             newReviewCard.innerHTML = `
                 <div>
-                    <div class="flex items-center space-x-1 text-emerald-500 mb-6 text-sm">
+                    <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
                         <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
                     </div>
                     <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«${text}»</p>
                 </div>
-                <div class="border-t border-gray-800/80 pt-4">
-                    <div class="text-white font-semibold text-base mb-0.5">${name}</div>
-                    <div class="text-xs text-gray-400">Вересень 2026</div>
+                <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                    <div class="w-10 h-10 rounded-full bg-amber-500/10 border border-amber-500/30 flex items-center justify-center font-bold text-priceYellow text-base">${firstLetter}</div>
+                    <div>
+                        <div class="text-white font-semibold text-sm">${name}</div>
+                        <div class="text-xs text-gray-400">щойно</div>
+                    </div>
                 </div>
             `;
 
