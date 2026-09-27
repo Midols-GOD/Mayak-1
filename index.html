@@ -154,10 +154,10 @@
                 </div>
             </div>
             
-            <!-- Слайдер території -->
+            <!-- Слайдер території (Улица 2.jpg, Улица.jpg, Улица снизу.jpg) -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
                     
                     <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -167,7 +167,7 @@
                     </button>
 
                     <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
-                        <span id="about-current">1</span> / <span id="about-total">1</span>
+                        <span id="about-current">1</span> / <span id="about-total">3</span>
                     </div>
                 </div>
             </div>
@@ -183,11 +183,10 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
                 
-                <!-- ПОКРАЩЕНИЙ НОМЕР -->
+                <!-- ПОКРАЩЕНИЙ НОМЕР (1 номер N.jpg, 2 номер N.jpg, 2 номер N.jpg, 3 номер N.jpg) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
-                    <!-- Слайдер для покращеного номера -->
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                        <img id="improved-slider-img" src="1 номер N.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
                         
                         <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -197,7 +196,7 @@
                         </button>
 
                         <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
-                            <span id="improved-current">1</span> / <span id="improved-total">1</span>
+                            <span id="improved-current">1</span> / <span id="improved-total">4</span>
                         </div>
                     </div>
 
@@ -225,9 +224,8 @@
                     </div>
                 </div>
 
-                <!-- СТАНДАРТНИЙ НОМЕР -->
+                <!-- СТАНДАРТНИЙ НОМЕР (3 номер.jpg, 8 номер.jpg, 12 номер.jpg) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
-                    <!-- Слайдер для стандартного номера -->
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
                         
@@ -239,7 +237,7 @@
                         </button>
 
                         <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
-                            <span id="standard-current">1</span> / <span id="standard-total">1</span>
+                            <span id="standard-current">1</span> / <span id="standard-total">3</span>
                         </div>
                     </div>
 
@@ -344,10 +342,7 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white">Що кажуть гості</h2>
             </div>
 
-            <!-- Сітка відгуків (на українській мові) -->
             <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
-                
-                <!-- Відгук 1 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -364,7 +359,6 @@
                     </div>
                 </div>
 
-                <!-- Відгук 2 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -381,7 +375,6 @@
                     </div>
                 </div>
 
-                <!-- Відгук 3 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -398,7 +391,6 @@
                     </div>
                 </div>
 
-                <!-- Відгук 4 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -415,7 +407,6 @@
                     </div>
                 </div>
 
-                <!-- Відгук 5 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -432,7 +423,6 @@
                     </div>
                 </div>
 
-                <!-- Відгук 6 -->
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
                     <div>
                         <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
@@ -448,9 +438,7 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
         </div>
     </section>
 
@@ -545,22 +533,22 @@
             }, 200);
         }
 
-        // 1. Слайдер території
-        const aboutImages = ['Улица.jpg'];
+        // 1. Слайдер території (Улица 2.jpg, Улица.jpg, Улица снизу.jpg)
+        const aboutImages = ['Улица 2.jpg', 'Улица.jpg', 'Улица снизу.jpg'];
         let aboutIndex = { val: 0 };
         document.getElementById('about-total').innerText = aboutImages.length;
         function nextAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'next', aboutIndex); }
         function prevAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'prev', aboutIndex); }
 
-        // 2. Слайдер покращеного номера
-        const improvedImages = ['1 номер Н.jpg'];
+        // 2. Слайдер покращеного номера (1 номер N.jpg, 2 номер N.jpg, 2 номер N.jpg, 3 номер N.jpg)
+        const improvedImages = ['1 номер N.jpg', '2 номер N.jpg', '2 номер N.jpg', '3 номер N.jpg'];
         let improvedIndex = { val: 0 };
         document.getElementById('improved-total').innerText = improvedImages.length;
         function nextImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'next', improvedIndex); }
         function prevImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'prev', improvedIndex); }
 
-        // 3. Слайдер стандартного номера
-        const standardImages = ['3 номер.jpg'];
+        // 3. Слайдер стандартного номера (3 номер.jpg, 8 номер.jpg, 12 номер.jpg)
+        const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
         let standardIndex = { val: 0 };
         document.getElementById('standard-total').innerText = standardImages.length;
         function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardIndex); }
