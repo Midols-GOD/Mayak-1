@@ -1,226 +1,632 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-79MRZ0C366"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-79MRZ0C366');
+</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База відпочинку "Маяк" - Відгуки гостей</title>
+    <title>База відпочинку «Маяк»</title>
+    
+    <!-- Фавіконка -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090d16',
+                        cardBg: '#111827',
+                        accentCyan: '#06b6d4',
+                        accentBlue: '#3b82f6',
+                        accentGold: '#fca5a5',
+                        priceYellow: '#fbbf24', // Теплий жовтий колір для символу гривні
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-        }
-
-        body {
-            background-color: #f4f7f6;
-            color: #333;
-            line-height: 1.6;
-            padding: 40px 20px;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .section-header h2 {
-            font-size: 2.5rem;
-            color: #1b4332;
-            margin-bottom: 10px;
-        }
-
-        .section-header p {
-            font-size: 1.1rem;
-            color: #6c757d;
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-
-        .review-card {
-            background: #ffffff;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-top: 4px solid #2d6a4f;
-        }
-
-        .review-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.1);
-        }
-
-        .review-content {
-            margin-bottom: 20px;
-        }
-
-        .stars {
-            color: #ffb703;
-            font-size: 1.2rem;
-            margin-bottom: 15px;
-            letter-spacing: 2px;
-        }
-
-        .review-text {
-            font-size: 1rem;
-            color: #495057;
-            font-style: italic;
-            line-height: 1.7;
-        }
-
-        .review-author-info {
-            display: flex;
-            align-items: center;
-            border-top: 1px solid #e9ecef;
-            padding-top: 15px;
-        }
-
-        .author-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-right: 15px;
-            border: 2px solid #2d6a4f;
-        }
-
-        .author-details h4 {
-            font-size: 1.05rem;
-            color: #212529;
-            margin-bottom: 3px;
-        }
-
-        .author-details span {
-            font-size: 0.85rem;
-            color: #8d99ae;
+        img {
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            transition: opacity 0.3s ease-in-out;
         }
     </style>
 </head>
-<body>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden">
 
-    <div class="container">
-        <div class="section-header">
-            <h2>Що кажуть гості</h2>
-            <p>Чесні відгуки тих, хто вже побував у нас на відпочинку</p>
+    <script>
+        window.scrollTo(0, 0);
+    </script>
+
+    <!-- НАВІГАЦІЯ (ШАПКА) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/95 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between w-full">
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-14 h-14 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-lg shadow-cyan-500/30 flex items-center justify-center">
+                    <img src="LOGO.jpg" alt="Логотип Маяк" class="w-full h-full object-contain" onerror="this.src='logo.png'">
+                </div>
+                <span class="text-xl font-bold tracking-wider text-white">МАЯК</span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
+                <a href="#about" class="hover:text-accentCyan transition-colors">Про нас</a>
+                <a href="#rooms" class="hover:text-accentCyan transition-colors">Номери</a>
+                <a href="#services" class="hover:text-accentCyan transition-colors">Послуги</a>
+                <a href="#advantages" class="hover:text-accentCyan transition-colors">Переваги</a>
+                <a href="#reviews" class="hover:text-accentCyan transition-colors">Відгуки</a>
+                <a href="#contacts" class="hover:text-accentCyan transition-colors">Контакти</a>
+            </nav>
+
+            <div class="hidden sm:block">
+                <a href="tel:+380935754668" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
+                    <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
         </div>
 
-        <div class="reviews-grid">
-            <!-- Отзыв 1: Себастьян -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Хороша, затишна база для відпочинку всією родиною. Найголовніше — тут тихо, чисто і дуже багато зелені. Природа неймовірна, ми чудово провели час, і діти в захваті. Рекомендую всім, хто хоче спокійно відпочити біля моря, купатися та насолоджуватися природою. До пляжу всього метрів 200. Був тут ще дитиною у 2016–2017 роках, і досі пам'ятаю ту теплу атмосферу та доброзичливий персонал. Радий бачити, що місце залишається таким же чудовим!"
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150" alt="Себастьян" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Себастьян</h4>
-                        <span>Сімейний відпочинок, місяць тому</span>
+        <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
+            <a href="#about" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Про нас</a>
+            <a href="#rooms" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Номери</a>
+            <a href="#services" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Послуги</a>
+            <a href="#advantages" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Переваги</a>
+            <a href="#reviews" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Відгуки</a>
+            <a href="#contacts" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan">Контакти</a>
+            <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
+            </a>
+        </div>
+    </header>
+
+    <!-- ГОЛОВНИЙ ЕКРАН -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
+                <i class="fa-solid fa-water"></i>
+                <span>База відпочинку в атмосферному куточку</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                Спокійний та комфортний <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">відпочинок на природі</span>
+            </h1>
+            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Чисте повітря, мангали, рибалка та умиротворена атмосфера вдалині від міської суєти.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
+                    Подивитися номери
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ІНФОРМАЦІЙНА ПЛАШКА ДЛЯ ДЗВІНКА -->
+    <section class="px-4 -mt-10 relative z-20 w-full max-w-4xl mx-auto">
+        <div class="bg-[#1a1f2e] border border-gray-700/50 p-6 rounded-xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl">
+            <div>
+                <h3 class="text-xl font-bold text-white mb-1">Чорне море за 150 метрів</h3>
+                <p class="text-sm text-gray-400">вільні дати на цей тиждень — телефонуйте для бронювання</p>
+            </div>
+            <a href="tel:+380935754668" class="w-full md:w-auto px-8 py-3 bg-[#fca5a5] text-black font-bold rounded hover:bg-opacity-95 transition-colors text-center shadow-lg">
+                Набрати номер
+            </a>
+        </div>
+    </section>
+
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 mt-10 w-full">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
+                </p>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    <strong>Що ми пропонуємо нашим гостям:</strong>
+                </p>
+                <ul class="space-y-3 text-gray-300 mb-6 pl-4 border-l-2 border-accentCyan/30">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-leaf text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зелена територія:</strong> Доглянуті газони, тінь від дерев та простір для прогулянок на свіжому повітрі.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зони барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-bed text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Комфортне проживання:</strong> Затишні номери з усіма необхідними зручностями.</span>
+                    </li>
+                </ul>
+                <div class="grid grid-cols-2 gap-4 text-center">
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800">
+                        <div class="text-3xl font-extrabold text-accentCyan mb-1">12+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Років досвіду</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800">
+                        <div class="text-3xl font-extrabold text-accentBlue mb-1">24/7</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Працюємо для вас</div>
                     </div>
                 </div>
+            </div>
+            
+            <!-- Слайдер території -->
+            <div class="relative">
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
+                    <img id="about-slider-img" src="Улица.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'">
+                    
+                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
+                        <span id="about-current">1</span> / <span id="about-total">2</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- НОМЕРИ -->
+    <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
             </div>
 
-            <!-- Отзыв 2: Цыганков Владимир -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Для таких цін кращого просто не знайти на всьому узбережжі. Гаряча і тепла вода є завжди, в номерах кондиціонери, інтернет, поруч кухня, неймовірний затишок, а до моря йти буквально 1 хвилину. Що ще потрібно для щастя? Окреме захоплення — це вид на море прямо з номерів, тераси та їдальні, таку панораму рідко де зустрінеш по всьому узбережжі!"
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1570295999919-56ceb5ecca61?w=150" alt="Цыганков Владимир" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Цыганков Владимир</h4>
-                        <span>Відпочинок у липні</span>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- ПОКРАЩЕНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <!-- Слайдер для покращеного номера -->
+                    <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800'">
+                        
+                        <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextImprovedSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
+                            <span id="improved-current">1</span> / <span id="improved-total">4</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
+                                <span class="text-white font-bold text-xl tracking-wide">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ доба</span></span>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Двоспальне ліжко, а також зручний диван</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасний кондиціонер для приємної прохолоди</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Ванна кімната (санвузол, душ)</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Стіл та стільці</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Холодильник та мікрохвильовка</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            Забронювати покращений номер
+                        </a>
                     </div>
                 </div>
+
+                <!-- СТАНДАРТНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <!-- Слайдер для стандартного номера -->
+                    <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800'">
+                        
+                        <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextStandardSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
+                            <span id="standard-current">1</span> / <span id="standard-total">3</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-xl font-bold text-white">Стандартний номер</h3>
+                                <span class="text-white font-bold text-xl tracking-wide">1 000 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ доба</span></span>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4">Затишний і практичний вибір для комфортного відпочинку вдвох.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Зручні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Надійний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            Забронювати стандартний номер
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОСЛУГИ ТА РОЗВАГИ -->
+    <section id="services" class="py-20 px-4 bg-darkBg w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Послуги та розваги</h2>
+                <p class="text-gray-400">Зробіть свій відпочинок максимально насиченим і незабутнім</p>
             </div>
 
-            <!-- Отзыв 3: Настя -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Прекрасна база! Дуже затишно, триразове харчування — просто пальчики оближеш, все дуже смачно. У номерах є кондиціонери та телевізори, вода в душі завжди тепла, а ціни приємні. База маленька, затишна, розташована на самому краю вулиці, тому тут немає зайвого галасу. Пляж поруч, а адміністрація — надзвичайно порядні та хороші люди."
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150" alt="Настя" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Настя</h4>
-                        <span>Стандартний номер, серпень</span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-fire-burner"></i>
                     </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Мангальні зони</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Доступні мангали для приготування смачних шашликів та страв на вогнищі.</p>
                 </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Чудова рибалка</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Чудові місця для рибалки, тиша, спокій та хороший улов.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Пляж і шезлонги</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Зручний вихід до води та чистий простір для відпочинку.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЕРЕВАГИ -->
+    <section id="advantages" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Чому обирають «Маяк»?</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-broom"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Чистота і комфорт</h3>
+                    <p class="text-gray-400 text-sm">Регулярно прибираємо кімнати та підтримуємо затишок.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wallet"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Доступні ціни</h3>
+                    <p class="text-gray-400 text-sm">Чесна вартість та найкращі умови.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-shield-halved"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Безпечна територія</h3>
+                    <p class="text-gray-400 text-sm">Спокійний простір для вашого відпочинку.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wifi"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Інтернет</h3>
+                    <p class="text-gray-400 text-sm">Швидкий Wi-Fi на всій території.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВІДГУКИ -->
+    <section id="reviews" class="py-20 px-4 bg-darkBg w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Відгуки наших гостей</h2>
+                <p class="text-gray-400 text-sm">Поділіться своїми враженнями про відпочинок у нас</p>
             </div>
 
-            <!-- Отзыв 4: Влад -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Персонал надзвичайно привітний, номери за таку ціну просто чудові. До моря йти хвилини три, а вид з вікна — просто неперевершений. Обов'язково повернемося ще раз!"
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150" alt="Влад" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Влад</h4>
-                        <span>2 роки тому</span>
+            <!-- Контейнер слайдера відгуків -->
+            <div class="relative max-w-4xl mx-auto mb-16">
+                <div id="reviews-slider-container" class="overflow-hidden">
+                    <div id="reviews-track" class="flex transition-transform duration-500 ease-in-out">
+                        <!-- Відгук 1 -->
+                        <div class="w-full flex-shrink-0 px-2">
+                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
+                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Чудове тихе місце для відпочинку від міської метушні! Привітні господарі, чисті номери та неймовірна атмосфера близько до моря.»</p>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">О</div>
+                                    <div><div class="text-white font-bold text-base">Олександр</div><div class="text-xs text-gray-400">Червень 2026</div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Відгук 2 -->
+                        <div class="w-full flex-shrink-0 px-2">
+                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
+                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Відпочивали родиною у липні. Дуже сподобалась територія, доглянуті газони та можливість посмажити шашлики у затишній зоні барбекю.»</p>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">М</div>
+                                    <div><div class="text-white font-bold text-base">Марина</div><div class="text-xs text-gray-400">Липень 2026</div></div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Відгук 3 -->
+                        <div class="w-full flex-shrink-0 px-2">
+                            <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
+                                <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
+                                    <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                                </div>
+                                <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«Прекрасні місця для риболовлі, тиша, спокій та затишок. Номери охайні, є кондиціонер і все необхідне. Ціни дуже приємні!»</p>
+                                <div class="flex items-center space-x-3">
+                                    <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">В</div>
+                                    <div><div class="text-white font-bold text-base">Віктор</div><div class="text-xs text-gray-400">Серпень 2026</div></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+
+                <!-- Кнопки керування слайдером відгуків -->
+                <button onclick="prevReview()" class="absolute -left-4 sm:-left-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-cardBg border border-gray-700 hover:bg-cyan-950 text-white flex items-center justify-center transition-all shadow-xl z-10">
+                    <i class="fa-solid fa-chevron-left"></i>
+                </button>
+                <button onclick="nextReview()" class="absolute -right-4 sm:-right-6 top-1/2 -translate-y-1/2 w-11 h-11 rounded-full bg-cardBg border border-gray-700 hover:bg-cyan-950 text-white flex items-center justify-center transition-all shadow-xl z-10">
+                    <i class="fa-solid fa-chevron-right"></i>
+                </button>
             </div>
 
-            <!-- Отзыв 5: Юрій Сонькін -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Бюджетна база відпочинку з дуже привітним персоналом. У номерах є все необхідне: кондиціонер, телевізор та холодильник. Ну і головна перевага — це чудова ближність до самого моря."
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150" alt="Юрій Сонькін" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Юрій Сонькін</h4>
-                        <span>8 років тому</span>
+            <!-- Форма додавання відгуку -->
+            <div class="max-w-2xl mx-auto bg-cardBg border border-gray-800 p-8 rounded-2xl shadow-xl">
+                <h3 class="text-xl font-bold text-white mb-4 text-center">Залишити свій відгук</h3>
+                <form id="review-form" onsubmit="addReview(event)" class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Ваше ім'я</label>
+                        <input type="text" id="review-name" required class="w-full bg-darkBg border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accentCyan transition-colors" placeholder="Наприклад, Анна">
                     </div>
-                </div>
+                    <div>
+                        <label class="block text-sm text-gray-400 mb-1">Ваш відгук</label>
+                        <textarea id="review-text" required rows="4" class="w-full bg-darkBg border border-gray-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-accentCyan transition-colors" placeholder="Поділіться враженнями про відпочинок..."></textarea>
+                    </div>
+                    <button type="submit" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                        Надіслати відгук
+                    </button>
+                </form>
             </div>
 
-            <!-- Отзыв 6: Аксения Зелинская -->
-            <div class="review-card">
-                <div class="review-content">
-                    <div class="stars">★★★★★</div>
-                    <p class="review-text">
-                        "Це нереально круто! Атмосфера неймовірно домашня і приємна, відчуваєш себе як удома 🤗💋❤️ Обов'язково повернемося сюди і ще не раз!"
-                    </p>
-                </div>
-                <div class="review-author-info">
-                    <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150" alt="Аксения Зелинская" class="author-avatar">
-                    <div class="author-details">
-                        <h4>Аксения Зелинская</h4>
-                        <span>Місцевий експерт, 6 років тому</span>
+        </div>
+    </section>
+
+    <!-- КОНТАКТИ -->
+    <section id="contacts" class="py-20 px-4 bg-[#0c101c] border-t border-gray-900 w-full">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Контакти та бронювання</h2>
+                <p class="text-gray-300 mb-8 leading-relaxed">Зв'яжіться з нами будь-яким зручним способом для бронювання номерів.</p>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-phone"></i></div>
+                        <div><div class="text-gray-400 text-sm">Телефон для бронювання</div><a href="tel:+380935754668" class="text-white font-bold text-lg hover:text-accentCyan transition-colors">+38 (093) 575-46-68</a></div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-clock"></i></div>
+                        <div><div class="text-gray-400 text-sm">Час роботи</div><div class="text-white font-bold text-lg">Цілодобово (24/7)</div></div>
                     </div>
                 </div>
             </div>
+            <div class="bg-cardBg p-8 rounded-2xl border border-gray-800 flex flex-col justify-center text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-accentCyan to-accentBlue flex items-center justify-center text-darkBg text-2xl mx-auto mb-6 shadow-lg shadow-cyan-500/20"><i class="fa-solid fa-phone-volume"></i></div>
+                <h3 class="text-2xl font-bold text-white mb-3">Готові забронювати відпочинок?</h3>
+                <p class="text-gray-400 text-sm mb-8">Натисніть кнопку нижче, щоб одразу зателефонувати адміністратору.</p>
+                <a href="tel:+380935754668" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 block">
+                    Зателефонувати зараз
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-accentCyan focus:outline-none z-50">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-h-full max-w-full flex items-center justify-center">
+            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl">
         </div>
     </div>
 
+    <!-- ФУТЕР -->
+    <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm w-full">
+        <p>&copy; 2026 База відпочинку «Маяк». Усі права захищено.</p>
+    </footer>
+
+    <!-- СКРИПТИ -->
+    <script>
+        // Мобільне меню
+        const btn = document.getElementById('menu-btn');
+        const menu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+
+        btn.addEventListener('click', () => {
+            if (menu.style.maxHeight && menu.style.maxHeight !== "0px") {
+                menu.style.maxHeight = "0px";
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            } else {
+                menu.style.maxHeight = menu.scrollHeight + "px";
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            }
+        });
+
+        document.querySelectorAll('.mobile-link').forEach(link => {
+            link.addEventListener('click', () => {
+                menu.style.maxHeight = "0px";
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        // Універсальна функція для плавного слайдера
+        function changeSlide(imgId, currentId, totalId, imagesArray, direction, currentIndexRef) {
+            const imgEl = document.getElementById(imgId);
+            const currentEl = document.getElementById(currentId);
+            
+            imgEl.style.opacity = '0';
+            
+            setTimeout(() => {
+                if (direction === 'next') {
+                    currentIndexRef.val = (currentIndexRef.val + 1) % imagesArray.length;
+                } else {
+                    currentIndexRef.val = (currentIndexRef.val - 1 + imagesArray.length) % imagesArray.length;
+                }
+                
+                imgEl.src = imagesArray[currentIndexRef.val];
+                currentEl.innerText = currentIndexRef.val + 1;
+                
+                imgEl.style.opacity = '1';
+            }, 200);
+        }
+
+        // 1. Слайдер території
+        const aboutImages = ['Улица.jpg', 'https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800'];
+        let aboutIndex = { val: 0 };
+        document.getElementById('about-total').innerText = aboutImages.length;
+        function nextAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'next', aboutIndex); }
+        function prevAboutSlide() { changeSlide('about-slider-img', 'about-current', 'about-total', aboutImages, 'prev', aboutIndex); }
+
+        // 2. Слайдер покращеного номера
+        const improvedImages = ['1 номер Н.jpg', 'https://images.unsplash.com/photo-1591088398332-8a7791972843?w=800', 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=800', 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800'];
+        let improvedIndex = { val: 0 };
+        document.getElementById('improved-total').innerText = improvedImages.length;
+        function nextImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'next', improvedIndex); }
+        function prevImprovedSlide() { changeSlide('improved-slider-img', 'improved-current', 'improved-total', improvedImages, 'prev', improvedIndex); }
+
+        // 3. Слайдер стандартного номера
+        const standardImages = ['3 номер.jpg', 'https://images.unsplash.com/photo-1590490360182-c33d57733427?w=800', 'https://images.unsplash.com/photo-1595526114035-0d45ed16cfbf?w=800'];
+        let standardIndex = { val: 0 };
+        document.getElementById('standard-total').innerText = standardImages.length;
+        function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardIndex); }
+        function prevStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'prev', standardIndex); }
+
+        // 4. Слайдер відгуків
+        let currentReviewIndex = 0;
+        function updateReviewsSlider() {
+            const track = document.getElementById('reviews-track');
+            const totalSlides = track.children.length;
+            if (currentReviewIndex >= totalSlides) currentReviewIndex = 0;
+            if (currentReviewIndex < 0) currentReviewIndex = totalSlides - 1;
+            track.style.transform = `translateX(-${currentReviewIndex * 100}%)`;
+        }
+        function nextReview() {
+            currentReviewIndex++;
+            updateReviewsSlider();
+        }
+        function prevReview() {
+            currentReviewIndex--;
+            updateReviewsSlider();
+        }
+
+        // Функція додавання нового відгуку динамічно
+        function addReview(event) {
+            event.preventDefault();
+            const nameInput = document.getElementById('review-name');
+            const textInput = document.getElementById('review-text');
+            
+            const name = nameInput.value.trim();
+            const text = textInput.value.trim();
+            
+            if(!name || !text) return;
+
+            const track = document.getElementById('reviews-track');
+            const firstLetter = name.charAt(0).toUpperCase();
+            const currentDate = "Вересень 2026";
+
+            const newReviewCard = document.createElement('div');
+            newReviewCard.className = 'w-full flex-shrink-0 px-2';
+            newReviewCard.innerHTML = `
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between h-full shadow-lg">
+                    <div class="flex items-center space-x-1 text-yellow-400 mb-4 text-sm">
+                        <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                    </div>
+                    <p class="text-gray-300 text-base mb-6 leading-relaxed italic">«${text}»</p>
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 rounded-full bg-cyan-950 border border-cyan-500/30 flex items-center justify-center font-bold text-accentCyan text-lg">${firstLetter}</div>
+                        <div><div class="text-white font-bold text-base">${name}</div><div class="text-xs text-gray-400">${currentDate}</div></div>
+                    </div>
+                </div>
+            `;
+
+            track.appendChild(newReviewCard);
+            
+            // Переходимо до новоствореного відгуку
+            currentReviewIndex = track.children.length - 1;
+            updateReviewsSlider();
+
+            // Очищуємо форму
+            nameInput.value = '';
+            textInput.value = '';
+        }
+
+        // Модальне вікно для фото
+        function openModal(src) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImage');
+            modalImg.src = src;
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            modal.classList.remove('flex');
+            modal.classList.add('hidden');
+        }
+
+        document.getElementById('imageModal').addEventListener('click', (e) => {
+            if (e.target.id === 'imageModal') {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
