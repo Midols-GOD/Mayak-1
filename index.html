@@ -106,7 +106,7 @@
             <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
     Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">вдалині від міської суєти</span>
 </h1>
-<p class="text-base sm:text-lg text-gray-300 mb-10 max-w-3xl mx-auto leading-relaxed">
+<p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
     Чисте повітря, мангали, рибалка та умиротворена атмосфера, де цінується близькість моря і природи.
 </p>
             </p>
@@ -118,7 +118,65 @@
         </div>
     </section>
 
-    
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
+                </p>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    <strong>Що ми пропонуємо нашим гостям:</strong>
+                </p>
+                <ul class="space-y-3 text-gray-300 mb-6 pl-4 border-l-2 border-accentCyan/30">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-bed text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Комфортне проживання:</strong> Затишні номери з усіма необхідними зручностями.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зона барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
+                </ul>
+
+                <!-- Возвращены привычные аккуратные кубики с показателями -->
+                <div class="grid grid-cols-3 gap-4 pt-2">
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">12+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Років досвіду</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentBlue mb-1">24/7</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Працюємо</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">1 хв</div>
+                        <div class="text-xs sm:text-sm text-gray-400">До моря</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Слайдер території -->
+            <div class="relative">
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                    
+                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
+
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
+                        <span id="about-current">1</span> / <span id="about-total">3</span>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -227,28 +285,28 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-    <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
-        <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
-            <i class="fa-solid fa-bed"></i>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Комфортні номери</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Необхідні меблі та затишна атмосфера для вашого приємного перебування.</p>
-    </div>
-    <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
-        <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
-            <i class="fa-solid fa-tree"></i>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Доглянута територія</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Зелені насадження, місця для відпочинку та повна гармонія з природою.</p>
-    </div>
-    <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
-        <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
-            <i class="fa-solid fa-snowflake"></i>
-        </div>
-        <h3 class="text-xl font-bold text-white mb-3">Працюємо в межсезоння</h3>
-        <p class="text-gray-400 text-sm leading-relaxed">Приймаємо гостей не лише влітку, а й у прохолодну пору року для тихого та затишного відпочинку.</p>
-    </div>
-</div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-fire-burner"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Зона барбекю</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Доступна зона з мангалом для приготування смачних шашликів та страв на вогнищі.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Пляж і шезлонги</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Зручний вихід до води та чистий простір для відпочинку.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-fish"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Чудова рибалка</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Чудові місця для рибалки, тиша, спокій та хороший улов.</p>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -392,37 +450,40 @@
     </section>
 
     <!-- КОНТАКТИ -->
-    <section id="contacts" class="py-20 px-4 bg-darkBg border-t border-gray-850 w-full">
-    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-        <!-- Левая колонка: текст и обычные контакты -->
-        <div>
-            <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Контакти та бронювання</h2>
-            <p class="text-gray-300 mb-8 leading-relaxed">Зв'яжіться з нами будь-яким зручним способом для бронювання номерів.</p>
-            <div class="space-y-6">
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-phone"></i></div>
-                    <div><div class="text-gray-400 text-sm">Телефон для бронювання</div><a href="tel:+380935754668" class="text-white font-bold text-lg hover:text-accentCyan transition-colors">+38 (093) 575-46-68</a></div>
-                </div>
-                <div class="flex items-start space-x-4">
-                    <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-clock"></i></div>
-                    <div><div class="text-gray-400 text-sm">Час роботи</div><div class="text-white font-bold text-lg">Цілодобово (24/7)</div></div>
+    <section id="contacts" class="py-20 px-4 bg-[#0c101c] border-t border-gray-900 w-full">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Контакти та бронювання</h2>
+                <p class="text-gray-300 mb-8 leading-relaxed">Зв'яжіться з нами будь-яким зручним способом для бронювання номерів.</p>
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-phone"></i></div>
+                        <div><div class="text-gray-400 text-sm">Телефон для бронювання</div><a href="tel:+380935754668" class="text-white font-bold text-lg hover:text-accentCyan transition-colors">+38 (093) 575-46-68</a></div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-12 h-12 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-xl shrink-0"><i class="fa-solid fa-clock"></i></div>
+                        <div><div class="text-gray-400 text-sm">Час роботи</div><div class="text-white font-bold text-lg">Цілодобово (24/7)</div></div>
+                    </div>
                 </div>
             </div>
+            <div class="bg-cardBg p-8 rounded-2xl border border-gray-800 flex flex-col justify-center text-center">
+                <div class="w-16 h-16 rounded-full bg-gradient-to-tr from-accentCyan to-accentBlue flex items-center justify-center text-darkBg text-2xl mx-auto mb-6 shadow-lg shadow-cyan-500/20"><i class="fa-solid fa-phone-volume"></i></div>
+                <h3 class="text-2xl font-bold text-white mb-3">Готові забронювати відпочинок?</h3>
+                <p class="text-gray-400 text-sm mb-8">Натисніть кнопку нижче, щоб одразу зателефонувати адміністратору.</p>
+                <a href="tel:+380935754668" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 block">
+                    Зателефонувати зараз
+                </a>
+            </div>
         </div>
+    </section>
 
-        <!-- Правая колонка: карточка с Viber -->
-        <div class="bg-cardBg p-8 rounded-2xl border border-gray-800 flex flex-col justify-center text-center shadow-xl">
-            <div class="w-16 h-16 rounded-full bg-[#7360f2] flex items-center justify-center text-white text-2xl mx-auto mb-6 shadow-lg shadow-purple-500/20">
-                <i class="fa-brands fa-viber"></i>
-            </div>
-            <h3 class="text-2xl font-bold text-white mb-3">Зв'язатися у Viber</h3>
-            <p class="text-gray-400 text-sm mb-8">Напишіть нам у месенджер для швидкого бронювання та уточнення деталей.</p>
-            <a href="viber://chat?number=+380935754668" class="w-full py-4 rounded-xl bg-[#7360f2] hover:bg-[#6250e0] text-white font-bold text-base transition-all shadow-xl block flex items-center justify-center gap-3">
-                <i class="fa-brands fa-viber text-xl"></i> Написати у Viber
-            </a>
-        </div>
-    </div>
-</section>
+    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО -->
+    <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
+        <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-accentCyan focus:outline-none z-50">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <div class="max-h-full max-w-full flex items-center justify-center">
+            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl">
         </div>
     </div>
 
