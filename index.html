@@ -143,7 +143,6 @@
                     </li>
                 </ul>
 
-                <!-- Единый акцентный бирюзовый цвет для всех трех плашек -->
                 <div class="grid grid-cols-3 gap-4 pt-2">
                     <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
                         <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">12+</div>
@@ -163,7 +162,7 @@
             <!-- Слайдер території -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)" onerror="this.src='LOGO.jpg'">
                     
                     <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -192,7 +191,7 @@
                 <!-- ПОКРАЩЕНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)" onerror="this.src='LOGO.jpg'">
                         
                         <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -233,7 +232,7 @@
                 <!-- СТАНДАРТНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModal(this.src)" onerror="this.src='LOGO.jpg'">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)" onerror="this.src='LOGO.jpg'">
                         
                         <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -480,13 +479,25 @@
         </div>
     </section>
 
-    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ФОТО -->
+    <!-- МОДАЛЬНЕ ВІКНО ДЛЯ ЗБІЛЬШЕННЯ ТА ПЕРЕЛИСТУВАННЯ ФОТО -->
     <div id="imageModal" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-sm">
         <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-4xl hover:text-accentCyan focus:outline-none z-50">
             <i class="fa-solid fa-xmark"></i>
         </button>
-        <div class="max-h-full max-w-full flex items-center justify-center">
-            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[90vh] max-w-[90vw] object-contain rounded-xl shadow-2xl">
+
+        <!-- Кнопки перелистування у модальному вікні -->
+        <button onclick="modalPrev()" class="absolute left-4 sm:left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all z-50 text-xl">
+            <i class="fa-solid fa-chevron-left"></i>
+        </button>
+        <button onclick="modalNext()" class="absolute right-4 sm:right-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all z-50 text-xl">
+            <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div class="max-h-full max-w-full flex flex-col items-center justify-center">
+            <img id="modalImage" src="" alt="Збільшене фото" class="max-h-[85vh] max-w-[90vw] object-contain rounded-xl shadow-2xl transition-opacity duration-300">
+            <div class="mt-4 bg-black/60 px-4 py-1.5 rounded-full text-sm text-white tracking-widest backdrop-blur-sm">
+                <span id="modal-current">1</span> / <span id="modal-total">1</span>
+            </div>
         </div>
     </div>
 
@@ -522,7 +533,7 @@
             });
         });
 
-        // Універсальна функція для плавного слайдера
+        // Універсальна функція для плавного слайдера на сторінці
         function changeSlide(imgId, currentId, totalId, imagesArray, direction, currentIndexRef) {
             const imgEl = document.getElementById(imgId);
             const currentEl = document.getElementById(currentId);
@@ -564,13 +575,44 @@
         function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardIndex); }
         function prevStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'prev', standardIndex); }
 
-        // Модальне вікно для фото
-        function openModal(src) {
+        // ЗОБРАЖЕННЯ ТА ГАЛЕРЕЯ У МОДАЛЬНОМУ ВІКНІ
+        let currentModalImages = [];
+        let currentModalIndex = 0;
+
+        function openModalGallery(imagesArray, startIndex) {
+            currentModalImages = imagesArray;
+            currentModalIndex = startIndex;
+            
             const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = src;
+            updateModalView();
             modal.classList.remove('hidden');
             modal.classList.add('flex');
+        }
+
+        function updateModalView() {
+            const modalImg = document.getElementById('modalImage');
+            const currentEl = document.getElementById('modal-current');
+            const totalEl = document.getElementById('modal-total');
+
+            modalImg.style.opacity = '0';
+            setTimeout(() => {
+                modalImg.src = currentModalImages[currentModalIndex];
+                currentEl.innerText = currentModalIndex + 1;
+                totalEl.innerText = currentModalImages.length;
+                modalImg.style.opacity = '1';
+            }, 150);
+        }
+
+        function modalNext() {
+            if (currentModalImages.length === 0) return;
+            currentModalIndex = (currentModalIndex + 1) % currentModalImages.length;
+            updateModalView();
+        }
+
+        function modalPrev() {
+            if (currentModalImages.length === 0) return;
+            currentModalIndex = (currentModalIndex - 1 + currentModalImages.length) % currentModalImages.length;
+            updateModalView();
         }
 
         function closeModal() {
@@ -578,6 +620,16 @@
             modal.classList.remove('flex');
             modal.classList.add('hidden');
         }
+
+        // Керування клавіатурою (стрілочки та Esc)
+        document.addEventListener('keydown', (e) => {
+            const modal = document.getElementById('imageModal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'ArrowRight') modalNext();
+                if (e.key === 'ArrowLeft') modalPrev();
+                if (e.key === 'Escape') closeModal();
+            }
+        });
 
         document.getElementById('imageModal').addEventListener('click', (e) => {
             if (e.target.id === 'imageModal') {
