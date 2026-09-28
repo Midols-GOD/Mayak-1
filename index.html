@@ -574,14 +574,26 @@
         function nextStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'next', standardIndex); }
         function prevStandardSlide() { changeSlide('standard-slider-img', 'standard-current', 'standard-total', standardImages, 'prev', standardIndex); }
 
-        // Модальне вікно для фото
-        function openModal(src) {
-            const modal = document.getElementById('imageModal');
-            const modalImg = document.getElementById('modalImage');
-            modalImg.src = src;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-        }
+        <!-- Модальное окно галереи -->
+<div id="imageModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center opacity-0 transition-opacity duration-300">
+    <!-- Кнопка закрытия -->
+    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-3xl hover:text-accentCyan transition-colors z-50 p-2">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Стрелка влево -->
+    <button onclick="changeModalSlide(-1)" class="absolute left-4 sm:left-8 text-white text-4xl hover:text-accentCyan transition-colors z-50 p-4">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Картинка в модалке -->
+    <img id="modalImg" src="" alt="Повнорозмірне фото" class="max-w-[90%] max-h-[85vh] object-contain rounded-xl shadow-2xl scale-95 transition-transform duration-300">
+
+    <!-- Стрелка вправо -->
+    <button onclick="changeModalSlide(1)" class="absolute right-4 sm:right-8 text-white text-4xl hover:text-accentCyan transition-colors z-50 p-4">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>
 
         function closeModal() {
             const modal = document.getElementById('imageModal');
@@ -595,5 +607,25 @@
             }
         });
     </script>
+    <!-- Модальное окно галереи -->
+<div id="imageModal" class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center opacity-0 transition-opacity duration-300">
+    <!-- Кнопка закрытия -->
+    <button onclick="closeModal()" class="absolute top-6 right-6 text-white text-3xl hover:text-accentCyan transition-colors z-50 p-2">
+        <i class="fa-solid fa-xmark"></i>
+    </button>
+
+    <!-- Стрелка влево -->
+    <button onclick="changeModalSlide(-1)" class="absolute left-4 sm:left-8 text-white text-4xl hover:text-accentCyan transition-colors z-50 p-4">
+        <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+    <!-- Картинка в модалке -->
+    <img id="modalImg" src="" alt="Повнорозмірне фото" class="max-w-[90%] max-h-[85vh] object-contain rounded-xl shadow-2xl scale-95 transition-transform duration-300">
+
+    <!-- Стрелка вправо -->
+    <button onclick="changeModalSlide(1)" class="absolute right-4 sm:right-8 text-white text-4xl hover:text-accentCyan transition-colors z-50 p-4">
+        <i class="fa-solid fa-chevron-right"></i>
+    </button>
+</div>
 </body>
 </html>
