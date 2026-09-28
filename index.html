@@ -621,13 +621,22 @@
             modal.classList.add('hidden');
         }
 
-        // Керування клавіатурою (стрілочки та Esc)
+        // Керування клавіатурою (стрілочки, A/D, Ф/В та Esc)
         document.addEventListener('keydown', (e) => {
             const modal = document.getElementById('imageModal');
             if (!modal.classList.contains('hidden')) {
-                if (e.key === 'ArrowRight') modalNext();
-                if (e.key === 'ArrowLeft') modalPrev();
-                if (e.key === 'Escape') closeModal();
+                // Стрелочка вправо, клавиша D или русская В
+                if (e.key === 'ArrowRight' || e.key === 'd' || e.key === 'D' || e.key === 'в' || e.key === 'В') {
+                    modalNext();
+                } 
+                // Стрелочка влево, клавиша A или русская Ф
+                else if (e.key === 'ArrowLeft' || e.key === 'a' || e.key === 'A' || e.key === 'ф' || e.key === 'Ф') {
+                    modalPrev();
+                } 
+                // Закрытие по Esc
+                else if (e.key === 'Escape') {
+                    closeModal();
+                }
             }
         });
 
