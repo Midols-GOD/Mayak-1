@@ -164,7 +164,7 @@
             <!-- Слайдер території -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)" onerror="this.src='LOGO.jpg'">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)">
                     
                     <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -181,7 +181,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (ПЕРЕНЕСЕНЫ ВЫШЕ АКЦИЙ) -->
+    <!-- НОМЕРИ -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -193,7 +193,7 @@
                 <!-- ПОКРАЩЕНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.JPG" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)" onerror="this.src='LOGO.jpg'">
+                        <img id="improved-slider-img" src="1 номер H.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
                         
                         <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -234,7 +234,7 @@
                 <!-- СТАНДАРТНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="standard-slider-img" src="3 номер.JPG" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)" onerror="this.src='LOGO.jpg'">
+                        <img id="standard-slider-img" src="8 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
                         
                         <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -244,7 +244,7 @@
                         </button>
 
                         <div class="absolute bottom-3 left-1/2 -translate-x-1/2 bg-black/60 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10">
-                            <span id="standard-current">1</span> / <span id="standard-total">3</span>
+                            <span id="standard-current">1</span> / <span id="standard-total">2</span>
                         </div>
                     </div>
 
@@ -276,7 +276,7 @@
         </div>
     </section>
 
-    <!-- БЛОК АКЦІЙ ТА СПЕЦІАЛЬНИХ ПРОПОЗИЦІЙ (ПЕРЕНЕСЕН ВНИЗ) -->
+    <!-- БЛОК АКЦІЙ ТА СПЕЦІАЛЬНИХ ПРОПОЗИЦІЙ -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -604,10 +604,10 @@
             });
         });
 
-        // Картинки для слайдеров (исправлены все имена файлов и расширения)
-        const aboutImages = ['Улица 2.jpg', 'Улица 1.jpg', 'Улица 3.jpg'];
-        const improvedImages = ['1 номер Н.JPG', '2 номер Н.JPG', '3 номер Н.JPG', '4 номер Н.JPG'];
-        const standardImages = ['3 номер.JPG', '1 номер.JPG', '2 номер.JPG'];
+        // Актуальные массивы картинок из папки пользователя
+        const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
+        const improvedImages = ['1 номер H.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
+        const standardImages = ['8 номер.jpg', '12 номер.jpg'];
 
         let aboutIndex = { val: 0 };
         let improvedIndex = { val: 0 };
