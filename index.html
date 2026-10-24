@@ -1,366 +1,285 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MRZ0C366"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-79MRZ0C366');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База відпочинку «Маяк» — Затишний відпочинок біля моря</title>
+    <title>База відпочинку «Маяк»</title>
+    
+    <!-- Фавіконка -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090d16',
+                        cardBg: '#111827',
+                        accentCyan: '#06b6d4',
+                        accentBlue: '#3b82f6',
+                        priceYellow: '#fbbf24',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Arial, sans-serif;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
-        body {
-            background-color: #ffffff;
-            color: #2c3e50;
-            line-height: 1.6;
-        }
-        
-        /* Шапка */
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 50px;
-            border-bottom: 1px solid #eaeaea;
-            background: #ffffff;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.03);
-        }
-        .logo {
-            font-size: 24px;
-            font-weight: 700;
-            color: #006699;
-            text-decoration: none;
-        }
-        nav a {
-            margin: 0 12px;
-            text-decoration: none;
-            color: #555555;
-            font-weight: 500;
-            font-size: 15px;
-            transition: color 0.2s;
-        }
-        nav a:hover {
-            color: #006699;
-        }
-        .nav-promo {
-            color: #d9534f !important;
-            font-weight: 600;
-        }
-        .phone {
-            font-weight: bold;
-            color: #006699;
-            font-size: 16px;
-        }
-
-        /* Главный экран */
-        .hero {
-            padding: 90px 50px;
-            background: #f4f9fc;
-            text-align: center;
-        }
-        .hero h1 {
-            font-size: 42px;
-            color: #004466;
-            margin-bottom: 15px;
-        }
-        .hero p {
-            font-size: 18px;
-            color: #666;
-            max-width: 700px;
-            margin: 0 auto 30px;
-        }
-        .btn {
-            display: inline-block;
-            background: #006699;
-            color: #ffffff;
-            padding: 12px 28px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: background 0.2s;
-            border: none;
-            cursor: pointer;
-        }
-        .btn:hover {
-            background: #004466;
-        }
-
-        /* Блок Ласкаво просимо */
-        .welcome {
-            padding: 70px 50px;
-            text-align: center;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .welcome h2 {
-            font-size: 32px;
-            color: #004466;
-            margin-bottom: 20px;
-        }
-        .welcome p {
-            font-size: 17px;
-            color: #555;
-            line-height: 1.8;
-        }
-
-        /* БЛОК АКЦИЙ */
-        .promotions-section {
-            background: #f8fbfe;
-            padding: 70px 50px;
-            border-top: 1px solid #eef5fa;
-            border-bottom: 1px solid #eef5fa;
-        }
-        .section-title {
-            text-align: center;
-            font-size: 32px;
-            color: #004466;
-            margin-bottom: 40px;
-        }
-        .promotions-container {
-            max-width: 900px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 35px;
-        }
-        .promo-card {
-            background: #ffffff;
-            border: 1px solid #e1eef6;
-            border-radius: 12px;
-            padding: 35px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.04);
-            position: relative;
-            overflow: hidden;
-        }
-        .promo-card.banner-complex {
-            border-left: 6px solid #28a745;
-        }
-        .promo-card.banner-defender {
-            border-left: 6px solid #006699;
-            background: #fcfdfe;
-        }
-        .promo-badge {
-            display: inline-block;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            margin-bottom: 15px;
-        }
-        .badge-green {
-            background: #e8f5e9;
-            color: #28a745;
-        }
-        .badge-blue {
-            background: #e3f2fd;
-            color: #006699;
-        }
-        .promo-card h3 {
-            font-size: 24px;
-            color: #004466;
-            margin-bottom: 12px;
-        }
-        .promo-card p.subtitle {
-            font-size: 16px;
-            color: #555;
-            margin-bottom: 20px;
-        }
-        .promo-list {
-            list-style: none;
-            margin-bottom: 25px;
-        }
-        .promo-list li {
-            position: relative;
-            padding-left: 28px;
-            margin-bottom: 12px;
-            font-size: 15px;
-            color: #333;
-        }
-        .promo-list li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            top: 0;
-            color: #28a745;
-            font-weight: bold;
-            font-size: 16px;
-        }
-        .btn-promo {
-            display: inline-block;
-            background: #28a745;
-            color: #fff;
-            padding: 10px 22px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 14px;
-            transition: background 0.2s;
-        }
-        .btn-promo:hover {
-            background: #218838;
-        }
-        .btn-defender {
-            background: #006699;
-        }
-        .btn-defender:hover {
-            background: #004466;
-        }
-
-        /* Блок Номера */
-        .rooms-section {
-            padding: 80px 50px;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .rooms-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-        }
-        .room-card {
-            border: 1px solid #eaeaea;
-            border-radius: 8px;
-            padding: 20px;
-            text-align: center;
-            background: #fff;
-        }
-
-        /* Футер */
-        footer {
-            text-align: center;
-            padding: 30px;
-            border-top: 1px solid #eaeaea;
-            color: #777;
-            font-size: 14px;
-            background: #ffffff;
-        }
-
-        /* Адаптивность для мобильных */
-        @media (max-width: 768px) {
-            header {
-                padding: 15px 20px;
-                flex-direction: column;
-                gap: 10px;
-            }
-            nav {
-                display: flex;
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 8px;
-            }
-            nav a {
-                margin: 0 5px;
-            }
-            .hero, .welcome, .promotions-section, .rooms-section {
-                padding: 40px 20px;
-            }
-            .promo-card {
-                padding: 25px 20px;
-            }
+        img {
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            transition: opacity 0.3s ease-in-out;
         }
     </style>
 </head>
-<body>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden">
 
-    <!-- ШАПКА С МЕНЮ -->
-    <header>
-        <a href="#" class="logo">🌊 Маяк</a>
-        <nav>
-            <a href="#about">Про нас</a>
-            <a href="#promotions" class="nav-promo">🎁 Акції</a>
-            <a href="#rooms">Номери</a>
-            <a href="#services">Послуги</a>
-            <a href="#advantages">Переваги</a>
-            <a href="#reviews">Відгуки</a>
-            <a href="#contacts">Контакти</a>
-        </nav>
-        <div class="phone">+38 (099) 000-00-00</div>
+    <script>
+        window.scrollTo(0, 0);
+    </script>
+
+    <!-- НАВІГАЦІЯ (ШАПКА) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/95 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between w-full">
+            <a href="#" class="flex items-center space-x-3">
+                <div class="w-14 h-14 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-lg shadow-cyan-500/30 flex items-center justify-center">
+                    <img src="LOGO.jpg" alt="Логотип Маяк" class="w-full h-full object-contain" onerror="this.src='logo.png'">
+                </div>
+                <span class="text-xl font-bold tracking-wider text-white">МАЯК</span>
+            </a>
+
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium text-gray-300">
+                <a href="#about" class="hover:text-accentCyan transition-colors">Про нас</a>
+                <a href="#promotions" class="text-accentCyan hover:text-white transition-colors font-semibold flex items-center gap-1"><i class="fa-solid fa-gift"></i> Акції</a>
+                <a href="#rooms" class="hover:text-accentCyan transition-colors">Номери</a>
+                <a href="#services" class="hover:text-accentCyan transition-colors">Послуги</a>
+                <a href="#advantages" class="hover:text-accentCyan transition-colors">Переваги</a>
+                <a href="#reviews" class="hover:text-accentCyan transition-colors">Відгуки</a>
+                <a href="#contacts" class="hover:text-accentCyan transition-colors">Контакти</a>
+            </nav>
+
+            <div class="hidden sm:block">
+                <a href="tel:+380935754668" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                    <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
+                </a>
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" onclick="toggleMobileMenu()" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
+                    <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-cardBg border-b border-gray-800 px-4 py-4 space-y-3">
+            <a href="#about" class="block py-2 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Про нас</a>
+            <a href="#promotions" class="block py-2 text-accentCyan hover:text-white border-b border-gray-800/50 font-semibold"><i class="fa-solid fa-gift mr-1"></i> Акції</a>
+            <a href="#rooms" class="block py-2 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Номери</a>
+            <a href="#services" class="block py-2 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Послуги</a>
+            <a href="#advantages" class="block py-2 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Переваги</a>
+            <a href="#reviews" class="block py-2 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Відгуки</a>
+            <a href="#contacts" class="block py-2 text-gray-300 hover:text-accentCyan">Контакти</a>
+            <a href="tel:+380935754668" class="block text-center my-2 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
+            </a>
+        </div>
     </header>
 
-    <!-- ГЛАВНЫЙ ЭКРАН -->
-    <section class="hero">
-        <h1>Відпочинок на базі «Маяк»</h1>
-        <p>Комфортні номери, затишна атмосфера та море вражень для всієї родини.</p>
-        <a href="#promotions" class="btn">Переглянути акції</a>
+    <!-- ГОЛОВНИЙ ЕКРАН -->
+    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
+                <i class="fa-solid fa-water"></i>
+                <span>База відпочинку в атмосферному куточку</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">вдалині від міської суєти</span>
+            </h1>
+            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Чисте повітря, мангали, природа та умиротворена атмосфера для вашого ідеального дозвілля.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#promotions" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
+                    🎁 Переглянути акції
+                </a>
+                <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardBg border border-gray-700 text-white font-bold text-base hover:bg-gray-800 transition-all text-center">
+                    Подивитися номери
+                </a>
+            </div>
+        </div>
     </section>
 
-    <!-- БЛОК ЛАСКАВО ПРОСИМО -->
-    <section class="welcome" id="about">
-        <h2>Ласкаво просимо на базу відпочинку «Маяк»</h2>
-        <p>
-            Наша база відпочинку розташована в мальовничому та тихому куточку, де ви зможете повністю забути про міську метушню. 
-            Ми пропонуємо комфортабельні номери різних категорій, власну домашню кухню, доглянуту зелену територію та все необхідне для ідеальної відпустки з родиною чи друзями.
-        </p>
-    </section>
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
+                </p>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    <strong>Що ми пропонуємо нашим гостям:</strong>
+                </p>
+                <ul class="space-y-3 text-gray-300 mb-6 pl-4 border-l-2 border-accentCyan/30">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-bed text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Комфортне проживання:</strong> Затишні номери з усіма необхідними зручностями.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зона барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
+                </ul>
 
-    <!-- БЛОК АКЦИЙ (ПОСЛЕ ЛАСКАВО ПРОСИМО) -->
-    <section class="promotions-section" id="promotions">
-        <h2 class="section-title">🌟 Спеціальні пропозиції та акції</h2>
-        
-        <div class="promotions-container">
+                <div class="grid grid-cols-3 gap-4 pt-2">
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">12+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Років досвіду</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">24/7</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Працюємо</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">1 хв</div>
+                        <div class="text-xs sm:text-sm text-gray-400">До моря</div>
+                    </div>
+                </div>
+            </div>
             
-            <!-- АКЦИЯ 1: Полный комплекс (7+ дней) -->
-            <div class="promo-card banner-complex">
-                <span class="promo-badge badge-green">Вигода для всієї родини</span>
-                <h3>Акція «Повний комплекс» (від 7 днів)</h3>
-                <p class="subtitle">Забронюйте номер на базі від 7 ночей та отримайте готове рішення для ідеального відпочинку без турбот про кухню!</p>
-                <ul class="promo-list">
-                    <li><strong>Безкоштовний гарячий сніданок</strong> щоранку на всю родину (перші 7 днів заїзду).</li>
-                    <li><strong>Знижка 25% на комплексні обіди та вечері</strong> нашої домашньої кухні при попередньому замовленні.</li>
-                    <li>Економте на харчуванні всією сім'єю та відпочивайте без готування в спеку!</li>
-                </ul>
-                <a href="#contacts" class="btn-promo">Забронювати за акцією</a>
-            </div>
-
-            <!-- АКЦИЯ 2: Спец-тариф Захисник -->
-            <div class="promo-card banner-defender">
-                <span class="promo-badge badge-blue">Для УБД та військовослужбовців</span>
-                <h3>🛡️ Спец-тариф «Захисник»</h3>
-                <p class="subtitle">Ми з повагою ставимося до наших Захисників і пропонуємо спеціальні гнучкі умови для відпочинку учасників бойових дій та їхніх родин:</p>
-                <ul class="promo-list">
-                    <li><strong>Знижка 10% на проживання</strong> у будь-якій категорії номерів (за посвідченням УБД / військовим квитком).</li>
-                    <li><strong>Знижка 25% на обіди та вечері</strong> домашньої кухні на весь час відпочинку.</li>
-                    <li><strong>Гнучкий захист передоплати:</strong> Якщо дати вашої відпустки змінилися по службі — передоплата не згоряє, а повністю переноситься на інші зручні дати сезону.</li>
-                    <li><strong>Гарантія збереження коштів при достроковому виїзді:</strong> При терміновому виклику на службу — повернення коштів за 1 день та збереження решти депозиту на наступний заїзд.</li>
-                </ul>
-                <a href="#contacts" class="btn-promo btn-defender">Написати адміністратору</a>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- БЛОК НОМЕРА -->
-    <section class="rooms-section" id="rooms">
-        <h2 class="section-title">Наші номери</h2>
-        <div class="rooms-grid">
-            <div class="room-card">
-                <h3>Номер «Стандарт»</h3>
-                <p>Затишний номер для 2-3 осіб зі всіма зручностями.</p>
-            </div>
-            <div class="room-card">
-                <h3>Номер «Люкс»</h3>
-                <p>Просторий номер з кондиціонером, холодильником та балконом.</p>
-            </div>
-            <div class="room-card">
-                <h3>Сімейний котедж</h3>
-                <p>Окремий будиночок для великої родини або компанії.</p>
+            <!-- Статичне зображення або банер території -->
+            <div class="relative">
+                <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
+                    <img src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover" onerror="this.src='LOGO.jpg'">
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- ФУТЕР -->
-    <footer>
-        <p>&copy; 2026 База відпочинку «Маяк». Всі права захищені.</p>
-    </footer>
+    <!-- БЛОК АКЦІЙ ТА СПЕЦІАЛЬНИХ ПРОПОЗИЦІЙ -->
+    <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <span class="px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-accentCyan text-xs uppercase tracking-widest font-semibold inline-block mb-3">Вигідні пропозиції</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Спеціальні акції та тарифи</h2>
+            </div>
 
-</body>
-</html>
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                
+                <!-- АКЦІЯ 1: Повний комплекс (7+ днів) -->
+                <div class="bg-cardBg rounded-3xl p-8 border border-cyan-500/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-emerald-600 to-teal-600 text-white text-xs font-bold px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Вигода для сім'ї
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-emerald-950/80 border border-emerald-800/50 flex items-center justify-center text-emerald-400 text-xl mb-6">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Акція «Повний комплекс» (від 7 днів)</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Забронюйте номер на базі від 7 ночей та отримайте готове рішення для ідеального відпочинку без турбот про кухню!
+                        </p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Безкоштовний гарячий сніданок</strong> щоранку на всю родину (перші 7 днів заїзду).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 25% на комплексні обіди та вечері</strong> нашої домашньої кухні при попередньому замовленні.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-emerald-400 mt-1 mr-3 flex-shrink-0"></i>
+                                <span>Живіть від 7 днів, економьте на харчуванні та відпочивайте без готування в спеку!</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-center font-bold text-sm transition-all shadow-lg shadow-emerald-900/30">
+                        <i class="fa-solid fa-phone mr-2"></i>Забронювати за акцією
+                    </a>
+                </div>
+
+                <!-- АКЦІЯ 2: Спец-тариф «Захисник» -->
+                <div class="bg-cardBg rounded-3xl p-8 border border-blue-500/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Для УБД та військових
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-blue-950/80 border border-blue-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
+                            <i class="fa-solid fa-shield-halved"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">🛡️ Спец-тариф «Захисник»</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Ми з повагою ставимося до наших Захисників і пропонуємо спеціальні гнучкі умови для відпочинку учасників бойових дій та їхніх родин:
+                        </p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 10% на проживання</strong> у будь-якій категорії номерів (за посвідченням УБД / військовим квитком).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 25% на обіди та вечері</strong> домашньої кухні на весь час відпочинку.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Гнучкий захист передоплати:</strong> Якщо дати відпустки змінилися по службі — кошти не згоряють, а переносяться.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Гарантія при достроковому виїзді:</strong> Повернення за 1 день та збереження решти депозиту на наступний заїзд.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Уточнити деталі та заброньовати
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- НОМЕРИ -->
+    <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                
+                <!-- ПОКРАЩЕНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
+                        <img src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover">
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-center mb-3">
+                                <h3 class="text-xl font-bold text-white">Покращений номер</h3>
+                                <span class="text-white font-bold text-xl tracking-wide">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                            </div>
+                            <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
