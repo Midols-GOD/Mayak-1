@@ -106,10 +106,10 @@
                 <span>База відпочинку в атмосферному куточку</span>
             </div>
             <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">вдалині від міської суєти</span>
+                Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">для всієї родини</span>
             </h1>
             <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Чисте повітря, мангали, природа та умиротворена атмосфера для вашого ідеального дозвілля.
+                Чисте повітря, мангали, природа та умиротворена атмосфера для вашого ідеального відпочинку.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
@@ -125,7 +125,7 @@
             <div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
                 <p class="text-gray-300 mb-4 leading-relaxed">
-                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
+                    Це ідеальне місце для тих, хто прагне насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
                 </p>
                 <p class="text-gray-300 mb-4 leading-relaxed">
                     <strong>Що ми пропонуємо нашим гостям:</strong>
@@ -667,7 +667,7 @@
             document.body.style.overflow = 'auto';
         }
 
-        function nextModalSlide() {
+        funciton nextModalSlide() {
             if (currentModalImages.length === 0) return;
             currentModalIndex = (currentModalIndex + 1) % currentModalImages.length;
             document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
