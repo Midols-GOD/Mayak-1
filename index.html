@@ -68,7 +68,7 @@
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
                 <a href="#about" class="nav-link hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
                 <a href="#rooms" class="nav-link hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
-                <a href="#promotions" class="nav-link hover:text-accentCyan transition-colors" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+                <a href="#promotions" class="nav-link transition-colors text-priceYellow font-semibold hover:opacity-80" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
                 <a href="#services" class="nav-link hover:text-accentCyan transition-colors" data-target="services">Послуги</a>
                 <a href="#advantages" class="nav-link hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
                 <a href="#reviews" class="nav-link hover:text-accentCyan transition-colors" data-target="reviews">Відгуки</a>
@@ -91,7 +91,7 @@
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
             <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="about">Про нас</a>
             <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="rooms">Номери</a>
-            <a href="#promotions" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+            <a href="#promotions" class="mobile-link nav-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
             <a href="#services" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="services">Послуги</a>
             <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="advantages">Переваги</a>
             <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="reviews">Відгуки</a>
@@ -291,8 +291,8 @@
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
-                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/10">Вигідні умови</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Спеціальні пропозиції та тарифи</h2>
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Вигідні умови</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-priceYellow">Вигідні умови</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
@@ -612,9 +612,13 @@
                 
                 if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
                     navLinks.forEach(link => {
-                        link.classList.remove('active-nav');
+                        // Не убираем цвет с акции, если она не активна, либо управляем стандартными ссылками
                         if (link.getAttribute('data-target') === sectionId) {
                             link.classList.add('active-nav');
+                        } else {
+                            if (link.getAttribute('data-target') !== 'promotions') {
+                                link.classList.remove('active-nav');
+                            }
                         }
                     });
                 }
