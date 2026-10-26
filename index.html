@@ -107,13 +107,13 @@
         <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
             <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
                 <i class="fa-solid fa-water"></i>
-                <span>База відпочинку біля самого узбережжя</span>
+                <span>База відпочинку в атмосферному куточку</span>
             </div>
             <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                Незабутній відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">для всієї родини</span>
+                Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">вдалині від міської суєти</span>
             </h1>
             <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Тепле море всього за хвилину від дверей, затишна атмосфера, домашня кухня та справжній комфорт для вашого релаксу.
+                Чисте повітря, мангали, природа та умиротворена атмосфера для вашого ідеального дозвілля.
             </p>
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
@@ -147,6 +147,10 @@
                         <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
                         <span><strong>Зона барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
                     </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
                 </ul>
 
                 <div class="grid grid-cols-3 gap-4 pt-2">
@@ -168,7 +172,7 @@
             <!-- Слайдер території -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden shadow-2xl border border-gray-800 relative group h-80 sm:h-[500px] bg-gray-900 flex items-center justify-center">
-                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)" onerror="this.src='LOGO.jpg'">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)">
                     
                     <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                         <i class="fa-solid fa-chevron-left"></i>
@@ -197,7 +201,7 @@
                 <!-- ПОКРАЩЕНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)" onerror="this.src='LOGO.jpg'">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
                         
                         <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -239,7 +243,7 @@
                 <!-- СТАНДАРТНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)" onerror="this.src='LOGO.jpg'">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="Стандартний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
                         
                         <button onclick="prevStandardSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -276,6 +280,94 @@
                             Забронювати стандартний номер
                         </a>
                     </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК СПЕЦІАЛЬНИХ ПРОПОЗИЦІЙ -->
+    <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/10">Вигідні умови</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Спеціальні пропозиції та тарифи</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                
+                <!-- ПРОПОЗИЦІЯ 1: 7+7 -->
+                <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Вигода для сім'ї
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">🌟 Спеціальна пропозиція «7+7» (Повний комплекс)</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Забронюйте відпочинок на 7 днів та отримайте готове рішення для комфортного дозвілля без турбот про кухню!
+                        </p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Безкоштовні гарячі сніданки</strong> щоранку на всю родину в нашому кафе.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 25% на комплексні обіди та вечері</strong> у нашому кафе при попередньому замовленні.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span>Відпочивайте 7 днів, економте на харчуванні та насолоджуйтесь морем без зайвого клопоту.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Забронювати за пропозицією
+                    </a>
+                </div>
+
+                <!-- ПРОПОЗИЦІЯ 2: Спец-тариф «Захисник» -->
+                <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Програма підтримки
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
+                            <i class="fa-solid fa-handshake"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">Спеціальні умови для військовослужбовців та УБД</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            З повагою ставимося до захисників України та пропонуємо умови для відпочинку учасників бойових дій та їхніх родин:
+                        </p>
+                        
+                        <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 10%</strong> на проживання у будь-якій категорії номерів (надається за пред'явленням посвідчення УБД або військового квитка).</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Знижка 25%</strong> на замовлення комплексних обідів та вечерь у нашому кафе протягом усього періоду проживання.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Гнучке перенесення броні:</strong> У разі зміни планів чи відкликання зі служби через бойові розпорядження, внесена передоплата повністю зберігається та переноситься на інші дати.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Безпека коштів при достроковому виїзді:</strong> Якщо виникає необхідність терміново повернутися по службі, невикористаний залишок коштів не згорає — він фіксується на вашому балансі для наступного заїзду в межах сезону.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Уточнити деталі та забронювати
+                    </a>
                 </div>
 
             </div>
@@ -563,7 +655,7 @@
             });
         });
 
-        // Картинки для слайдеров (3-я фотография в покращенных заменена на "3 номер Н.jpg")
+        // Картинки для слайдеров (исходные пути сохранены)
         const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
         const improvedImages = ['1 номер Н.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
         const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
@@ -609,6 +701,7 @@
             document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
             
             const modal = document.getElementById('image-modal');
+            modal.classList.0 && modal.classList.remove('hidden'); // safe fallback
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
