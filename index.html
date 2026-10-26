@@ -42,7 +42,8 @@
             -webkit-font-smoothing: antialiased;
             transition: opacity 0.3s ease-in-out;
         }
-        .nav-link.active {
+        /* Клас для активного пункту меню в шапке */
+        .nav-link.active-nav {
             color: #06b6d4 !important;
             font-weight: 700;
         }
@@ -65,13 +66,13 @@
             </a>
 
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-gray-300">
-                <a href="#about" class="hover:text-accentCyan transition-colors">Про нас</a>
-                <a href="#rooms" class="hover:text-accentCyan transition-colors">Номери</a>
-                <a href="#promotions" class="hover:text-accentCyan transition-colors"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
-                <a href="#services" class="hover:text-accentCyan transition-colors">Послуги</a>
-                <a href="#advantages" class="hover:text-accentCyan transition-colors">Переваги</a>
-                <a href="#reviews" class="hover:text-accentCyan transition-colors">Відгуки</a>
-                <a href="#contacts" class="hover:text-accentCyan transition-colors">Контакти</a>
+                <a href="#about" class="nav-link hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
+                <a href="#rooms" class="nav-link hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
+                <a href="#promotions" class="nav-link hover:text-accentCyan transition-colors" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+                <a href="#services" class="nav-link hover:text-accentCyan transition-colors" data-target="services">Послуги</a>
+                <a href="#advantages" class="nav-link hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
+                <a href="#reviews" class="nav-link hover:text-accentCyan transition-colors" data-target="reviews">Відгуки</a>
+                <a href="#contacts" class="nav-link hover:text-accentCyan transition-colors" data-target="contacts">Контакти</a>
             </nav>
 
             <div class="hidden sm:block">
@@ -88,13 +89,13 @@
         </div>
 
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
-            <a href="#about" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Про нас</a>
-            <a href="#rooms" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Номери</a>
-            <a href="#promotions" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
-            <a href="#services" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Послуги</a>
-            <a href="#advantages" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Переваги</a>
-            <a href="#reviews" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50">Відгуки</a>
-            <a href="#contacts" class="mobile-link block py-3 text-gray-300 hover:text-accentCyan">Контакти</a>
+            <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="about">Про нас</a>
+            <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="rooms">Номери</a>
+            <a href="#promotions" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+            <a href="#services" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="services">Послуги</a>
+            <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="advantages">Переваги</a>
+            <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan border-b border-gray-800/50" data-target="reviews">Відгуки</a>
+            <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300 hover:text-accentCyan" data-target="contacts">Контакти</a>
             <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
                 <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
             </a>
@@ -102,7 +103,7 @@
     </header>
 
     <!-- ГОЛОВНИЙ ЕКРАН -->
-    <section class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
             <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
@@ -600,30 +601,25 @@
     <script>
         // Подсветка активной секции в шапке при скролле (ScrollSpy)
         const sections = document.querySelectorAll('section[id]');
-        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        const navLinks = document.querySelectorAll('.nav-link');
 
-        const observerOptions = {
-            root: null,
-            rootMargin: '-20% 0px -70% 0px',
-            threshold: 0
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const id = entry.target.getAttribute('id');
+        window.addEventListener('scroll', () => {
+            let currentScroll = window.scrollY + 150;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
                     navLinks.forEach(link => {
-                        if (link.getAttribute('href') === `#${id}`) {
-                            link.classList.add('text-accentCyan', 'font-bold');
-                        } else {
-                            link.classList.remove('text-accentCyan', 'font-bold');
+                        link.classList.remove('active-nav');
+                        if (link.getAttribute('data-target') === sectionId) {
+                            link.classList.add('active-nav');
                         }
                     });
                 }
             });
-        }, observerOptions);
-
-        sections.forEach(section => observer.observe(section));
+        });
 
         // Мобильное меню
         const menuBtn = document.getElementById('menu-btn');
@@ -655,7 +651,7 @@
             });
         });
 
-        // Картинки для слайдеров (исходные пути сохранены)
+        // Массивы картинок для слайдеров (исходные файлы)
         const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
         const improvedImages = ['1 номер Н.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
         const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
@@ -689,7 +685,7 @@
         function nextStandardSlide() { updateSlide('standard-slider-img', 'standard-current', standardImages, standardIndex, 1); }
         function prevStandardSlide() { updateSlide('standard-slider-img', 'standard-current', standardImages, standardIndex, -1); }
 
-        // Логика Модального окна галереи
+        // Логика модального окна галереи (полноэкранный просмотр фото)
         let currentModalImages = [];
         let currentModalIndex = 0;
 
@@ -701,7 +697,6 @@
             document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
             
             const modal = document.getElementById('image-modal');
-            modal.classList.0 && modal.classList.remove('hidden'); // safe fallback
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
