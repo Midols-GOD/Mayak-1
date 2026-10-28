@@ -196,10 +196,10 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
             </div>
 
-            <!-- Сетка номеров (4 карточки) -->
+            <!-- Сетка номеров (4 карточки: Люкс, 4-х місний, 2-х місний, 3-х місний) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
-                <!-- 1. НОМЕР "ЛЮКС" (1500 - 1700) -->
+                <!-- 1. НОМЕР "ЛЮКС" -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="improved-slider-img" src="1 номер Н.jpg" alt="Номер Люкс" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
@@ -250,7 +250,7 @@
                     </div>
                 </div>
 
-                <!-- 2. 4-Х МІСНИЙ НОМЕР (1400 - 1600) -->
+                <!-- 2. 4-Х МІСНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="standard-slider-img" src="3 номер.jpg" alt="4-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
@@ -301,7 +301,7 @@
                     </div>
                 </div>
 
-                <!-- 3. 2-Х МІСНИЙ НОМЕР (800 - 1000) -->
+                <!-- 3. 2-Х МІСНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="double-slider-img" src="2 (1).png" alt="2-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(doubleImages, doubleIndex.val)">
@@ -352,7 +352,7 @@
                     </div>
                 </div>
 
-                <!-- 4. 3-Х МІСНИЙ НОМЕР (1050 ₴ / день) -->
+                <!-- 4. 3-Х МІСНИЙ НОМЕР -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="triple-slider-img" src="3 номер.jpg" alt="3-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(tripleImages, tripleIndex.val)">
@@ -373,9 +373,15 @@
                         <div>
                             <h3 class="text-xl font-bold text-white mb-3">3-х місний номер</h3>
                             
-                            <div class="bg-darkBg/60 rounded-xl p-3 mb-4 border border-gray-800 text-center">
-                                <span class="text-gray-400 text-sm">Ціна за день: </span>
-                                <span class="text-white font-bold text-lg">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                            <div class="bg-darkBg/60 rounded-xl p-3 mb-4 border border-gray-800 space-y-1.5">
+                                <div class="flex justify-between items-center text-sm">
+                                    <span class="text-gray-400">Понеділок — Четвер:</span>
+                                    <span class="text-white font-bold">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                                </div>
+                                <div class="flex justify-between items-center text-sm border-t border-gray-800/60 pt-1.5">
+                                    <span class="text-gray-400">П'ятниця — Неділя:</span>
+                                    <span class="text-white font-bold">1 250 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                                </div>
                             </div>
 
                             <p class="text-gray-300 text-sm mb-4">Просторний та зручний номер для невеликої родини або компанії з трьох осіб.</p>
@@ -409,9 +415,8 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white">Спеціальні пропозиції та тарифи</h2>
             </div>
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
-                
-                <!-- НОВАЯ АКЦИЯ НА ПИТАНИЕ (от 4 дней) -->
+            <div class="max-w-2xl mx-auto">
+                <!-- АКЦИЯ НА ПИТАНИЕ (от 4 дней, комплекс за 400 грн) -->
                 <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Вигідна пропозиція
@@ -432,7 +437,7 @@
                             </div>
                             <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
                                 <span class="text-accentCyan">Ціна за акційним комплексом:</span>
-                                <span class="text-white text-lg">600 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                                <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
                             </div>
                             <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
                                 *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при бронюванні від 4 днів і до кінця виїзду.
@@ -455,46 +460,6 @@
                         <i class="fa-solid fa-phone mr-2"></i>Забронювати відпочинок з харчуванням
                     </a>
                 </div>
-
-                <!-- ПРОПОЗИЦІЯ 2: Спец-тариф «Захисник» -->
-                <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
-                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
-                        Програма підтримки
-                    </div>
-                    <div>
-                        <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
-                            <i class="fa-solid fa-handshake"></i>
-                        </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">Спеціальні умови для військовослужбовців та УБД</h3>
-                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
-                            З повагою ставимося до захисників України та пропонуємо умови для відпочинку учасників бойових дій та їхніх родин:
-                        </p>
-                        
-                        <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Знижка 10%</strong> на проживання у будь-якій категорії номерів (надається за пред'явленням посвідчення УБД або військового квитка).</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Знижка 25%</strong> на замовлення комплексних обідів та вечерь у нашому кафе протягом усього періоду проживання.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Гнучке перенесення броні:</strong> У разі зміни планів чи відкликання зі служби через бойові розпорядження, внесена передоплата повністю зберігається та переноситься на інші дати.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Безпека коштів при достроковому виїзді:</strong> Якщо виникає необхідність терміново повернутися по службі, невикористаний залишок коштів не згорає — він фіксується на вашому балансі для наступного заїзду в межах сезону.</span>
-                            </li>
-                        </ul>
-                    </div>
-
-                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                        <i class="fa-solid fa-phone mr-2"></i>Уточнити деталі та забронювати
-                    </a>
-                </div>
-
             </div>
         </div>
     </section>
