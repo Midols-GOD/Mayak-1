@@ -168,13 +168,13 @@
                         <div class="text-xs sm:text-sm text-gray-400">Працюємо</div>
                     </div>
                     <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
-                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">1 хв</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">3 хв</div>
                         <div class="text-xs sm:text-sm text-gray-400">До моря</div>
                     </div>
                 </div>
             </div>
             
-            <!-- Слайдер території -->
+            <!-- Слайдер территории -->
             <div class="relative">
                 <div class="rounded-2xl overflow-hidden photo-frame relative group h-80 sm:h-[500px] bg-cardBg flex items-center justify-center">
                     <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)">
@@ -518,7 +518,17 @@
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
                     <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-location-dot"></i></div>
                     <h3 class="text-lg font-bold text-white mb-2">Зручне розташування біля моря</h3>
-                    <p class="text-gray-400 text-sm">Всього 1 хвилина ходьби до чистого пляжу та узбережжя.</p>
+                    <p class="text-gray-400 text-sm">Всього 3 хвилини спокійної ходьби до чистого пляжу та узбережжя.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-tree"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Доглянута зелена територія</h3>
+                    <p class="text-gray-400 text-sm">Красивий і доглянутий двір із зеленню, затишними місцями для відпочинку та приємною атмосферою.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-shield-virus"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Обробка від комах</h3>
+                    <p class="text-gray-400 text-sm">Регулярна професійна обробка території від комах для вашого комфортного та безпечного відпочинку.</p>
                 </div>
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
                     <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-broom"></i></div>
@@ -529,11 +539,6 @@
                     <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wallet"></i></div>
                     <h3 class="text-lg font-bold text-white mb-2">Доступні ціни</h3>
                     <p class="text-gray-400 text-sm">Чесна вартість та найкращі умови.</p>
-                </div>
-                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
-                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-shield-halved"></i></div>
-                    <h3 class="text-lg font-bold text-white mb-2">Безпечна територія</h3>
-                    <p class="text-gray-400 text-sm">Спокійний простір для вашого відпочинку.</p>
                 </div>
                 <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
                     <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wifi"></i></div>
@@ -695,7 +700,7 @@
             <i class="fa-solid fa-chevron-left text-xl"></i>
         </button>
         <div class="max-w-5xl max-h-[85vh] overflow-hidden flex items-center justify-center relative" onclick="event.stopPropagation()">
-            <img id="modal-img" src="" alt="Перегляд фото" class="max-w-full max-h-[85vh] object-contain rounded-lg">
+            <img id="modal-img" src="" alt="Перегляд фото" class="max-w-full max-h-[85vh] object-contain rounded-lg opacity-0 transition-opacity duration-300">
         </div>
         <button onclick="nextModalSlide(event)" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all z-50 border border-cyan-500/30">
             <i class="fa-solid fa-chevron-right text-xl"></i>
@@ -808,7 +813,7 @@
         function nextTripleSlide() { updateSlide('triple-slider-img', 'triple-current', tripleImages, tripleIndex, 1); }
         function prevTripleSlide() { updateSlide('triple-slider-img', 'triple-current', tripleImages, tripleIndex, -1); }
 
-        // Логика модального окна галереи
+        // Логика модального окна галереи с плавной анимацией
         let currentModalImages = [];
         let currentModalIndex = 0;
 
@@ -817,12 +822,20 @@
             currentModalIndex = startIndex;
             document.getElementById('modal-total').innerText = currentModalImages.length;
             document.getElementById('modal-current').innerText = currentModalIndex + 1;
-            document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
+            
+            const modalImg = document.getElementById('modal-img');
+            modalImg.style.opacity = '0';
+            modalImg.src = currentModalImages[currentModalIndex];
             
             const modal = document.getElementById('image-modal');
             modal.classList.remove('hidden');
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
+
+            // Плавное появление первой картинки
+            setTimeout(() => {
+                modalImg.style.opacity = '1';
+            }, 50);
         }
 
         function closeModalGallery() {
@@ -832,25 +845,38 @@
             document.body.style.overflow = 'auto';
         }
 
-        function nextModalSlide(event) {
+        function changeModalSlide(direction, event) {
             if (event) event.stopPropagation();
             if (currentModalImages.length === 0) return;
-            currentModalIndex = (currentModalIndex + 1) % currentModalImages.length;
-            document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
-            document.getElementById('modal-current').innerText = currentModalIndex + 1;
+
+            const modalImg = document.getElementById('modal-img');
+            // Эффект затухания текущей фотографии
+            modalImg.style.opacity = '0';
+
+            setTimeout(() => {
+                currentModalIndex = (currentModalIndex + direction + currentModalImages.length) % currentModalImages.length;
+                modalImg.src = currentModalImages[currentModalIndex];
+                document.getElementById('modal-current').innerText = currentModalIndex + 1;
+                // Плавное появление новой фотографии
+                modalImg.style.opacity = '1';
+            }, 150);
         }
 
-        function prevModalSlide(event) {
-            if (event) event.stopPropagation();
-            if (currentModalImages.length === 0) return;
-            currentModalIndex = (currentModalIndex - 1 + currentModalImages.length) % currentModalImages.length;
-            document.getElementById('modal-img').src = currentModalImages[currentModalIndex];
-            document.getElementById('modal-current').innerText = currentModalIndex + 1;
-        }
+        function nextModalSlide(event) { changeModalSlide(1, event); }
+        function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // Закрытие модалки по клавише ESC
+        // Закрытие модалки по клавише ESC или перелистывание стрелками клавиатуры
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') closeModalGallery();
+            const modal = document.getElementById('image-modal');
+            if (!modal.classList.contains('hidden')) {
+                if (e.key === 'Escape') {
+                    closeModalGallery();
+                } else if (e.key === 'ArrowRight') {
+                    nextModalSlide();
+                } else if (e.key === 'ArrowLeft') {
+                    prevModalSlide();
+                }
+            }
         });
     </script>
 </body>
