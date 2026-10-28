@@ -729,5 +729,25 @@
             if (e.key === 'Escape') closeModalGallery();
         });
     </script>
+    <!-- Плавающая кнопка связи -->
+<div class="fixed bottom-6 right-6 z-40 flex flex-col items-end space-y-3">
+    <!-- Кнопка телефона -->
+    <a href="tel:+380935754668" class="group flex items-center bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold px-5 py-3 rounded-2xl shadow-2xl shadow-cyan-500/40 hover:scale-105 transition-all duration-300">
+        <i class="fa-solid fa-phone text-lg mr-2 animate-bounce"></i>
+        <span>Зателефонувати</span>
+    </a>
+</div>
+    <!-- Плавающая панель цен внизу экрана -->
+<div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/90 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl sm:hidden">
+    <div class="flex items-center justify-between max-w-md mx-auto">
+        <div>
+            <div class="text-xs text-gray-400">Ціни від</div>
+            <div class="text-white font-bold text-lg">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+        </div>
+        <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20">
+            Забронювати
+        </a>
+    </div>
+</div>
 </body>
 </html>
