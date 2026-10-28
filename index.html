@@ -42,14 +42,13 @@
             -webkit-font-smoothing: antialiased;
             transition: opacity 0.3s ease-in-out;
         }
-        /* Клас для активних звичайних пунктів меню */
         .nav-link.active-nav {
             color: #06b6d4 !important;
             font-weight: 700;
         }
     </style>
 </head>
-<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden">
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden pb-20 sm:pb-0">
 
     <script>
         window.scrollTo(0, 0);
@@ -573,8 +572,26 @@
         </div>
     </section>
 
+    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ЦЕН И БРОНИРОВАНИЯ ВНИЗУ (для мобильных и ПК) -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl">
+        <div class="flex items-center justify-between max-w-4xl mx-auto">
+            <div>
+                <div class="text-xs text-gray-400">Ціни від</div>
+                <div class="text-white font-bold text-base sm:text-lg">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
+                    <i class="fa-solid fa-gift mr-1.5"></i> Акції діють!
+                </a>
+                <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
+                    <i class="fa-solid fa-phone mr-1.5"></i> Забронювати
+                </a>
+            </div>
+        </div>
+    </div>
+
     <!-- ФУТЕР -->
-    <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm">
+    <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm mb-12 sm:mb-0">
         <p>&copy; 2026 База відпочинку «Маяк». Всі права захищені.</p>
     </footer>
 
@@ -599,7 +616,7 @@
 
     <!-- СКРИПТЫ СЛАЙДЕРОВ И ВЗАИМОДЕЙСТВИЯ -->
     <script>
-        // Подсветка остальных активных секций в шапке при скролле (ScrollSpy)
+        // Подсветка активных секций в шапке при скролле (ScrollSpy)
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -729,17 +746,5 @@
             if (e.key === 'Escape') closeModalGallery();
         });
     </script>
-    <!-- Плавающая панель цен внизу экрана -->
-<div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/90 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl sm:hidden">
-    <div class="flex items-center justify-between max-w-md mx-auto">
-        <div>
-            <div class="text-xs text-gray-400">Ціни від</div>
-            <div class="text-white font-bold text-lg">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
-        </div>
-        <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20">
-            Забронювати
-        </a>
-    </div>
-</div>
 </body>
 </html>
