@@ -199,10 +199,10 @@
             <!-- Сетка номеров (4 карточки) -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
-                <!-- 1. ПОКРАЩЕНИЙ НОМЕР (1500 - 1700) -->
+                <!-- 1. НОМЕР "ЛЮКС" (1500 - 1700) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Покращений номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Номер Люкс" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
                         
                         <button onclick="prevImprovedSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/60 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10">
                             <i class="fa-solid fa-chevron-left text-sm"></i>
@@ -218,7 +218,7 @@
 
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <h3 class="text-xl font-bold text-white mb-3">Покращений номер</h3>
+                            <h3 class="text-xl font-bold text-white mb-3">Номер «Люкс»</h3>
                             
                             <div class="bg-darkBg/60 rounded-xl p-3 mb-4 border border-gray-800 space-y-1.5">
                                 <div class="flex justify-between items-center text-sm">
@@ -245,12 +245,12 @@
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати покращений номер
+                            Забронювати номер «Люкс»
                         </a>
                     </div>
                 </div>
 
-                <!-- 2. 4-Х МІСНИЙ НОМЕР (бывший Стандартный: 1400 - 1600) -->
+                <!-- 2. 4-Х МІСНИЙ НОМЕР (1400 - 1600) -->
                 <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
                     <div class="h-72 overflow-hidden relative group bg-gray-900 flex items-center justify-center">
                         <img id="standard-slider-img" src="3 номер.jpg" alt="4-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
@@ -411,38 +411,48 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
-                <!-- ПРОПОЗИЦІЯ 1: 7+7 -->
+                <!-- НОВАЯ АКЦИЯ НА ПИТАНИЕ (от 4 дней) -->
                 <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
-                        Вигода для сім'ї
+                        Вигідна пропозиція
                     </div>
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">🌟 Спеціальна пропозиція «7+7» (Повний комплекс)</h3>
+                        <h3 class="text-2xl font-bold text-white mb-3">🍽️ Спеціальна пропозиція на харчування (від 4 днів)</h3>
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">
-                            Забронюйте відпочинок на 7 днів та отримайте готове рішення для комфортного дозвілля без турбот про кухню!
+                            Плануєте відпочинок від 4 днів і довше? Замовляйте повний комплекс домашнього харчування у нашому кафе на весь період перебування та заощаджуйте!
                         </p>
                         
+                        <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
+                            <div class="flex justify-between items-center text-sm text-gray-300">
+                                <span>Сніданок + Обід + Вечеря (окремо):</span>
+                                <span class="line-through text-gray-500">600 ₴ / день</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
+                                <span class="text-accentCyan">Ціна за акційним комплексом:</span>
+                                <span class="text-white text-lg">600 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                            </div>
+                            <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
+                                *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при бронюванні від 4 днів і до кінця виїзду.
+                            </div>
+                        </div>
+
                         <ul class="space-y-3 text-sm text-gray-300 mb-8 border-t border-gray-800 pt-5">
                             <li class="flex items-start">
                                 <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Безкоштовні гарячі сніданки</strong> щоранку на всю родину в нашому кафе.</span>
+                                <span><strong>Діє від 4 днів:</strong> Акція автоматично застосовується для всіх гостей, які беруть комплексне харчування від 4 діб і до самого від'їзду.</span>
                             </li>
                             <li class="flex items-start">
                                 <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Знижка 25% на комплексні обіди та вечері</strong> у нашому кафе при попередньому замовленні.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span>Відпочивайте 7 днів, економте на харчуванні та насолоджуйтесь морем без зайвого клопоту.</span>
+                                <span>Свіжі домашні страви щодня у просторому кафе на території бази.</span>
                             </li>
                         </ul>
                     </div>
 
                     <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                        <i class="fa-solid fa-phone mr-2"></i>Забронювати за пропозицією
+                        <i class="fa-solid fa-phone mr-2"></i>Забронювати відпочинок з харчуванням
                     </a>
                 </div>
 
