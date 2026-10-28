@@ -70,7 +70,7 @@
                     <span class="text-lg sm:text-xl font-bold tracking-wider text-white">МАЯК</span>
                 </a>
 
-                <!-- Ссылка Спецпропозиції, видимая только на мобильных в свободном месте -->
+                <!-- Ссылка Спецпропозиції в свободном месте слева на мобильных -->
                 <a href="#promotions" class="md:hidden flex items-center text-priceYellow text-xs font-medium bg-cyan-950/50 px-2 py-1.5 rounded-lg border border-cyan-800/40 ml-1">
                     <i class="fa-solid fa-gift mr-1"></i>Спецпропозиції
                 </a>
@@ -113,8 +113,8 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН -->
-    <section id="home" class="relative min-h-screen flex items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
+    <!-- ГОЛОВНИЙ ЕКРАН (Скрыт на мобильных, виден на планшетах и ПК) -->
+    <section id="home" class="hidden sm:flex relative min-h-screen items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
             <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
@@ -135,8 +135,8 @@
         </div>
     </section>
 
-    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
-    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full">
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" (Первый блок на телефонах благодаря скрытию home) -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full pt-28 sm:pt-20">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
@@ -209,7 +209,7 @@
                 <p class="text-accentCyan text-sm font-medium mt-1"><i class="fa-solid fa-calendar-days mr-1.5"></i>Ціни на 2026 рік</p>
             </div>
 
-            <!-- Сетка номеров (4 карточки: Люкс, 4-х місний, 2-х місний, 3-х місний) -->
+            <!-- Сетка номеров -->
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
                 <!-- 1. НОМЕР "ЛЮКС" -->
@@ -425,7 +425,7 @@
             </div>
 
             <div class="max-w-2xl mx-auto">
-                <!-- ПРЕДЛОЖЕНИЕ ПО ПИТАНИЮ (от 4 дней, комплекс за 400 грн) -->
+                <!-- ПРЕДЛОЖЕНИЕ ПО ПИТАНИЮ -->
                 <div class="bg-cardBg rounded-3xl p-8 border border-accentCyan/30 flex flex-col justify-between shadow-xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Спецпропозиція
@@ -839,7 +839,6 @@
             modal.classList.add('flex');
             document.body.style.overflow = 'hidden';
 
-            // Плавное появление первой картинки
             setTimeout(() => {
                 modalImg.style.opacity = '1';
             }, 50);
@@ -857,14 +856,12 @@
             if (currentModalImages.length === 0) return;
 
             const modalImg = document.getElementById('modal-img');
-            // Эффект затухания текущей фотографии
             modalImg.style.opacity = '0';
 
             setTimeout(() => {
                 currentModalIndex = (currentModalIndex + direction + currentModalImages.length) % currentModalImages.length;
                 modalImg.src = currentModalImages[currentModalIndex];
                 document.getElementById('modal-current').innerText = currentModalIndex + 1;
-                // Плавное появление новой фотографии
                 modalImg.style.opacity = '1';
             }, 150);
         }
