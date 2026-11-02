@@ -255,7 +255,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (БЕЗ ЦИФР ПОНЕДЕЛЬНИКОВ/ПЯТНИЦ) -->
+    <!-- НОМЕРИ -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -486,13 +486,13 @@
         </div>
     </section>
 
-    <!-- ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ НА ЦЕЛЫЙ ГОД ВПЕРЕД -->
+    <!-- ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ НА 2 МЕСЯЦА С СТРЕЛКАМИ ВЛЕВО/ВПРАВО -->
     <section id="calculator" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
         <div class="max-w-4xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-10">
                 <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Дізнатися вартість</span>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Розрахунок суми за датами</h2>
-                <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на рядок нижче, щоб відкрити календар на весь рік.</p>
+                <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на рядок нижче, щоб відкрити двомісячний календар.</p>
             </div>
 
             <div class="bg-cardBg border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
@@ -523,14 +523,14 @@
                     </button>
                 </div>
 
-                <!-- Выдвижной блок с календарем на весь год -->
+                <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем и стрелками переключения -->
                 <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 sm:p-6 rounded-2xl shadow-xl transition-all">
                     <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
-                        <div class="flex items-center space-x-4">
+                        <div class="flex items-center space-x-3">
                             <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
                                 <i class="fa-solid fa-chevron-left"></i>
                             </button>
-                            <span id="calendarTitle" class="text-lg font-bold text-white tracking-wide">Місяць Рік</span>
+                            <span class="text-xs sm:text-sm text-gray-400 uppercase tracking-wider font-semibold">Оберіть заїзд та виїзд</span>
                             <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
                                 <i class="fa-solid fa-chevron-right"></i>
                             </button>
@@ -538,12 +538,24 @@
                         <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40">Скинути дати</button>
                     </div>
 
-                    <!-- Сетка дней выбранного месяца -->
-                    <div>
-                        <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
-                            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                    <!-- Два месяца рядом -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <!-- Месяц 1 -->
+                        <div>
+                            <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                            </div>
+                            <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
                         </div>
-                        <div id="monthGrid" class="grid grid-cols-7 gap-1.5"></div>
+                        <!-- Месяц 2 -->
+                        <div>
+                            <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
+                            <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                            </div>
+                            <div id="month2Grid" class="grid grid-cols-7 gap-1.5"></div>
+                        </div>
                     </div>
                 </div>
 
@@ -1012,7 +1024,7 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ НА ГОД ВПЕРЕД С КНОПКАМИ ПЕРЕКЛЮЧЕНИЯ МЕСЯЦЕВ
+        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ СО СТРЕЛКАМИ
         document.addEventListener('DOMContentLoaded', () => {
             const roomSelect = document.getElementById('calcRoomType');
             const toggleBtn = document.getElementById('toggleCalendarBtn');
@@ -1023,8 +1035,10 @@
             const priceDisplay = document.getElementById('calcTotalPrice');
             const resetBtn = document.getElementById('resetDatesBtn');
 
-            const monthGrid = document.getElementById('monthGrid');
-            const calendarTitle = document.getElementById('calendarTitle');
+            const month1Grid = document.getElementById('month1Grid');
+            const month2Grid = document.getElementById('month2Grid');
+            const month1Name = document.getElementById('month1Name');
+            const month2Name = document.getElementById('month2Name');
             const prevMonthBtn = document.getElementById('prevMonthBtn');
             const nextMonthBtn = document.getElementById('nextMonthBtn');
 
@@ -1032,7 +1046,7 @@
             let startDate = null;
             let endDate = null;
 
-            let currentDatePointer = new Date(); // Начинаем с текущего месяца
+            let currentPointer = new Date(); // Указатель на первый из двух видимых месяцев
             const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
 
             toggleBtn.addEventListener('click', () => {
@@ -1047,13 +1061,13 @@
             });
 
             prevMonthBtn.addEventListener('click', () => {
-                currentDatePointer.setMonth(currentDatePointer.getMonth() - 1);
-                renderCalendar();
+                currentPointer.setMonth(currentPointer.getMonth() - 1);
+                renderCalendars();
             });
 
             nextMonthBtn.addEventListener('click', () => {
-                currentDatePointer.setMonth(currentDatePointer.getMonth() + 1);
-                renderCalendar();
+                currentPointer.setMonth(currentPointer.getMonth() + 1);
+                renderCalendars();
             });
 
             function getDayPrice(dateObj, basePrice) {
@@ -1064,11 +1078,21 @@
                 return basePrice;
             }
 
-            function renderCalendar() {
-                monthGrid.innerHTML = '';
-                const year = currentDatePointer.getFullYear();
-                const month = currentDatePointer.getMonth();
-                calendarTitle.textContent = `${monthNames[month]} ${year}`;
+            function renderCalendars() {
+                const year1 = currentPointer.getFullYear();
+                const month1 = currentPointer.getMonth();
+
+                const secondMonthDate = new Date(year1, month1 + 1, 1);
+                const year2 = secondMonthDate.getFullYear();
+                const month2 = secondMonthDate.getMonth();
+
+                renderSingleMonth(year1, month1, month1Grid, month1Name);
+                renderSingleMonth(year2, month2, month2Grid, month2Name);
+            }
+
+            function renderSingleMonth(year, month, gridContainer, nameContainer) {
+                gridContainer.innerHTML = '';
+                nameContainer.textContent = `${monthNames[month]} ${year}`;
 
                 const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
                 const totalDays = new Date(year, month + 1, 0).getDate();
@@ -1076,7 +1100,7 @@
 
                 for (let i = 0; i < firstDayIndex; i++) {
                     const emptyDiv = document.createElement('div');
-                    monthGrid.appendChild(emptyDiv);
+                    gridContainer.appendChild(emptyDiv);
                 }
 
                 for (let day = 1; day <= totalDays; day++) {
@@ -1115,7 +1139,7 @@
                             handleDateClick(new Date(year, month, day));
                         });
                     }
-                    monthGrid.appendChild(dayDiv);
+                    gridContainer.appendChild(dayDiv);
                 }
             }
 
@@ -1131,7 +1155,7 @@
                     }
                 }
                 updateCalculation();
-                renderCalendar();
+                renderCalendars();
             }
 
             function updateCalculation() {
@@ -1172,17 +1196,17 @@
 
             roomSelect.addEventListener('change', () => {
                 updateCalculation();
-                renderCalendar();
+                renderCalendars();
             });
 
             resetBtn.addEventListener('click', () => {
                 startDate = null;
                 endDate = null;
                 updateCalculation();
-                renderCalendar();
+                renderCalendars();
             });
 
-            renderCalendar();
+            renderCalendars();
         });
     </script>
 </body>
