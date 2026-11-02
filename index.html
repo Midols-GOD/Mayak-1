@@ -28,7 +28,7 @@
                 extend: {
                     colors: {
                         darkBg: '#090d16',
-                        cardBg: '#121929',
+                        cardBg: '#111827',
                         accentCyan: '#06b6d4',
                         accentBlue: '#3b82f6',
                         priceYellow: '#fbbf24',
@@ -60,24 +60,22 @@
             align-items: center;
             justify-content: center;
             cursor: pointer;
-            border-radius: 10px;
+            border-radius: 8px;
             transition: all 0.2s;
             user-select: none;
-            background-color: rgba(255,255,255,0.03);
-            border: 1px solid rgba(255,255,255,0.06);
-            padding: 3px;
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2px;
         }
         .cal-day-cell:hover:not(.disabled) {
-            background-color: rgba(6, 182, 212, 0.25);
-            border-color: rgba(6, 182, 212, 0.5);
-            transform: scale(1.05);
+            background-color: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.4);
         }
         .cal-day-cell.selected {
             background-color: #06b6d4 !important;
             color: #090d16 !important;
             font-weight: bold;
             border-color: #06b6d4;
-            box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
         }
         .cal-day-cell.selected .day-price {
             color: #090d16 !important;
@@ -86,10 +84,10 @@
         .cal-day-cell.in-range {
             background-color: rgba(6, 182, 212, 0.15);
             color: #38bdf8;
-            border-color: rgba(6, 182, 212, 0.3);
+            border-color: rgba(6, 182, 212, 0.2);
         }
         .cal-day-cell.disabled {
-            opacity: 0.25;
+            opacity: 0.3;
             cursor: not-allowed;
         }
         .day-num {
@@ -100,7 +98,7 @@
         .day-price {
             font-size: 0.6rem;
             color: #9ca3af;
-            margin-top: 3px;
+            margin-top: 2px;
             line-height: 1;
         }
     </style>
@@ -255,173 +253,168 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ -->
+    <!-- НОМЕРИ (С ОРИГИНАЛЬНЫМИ ПОДРОБНЫМИ ОПИСАНИЯМИ И УДОБСТВАМИ) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="px-5 py-2 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-accentCyan text-xs uppercase tracking-widest font-bold inline-block mb-3">Наші номери та умови</span>
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white mb-3">Комфортне розміщення на будь-який смак</h2>
-                <p class="text-gray-400 text-sm">Сучасні номери з усім необхідним для чудового відпочинку біля моря.</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
+                <p class="text-accentCyan text-sm font-medium mt-1"><i class="fa-solid fa-calendar-days mr-1.5"></i>Ціни на 2026 рік</p>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
                 
                 <!-- 1. НОМЕР "ЛЮКС" -->
-                <div class="bg-cardBg rounded-3xl overflow-hidden border border-gray-800/80 shadow-2xl flex flex-col hover:border-accentCyan/40 transition-all group">
-                    <div class="h-72 overflow-hidden relative bg-darkBg flex items-center justify-center m-4 rounded-2xl photo-frame">
-                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Номер Люкс" class="w-full h-full object-cover cursor-pointer opacity-100 group-hover:scale-105 transition-transform duration-500" onclick="openModalGallery(improvedImages, improvedIndex.val)">
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Номер Люкс" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
                         
-                        <button onclick="prevImprovedSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <button onclick="prevImprovedSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextImprovedSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <button onclick="nextImprovedSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
                             <span id="improved-current">1</span> / <span id="improved-total">4</span>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-2xl font-bold text-white">Номер «Люкс»</h3>
-                                <span class="px-3 py-1 bg-cyan-950 text-accentCyan text-xs font-semibold rounded-full border border-cyan-800/50">Преміум</span>
-                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">Номер «Люкс»</h3>
 
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей.</p>
+                            <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
                             
-                            <div class="grid grid-cols-2 gap-2.5 mb-8 text-xs text-gray-300">
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-user-group text-accentCyan mr-2"></i><span>1–4 особи</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-snowflake text-accentCyan mr-2"></i><span>Кондиціонер</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-bath text-accentCyan mr-2"></i><span>Ванна кімната</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-wifi text-accentCyan mr-2"></i><span>Швидкий Wi-Fi</span></div>
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 1-4 особи і більше</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Двоспальне ліжко, а також зручний диван</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасний кондиціонер для приємної прохолоди</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Ванна кімната (санвузол, душ)</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Стіл та стільці</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Холодильник та мікрохвильовка</span></div>
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-3.5 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
                         </a>
                     </div>
                 </div>
 
                 <!-- 2. 4-Х МІСНИЙ НОМЕР -->
-                <div class="bg-cardBg rounded-3xl overflow-hidden border border-gray-800/80 shadow-2xl flex flex-col hover:border-accentCyan/40 transition-all group">
-                    <div class="h-72 overflow-hidden relative bg-darkBg flex items-center justify-center m-4 rounded-2xl photo-frame">
-                        <img id="standard-slider-img" src="3 номер.jpg" alt="4-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100 group-hover:scale-105 transition-transform duration-500" onclick="openModalGallery(standardImages, standardIndex.val)">
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="4-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
                         
-                        <button onclick="prevStandardSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <button onclick="prevStandardSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextStandardSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <button onclick="nextStandardSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
                             <span id="standard-current">1</span> / <span id="standard-total">3</span>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-2xl font-bold text-white">4-х місний номер</h3>
-                                <span class="px-3 py-1 bg-cyan-950 text-accentCyan text-xs font-semibold rounded-full border border-cyan-800/50">Сімейний</span>
-                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">4-х місний номер</h3>
 
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Затишний і практичний вибір для комфортного відпочинку компанією або великою родиною.</p>
+                            <p class="text-gray-300 text-sm mb-4">Затишний і практичний вибір для комфортного відпочинку компанією або великою родиною.</p>
                             
-                            <div class="grid grid-cols-2 gap-2.5 mb-8 text-xs text-gray-300">
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-user-group text-accentCyan mr-2"></i><span>До 4 осіб</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-snowflake text-accentCyan mr-2"></i><span>Кондиціонер</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-bed text-accentCyan mr-2"></i><span>Зручні ліжка</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-wifi text-accentCyan mr-2"></i><span>Швидкий Wi-Fi</span></div>
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 4 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Практичні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Надійний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-3.5 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
                         </a>
                     </div>
                 </div>
 
                 <!-- 3. 2-Х МІСНИЙ НОМЕР -->
-                <div class="bg-cardBg rounded-3xl overflow-hidden border border-gray-800/80 shadow-2xl flex flex-col hover:border-accentCyan/40 transition-all group">
-                    <div class="h-72 overflow-hidden relative bg-darkBg flex items-center justify-center m-4 rounded-2xl photo-frame">
-                        <img id="double-slider-img" src="2 (1).png" alt="2-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100 group-hover:scale-105 transition-transform duration-500" onclick="openModalGallery(doubleImages, doubleIndex.val)">
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="double-slider-img" src="2 (1).png" alt="2-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(doubleImages, doubleIndex.val)">
                         
-                        <button onclick="prevDoubleSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <button onclick="prevDoubleSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextDoubleSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <button onclick="nextDoubleSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
                             <span id="double-current">1</span> / <span id="double-total">2</span>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-2xl font-bold text-white">2-х місний номер</h3>
-                                <span class="px-3 py-1 bg-cyan-950 text-accentCyan text-xs font-semibold rounded-full border border-cyan-800/50">Стандарт</span>
-                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">2-х місний номер</h3>
 
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Ідеальний варіант для пари або двох друзів, які цінують затишок та комфорт за доступною ціною.</p>
+                            <p class="text-gray-300 text-sm mb-4">Ідеальний варіант для пари або двох друзів, які цінують затишок та комфорт.</p>
                             
-                            <div class="grid grid-cols-2 gap-2.5 mb-8 text-xs text-gray-300">
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-user-group text-accentCyan mr-2"></i><span>2 особи</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-snowflake text-accentCyan mr-2"></i><span>Кондиціонер</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-couch text-accentCyan mr-2"></i><span>Затишна атмосфера</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-wifi text-accentCyan mr-2"></i><span>Швидкий Wi-Fi</span></div>
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 2 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Зручне двоспальне або два роздільних ліжка</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-3.5 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
                         </a>
                     </div>
                 </div>
 
                 <!-- 4. 3-Х МІСНИЙ НОМЕР -->
-                <div class="bg-cardBg rounded-3xl overflow-hidden border border-gray-800/80 shadow-2xl flex flex-col hover:border-accentCyan/40 transition-all group">
-                    <div class="h-72 overflow-hidden relative bg-darkBg flex items-center justify-center m-4 rounded-2xl photo-frame">
-                        <img id="triple-slider-img" src="3 номер.jpg" alt="3-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100 group-hover:scale-105 transition-transform duration-500" onclick="openModalGallery(tripleImages, tripleIndex.val)">
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="triple-slider-img" src="3 номер.jpg" alt="3-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(tripleImages, tripleIndex.val)">
                         
-                        <button onclick="prevTripleSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                        <button onclick="prevTripleSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
                         </button>
-                        <button onclick="nextTripleSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
-                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                        <button onclick="nextTripleSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
                         </button>
 
-                        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
                             <span id="triple-current">1</span> / <span id="triple-total">3</span>
                         </div>
                     </div>
 
-                    <div class="p-6 sm:p-8 flex-1 flex flex-col justify-between">
+                    <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <div class="flex justify-between items-start mb-4">
-                                <h3 class="text-2xl font-bold text-white">3-х місний номер</h3>
-                                <span class="px-3 py-1 bg-cyan-950 text-accentCyan text-xs font-semibold rounded-full border border-cyan-800/50">Комфорт</span>
-                            </div>
+                            <h3 class="text-xl font-bold text-white mb-3">3-х місний номер</h3>
 
-                            <p class="text-gray-300 text-sm mb-6 leading-relaxed">Просторний та зручний номер для невеликої родини або компанії з трьох осіб.</p>
+                            <p class="text-gray-300 text-sm mb-4">Просторний та зручний номер для невеликої родини або компанії з трьох осіб.</p>
                             
-                            <div class="grid grid-cols-2 gap-2.5 mb-8 text-xs text-gray-300">
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-user-group text-accentCyan mr-2"></i><span>3 особи</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-snowflake text-accentCyan mr-2"></i><span>Кондиціонер</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-bed text-accentCyan mr-2"></i><span>Зручні спальні місця</span></div>
-                                <div class="flex items-center bg-darkBg/50 p-2.5 rounded-xl border border-gray-800/60"><i class="fa-solid fa-wifi text-accentCyan mr-2"></i><span>Швидкий Wi-Fi</span></div>
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 3 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Комбіновані зручні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Надійний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-3.5 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
                         </a>
                     </div>
                 </div>
@@ -486,13 +479,13 @@
         </div>
     </section>
 
-    <!-- ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ НА 2 МЕСЯЦА С СТРЕЛКАМИ ВЛЕВО/ВПРАВО -->
+    <!-- ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ СО СТРЕЛКАМИ (КАК ВЫ ПРОСИЛИ) -->
     <section id="calculator" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
         <div class="max-w-4xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-10">
                 <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Дізнатися вартість</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Розрахунок суми за датами</h2>
-                <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на рядок нижче, щоб відкрити двомісячний календар.</p>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Виберіть дати у календарі</h2>
+                <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар з цінами за кожен день.</p>
             </div>
 
             <div class="bg-cardBg border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
@@ -501,14 +494,14 @@
                 <div>
                     <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
                     <select id="calcRoomType" class="w-full bg-darkBg border border-gray-700 rounded-2xl px-4 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all">
-                        <option value="800">2-х місний номер (від 800₴)</option>
-                        <option value="1050">3-х місний номер (від 1050₴)</option>
-                        <option value="1400">4-х місний номер (від 1400₴)</option>
-                        <option value="1500">Номер «Люкс» (від 1500₴)</option>
+                        <option value="800">2-х місний номер (Пн–Чт: 800₴ | Пт–Нд: 1000₴)</option>
+                        <option value="1050">3-х місний номер (Пн–Чт: 1050₴ | Пт–Нд: 1250₴)</option>
+                        <option value="1400">4-х місний номер (Пн–Чт: 1400₴ | Пт–Нд: 1600₴)</option>
+                        <option value="1500">Номер «Люкс» (Пн–Чт: 1500₴ | Пт–Нд: 1700₴)</option>
                     </select>
                 </div>
 
-                <!-- Кнопка смены дат -->
+                <!-- Кнопка-плашка для развертывания календаря -->
                 <div>
                     <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
                         <div class="flex items-center space-x-3 w-full">
@@ -523,7 +516,7 @@
                     </button>
                 </div>
 
-                <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем и стрелками переключения -->
+                <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем -->
                 <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 sm:p-6 rounded-2xl shadow-xl transition-all">
                     <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
                         <div class="flex items-center space-x-3">
@@ -538,7 +531,6 @@
                         <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40">Скинути дати</button>
                     </div>
 
-                    <!-- Два месяца рядом -->
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <!-- Месяц 1 -->
                         <div>
@@ -1024,7 +1016,7 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ СО СТРЕЛКАМИ
+        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ СО СТРЕЛКАМИ (КАК БЫЛО)
         document.addEventListener('DOMContentLoaded', () => {
             const roomSelect = document.getElementById('calcRoomType');
             const toggleBtn = document.getElementById('toggleCalendarBtn');
@@ -1046,7 +1038,7 @@
             let startDate = null;
             let endDate = null;
 
-            let currentPointer = new Date(); // Указатель на первый из двух видимых месяцев
+            let currentPointer = new Date();
             const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
 
             toggleBtn.addEventListener('click', () => {
