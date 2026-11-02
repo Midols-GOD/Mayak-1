@@ -53,6 +53,38 @@
             border: 1px solid rgba(6, 182, 212, 0.25);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.1);
         }
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            user-select: none;
+        }
+        .cal-day:hover {
+            background-color: rgba(6, 182, 212, 0.2);
+            color: #fff;
+        }
+        .cal-day.selected {
+            background-color: #06b6d4;
+            color: #090d16;
+            font-weight: bold;
+        }
+        .cal-day.in-range {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+        }
+        .cal-day.disabled {
+            color: #4b5563;
+            cursor: not-allowed;
+        }
+        .cal-day.disabled:hover {
+            background-color: transparent;
+            color: #4b5563;
+        }
     </style>
 </head>
 <body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden pb-20 sm:pb-0">
@@ -82,7 +114,7 @@
                 <a href="#about" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
                 <a href="#rooms" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
                 <a href="#promotions" class="text-priceYellow font-semibold hover:opacity-80 transition-opacity" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
-                <a href="#booking" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="booking">Бронювання</a>
+                <a href="#calculator" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="calculator">Розрахунок ціни</a>
                 <a href="#services" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="services">Послуги</a>
                 <a href="#advantages" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
                 <a href="#faq" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="faq">FAQ</a>
@@ -107,7 +139,7 @@
             <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="about">Про нас</a>
             <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="rooms">Номери</a>
             <a href="#promotions" class="mobile-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
-            <a href="#booking" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="booking">Бронювання</a>
+            <a href="#calculator" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="calculator">Розрахунок ціни</a>
             <a href="#services" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="services">Послуги</a>
             <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="advantages">Переваги</a>
             <a href="#faq" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="faq">FAQ (Питання)</a>
@@ -262,8 +294,8 @@
                             </div>
                         </div>
 
-                        <a href="#booking" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати номер «Люкс»
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
                         </a>
                     </div>
                 </div>
@@ -312,8 +344,8 @@
                             </div>
                         </div>
 
-                        <a href="#booking" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати 4-х місний номер
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
                         </a>
                     </div>
                 </div>
@@ -362,8 +394,8 @@
                             </div>
                         </div>
 
-                        <a href="#booking" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати 2-х місний номер
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
                         </a>
                     </div>
                 </div>
@@ -412,8 +444,8 @@
                             </div>
                         </div>
 
-                        <a href="#booking" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            Забронювати 3-х місний номер
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити
                         </a>
                     </div>
                 </div>
@@ -470,77 +502,90 @@
                         </ul>
                     </div>
 
-                    <a href="#booking" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                        <i class="fa-solid fa-calendar-days mr-2"></i>Перейти до бронювання
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Зателефонувати для замовлення
                     </a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ИНТЕГРИРОВАННЫЙ КАЛЕНДАРЬ-КАЛЬКУЛЯТОР БРОНИРОВАНИЯ -->
-    <section id="booking" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
+    <!-- КАЛЬКУЛЯТОР-КАЛЕНДАРЬ ПО ДНЯМ (КАК НА SKRINSHOT) ДЛЯ УЗНАНИЯ ЦЕНЫ -->
+    <section id="calculator" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
         <div class="max-w-4xl mx-auto w-full">
-            <div class="text-center max-w-2xl mx-auto mb-16">
-                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Онлайн-сервіс</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Календар бронювання та розрахунок вартості</h2>
-                <p class="text-gray-400">Оберіть категорію номера та дати заїзду/виїзду — система розрахує вартість проживання.</p>
+            <div class="text-center max-w-2xl mx-auto mb-12">
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Калькулятор вартості</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-3">Розрахуйте вартість вашого відпочинку</h2>
+                <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на дати заїзду та виїзду у календарній сітці, щоб дізнатися точну суму.</p>
             </div>
 
-            <div class="bg-cardBg border border-gray-800 rounded-3xl p-6 sm:p-10 shadow-2xl">
-                <form id="bookingForm" class="space-y-6">
-                    
+            <div class="bg-cardBg border border-gray-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6">
+                
+                <!-- Выбор категории номера -->
+                <div>
+                    <label class="block text-sm font-bold text-gray-300 mb-2">Оберіть категорію номера:</label>
+                    <select id="calcRoomType" class="w-full bg-darkBg border border-gray-700 rounded-2xl px-4 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all">
+                        <option value="800">2-х місний номер (Пн–Чт) — 800 грн / ніч</option>
+                        <option value="1000">2-х місний номер (Пт–Нд) — 1 000 грн / ніч</option>
+                        <option value="1050">3-х місний номер (Пн–Чт) — 1 050 грн / ніч</option>
+                        <option value="1250">3-х місний номер (Пт–Нд) — 1 250 грн / ніч</option>
+                        <option value="1400">4-х місний номер (Пн–Чт) — 1 400 грн / ніч</option>
+                        <option value="1600">4-х місний номер (Пт–Нд) — 1 600 грн / ніч</option>
+                        <option value="1500">Номер «Люкс» (Пн–Чт) — 1 500 грн / ніч</option>
+                        <option value="1700">Номер «Люкс» (Пт–Нд) — 1 700 грн / ніч</option>
+                    </select>
+                </div>
+
+                <!-- Блок инфо о выбранных датах -->
+                <div class="flex flex-col sm:flex-row items-center justify-between bg-darkBg/80 border border-gray-800 rounded-2xl p-4 gap-4">
+                    <div class="text-sm text-gray-300">
+                        <i class="fa-regular fa-calendar-days text-accentCyan mr-2"></i>
+                        <span>Обраний період: <strong id="selectedDatesText" class="text-white">не обрано (натисніть на дні в календарі нижче)</strong></span>
+                    </div>
+                    <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline px-3 py-1 bg-cyan-950/60 rounded-lg border border-cyan-800/40">Схробити вибір</button>
+                </div>
+
+                <!-- Двухмесячный календарь -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 bg-darkBg/40 border border-gray-800 p-4 sm:p-6 rounded-2xl">
+                    <!-- Месяц 1 -->
                     <div>
-                        <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера</label>
-                        <select id="roomType" class="w-full bg-darkBg border border-gray-700 rounded-2xl px-4 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all">
-                            <option value="800">2-х місний номер (Пн–Чт) — 800 грн / ніч</option>
-                            <option value="1000">2-х місний номер (Пт–Нд) — 1 000 грн / ніч</option>
-                            <option value="1050">3-х місний номер (Пн–Чт) — 1 050 грн / ніч</option>
-                            <option value="1250">3-х місний номер (Пт–Нд) — 1 250 грн / ніч</option>
-                            <option value="1400">4-х місний номер (Пн–Чт) — 1 400 грн / ніч</option>
-                            <option value="1600">4-х місний номер (Пт–Нд) — 1 600 грн / ніч</option>
-                            <option value="1500">Номер «Люкс» (Пн–Чт) — 1 500 грн / ніч</option>
-                            <option value="1700">Номер «Люкс» (Пт–Нд) — 1 700 грн / ніч</option>
-                        </select>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="month1Name" class="font-bold text-white text-base">Листопад 2026</h3>
+                        </div>
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                        </div>
+                        <div id="month1Grid" class="grid grid-cols-7 gap-1"></div>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div>
-                            <label class="block text-sm font-bold text-gray-300 mb-2"><i class="fa-regular fa-calendar-days text-accentCyan mr-1.5"></i> Дата заїзду</label>
-                            <input type="date" id="checkInDate" required class="w-full bg-darkBg border border-gray-700 rounded-2xl px-4 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all">
+                    <!-- Месяц 2 -->
+                    <div>
+                        <div class="flex justify-between items-center mb-4">
+                            <h3 id="month2Name" class="font-bold text-white text-base">Грудень 2026</h3>
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold text-gray-300 mb-2"><i class="fa-regular fa-calendar-days text-accentCyan mr-1.5"></i> Дата виїзду</label>
-                            <input type="date" id="checkOutDate" required class="w-full bg-darkBg border border-gray-700 rounded-2xl px-4 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all">
+                        <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
                         </div>
+                        <div id="month2Grid" class="grid grid-cols-7 gap-1"></div>
                     </div>
+                </div>
 
-                    <div class="bg-darkBg/60 border border-cyan-500/30 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-                        <div>
-                            <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Тривалість проживання:</p>
-                            <p id="nightsCount" class="text-lg font-bold text-white">0 ночей</p>
-                        </div>
-                        <div class="text-center sm:text-right">
-                            <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Загальна вартість:</p>
-                            <p id="totalPrice" class="text-3xl font-black text-accentCyan">0 ₴</p>
-                        </div>
+                <!-- Итог расчёта и кнопка ПОЗВОНИТЬ -->
+                <div class="bg-darkBg border border-cyan-500/40 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-inner">
+                    <div>
+                        <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Тривалість:</p>
+                        <p id="calcNightsCount" class="text-lg font-bold text-white">0 ночей</p>
                     </div>
-
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-300 mb-1">Ваше ім'я</label>
-                            <input type="text" placeholder="Введіть ваше ім'я" required class="w-full bg-darkBg border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accentCyan">
-                        </div>
-                        <div>
-                            <label class="block text-xs font-bold text-gray-300 mb-1">Номер телефону</label>
-                            <input type="tel" placeholder="+380 XX XXX XX XX" required class="w-full bg-darkBg border border-gray-700 rounded-xl px-4 py-2.5 text-sm text-white focus:outline-none focus:ring-2 focus:ring-accentCyan">
-                        </div>
+                    <div class="text-center sm:text-right">
+                        <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Загальна вартість:</p>
+                        <p id="calcTotalPrice" class="text-3xl font-black text-accentCyan">0 ₴</p>
                     </div>
+                    <div>
+                        <a href="tel:+380935754668" class="inline-flex items-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all whitespace-nowrap">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити
+                        </a>
+                    </div>
+                </div>
 
-                    <button type="submit" class="w-full py-4 bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold rounded-2xl shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all">
-                        Підтвердити бронювання
-                    </button>
-                </form>
             </div>
         </div>
     </section>
@@ -792,7 +837,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Зв'яжіться з нами</h2>
-                <p class="text-gray-300 mb-8">Готові забронювати відпочинок або є запитання? Телефонуйте нам у будь-який час!</p>
+                <p class="text-gray-300 mb-8">Готові уточнити деталі або є запитання щодо ціни? Телефонуйте нам у будь-який час!</p>
                 <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-12">
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
                 </a>
@@ -812,7 +857,7 @@
         </div>
     </section>
 
-    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ЦЕН И БРОНИРОВАНИЯ -->
+    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ЦЕН И ТЕЛЕФОНА ВНИЗУ -->
     <div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl">
         <div class="flex items-center justify-between max-w-4xl mx-auto">
             <div>
@@ -823,8 +868,8 @@
                 <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
                     <i class="fa-solid fa-gift mr-1.5"></i> Спецпропозиції
                 </a>
-                <a href="#booking" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
-                    <i class="fa-solid fa-calendar-days mr-1.5"></i> Забронювати
+                <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
+                    <i class="fa-solid fa-phone mr-1.5"></i> Позвнити
                 </a>
             </div>
         </div>
@@ -854,7 +899,7 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ СЛАЙДЕРОВ, ИНТЕРАКТИВА И КАЛЬКУЛЯТОРА БРОНИРОВАНИЯ -->
+    <!-- СКРИПТЫ СЛАЙДЕРОВ, ИНТЕРАКТИВА И КАЛЕНДАРЯ ПО ДНЯМ -->
     <script>
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
@@ -1015,60 +1060,12 @@
             }
         });
 
-        // Логика калькулятора-календаря бронювання
+        // ИНТЕРАКТИВНЫЙ КАЛЕНДАРЬ ПО ДНЯМ ДЛЯ РАСЧЕТА ЦЕНЫ
         document.addEventListener('DOMContentLoaded', () => {
-            const roomSelect = document.getElementById('roomType');
-            const checkInInput = document.getElementById('checkInDate');
-            const checkOutInput = document.getElementById('checkOutDate');
-            const nightsDisplay = document.getElementById('nightsCount');
-            const priceDisplay = document.getElementById('totalPrice');
-            const form = document.getElementById('bookingForm');
+            const roomSelect = document.getElementById('calcRoomType');
+            const datesText = document.getElementById('selectedDatesText');
+            const nightsDisplay = document.getElementById('calcNightsCount');
+            const priceDisplay = document.getElementById('calcTotalPrice');
+            const resetBtn = document.getElementById('resetDatesBtn');
 
-            const today = new Date().toISOString().split('T')[0];
-            checkInInput.min = today;
-            checkOutInput.min = today;
-
-            function calculatePrice() {
-                const pricePerNight = parseInt(roomSelect.value);
-                const checkIn = new Date(checkInInput.value);
-                const checkOut = new Date(checkOutInput.value);
-
-                if (checkInInput.value && checkOutInput.value && checkOut > checkIn) {
-                    const diffTime = Math.abs(checkOut - checkIn);
-                    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-                    const total = diffDays * pricePerNight;
-
-                    nightsDisplay.textContent = `${diffDays} ${declOfNum(diffDays, ['ніч', 'ночі', 'ночей'])}`;
-                    priceDisplay.textContent = `${total.toLocaleString()} ₴`;
-                } else {
-                    nightsDisplay.textContent = '0 ночей';
-                    priceDisplay.textContent = '0 ₴';
-                }
-            }
-
-            function declOfNum(number, titles) {
-                const cases = [2, 0, 1, 1, 1, 2];
-                return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
-            }
-
-            roomSelect.addEventListener('change', calculatePrice);
-            checkInInput.addEventListener('change', () => {
-                checkOutInput.min = checkInInput.value;
-                calculatePrice();
-            });
-            checkOutInput.addEventListener('change', calculatePrice);
-
-            form.addEventListener('submit', (e) => {
-                e.preventDefault();
-                const nights = nightsDisplay.textContent;
-                const total = priceDisplay.textContent;
-                if (nights === '0 ночей') {
-                    alert('Будь ласка, оберіть коректні дати заїзду та виїзду.');
-                    return;
-                }
-                alert(`Дякуємо! Ваше бронювання на ${nights} на суму ${total} успішно сформовано. Ми зв'яжемося з вами найближчим часом.`);
-            });
-        });
-    </script>
-</body>
-</html>
+            const month1Grid = document.getElementById('month1Grid');
