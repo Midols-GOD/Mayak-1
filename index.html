@@ -117,8 +117,8 @@
             <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
                 <a href="#about" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
                 <a href="#rooms" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
-                <a href="#promotions" class="text-priceYellow font-semibold hover:opacity-80 transition-opacity" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
                 <a href="#calculator" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="calculator">Ціни та дати</a>
+                <a href="#promotions" class="text-priceYellow font-semibold hover:opacity-80 transition-opacity" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
                 <a href="#services" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="services">Послуги</a>
                 <a href="#advantages" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
                 <a href="#faq" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="faq">FAQ</a>
@@ -142,8 +142,8 @@
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
             <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="about">Про нас</a>
             <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="rooms">Номери</a>
-            <a href="#promotions" class="mobile-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
             <a href="#calculator" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="calculator">Ціни та дати</a>
+            <a href="#promotions" class="mobile-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
             <a href="#services" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="services">Послуги</a>
             <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="advantages">Переваги</a>
             <a href="#faq" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="faq">FAQ (Питання)</a>
@@ -412,57 +412,21 @@
         </div>
     </section>
 
-    <!-- ЕДИНЫЙ БЛОК: СПЕЦПРЕДЛОЖЕНИЯ + КАЛЕНДАРЬ И РАСЧЕТ СТОИМОСТИ -->
+    <!-- ЕДИНЫЙ БЛОК: СНАЧАЛА КАЛЕНДАРЬ, ЗАТЕМ АКЦИЯ -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-4xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
-                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Вигідні умови та бронювання</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Спеціальні пропозиції та розрахунок дат</h2>
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та вигідні умови</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Розрахунок дат та спеціальні пропозиції</h2>
             </div>
 
             <div class="bg-cardBg rounded-3xl p-6 sm:p-10 border border-accentCyan/30 shadow-2xl relative overflow-hidden space-y-10">
                 <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
-                    Акція та Календар
+                    Календар та Акція
                 </div>
 
-                <!-- Подблок акции -->
-                <div>
-                    <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
-                        <i class="fa-solid fa-utensils"></i>
-                    </div>
-                    <h3 class="text-2xl font-bold text-white mb-3">🍽️ Спеціальна пропозиція на харчування (від 4 днів)</h3>
-                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">
-                        Плануєте відпочинок від 4 днів і довше? Замовляйте повний комплекс домашнього харчування у нашому кафе на весь період перебування та заощаджуйте!
-                    </p>
-                    
-                    <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
-                        <div class="flex justify-between items-center text-sm text-gray-300">
-                            <span>Сніданок + Обід + Вечеря (окремо):</span>
-                            <span class="line-through text-gray-500">600 ₴ / день</span>
-                        </div>
-                        <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
-                            <span class="text-accentCyan">Ціна за комплексом:</span>
-                            <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
-                        </div>
-                        <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
-                            *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при замовленні від 4 днів і до кінця виїзду.
-                        </div>
-                    </div>
-
-                    <ul class="space-y-3 text-sm text-gray-300 border-t border-gray-800 pt-5">
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                            <span><strong>Діє від 4 днів:</strong> Умова автоматично застосовується для всіх гостей, які замовляють комплексне харчування від 4 діб і до самого від'їзду.</span>
-                        </li>
-                        <li class="flex items-start">
-                            <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                            <span>Свіжі домашні страви щодня у просторому кафе на території бази.</span>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Разделитель -->
-                <div id="calculator" class="border-t border-gray-800/80 pt-8">
+                <!-- Подблок 1: КАЛЕНДАРЬ СНАЧАЛА -->
+                <div id="calculator">
                     <div class="text-center max-w-xl mx-auto mb-8">
                         <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати у календарі</h3>
                         <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар.</p>
@@ -545,6 +509,46 @@
                             </a>
                         </div>
                     </div>
+                </div>
+
+                <!-- Подблок 2: АКЦИЯ ПОСЛЕ КАЛЕНДАРЯ -->
+                <div class="border-t border-gray-800/80 pt-8">
+                    <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-2xl font-bold text-white mb-3">🍽️ Спеціальна пропозиція на харчування (від 4 днів)</h3>
+                    <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                        Плануєте відпочинок від 4 днів і довше? Замовляйте повний комплекс домашнього харчування у нашому кафе на весь період перебування та заощаджуйте!
+                    </p>
+                    
+                    <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
+                        <div class="flex justify-between items-center text-sm text-gray-300">
+                            <span>Сніданок + Обід + Вечеря (окремо):</span>
+                            <span class="line-through text-gray-500">600 ₴ / день</span>
+                        </div>
+                        <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
+                            <span class="text-accentCyan">Ціна за комплексом:</span>
+                            <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                        </div>
+                        <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
+                            *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при замовленні від 4 днів і до кінця виїзду.
+                        </div>
+                    </div>
+
+                    <ul class="space-y-3 text-sm text-gray-300 border-t border-gray-800 pt-5 mb-8">
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                            <span><strong>Діє від 4 днів:</strong> Умова автоматично застосовується для всіх гостей, які замовляють комплексне харчування від 4 діб і до самого від'їзду.</span>
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                            <span>Свіжі домашні страви щодня у просторому кафе на території бази.</span>
+                        </li>
+                    </ul>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Зателефонувати для замовлення
+                    </a>
                 </div>
 
             </div>
@@ -793,7 +797,7 @@
         </div>
     </section>
 
-    <!-- КОНТАКТИ (С ОБНОВЛЕННЫМИ КООРДИНАТАМИ И ПРИПИСКОЙ) -->
+    <!-- КОНТАКТИ -->
     <section id="contacts" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
         <div class="max-w-5xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
