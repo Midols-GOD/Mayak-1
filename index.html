@@ -7,7 +7,6 @@
       window.dataLayer = window.dataLayer || [];
       function gtag(){dataLayer.push(arguments);}
       gtag('js', new Date());
-
       gtag('config', 'G-79MRZ0C366');
     </script>
     <meta charset="UTF-8">
@@ -39,6 +38,9 @@
     </script>
     <!-- FontAwesome для іконок -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Supabase JS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
     <style>
         img {
             image-rendering: auto;
@@ -126,10 +128,6 @@
                 <a href="#contacts" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="contacts">Контакти</a>
             </nav>
 
-            <div class="hidden md:flex items-center">
-                <!-- Пусто в десктопной шапке -->
-            </div>
-
             <div class="md:hidden flex items-center">
                 <button id="menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
                     <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
@@ -153,7 +151,7 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (Скрыт на мобильных) -->
+    <!-- ГОЛОВНИЙ ЕКРАН -->
     <section id="home" class="hidden sm:flex relative min-h-screen items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
         <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
@@ -290,7 +288,7 @@
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                            <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
                         </a>
                     </div>
                 </div>
@@ -335,7 +333,7 @@
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                            <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
                         </a>
                     </div>
                 </div>
@@ -380,7 +378,7 @@
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                            <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
                         </a>
                     </div>
                 </div>
@@ -425,7 +423,7 @@
                         </div>
 
                         <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                            <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
                         </a>
                     </div>
                 </div>
@@ -434,7 +432,7 @@
         </div>
     </section>
 
-    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ -->
+    <!-- КАЛЕНДАРЬ И АКЦИЯ -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
@@ -444,7 +442,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-                <!-- 1. КАРТОЧКА КАЛЕНДАРЯ И БРОНИРОВАНИЯ (СЛЕВА) -->
+                <!-- 1. КАЛЕНДАРЬ И БРОНИРОВАНИЕ (СЛЕВА) -->
                 <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Календар і бронь
@@ -489,7 +487,7 @@
                             </button>
                         </div>
 
-                        <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем -->
+                        <!-- Выдвижной блок с календарем -->
                         <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
                             <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
                                 <div class="flex items-center space-x-3">
@@ -505,7 +503,6 @@
                             </div>
 
                             <div class="grid grid-cols-1 gap-6">
-                                <!-- Месяц 1 -->
                                 <div>
                                     <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
                                     <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
@@ -513,7 +510,6 @@
                                     </div>
                                     <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
                                 </div>
-                                <!-- Месяц 2 -->
                                 <div class="border-t border-gray-800 pt-4">
                                     <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
                                     <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
@@ -544,7 +540,7 @@
                             </div>
                         </div>
 
-                        <!-- Форма для клиента (Имя и Телефон) -->
+                        <!-- Форма для клиента -->
                         <div class="space-y-3">
                             <div>
                                 <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Ваше Ім'я та Прізвище *</label>
@@ -923,8 +919,13 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ -->
+    <!-- СКРИПТЫ И ИНТЕГРАЦИЯ С SUPABASE -->
     <script>
+        // Инициализация Supabase
+        const SUPABASE_URL = 'https://ayemtrpizbzfpylzefhh.supabase.co';
+        const SUPABASE_ANON_KEY = 'sb_publishable_QPxXpSn4wzYoaQFBUTepyw_xUO-k0Re';
+        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -1245,7 +1246,8 @@
                 renderCalendars();
             });
 
-            window.submitBooking = function() {
+            // Функция отправки бронирования в Supabase
+            window.submitBooking = async function() {
                 if (!startDate || !endDate) {
                     alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
                     return;
@@ -1255,7 +1257,67 @@
                     return;
                 }
 
-                alert(`Дякуємо, ${guestNameInput.value}! Бронювання прийнято. Переходимо до оплати передоплати за 1 день.`);
+                // Получаем текстовое название выбранного номера
+                const selectedOptionText = roomSelect.options[roomSelect.selectedIndex].text;
+                
+                // Рассчитываем итоговые суммы заново для отправки
+                const basePrice = parseInt(roomSelect.value);
+                let totalSum = 0;
+                let curr = new Date(startDate);
+                let firstDayPrice = getDayPrice(curr, basePrice);
+
+                while (curr < endDate) {
+                    totalSum += getDayPrice(curr, basePrice);
+                    curr.setDate(curr.getDate() + 1);
+                }
+
+                // Форматируем даты в строку формата YYYY-MM-DD для базы данных
+                const formatDateStr = (d) => {
+                    const year = d.getFullYear();
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                };
+
+                const bookingPayload = {
+                    room_type: selectedOptionText,
+                    start_date: formatDateStr(startDate),
+                    end_date: formatDateStr(endDate),
+                    guest_name: guestNameInput.value.trim(),
+                    guest_phone: guestPhoneInput.value.trim(),
+                    total_price: totalSum,
+                    prepay_price: firstDayPrice,
+                    status: 'new'
+                };
+
+                bookNowBtn.disabled = true;
+                bookNowBtn.textContent = 'Зберігаємо бронювання...';
+
+                try {
+                    const { data, error } = await supabase
+                        .from('bookings')
+                        .insert([bookingPayload]);
+
+                    if (error) {
+                        console.error('Помилка Supabase:', error.message);
+                        alert('Сталася помилка при збереженні броні. Спробуйте ще раз.');
+                    } else {
+                        alert(`Дякуємо, ${guestNameInput.value}! Ваше бронювання успішно збережено в базі даних.`);
+                        // Очищаем форму
+                        startDate = null;
+                        endDate = null;
+                        guestNameInput.value = '';
+                        guestPhoneInput.value = '';
+                        updateCalculation();
+                        renderCalendars();
+                    }
+                } catch (err) {
+                    console.error('Помилка мережі:', err);
+                    alert('Помилка з'єднання з базою даних.');
+                } finally {
+                    bookNowBtn.disabled = false;
+                    bookNowBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-2"></i>Забронювати та перейти до оплати';
+                }
             }
 
             renderCalendars();
