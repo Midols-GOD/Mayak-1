@@ -412,12 +412,12 @@
         </div>
     </section>
 
-    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ (ОДИНАКОВАЯ БАЗОВАЯ ВЫСОТА) -->
+    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ (ОДИНАКОВЫЙ РАЗМЕР В ЗАКРЫТОМ ВИДЕ) -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
                 <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та вигідні умови</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Розрахунок дат та спеціальні пропозиції</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Календар та пропозиція</h2>
             </div>
 
             <!-- Сетка с выравниванием по верху (items-start) -->
@@ -434,7 +434,7 @@
                             <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар.</p>
                         </div>
 
-                        <!-- Выбор категории номера (с иконкой и единым стилем кнопки) -->
+                        <!-- Выбор категории номера (абсолютно одинаковый цвет и стиль с кнопкой календаря) -->
                         <div class="mb-6">
                             <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
                             <div class="relative">
@@ -453,7 +453,7 @@
                             </div>
                         </div>
 
-                        <!-- Кнопка-плашка для развертывания календаря (абсолютно идентичный дизайн) -->
+                        <!-- Кнопка-плашка для развертывания календаря -->
                         <div class="mb-6">
                             <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
                                 <div class="flex items-center space-x-3 w-full">
@@ -522,7 +522,7 @@
                     </div>
                 </div>
 
-                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) — одинаковая высота h-full -->
+                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Акція
@@ -823,13 +823,14 @@
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
                 </a>
                 <p class="text-xs text-accentCyan font-medium">
-                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація бази відпочинку «Маяк» на узбережжі
+                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація нашої бази відпочинку «Маяк»
                 </p>
             </div>
 
+            <!-- Карта с фокусом максимально близко на базу Маяк (z=19) -->
             <div class="rounded-2xl overflow-hidden border border-gray-800 shadow-2xl h-96 w-full photo-frame">
                 <iframe 
-                    src="https://maps.google.com/maps?q=45.53215723968708,29.646525527810656&z=17&output=embed" 
+                    src="https://maps.google.com/maps?q=45.53215723968708,29.646525527810656&z=19&output=embed" 
                     width="100%" 
                     height="100%" 
                     style="border:0;" 
