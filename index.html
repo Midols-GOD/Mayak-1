@@ -423,104 +423,91 @@
             <!-- Сетка с выравниванием по верху (items-start) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
-                <!-- 1. КАРТОЧКА КАЛЕНДАРЯ (СЛЕВА) -->
-                <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
-                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
-                        Календар
-                    </div>
-                    <div>
-                        <div class="text-center max-w-xl mx-auto mb-6">
-                            <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати у календарі</h3>
-                            <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар.</p>
-                        </div>
+               <!-- КАРТОЧКА КАЛЕНДАРЯ С ФОРМОЙ БРОНИРОВАНИЯ -->
+<div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
+    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+        Календар
+    </div>
+    <div>
+        <div class="text-center max-w-xl mx-auto mb-6">
+            <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати у календарі</h3>
+            <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар.</p>
+        </div>
 
-                        <!-- Выбор категории номера (абсолютно одинаковый цвет и стиль с кнопкой календаря) -->
-                        <div class="mb-6">
-                            <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-accentCyan">
-                                    <i class="fa-solid fa-door-open"></i>
-                                </div>
-                                <select id="calcRoomType" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl pl-11 pr-10 py-4 text-white font-bold text-base sm:text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer shadow-md">
-                                    <option value="800">2-х місний номер</option>
-                                    <option value="1050">3-х місний номер</option>
-                                    <option value="1400">4-х місний номер</option>
-                                    <option value="1500">Номер «Люкс»</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-accentCyan">
-                                    <i class="fa-solid fa-chevron-down text-lg"></i>
-                                </div>
-                            </div>
-                        </div>
+        <!-- Выбор категории номера -->
+        <div class="mb-6">
+            <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
+            <div class="relative">
+                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-accentCyan">
+                    <i class="fa-solid fa-door-open"></i>
+                </div>
+                <select id="calcRoomType" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl pl-11 pr-10 py-4 text-white font-bold text-base sm:text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer shadow-md">
+                    <option value="800">2-х місний номер (800 ₴)</option>
+                    <option value="1050">3-х місний номер (1050 ₴)</option>
+                    <option value="1400">4-х місний номер (1400 ₴)</option>
+                    <option value="1500">Номер «Люкс» (1500 ₴)</option>
+                </select>
+                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-accentCyan">
+                    <i class="fa-solid fa-chevron-down text-lg"></i>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Кнопка-плашка для развертывания календаря -->
-                        <div class="mb-6">
-                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
-                                <div class="flex items-center space-x-3 w-full">
-                                    <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
-                                    <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
-                                        Оберіть період заїзду та виїзду
-                                    </div>
-                                </div>
-                                <div class="text-accentCyan flex-shrink-0 ml-3">
-                                    <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform"></i>
-                                </div>
-                            </button>
-                        </div>
-
-                        <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем -->
-                        <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
-                            <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
-                                <div class="flex items-center space-x-3">
-                                    <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
-                                        <i class="fa-solid fa-chevron-left"></i>
-                                    </button>
-                                    <span class="text-xs sm:text-sm text-gray-400 uppercase tracking-wider font-semibold">Оберіть заїзд та виїзд</span>
-                                    <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
-                                        <i class="fa-solid fa-chevron-right"></i>
-                                    </button>
-                                </div>
-                                <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40">Скинути дати</button>
-                            </div>
-
-                            <div class="grid grid-cols-1 gap-6">
-                                <!-- Месяц 1 -->
-                                <div>
-                                    <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
-                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
-                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
-                                    </div>
-                                    <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
-                                </div>
-                                <!-- Месяц 2 -->
-                                <div class="border-t border-gray-800 pt-4">
-                                    <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
-                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
-                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
-                                    </div>
-                                    <div id="month2Grid" class="grid grid-cols-7 gap-1.5"></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Итог расчета и кнопка ПОЗВОНИТЬ -->
-                    <div class="bg-darkBg border border-cyan-500/40 rounded-2xl p-6 flex flex-col sm:flex-row items-center justify-between gap-6 shadow-inner mt-4">
-                        <div>
-                            <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Тривалість:</p>
-                            <p id="calcNightsCount" class="text-lg font-bold text-white">0 ночей</p>
-                        </div>
-                        <div class="text-center sm:text-right">
-                            <p class="text-xs text-gray-400 font-medium uppercase tracking-wider">Загальна вартість:</p>
-                            <p id="calcTotalPrice" class="text-3xl font-black text-accentCyan">0 ₴</p>
-                        </div>
-                        <div>
-                            <a href="tel:+380935754668" class="inline-flex items-center px-6 py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all whitespace-nowrap">
-                                <i class="fa-solid fa-phone mr-2"></i>Позвнити
-                            </a>
-                        </div>
+        <!-- Плашка развертывания календаря -->
+        <div class="mb-6">
+            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
+                <div class="flex items-center space-x-3 w-full">
+                    <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
+                    <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
+                        Оберіть період заїзду та виїзду
                     </div>
                 </div>
+                <div class="text-accentCyan flex-shrink-0 ml-3">
+                    <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform"></i>
+                </div>
+            </button>
+        </div>
+
+        <!-- Календарь -->
+        <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
+            <!-- (здесь сетка календаря) -->
+        </div>
+
+        <!-- Итог расчета -->
+        <div class="bg-darkBg border border-cyan-500/40 rounded-2xl p-5 mb-6 shadow-inner">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 text-center sm:text-left items-center">
+                <div>
+                    <p class="text-xs text-gray-400 uppercase font-medium">Тривалість:</p>
+                    <p id="calcNightsCount" class="text-base sm:text-lg font-bold text-white">0 ночей</p>
+                </div>
+                <div>
+                    <p class="text-xs text-gray-400 uppercase font-medium">Передоплата (1 день):</p>
+                    <p id="calcPrepayPrice" class="text-base sm:text-lg font-bold text-priceYellow">0 ₴</p>
+                </div>
+                <div class="col-span-2 sm:col-span-1 text-center sm:text-right">
+                    <p class="text-xs text-gray-400 uppercase font-medium">Загальна вартість:</p>
+                    <p id="calcTotalPrice" class="text-2xl sm:text-3xl font-black text-accentCyan">0 ₴</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Форма данных гостя (открывается после выбора дат) -->
+        <form id="bookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-4">
+            <div>
+                <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Ваше Ім'я та Прізвище *</label>
+                <input type="text" id="guestName" required placeholder="Олександр Іванов" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none transition-all text-sm">
+            </div>
+            <div>
+                <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Номер телефону (Viber / Telegram) *</label>
+                <input type="tel" id="guestPhone" required placeholder="+38 (093) 000-00-00" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none transition-all text-sm">
+            </div>
+
+            <button type="submit" id="payButton" disabled class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all disabled:opacity-40 disabled:cursor-not-allowed">
+                <i class="fa-solid fa-credit-card mr-2"></i>Сплатити передоплату та забронювати
+            </button>
+        </form>
+    </div>
+</div>
 
                 <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
