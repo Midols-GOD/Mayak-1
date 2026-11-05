@@ -55,10 +55,42 @@
             border: 1px solid rgba(6, 182, 212, 0.25);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.1);
         }
-        /* Кастомізація інпутів дати для темної теми */
-        input[type="date"]::-webkit-calendar-picker-indicator {
-            filter: invert(1);
+        .cal-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            user-select: none;
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2px;
+        }
+        .cal-day-cell:hover:not(.disabled) {
+            background-color: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+        .cal-day-cell.selected {
+            background-color: #06b6d4 !important;
+            color: #090d16 !important;
+            font-weight: bold;
+            border-color: #06b6d4;
+        }
+        .cal-day-cell.in-range {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+        .cal-day-cell.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .day-num {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1;
         }
     </style>
 </head>
@@ -418,7 +450,7 @@
                     <div>
                         <div class="text-center max-w-xl mx-auto mb-6">
                             <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати та забронюйте</h3>
-                            <p class="text-gray-400 text-sm">Оберіть категорію номера, дати заїзду/виїзду та заповніть дані для броні.</p>
+                            <p class="text-gray-400 text-sm">Оберіть категорію номера, натисніть на кнопку вибору дат та заповніть дані для броні.</p>
                         </div>
 
                         <!-- Выбор категории номера -->
@@ -440,18 +472,50 @@
                             </div>
                         </div>
 
-                        <!-- НАДЕЖНЫЙ ВЫБОР ДАТ ЧЕРЕЗ НАТИВНЫЕ ИНПУТЫ -->
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Дата заїзду *</label>
-                                <div class="relative">
-                                    <input type="date" id="startDateInput" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-xl px-4 py-3.5 text-white font-bold focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all text-sm cursor-pointer">
+                        <!-- КНОПКА-ПЛАШКА ДЛЯ РАЗВЕРТЫВАНИЯ КАЛЕНДАРЯ -->
+                        <div class="mb-5">
+                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md cursor-pointer">
+                                <div class="flex items-center space-x-3 w-full pointer-events-none">
+                                    <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
+                                    <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
+                                        Оберіть період заїзду та виїзду
+                                    </div>
                                 </div>
+                                <div class="text-accentCyan flex-shrink-0 ml-3 pointer-events-none">
+                                    <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- ВЫДВИЖНОЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ -->
+                        <div id="calendarDropdown" style="display: none;" class="bg-darkBg/95 border border-cyan-500/40 p-4 rounded-2xl shadow-xl transition-all mb-6">
+                            <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
+                                <div class="flex items-center space-x-3">
+                                    <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors cursor-pointer">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <span class="text-xs sm:text-sm text-gray-400 uppercase tracking-wider font-semibold">Оберіть заїзд та виїзд</span>
+                                    <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors cursor-pointer">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40 cursor-pointer">Скинути дати</button>
                             </div>
-                            <div>
-                                <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Дата виїзду *</label>
-                                <div class="relative">
-                                    <input type="date" id="endDateInput" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-xl px-4 py-3.5 text-white font-bold focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all text-sm cursor-pointer">
+
+                            <div class="grid grid-cols-1 gap-6">
+                                <div>
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
+                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                    </div>
+                                    <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
+                                </div>
+                                <div class="border-t border-gray-800 pt-4">
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
+                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                    </div>
+                                    <div id="month2Grid" class="grid grid-cols-7 gap-1.5"></div>
                                 </div>
                             </div>
                         </div>
@@ -995,24 +1059,60 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // ИНТЕРАКТИВНЫЙ РАСЧЕТ И ОТПРАВКА БРОНИРОВАНИЯ
+        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ И ФОРМА БРОНИРОВАНИЯ
         document.addEventListener('DOMContentLoaded', () => {
             const roomSelect = document.getElementById('calcRoomType');
-            const startDateInput = document.getElementById('startDateInput');
-            const endDateInput = document.getElementById('endDateInput');
-            
+            const toggleBtn = document.getElementById('toggleCalendarBtn');
+            const calendarDropdown = document.getElementById('calendarDropdown');
+            const toggleIcon = document.getElementById('toggleIcon');
+            const barSelectedText = document.getElementById('barSelectedText');
             const nightsDisplay = document.getElementById('calcNightsCount');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
             const priceDisplay = document.getElementById('calcTotalPrice');
+            const resetBtn = document.getElementById('resetDatesBtn');
 
             const guestNameInput = document.getElementById('guestName');
             const guestPhoneInput = document.getElementById('guestPhone');
             const bookNowBtn = document.getElementById('bookNowBtn');
 
-            // Установка минимальной даты сегодня
-            const todayStr = new Date().toISOString().split('T')[0];
-            startDateInput.min = todayStr;
-            endDateInput.min = todayStr;
+            const month1Grid = document.getElementById('month1Grid');
+            const month2Grid = document.getElementById('month2Grid');
+            const month1Name = document.getElementById('month1Name');
+            const month2Name = document.getElementById('month2Name');
+            const prevMonthBtn = document.getElementById('prevMonthBtn');
+            const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+            let isCalendarOpen = false;
+            let startDate = null;
+            let endDate = null;
+
+            let currentPointer = new Date();
+            const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
+
+            // Надежное открытие и закрытие календаря по кнопке
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                isCalendarOpen = !isCalendarOpen;
+                if (isCalendarOpen) {
+                    calendarDropdown.style.display = 'block';
+                    toggleIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    calendarDropdown.style.display = 'none';
+                    toggleIcon.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            prevMonthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentPointer.setMonth(currentPointer.getMonth() - 1);
+                renderCalendars();
+            });
+
+            nextMonthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                currentPointer.setMonth(currentPointer.getMonth() + 1);
+                renderCalendars();
+            });
 
             function getDayPrice(dateObj, basePrice) {
                 const dayOfWeek = dateObj.getDay();
@@ -1022,22 +1122,82 @@
                 return basePrice;
             }
 
+            function renderCalendars() {
+                const year1 = currentPointer.getFullYear();
+                const month1 = currentPointer.getMonth();
+
+                const secondMonthDate = new Date(year1, month1 + 1, 1);
+                const year2 = secondMonthDate.getFullYear();
+                const month2 = secondMonthDate.getMonth();
+
+                renderSingleMonth(year1, month1, month1Grid, month1Name);
+                renderSingleMonth(year2, month2, month2Grid, month2Name);
+            }
+
+            function renderSingleMonth(year, month, gridContainer, nameContainer) {
+                gridContainer.innerHTML = '';
+                nameContainer.textContent = `${monthNames[month]} ${year}`;
+
+                const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
+                const totalDays = new Date(year, month + 1, 0).getDate();
+
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const emptyDiv = document.createElement('div');
+                    gridContainer.appendChild(emptyDiv);
+                }
+
+                for (let day = 1; day <= totalDays; day++) {
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'cal-day-cell';
+
+                    const numSpan = document.createElement('span');
+                    numSpan.className = 'day-num';
+                    numSpan.textContent = day;
+
+                    dayDiv.appendChild(numSpan);
+
+                    const timeStamp = new Date(year, month, day).setHours(0,0,0,0);
+                    const todayTimestamp = new Date().setHours(0,0,0,0);
+
+                    if (timeStamp < todayTimestamp) {
+                        dayDiv.classList.add('disabled');
+                    } else {
+                        if (startDate && timeStamp === new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()).setHours(0,0,0,0)) {
+                            dayDiv.classList.add('selected');
+                        } else if (endDate && timeStamp === new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()).setHours(0,0,0,0)) {
+                            dayDiv.classList.add('selected');
+                        } else if (startDate && endDate && timeStamp > new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()).setHours(0,0,0,0) && timeStamp < new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()).setHours(0,0,0,0)) {
+                            dayDiv.classList.add('in-range');
+                        }
+
+                        dayDiv.addEventListener('click', (e) => {
+                            e.stopPropagation();
+                            handleDateClick(new Date(year, month, day));
+                        });
+                    }
+                    gridContainer.appendChild(dayDiv);
+                }
+            }
+
+            function handleDateClick(clickedDate) {
+                if (!startDate || (startDate && endDate)) {
+                    startDate = clickedDate;
+                    endDate = null;
+                } else if (startDate && !endDate) {
+                    if (clickedDate < startDate) {
+                        startDate = clickedDate;
+                    } else {
+                        endDate = clickedDate;
+                    }
+                }
+                updateCalculation();
+                renderCalendars();
+            }
+
             function updateCalculation() {
                 const basePrice = parseInt(roomSelect.value);
-                const startVal = startDateInput.value;
-                const endVal = endDateInput.value;
 
-                if (startVal && endVal) {
-                    let startDate = new Date(startVal);
-                    let endDate = new Date(endVal);
-
-                    if (endDate <= startDate) {
-                        nightsDisplay.textContent = '0 ночей';
-                        prepayDisplay.textContent = '0 ₴';
-                        priceDisplay.textContent = '0 ₴';
-                        return;
-                    }
-
+                if (startDate && endDate) {
                     let totalSum = 0;
                     let diffDays = 0;
                     let curr = new Date(startDate);
@@ -1049,10 +1209,20 @@
                         curr.setDate(curr.getDate() + 1);
                     }
 
+                    const options = { day: 'numeric', month: 'short' };
+                    const dateStr = `${startDate.toLocaleDateString('uk-UA', options)} — ${endDate.toLocaleDateString('uk-UA', options)}`;
+                    barSelectedText.textContent = dateStr;
                     nightsDisplay.textContent = `${diffDays} ${declOfNum(diffDays, ['ніч', 'ночі', 'ночей'])}`;
                     prepayDisplay.textContent = `${firstDayPrice.toLocaleString()} ₴`;
                     priceDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
+                } else if (startDate) {
+                    const dateStr = `Заїзд: ${startDate.toLocaleDateString('uk-UA', { day: 'numeric', month: 'short' })} (оберіть виїзд)`;
+                    barSelectedText.textContent = dateStr;
+                    nightsDisplay.textContent = '0 ночей';
+                    prepayDisplay.textContent = '0 ₴';
+                    priceDisplay.textContent = '0 ₴';
                 } else {
+                    barSelectedText.textContent = 'Оберіть період заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
                     priceDisplay.textContent = '0 ₴';
@@ -1064,20 +1234,22 @@
                 return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
             }
 
-            roomSelect.addEventListener('change', updateCalculation);
-            startDateInput.addEventListener('change', () => {
-                endDateInput.min = startDateInput.value;
+            roomSelect.addEventListener('change', () => {
                 updateCalculation();
             });
-            endDateInput.addEventListener('change', updateCalculation);
+
+            resetBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                startDate = null;
+                endDate = null;
+                updateCalculation();
+                renderCalendars();
+            });
 
             // Функция отправки бронирования в Supabase
             window.submitBooking = async function() {
-                const startVal = startDateInput.value;
-                const endVal = endDateInput.value;
-
-                if (!startVal || !endVal) {
-                    alert('Будь ласка, оберіть дати заїзду та виїзду!');
+                if (!startDate || !endDate) {
+                    alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
                     return;
                 }
                 if (!guestNameInput.value.trim() || !guestPhoneInput.value.trim()) {
@@ -1085,15 +1257,8 @@
                     return;
                 }
 
-                let startDate = new Date(startVal);
-                let endDate = new Date(endVal);
-
-                if (endDate <= startDate) {
-                    alert('Дата виїзду має бути пізнішою за дату заїзду!');
-                    return;
-                }
-
                 const selectedOptionText = roomSelect.options[roomSelect.selectedIndex].text;
+                
                 const basePrice = parseInt(roomSelect.value);
                 let totalSum = 0;
                 let curr = new Date(startDate);
@@ -1104,10 +1269,17 @@
                     curr.setDate(curr.getDate() + 1);
                 }
 
+                const formatDateStr = (d) => {
+                    const year = d.getFullYear();
+                    const month = String(d.getMonth() + 1).padStart(2, '0');
+                    const day = String(d.getDate()).padStart(2, '0');
+                    return `${year}-${month}-${day}`;
+                };
+
                 const bookingPayload = {
                     room_type: selectedOptionText,
-                    start_date: startVal,
-                    end_date: endVal,
+                    start_date: formatDateStr(startDate),
+                    end_date: formatDateStr(endDate),
                     guest_name: guestNameInput.value.trim(),
                     guest_phone: guestPhoneInput.value.trim(),
                     total_price: totalSum,
@@ -1128,11 +1300,15 @@
                         alert('Сталася помилка при збереженні броні. Спробуйте ще раз.');
                     } else {
                         alert(`Дякуємо, ${guestNameInput.value}! Ваше бронювання успішно збережено в базі даних.`);
-                        startDateInput.value = '';
-                        endDateInput.value = '';
+                        startDate = null;
+                        endDate = null;
                         guestNameInput.value = '';
                         guestPhoneInput.value = '';
+                        isCalendarOpen = false;
+                        calendarDropdown.style.display = 'none';
+                        toggleIcon.style.transform = 'rotate(0deg)';
                         updateCalculation();
+                        renderCalendars();
                     }
                 } catch (err) {
                     console.error('Помилка мережі:', err);
@@ -1142,6 +1318,8 @@
                     bookNowBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-2"></i>Забронювати та перейти до оплати';
                 }
             };
+
+            renderCalendars();
         });
     </script>
 </body>
