@@ -412,7 +412,7 @@
         </div>
     </section>
 
-    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ (НЕЗАВИСИМАЯ ВЫСОТА) -->
+    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ (ОДИНАКОВАЯ БАЗОВАЯ ВЫСОТА) -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
@@ -420,11 +420,11 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white">Розрахунок дат та спеціальні пропозиції</h2>
             </div>
 
-            <!-- Сетка с выравниванием по верху (items-start), чтобы блоки не растягивали друг друга -->
+            <!-- Сетка с выравниванием по верху (items-start) -->
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
 
                 <!-- 1. КАРТОЧКА КАЛЕНДАРЯ (СЛЕВА) -->
-                <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+                <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Календар
                     </div>
@@ -434,26 +434,26 @@
                             <p class="text-gray-400 text-sm">Оберіть категорію номера та натисніть на плашку нижче, щоб відкрити двомісячний календар.</p>
                         </div>
 
-                        <!-- Выбор категории номера (Новый стильный дизайн селекта) -->
+                        <!-- Выбор категории номера (с иконкой и единым стилем кнопки) -->
                         <div class="mb-6">
                             <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
                             <div class="relative">
                                 <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-accentCyan">
                                     <i class="fa-solid fa-door-open"></i>
                                 </div>
-                                <select id="calcRoomType" class="w-full bg-[#161f33] border border-gray-700/80 hover:border-accentCyan/70 rounded-2xl pl-11 pr-10 py-3.5 text-white font-medium focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer shadow-inner">
+                                <select id="calcRoomType" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl pl-11 pr-10 py-4 text-white font-bold text-base sm:text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer shadow-md">
                                     <option value="800">2-х місний номер</option>
                                     <option value="1050">3-х місний номер</option>
                                     <option value="1400">4-х місний номер</option>
                                     <option value="1500">Номер «Люкс»</option>
                                 </select>
                                 <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-accentCyan">
-                                    <i class="fa-solid fa-chevron-down text-xs"></i>
+                                    <i class="fa-solid fa-chevron-down text-lg"></i>
                                 </div>
                             </div>
                         </div>
 
-                        <!-- Кнопка-плашка для развертывания календаря -->
+                        <!-- Кнопка-плашка для развертывания календаря (абсолютно идентичный дизайн) -->
                         <div class="mb-6">
                             <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
                                 <div class="flex items-center space-x-3 w-full">
@@ -522,8 +522,8 @@
                     </div>
                 </div>
 
-                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) -->
-                <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
+                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) — одинаковая высота h-full -->
+                <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Акція
                     </div>
