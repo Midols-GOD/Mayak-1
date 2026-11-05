@@ -238,7 +238,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ -->
+    <!-- НОМЕРИ (Ценники теперь золотистые) -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -270,7 +270,7 @@
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">Номер «Люкс»</h3>
                                 <div class="text-right">
-                                    <div class="text-2xl font-black text-accentCyan">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-2xl font-black text-priceYellow">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
                                     <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 700 ₴</span></div>
                                 </div>
                             </div>
@@ -315,7 +315,7 @@
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">4-х місний номер</h3>
                                 <div class="text-right">
-                                    <div class="text-2xl font-black text-accentCyan">1 400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-2xl font-black text-priceYellow">1 400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
                                     <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 600 ₴</span></div>
                                 </div>
                             </div>
@@ -360,7 +360,7 @@
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">2-х місний номер</h3>
                                 <div class="text-right">
-                                    <div class="text-2xl font-black text-accentCyan">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-2xl font-black text-priceYellow">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
                                     <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 000 ₴</span></div>
                                 </div>
                             </div>
@@ -405,7 +405,7 @@
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">3-х місний номер</h3>
                                 <div class="text-right">
-                                    <div class="text-2xl font-black text-accentCyan">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-2xl font-black text-priceYellow">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
                                     <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 250 ₴</span></div>
                                 </div>
                             </div>
@@ -432,7 +432,7 @@
         </div>
     </section>
 
-    <!-- КАЛЕНДАРЬ И АКЦИЯ -->
+    <!-- КАЛЕНДАРЬ И БРОНИРОВАНИЕ -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
@@ -551,7 +551,7 @@
                                 <input type="tel" id="guestPhone" placeholder="+38 (093) 000-00-00" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none transition-all text-sm">
                             </div>
 
-                            <button type="button" id="bookNowBtn" onclick="submitBooking()" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all">
+                            <button type="button" id="bookNowBtn" onclick="submitBooking()" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer">
                                 <i class="fa-solid fa-check-to-slot mr-2"></i>Забронювати та перейти до оплати
                             </button>
                         </div>
@@ -1154,17 +1154,17 @@
 
                     dayDiv.appendChild(numSpan);
 
-                    const timeStamp = currentDate.setHours(0,0,0,0);
+                    const timeStamp = new Date(year, month, day).setHours(0,0,0,0);
                     const todayTimestamp = new Date().setHours(0,0,0,0);
 
                     if (timeStamp < todayTimestamp) {
                         dayDiv.classList.add('disabled');
                     } else {
-                        if (startDate && timeStamp === startDate.setHours(0,0,0,0)) {
+                        if (startDate && timeStamp === new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()).setHours(0,0,0,0)) {
                             dayDiv.classList.add('selected');
-                        } else if (endDate && timeStamp === endDate.setHours(0,0,0,0)) {
+                        } else if (endDate && timeStamp === new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()).setHours(0,0,0,0)) {
                             dayDiv.classList.add('selected');
-                        } else if (startDate && endDate && timeStamp > startDate.setHours(0,0,0,0) && timeStamp < endDate.setHours(0,0,0,0)) {
+                        } else if (startDate && endDate && timeStamp > new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate()).setHours(0,0,0,0) && timeStamp < new Date(endDate.getFullYear(), endDate.getMonth(), endDate.getDate()).setHours(0,0,0,0)) {
                             dayDiv.classList.add('in-range');
                         }
 
@@ -1212,9 +1212,6 @@
                     nightsDisplay.textContent = `${diffDays} ${declOfNum(diffDays, ['ніч', 'ночі', 'ночей'])}`;
                     prepayDisplay.textContent = `${firstDayPrice.toLocaleString()} ₴`;
                     priceDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
-
-                    bookNowBtn.style.opacity = "1";
-                    bookNowBtn.style.cursor = "pointer";
                 } else if (startDate) {
                     const dateStr = `Заїзд: ${startDate.toLocaleDateString('uk-UA', { day: 'numeric', month: 'short' })} (оберіть виїзд)`;
                     barSelectedText.textContent = dateStr;
@@ -1236,7 +1233,6 @@
 
             roomSelect.addEventListener('change', () => {
                 updateCalculation();
-                renderCalendars();
             });
 
             resetBtn.addEventListener('click', () => {
@@ -1246,21 +1242,19 @@
                 renderCalendars();
             });
 
-            // Функция отправки бронирования в Supabase
+            // Функция отправки бронирования в Supabase (привязана глобально)
             window.submitBooking = async function() {
                 if (!startDate || !endDate) {
                     alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
                     return;
                 }
-                if (!guestNameInput.value || !guestPhoneInput.value) {
+                if (!guestNameInput.value.trim() || !guestPhoneInput.value.trim()) {
                     alert('Будь ласка, введіть ваше ім\'я та номер телефону!');
                     return;
                 }
 
-                // Получаем текстовое название выбранного номера
                 const selectedOptionText = roomSelect.options[roomSelect.selectedIndex].text;
                 
-                // Рассчитываем итоговые суммы заново для отправки
                 const basePrice = parseInt(roomSelect.value);
                 let totalSum = 0;
                 let curr = new Date(startDate);
@@ -1271,7 +1265,6 @@
                     curr.setDate(curr.getDate() + 1);
                 }
 
-                // Форматируем даты в строку формата YYYY-MM-DD для базы данных
                 const formatDateStr = (d) => {
                     const year = d.getFullYear();
                     const month = String(d.getMonth() + 1).padStart(2, '0');
@@ -1303,7 +1296,7 @@
                         alert('Сталася помилка при збереженні броні. Спробуйте ще раз.');
                     } else {
                         alert(`Дякуємо, ${guestNameInput.value}! Ваше бронювання успішно збережено в базі даних.`);
-                        // Очищаем форму
+                        // Очищаем форму и сбрасываем выбор дат
                         startDate = null;
                         endDate = null;
                         guestNameInput.value = '';
@@ -1313,12 +1306,12 @@
                     }
                 } catch (err) {
                     console.error('Помилка мережі:', err);
-                    alert('Помилка з'єднання з базою даних.');
+                    alert('Помилка з\'єднання з базою даних.');
                 } finally {
                     bookNowBtn.disabled = false;
                     bookNowBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-2"></i>Забронювати та перейти до оплати';
                 }
-            }
+            };
 
             renderCalendars();
         });
