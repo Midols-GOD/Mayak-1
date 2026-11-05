@@ -238,7 +238,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (Ценники теперь золотистые) -->
+    <!-- НОМЕРИ -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -474,32 +474,32 @@
 
                         <!-- Кнопка-плашка для развертывания календаря -->
                         <div class="mb-6">
-                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
-                                <div class="flex items-center space-x-3 w-full">
+                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group cursor-pointer">
+                                <div class="flex items-center space-x-3 w-full pointer-events-none">
                                     <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
                                     <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
                                         Оберіть період заїзду та виїзду
                                     </div>
                                 </div>
-                                <div class="text-accentCyan flex-shrink-0 ml-3">
+                                <div class="text-accentCyan flex-shrink-0 ml-3 pointer-events-none">
                                     <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform"></i>
                                 </div>
                             </button>
                         </div>
 
-                        <!-- Выдвижной блок с календарем -->
-                        <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
+                        <!-- Выдвижной блок с календарем (скрыт по умолчанию через style display, чтобы работало переключение) -->
+                        <div id="calendarDropdown" style="display: none;" class="bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
                             <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
                                 <div class="flex items-center space-x-3">
-                                    <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
+                                    <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors cursor-pointer">
                                         <i class="fa-solid fa-chevron-left"></i>
                                     </button>
                                     <span class="text-xs sm:text-sm text-gray-400 uppercase tracking-wider font-semibold">Оберіть заїзд та виїзд</span>
-                                    <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
+                                    <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors cursor-pointer">
                                         <i class="fa-solid fa-chevron-right"></i>
                                     </button>
                                 </div>
-                                <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40">Скинути дати</button>
+                                <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40 cursor-pointer">Скинути дати</button>
                             </div>
 
                             <div class="grid grid-cols-1 gap-6">
@@ -1089,23 +1089,27 @@
             let currentPointer = new Date();
             const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
 
-            toggleBtn.addEventListener('click', () => {
+            // Надежное открытие/закрытие календаря по клику
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
                 isOpen = !isOpen;
                 if (isOpen) {
-                    calendarDropdown.classList.remove('hidden');
+                    calendarDropdown.style.display = 'block';
                     toggleIcon.classList.add('rotate-180');
                 } else {
-                    calendarDropdown.classList.add('hidden');
+                    calendarDropdown.style.display = 'none';
                     toggleIcon.classList.remove('rotate-180');
                 }
             });
 
-            prevMonthBtn.addEventListener('click', () => {
+            prevMonthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 currentPointer.setMonth(currentPointer.getMonth() - 1);
                 renderCalendars();
             });
 
-            nextMonthBtn.addEventListener('click', () => {
+            nextMonthBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 currentPointer.setMonth(currentPointer.getMonth() + 1);
                 renderCalendars();
             });
@@ -1168,7 +1172,8 @@
                             dayDiv.classList.add('in-range');
                         }
 
-                        dayDiv.addEventListener('click', () => {
+                        dayDiv.addEventListener('click', (e) => {
+                            e.stopPropagation();
                             handleDateClick(new Date(year, month, day));
                         });
                     }
@@ -1235,14 +1240,15 @@
                 updateCalculation();
             });
 
-            resetBtn.addEventListener('click', () => {
+            resetBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 startDate = null;
                 endDate = null;
                 updateCalculation();
                 renderCalendars();
             });
 
-            // Функция отправки бронирования в Supabase (привязана глобально)
+            // Функция отправки бронирования в Supabase
             window.submitBooking = async function() {
                 if (!startDate || !endDate) {
                     alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
