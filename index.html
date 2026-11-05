@@ -472,20 +472,23 @@
                             </div>
                         </div>
 
-                        <!-- Информационная плашка выбранного периода -->
+                        <!-- КНОПКА-ПЛАШКА ДЛЯ РАЗВЕРТЫВАНИЯ КАЛЕНДАРЯ -->
                         <div class="mb-6">
-                            <div class="w-full bg-darkBg border border-cyan-500/50 rounded-2xl px-6 py-4 flex items-center justify-between text-left shadow-md">
-                                <div class="flex items-center space-x-3 w-full">
+                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group cursor-pointer">
+                                <div class="flex items-center space-x-3 w-full pointer-events-none">
                                     <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
                                     <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
-                                        Оберіть період у календарі нижче
+                                        Оберіть період заїзду та виїзду
                                     </div>
                                 </div>
-                            </div>
+                                <div class="text-accentCyan flex-shrink-0 ml-3 pointer-events-none">
+                                    <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform"></i>
+                                </div>
+                            </button>
                         </div>
 
-                        <!-- Календарь теперь всегда открыт и готов к кликам -->
-                        <div id="calendarDropdown" class="bg-darkBg/95 border border-cyan-500/40 p-4 rounded-2xl shadow-xl transition-all mb-6">
+                        <!-- ВЫДВИЖНОЙ БЛОК С КАЛЕНДАРЕМ (СКРЫТ ПО УМОЛЧАНИЮ) -->
+                        <div id="calendarDropdown" style="display: none;" class="bg-darkBg/95 border border-cyan-500/40 p-4 rounded-2xl shadow-xl transition-all mb-6">
                             <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
                                 <div class="flex items-center space-x-3">
                                     <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors cursor-pointer">
@@ -1059,6 +1062,9 @@
         // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ И ФОРМА БРОНИРОВАНИЯ
         document.addEventListener('DOMContentLoaded', () => {
             const roomSelect = document.getElementById('calcRoomType');
+            const toggleBtn = document.getElementById('toggleCalendarBtn');
+            const calendarDropdown = document.getElementById('calendarDropdown');
+            const toggleIcon = document.getElementById('toggleIcon');
             const barSelectedText = document.getElementById('barSelectedText');
             const nightsDisplay = document.getElementById('calcNightsCount');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
@@ -1076,11 +1082,25 @@
             const prevMonthBtn = document.getElementById('prevMonthBtn');
             const nextMonthBtn = document.getElementById('nextMonthBtn');
 
+            let isCalendarOpen = false;
             let startDate = null;
             let endDate = null;
 
             let currentPointer = new Date();
             const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
+
+            // Точное управление открытием и закрытием календаря по кнопке
+            toggleBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                isCalendarOpen = !isCalendarOpen;
+                if (isCalendarOpen) {
+                    calendarDropdown.style.display = 'block';
+                    toggleIcon.style.transform = 'rotate(180deg)';
+                } else {
+                    calendarDropdown.style.display = 'none';
+                    toggleIcon.style.transform = 'rotate(0deg)';
+                }
+            });
 
             prevMonthBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1204,7 +1224,7 @@
                     prepayDisplay.textContent = '0 ₴';
                     priceDisplay.textContent = '0 ₴';
                 } else {
-                    barSelectedText.textContent = 'Оберіть період у календарі нижче';
+                    barSelectedText.textContent = 'Оберіть період заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
                     priceDisplay.textContent = '0 ₴';
@@ -1287,6 +1307,9 @@
                         endDate = null;
                         guestNameInput.value = '';
                         guestPhoneInput.value = '';
+                        isCalendarOpen = false;
+                        calendarDropdown.style.display = 'none';
+                        toggleIcon.style.transform = 'rotate(0deg)';
                         updateCalculation();
                         renderCalendars();
                     }
