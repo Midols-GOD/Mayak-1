@@ -1,180 +1,1264 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="uk" class="scroll-smooth">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MRZ0C366"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-79MRZ0C366');
+    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База відпочинку «Маяк» — Бронювання</title>
-    <!-- Подключаем Tailwind CSS для красивого стильного интерфейса -->
+    
+    <!-- SEO-теги для пошукової видачі Google -->
+    <title>База відпочинку «Маяк» — Затишний відпочинок біля моря в Одеській області</title>
+    <meta name="description" content="База відпочинку «Маяк» в Одеській області. Комфортні номери від 800 грн/день, кафе, зона барбекю, доглянута зелена територія. Всього 3 хвилини до моря!">
+    
+    <!-- Фавіконка -->
+    <link rel="icon" type="image/jpeg" href="favicon.jpg">
+
+    <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Подключаем библиотеку Supabase JS -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-</head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen flex flex-col justify-between">
-
-    <div class="max-w-4xl mx-auto p-6 w-full">
-        <!-- Шапка сайта -->
-        <header class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-slate-900">База відпочинку «Маяк»</h1>
-            <p class="text-slate-600 mt-2">Одеська область — Обирайте дати та бронюйте відпочинок</p>
-        </header>
-
-        <!-- Основная форма бронирования -->
-        <main class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
-            <form id="booking-form" class="space-y-6">
-                
-                <!-- Выбор типа номера -->
-                <div>
-                    <label class="block text-sm font-semibold text-slate-700 mb-2">Оберіть тип номеру / будиночка</label>
-                    <select id="room-type" class="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                        <option value="Стандарт">Стандартний номер</option>
-                        <option value="Комфорт">Номер Комфорт</option>
-                        <option value="Котедж">Окремий котедж</option>
-                    </select>
-                </div>
-
-                <!-- Даты заезда и выезда -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Дата заїзду</label>
-                        <input type="date" id="start-date" required class="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Дата виїзду</label>
-                        <input type="date" id="end-date" required class="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                </div>
-
-                <!-- Контактные данные гостя -->
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Ваше ім'я</label>
-                        <input type="text" id="guest-name" placeholder="Введіть ім'я" required class="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-semibold text-slate-700 mb-2">Номер телефону</label>
-                        <input type="tel" id="guest-phone" placeholder="+38 (0XX) XXX-XX-XX" required class="w-full rounded-xl border border-slate-300 p-3 focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
-                </div>
-
-                <!-- Блок расчета цены -->
-                <div class="bg-blue-50 rounded-xl p-4 flex flex-col sm:flex-row justify-between items-center text-slate-700">
-                    <div>
-                        <span class="text-sm">Загальна вартість: <strong id="total-price-text" class="text-xl text-blue-600">0</strong> грн</span>
-                    </div>
-                    <div class="mt-2 sm:mt-0">
-                        <span class="text-sm">Переплата (аванс): <strong id="prepay-price-text" class="text-lg text-slate-800">0</strong> грн</span>
-                    </div>
-                </div>
-
-                <!-- Кнопка отправки -->
-                <button type="submit" id="submit-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 rounded-xl transition duration-200 shadow-lg">
-                    Забронювати відпочинок
-                </button>
-            </form>
-        </main>
-    </div>
-
-    <!-- Футер -->
-    <footer class="text-center py-6 text-sm text-slate-500">
-        &copy; 2026 База відпочинку «Маяк». Всі права захищені.
-    </footer>
-
-    <!-- Логика работы скрипта и связи с Supabase -->
     <script>
-        // Инициализация Supabase
-        const SUPABASE_URL = 'https://ayemtrpizbzfpylzefhh.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_QPxXpSn4wzYoaQFBUTepyw_xUO-k0Re';
-        const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-        // Простой расчет стоимости при изменении дат или типа номера
-        const roomTypeSelect = document.getElementById('room-type');
-        const startDateInput = document.getElementById('start-date');
-        const endDateInput = document.getElementById('end-date');
-        const totalPriceText = document.getElementById('total-price-text');
-        const prepayPriceText = document.getElementById('prepay-price-text');
-
-        function calculatePrice() {
-            const start = new Date(startDateInput.value);
-            const end = new Date(endDateInput.value);
-
-            if (start && end && end > start) {
-                const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-                
-                // Базовые цены за сутки в зависимости от типа номера
-                let pricePerDay = 1000;
-                if (roomTypeSelect.value === 'Комфорт') pricePerDay = 1500;
-                if (roomTypeSelect.value === 'Котедж') pricePerDay = 2500;
-
-                const total = days * pricePerDay;
-                const prepay = Math.round(total * 0.3); // Предоплата 30%
-
-                totalPriceText.textContent = total;
-                prepayPriceText.textContent = prepay;
-            } else {
-                totalPriceText.textContent = '0';
-                prepayPriceText.textContent = '0';
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        darkBg: '#090d16',
+                        cardBg: '#111827',
+                        accentCyan: '#06b6d4',
+                        accentBlue: '#3b82f6',
+                        priceYellow: '#fbbf24',
+                    }
+                }
             }
         }
+    </script>
+    <!-- FontAwesome для іконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        img {
+            image-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            transition: opacity 0.3s ease-in-out;
+        }
+        .nav-link.active-nav {
+            color: #06b6d4 !important;
+            font-weight: 700;
+        }
+        .photo-frame {
+            border: 1px solid rgba(6, 182, 212, 0.25);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 0 15px rgba(6, 182, 212, 0.1);
+        }
+        .cal-day-cell {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s;
+            user-select: none;
+            background-color: rgba(255,255,255,0.02);
+            border: 1px solid rgba(255,255,255,0.05);
+            padding: 2px;
+        }
+        .cal-day-cell:hover:not(.disabled) {
+            background-color: rgba(6, 182, 212, 0.2);
+            border-color: rgba(6, 182, 212, 0.4);
+        }
+        .cal-day-cell.selected {
+            background-color: #06b6d4 !important;
+            color: #090d16 !important;
+            font-weight: bold;
+            border-color: #06b6d4;
+        }
+        .cal-day-cell.in-range {
+            background-color: rgba(6, 182, 212, 0.15);
+            color: #38bdf8;
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+        .cal-day-cell.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+        .day-num {
+            font-size: 0.95rem;
+            font-weight: 600;
+            line-height: 1;
+        }
+    </style>
+</head>
+<body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden pb-20 sm:pb-0">
 
-        roomTypeSelect.addEventListener('change', calculatePrice);
-        startDateInput.addEventListener('change', calculatePrice);
-        endDateInput.addEventListener('change', calculatePrice);
+    <script>
+        window.scrollTo(0, 0);
+    </script>
 
-        // Обработка отправки формы
-        document.getElementById('booking-form').addEventListener('submit', async function(e) {
-            e.preventDefault();
+    <!-- НАВІГАЦІЯ (ШАПКА) -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-darkBg/95 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-20 flex items-center justify-between w-full">
+            <div class="flex items-center space-x-2 sm:space-x-3">
+                <a href="#" class="flex items-center space-x-3">
+                    <div class="w-12 h-12 sm:w-14 sm:h-14 rounded-xl overflow-hidden bg-white p-1 border border-cyan-500/40 shadow-lg shadow-cyan-500/30 flex items-center justify-center flex-shrink-0">
+                        <img src="LOGO.jpg" alt="Логотип Маяк" class="w-full h-full object-contain" onerror="this.src='logo.png'">
+                    </div>
+                    <span class="text-lg sm:text-xl font-bold tracking-wider text-white">МАЯК</span>
+                </a>
 
-            const start = new Date(startDateInput.value);
-            const end = new Date(endDateInput.value);
-            if (end <= start) {
-                alert('Дата виїзду має бути пізнішою за дату заїзду!');
-                return;
-            }
+                <a href="#promotions" class="md:hidden flex items-center text-priceYellow text-xs font-medium bg-cyan-950/50 px-2 py-1.5 rounded-lg border border-cyan-800/40 ml-1">
+                    <i class="fa-solid fa-gift mr-1"></i>Спецпропозиції
+                </a>
+            </div>
 
-            const days = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-            let pricePerDay = 1000;
-            if (roomTypeSelect.value === 'Комфорт') pricePerDay = 1500;
-            if (roomTypeSelect.value === 'Котедж') pricePerDay = 2500;
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+                <a href="#about" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
+                <a href="#rooms" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
+                <a href="#promotions" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="calculator">Ціни та дати</a>
+                <a href="#promotions" class="text-priceYellow font-semibold hover:opacity-80 transition-opacity" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+                <a href="#services" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="services">Послуги</a>
+                <a href="#advantages" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
+                <a href="#faq" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="faq">FAQ</a>
+                <a href="#reviews" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="reviews">Відгуки</a>
+                <a href="#contacts" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="contacts">Контакти</a>
+            </nav>
+
+            <div class="hidden md:flex items-center">
+                <!-- Пусто в десктопной шапке -->
+            </div>
+
+            <div class="md:hidden flex items-center">
+                <button id="menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
+                    <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                </button>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
+            <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="about">Про нас</a>
+            <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="rooms">Номери</a>
+            <a href="#promotions" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="calculator">Ціни та дати</a>
+            <a href="#promotions" class="mobile-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Спеціальні пропозиції</a>
+            <a href="#services" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="services">Послуги</a>
+            <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="advantages">Переваги</a>
+            <a href="#faq" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="faq">FAQ (Питання)</a>
+            <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="reviews">Відгуки</a>
+            <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300" data-target="contacts">Контакти</a>
+            <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
+                <i class="fa-solid fa-phone mr-2"></i>Позвнити
+            </a>
+        </div>
+    </header>
+
+    <!-- ГОЛОВНИЙ ЕКРАН (Скрыт на мобильных) -->
+    <section id="home" class="hidden sm:flex relative min-h-screen items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
+        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
+            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
+                <i class="fa-solid fa-water"></i>
+                <span>База відпочинку в атмосферному куточку</span>
+            </div>
+            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                Затишний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">вдалині від міської суєти</span>
+            </h1>
+            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Чисте повітря, мангали, природа та умиротворена атмосфера для вашого ідеального дозвілля.
+            </p>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
+                    Подивитися номери
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
+    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full pt-28 sm:pt-20">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
+            <div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Ласкаво просимо на базу відпочинку «Маяк»!</h2>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    Це ідеальне місце для тих, хто прагне вирватися з міської метушні та насолодитися спокоєм природи. Наша база пропонує не просто проживання, а повноцінний заміський відпочинок із комфортом.
+                </p>
+                <p class="text-gray-300 mb-4 leading-relaxed">
+                    <strong>Що ми пропонуємо нашим гостям:</strong>
+                </p>
+                <ul class="space-y-3 text-gray-300 mb-6 pl-4 border-l-2 border-accentCyan/30">
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-bed text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Комфортне проживання:</strong> Затишні номери з усіма необхідними зручностями.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-utensils text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Велике кафе та барна стійка:</strong> Свіжі гарячі страви, напої та затишна атмосфера на території.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Зона барбекю:</strong> Спеціально облаштовані місця з мангалами для приготування улюблених страв на вогні.</span>
+                    </li>
+                    <li class="flex items-start">
+                        <i class="fa-solid fa-fish text-accentCyan mt-1 mr-3 text-sm"></i>
+                        <span><strong>Риболовля та релакс біля води:</strong> Можливість порибалити або просто відпочити біля водойми.</span>
+                    </li>
+                </ul>
+
+                <div class="grid grid-cols-3 gap-4 pt-2">
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">12+</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Років досвіду</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">24/7</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Працюємо</div>
+                    </div>
+                    <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">3 хв</div>
+                        <div class="text-xs sm:text-sm text-gray-400">До моря</div>
+                    </div>
+                </div>
+            </div>
             
-            const total = days * pricePerDay;
-            const prepay = Math.round(total * 0.3);
+            <div class="relative">
+                <div class="rounded-2xl overflow-hidden photo-frame relative group h-80 sm:h-[500px] bg-cardBg flex items-center justify-center">
+                    <img id="about-slider-img" src="Улица 2.jpg" alt="Територія бази Маяк" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(aboutImages, aboutIndex.val)">
+                    
+                    <button onclick="prevAboutSlide()" class="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                        <i class="fa-solid fa-chevron-left"></i>
+                    </button>
+                    <button onclick="nextAboutSlide()" class="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                        <i class="fa-solid fa-chevron-right"></i>
+                    </button>
 
-            const bookingData = {
-                room_type: roomTypeSelect.value,
-                start_date: startDateInput.value,
-                end_date: endDateInput.value,
-                guest_name: document.getElementById('guest-name').value,
-                guest_phone: document.getElementById('guest-phone').value,
-                total_price: total,
-                prepay_price: prepay,
-                status: 'new'
-            };
+                    <div class="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-1 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                        <span id="about-current">1</span> / <span id="about-total">3</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            const submitBtn = document.getElementById('submit-btn');
-            submitBtn.disabled = true;
-            submitBtn.textContent = 'Обробка замовлення...';
+    <!-- НОМЕРИ -->
+    <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Наші номери</h2>
+                <p class="text-accentCyan text-sm font-medium mt-1"><i class="fa-solid fa-calendar-days mr-1.5"></i>Ціни на 2026 рік</p>
+            </div>
 
-            try {
-                const { data, error } = await supabase
-                    .from('bookings')
-                    .insert([bookingData]);
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto">
+                
+                <!-- 1. НОМЕР "ЛЮКС" -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="improved-slider-img" src="1 номер Н.jpg" alt="Номер Люкс" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(improvedImages, improvedIndex.val)">
+                        
+                        <button onclick="prevImprovedSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextImprovedSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
 
-                if (error) {
-                    console.error('Помилка Supabase:', error.message);
-                    alert('Сталася помилка під час бронювання. Спробуйте ще раз.');
-                } else {
-                    alert('Вітаємо! Ваше бронювання успішно створено та збережено в базі даних.');
-                    document.getElementById('booking-form').reset();
-                    totalPriceText.textContent = '0';
-                    prepayPriceText.textContent = '0';
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                            <span id="improved-current">1</span> / <span id="improved-total">4</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-white">Номер «Люкс»</h3>
+                                <div class="text-right">
+                                    <div class="text-2xl font-black text-accentCyan">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 700 ₴</span></div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 text-sm mb-4">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 1-4 особи і більше</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Двоспальне ліжко, а також зручний диван</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасний кондиціонер для приємної прохолоди</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Ванна кімната (санвузол, душ)</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Стіл та стільці</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Холодильник та мікрохвильовка</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 2. 4-Х МІСНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="standard-slider-img" src="3 номер.jpg" alt="4-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(standardImages, standardIndex.val)">
+                        
+                        <button onclick="prevStandardSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextStandardSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                            <span id="standard-current">1</span> / <span id="standard-total">3</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-white">4-х місний номер</h3>
+                                <div class="text-right">
+                                    <div class="text-2xl font-black text-accentCyan">1 400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 600 ₴</span></div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 text-sm mb-4">Затишний і практичний вибір для комфортного відпочинку компанією або великою родиною.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 4 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Практичні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Надійний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 3. 2-Х МІСНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="double-slider-img" src="2 (1).png" alt="2-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(doubleImages, doubleIndex.val)">
+                        
+                        <button onclick="prevDoubleSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextDoubleSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                            <span id="double-current">1</span> / <span id="double-total">2</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-white">2-х місний номер</h3>
+                                <div class="text-right">
+                                    <div class="text-2xl font-black text-accentCyan">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 000 ₴</span></div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 text-sm mb-4">Ідеальний варіант для пари або двох друзів, які цінують затишок та комфорт.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 2 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Зручне двоспальне або два роздільних ліжка</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Сучасний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                        </a>
+                    </div>
+                </div>
+
+                <!-- 4. 3-Х МІСНИЙ НОМЕР -->
+                <div class="bg-cardBg rounded-2xl overflow-hidden border border-gray-800 flex flex-col">
+                    <div class="h-72 overflow-hidden relative group bg-cardBg flex items-center justify-center photo-frame mx-4 mt-4 rounded-xl">
+                        <img id="triple-slider-img" src="3 номер.jpg" alt="3-х місний номер" class="w-full h-full object-cover cursor-pointer opacity-100" onclick="openModalGallery(tripleImages, tripleIndex.val)">
+                        
+                        <button onclick="prevTripleSlide()" class="absolute left-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-left text-sm"></i>
+                        </button>
+                        <button onclick="nextTripleSlide()" class="absolute right-6 top-1/2 -translate-y-1/2 w-9 h-9 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 z-10 border border-cyan-500/30">
+                            <i class="fa-solid fa-chevron-right text-sm"></i>
+                        </button>
+
+                        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-3 py-0.5 rounded-full text-xs text-white tracking-widest backdrop-blur-sm z-10 border border-cyan-500/30">
+                            <span id="triple-current">1</span> / <span id="triple-total">3</span>
+                        </div>
+                    </div>
+
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <div class="flex justify-between items-start mb-3">
+                                <h3 class="text-xl font-bold text-white">3-х місний номер</h3>
+                                <div class="text-right">
+                                    <div class="text-2xl font-black text-accentCyan">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-xs text-gray-400">П'ятниця–Неділя: <span class="text-priceYellow font-semibold">1 250 ₴</span></div>
+                                </div>
+                            </div>
+
+                            <p class="text-gray-300 text-sm mb-4">Просторний та зручний номер для невеликої родини або компанії з трьох осіб.</p>
+                            
+                            <div class="space-y-2 mb-6 text-sm text-gray-300 border-t border-b border-gray-800 py-3">
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-2 text-xs"></i><span>Розрахований на 3 особи</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Комбіновані зручні спальні місця</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Надійний кондиціонер для комфортної температури</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Необхідні меблі та затишна атмосфера</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Чистота та регулярне прибирання</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-2 text-xs"></i><span>Доступ до Wi-Fi на території</span></div>
+                            </div>
+                        </div>
+
+                        <a href="tel:+380935754668" class="block w-full py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
+                            <i class="fa-solid fa-phone mr-2"></i>Позвнити та уточнити ціну
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ПАРАЛЛЕЛЬНЫЕ БЛОКИ: КАЛЕНДАРЬ И АКЦИЯ -->
+    <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та вигідні умови</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Календар та пропозиція</h2>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
+
+                <!-- 1. КАРТОЧКА КАЛЕНДАРЯ И БРОНИРОВАНИЯ (СЛЕВА) -->
+                <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Календар і бронь
+                    </div>
+                    <div>
+                        <div class="text-center max-w-xl mx-auto mb-6">
+                            <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати та забронюйте</h3>
+                            <p class="text-gray-400 text-sm">Оберіть категорію номера, дати у календарі та заповніть дані для бронювання.</p>
+                        </div>
+
+                        <!-- Выбор категории номера -->
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-300 mb-2">Категорія номера:</label>
+                            <div class="relative">
+                                <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none text-accentCyan">
+                                    <i class="fa-solid fa-door-open"></i>
+                                </div>
+                                <select id="calcRoomType" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl pl-11 pr-10 py-4 text-white font-bold text-base sm:text-lg tracking-wide focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer shadow-md">
+                                    <option value="800">2-х місний номер (800 ₴)</option>
+                                    <option value="1050">3-х місний номер (1050 ₴)</option>
+                                    <option value="1400">4-х місний номер (1400 ₴)</option>
+                                    <option value="1500">Номер «Люкс» (1500 ₴)</option>
+                                </select>
+                                <div class="absolute inset-y-0 right-0 flex items-center pr-4 pointer-events-none text-accentCyan">
+                                    <i class="fa-solid fa-chevron-down text-lg"></i>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Кнопка-плашка для развертывания календаря -->
+                        <div class="mb-6">
+                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md group">
+                                <div class="flex items-center space-x-3 w-full">
+                                    <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
+                                    <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
+                                        Оберіть період заїзду та виїзду
+                                    </div>
+                                </div>
+                                <div class="text-accentCyan flex-shrink-0 ml-3">
+                                    <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform"></i>
+                                </div>
+                            </button>
+                        </div>
+
+                        <!-- Выдвижной блок с ДВУХМЕСЯЧНЫМ календарем -->
+                        <div id="calendarDropdown" class="hidden bg-darkBg/95 border border-gray-800 p-4 rounded-2xl shadow-xl transition-all mb-6">
+                            <div class="flex justify-between items-center mb-6 pb-3 border-b border-gray-800">
+                                <div class="flex items-center space-x-3">
+                                    <button type="button" id="prevMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
+                                        <i class="fa-solid fa-chevron-left"></i>
+                                    </button>
+                                    <span class="text-xs sm:text-sm text-gray-400 uppercase tracking-wider font-semibold">Оберіть заїзд та виїзд</span>
+                                    <button type="button" id="nextMonthBtn" class="w-9 h-9 rounded-xl bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900 transition-colors">
+                                        <i class="fa-solid fa-chevron-right"></i>
+                                    </button>
+                                </div>
+                                <button type="button" id="resetDatesBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-3 py-1.5 rounded-lg border border-cyan-800/40">Скинути дати</button>
+                            </div>
+
+                            <div class="grid grid-cols-1 gap-6">
+                                <!-- Месяц 1 -->
+                                <div>
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
+                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                    </div>
+                                    <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
+                                </div>
+                                <!-- Месяц 2 -->
+                                <div class="border-t border-gray-800 pt-4">
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
+                                    <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
+                                        <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                    </div>
+                                    <div id="month2Grid" class="grid grid-cols-7 gap-1.5"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Блок расчета стоимости и форма ввода данных -->
+                    <div>
+                        <div class="bg-darkBg border border-cyan-500/40 rounded-2xl p-5 mb-5 shadow-inner">
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 text-center sm:text-left items-center">
+                                <div>
+                                    <p class="text-[11px] text-gray-400 uppercase font-medium">Тривалість:</p>
+                                    <p id="calcNightsCount" class="text-base font-bold text-white">0 ночей</p>
+                                </div>
+                                <div>
+                                    <p class="text-[11px] text-gray-400 uppercase font-medium">Передоплата (1 день):</p>
+                                    <p id="calcPrepayPrice" class="text-base font-bold text-priceYellow">0 ₴</p>
+                                </div>
+                                <div class="col-span-2 sm:col-span-1 text-center sm:text-right">
+                                    <p class="text-[11px] text-gray-400 uppercase font-medium">Загальна сума:</p>
+                                    <p id="calcTotalPrice" class="text-xl sm:text-2xl font-black text-accentCyan">0 ₴</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Форма для клиента (Имя и Телефон) -->
+                        <div class="space-y-3">
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Ваше Ім'я та Прізвище *</label>
+                                <input type="text" id="guestName" placeholder="Олександр Іванов" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none transition-all text-sm">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-bold text-gray-300 uppercase mb-1">Номер телефону (Viber / Telegram) *</label>
+                                <input type="tel" id="guestPhone" placeholder="+38 (093) 000-00-00" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none transition-all text-sm">
+                            </div>
+
+                            <button type="button" id="bookNowBtn" onclick="submitBooking()" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all">
+                                <i class="fa-solid fa-check-to-slot mr-2"></i>Забронювати та перейти до оплати
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) -->
+                <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
+                    <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
+                        Акція
+                    </div>
+                    <div>
+                        <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
+                            <i class="fa-solid fa-utensils"></i>
+                        </div>
+                        <h3 class="text-2xl font-bold text-white mb-3">🍽️ Спеціальна пропозиція на харчування (від 4 днів)</h3>
+                        <p class="text-gray-300 text-sm mb-6 leading-relaxed">
+                            Плануєте відпочинок від 4 днів і довше? Замовляйте повний комплекс домашнього харчування у нашому кафе на весь період перебування та заощаджуйте!
+                        </p>
+                        
+                        <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
+                            <div class="flex justify-between items-center text-sm text-gray-300">
+                                <span>Сніданок + Обід + Вечеря (окремо):</span>
+                                <span class="line-through text-gray-500">600 ₴ / день</span>
+                            </div>
+                            <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
+                                <span class="text-accentCyan">Ціна за комплексом:</span>
+                                <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                            </div>
+                            <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
+                                *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при замовленні від 4 днів і до кінця виїзду.
+                            </div>
+                        </div>
+
+                        <ul class="space-y-3 text-sm text-gray-300 border-t border-gray-800 pt-5 mb-8">
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span><strong>Діє від 4 днів:</strong> Умова автоматично застосовується для всіх гостей, які замовляють комплексне харчування від 4 діб і до самого від'їзду.</span>
+                            </li>
+                            <li class="flex items-start">
+                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
+                                <span>Свіжі домашні страви щодня у просторому кафе на території бази.</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                        <i class="fa-solid fa-phone mr-2"></i>Зателефонувати для замовлення
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ПОСЛУГИ ТА РОЗВАГИ -->
+    <section id="services" class="py-20 px-4 bg-darkBg w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Послуги та розваги</h2>
+                <p class="text-gray-400">Зробіть свій відпочинок максимально насиченим і незабутнім</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-utensils"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Велике кафе та барна стійка</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Простора затишна зала з гарячим харчуванням та барною стійкою з широким вибором напоїв і коктейлів.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-fire-burner"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Зона барбекю</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Доступна зона з мангалом для приготування смачних шашликів та страв на вогнищі.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-umbrella-beach"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Пляж і шезлонги</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Зручний вихід до води та чистий простір для відпочинку.</p>
+                </div>
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
+                        <i class="fa-solid fa-calendar-days"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Працюємо в межсезоння</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Приймаємо гостей не лише влітку, а й у прохолодну пору року для тихого та затишного відпочинку.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЕРЕВАГИ -->
+    <section id="advantages" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Чому обирають «Маяк»?</h2>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-location-dot"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Зручне розташування біля моря</h3>
+                    <p class="text-gray-400 text-sm">Всього 3 хвилини спокійної ходьби до чистого пляжу та узбережжя.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-tree"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Доглянута зелена територія</h3>
+                    <p class="text-gray-400 text-sm">Красивий і доглянутий двір із зеленню, затишними місцями для відпочинку та приємною атмосферою.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-shield-virus"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Обробка від комах</h3>
+                    <p class="text-gray-400 text-sm">Регулярна професійна обробка території від комах для вашого комфортного та безпечного відпочинку.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-broom"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Чистота і комфорт</h3>
+                    <p class="text-gray-400 text-sm">Регулярно прибираємо кімнати та підтримуємо затишок.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wallet"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Доступні ціни</h3>
+                    <p class="text-gray-400 text-sm">Чесна вартість та найкращі умови.</p>
+                </div>
+                <div class="p-6 rounded-2xl bg-cardBg border border-gray-800">
+                    <div class="text-accentCyan text-2xl mb-4"><i class="fa-solid fa-wifi"></i></div>
+                    <h3 class="text-lg font-bold text-white mb-2">Інтернет</h3>
+                    <p class="text-gray-400 text-sm">Швидкий Wi-Fi на всій території.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- БЛОК FAQ -->
+    <section id="faq" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full">
+        <div class="max-w-4xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="text-xs tracking-widest text-accentCyan uppercase mb-2">Допомога</div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Часто задавані питання (FAQ)</h2>
+            </div>
+
+            <div class="space-y-4">
+                <div class="bg-cardBg rounded-2xl p-6 border border-gray-800">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                        <i class="fa-solid fa-circle-question text-accentCyan mr-2.5"></i>
+                        Яка сума передоплати потрібна для підтвердження броні?
+                    </h3>
+                    <p class="text-gray-300 text-sm pl-7 leading-relaxed">
+                        Для підтвердження броні необхідно сплатити вартість одного дня проживання. Решту суми ви сплачуєте при заїзді.
+                    </p>
+                </div>
+
+                <div class="bg-cardBg rounded-2xl p-6 border border-gray-800">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                        <i class="fa-solid fa-circle-question text-accentCyan mr-2.5"></i>
+                        Чи є на території охоронювана парковка для машин?
+                    </h3>
+                    <p class="text-gray-300 text-sm pl-7 leading-relaxed">
+                        Так, на території та поруч із базою є зручне та безпечне місце для паркування автомобілів наших гостей.
+                    </p>
+                </div>
+
+                <div class="bg-cardBg rounded-2xl p-6 border border-gray-800">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                        <i class="fa-solid fa-circle-question text-accentCyan mr-2.5"></i>
+                        Який час заїзду та виїзду?
+                    </h3>
+                    <p class="text-gray-300 text-sm pl-7 leading-relaxed">
+                        Заїзд гостей здійснюється з 13:00, а виїзд — до 12:00 годин дня. У разі індивідуальних побажань ви завжди можете зв'язатися з нами.
+                    </p>
+                </div>
+
+                <div class="bg-cardBg rounded-2xl p-6 border border-gray-800">
+                    <h3 class="text-lg font-bold text-white mb-2 flex items-center">
+                        <i class="fa-solid fa-circle-question text-accentCyan mr-2.5"></i>
+                        Чи можна замовляти харчування в кафе окремо або за розкладом?
+                    </h3>
+                    <p class="text-gray-300 text-sm pl-7 leading-relaxed">
+                        У нашому великому кафе ви можете замовляти свіжі домашні страви щодня, а також скористатися вигідним комплексним харчуванням при бронюванні від 4 днів!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ВІДГУКИ -->
+    <section id="reviews" class="py-20 px-4 bg-[#0c101c] w-full">
+        <div class="max-w-7xl mx-auto w-full">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <div class="text-xs tracking-widest text-accentCyan uppercase mb-2">Відгуки</div>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Що кажуть гості</h2>
+            </div>
+
+            <div id="reviews-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Хороша, проста база для сімейного відпочинку. Головне — тихо, є зелень і чисто. Природа тут дійсно дуже красива. Ми чудово провели час, діти теж задоволені. Рекомендую, якщо хочеться просто спокійно відпочити, купаючись, проводячи час на свіжому повітрі та готуючи шашлики. До моря приблизно 150 метрів.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">С</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Себастьян Бах</div>
+                            <div class="text-xs text-gray-400">місяць тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Я була там, коли була маленькою у 2016-2017 році. Залишилися дуже теплі враження. Спогади досі живі: приємні люди, доброзичливий персонал, затишна атмосфера. Зараз це місце далеко, але я часто згадую ті моменти. Сподіваюся, там усе так само добре, як тоді.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">M</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Milana Tsvikilevych</div>
+                            <div class="text-xs text-gray-400">рік тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Для таких цін кращого не бачив. Вода тепла, кондиціонери, інтернет, кухня, затишок, до моря йти 1 хвилину. Що ще потрібно? Друзі, а вид на море з номерів, тераси та їдальні — таке не всюди побачиш по всьому узбережжі.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">Ц</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Циганков Володимир</div>
+                            <div class="text-xs text-gray-400">4 роки тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Маленька затишна база, найостанніша на вулиці. Пляж у цьому місці зазвичай багатолюдний, є стоянка для машин. Неподалік можна знайти менш людне місце. Адміністрація порядча, хороші люди.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">В</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Володимир Рабченюк</div>
+                            <div class="text-xs text-gray-400">7 років тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Персонал привітний, номери за таку ціну чудові, до моря хвилини 3, вид із вікна чудовий.»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">V</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Vlados</div>
+                            <div class="text-xs text-gray-400">2 роки тому</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Це нереально круто! Атмосфера домашня та приємна. Обов'язково повернемося і не раз)))»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">А</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Анастасія</div>
+                            <div class="text-xs text-gray-400">нещодавно</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- КОНТАКТИ -->
+    <section id="contacts" class="py-20 px-4 bg-darkBg border-t border-gray-800 w-full">
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center max-w-2xl mx-auto mb-16">
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Зв'яжіться з нами</h2>
+                <p class="text-gray-300 mb-8">Готові уточнити деталі або є запитання щодо ціни? Телефонуйте нам у будь-який час!</p>
+                <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6">
+                    <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
+                </a>
+                <p class="text-xs text-accentCyan font-medium">
+                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація нашої бази відпочинку «Маяк»
+                </p>
+            </div>
+
+            <div class="rounded-2xl overflow-hidden border border-gray-800 shadow-2xl h-96 w-full photo-frame">
+                <iframe 
+                    src="https://maps.google.com/maps?q=45.53215723968708,29.646525527810656&z=19&output=embed" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ВНИЗУ -->
+    <div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl">
+        <div class="flex items-center justify-between max-w-4xl mx-auto">
+            <div>
+                <div class="text-xs text-gray-400">Ціни від</div>
+                <div class="text-white font-bold text-base sm:text-lg">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+            </div>
+            <div class="flex items-center space-x-3">
+                <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
+                    <i class="fa-solid fa-gift mr-1.5"></i> Спецпропозиції
+                </a>
+                <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
+                    <i class="fa-solid fa-phone mr-1.5"></i> Позвнити
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ФУТЕР -->
+    <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm mb-12 sm:mb-0">
+        <p>&copy; 2026 База відпочинку «Маяк». Всі права захищені.</p>
+    </footer>
+
+    <!-- МОДАЛЬНЕ ОКНО ГАЛЕРЕИ -->
+    <div id="image-modal" onclick="closeModalGallery()" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-md">
+        <button onclick="closeModalGallery()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-3xl focus:outline-none z-50 transition-colors">
+            <i class="fa-solid fa-xmark"></i>
+        </button>
+        <button onclick="prevModalSlide(event)" class="absolute left-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all z-50 border border-cyan-500/30">
+            <i class="fa-solid fa-chevron-left text-xl"></i>
+        </button>
+        <div class="max-w-5xl max-h-[85vh] overflow-hidden flex items-center justify-center relative" onclick="event.stopPropagation()">
+            <img id="modal-img" src="" alt="Перегляд фото" class="max-w-full max-h-[85vh] object-contain rounded-lg opacity-0 transition-opacity duration-300">
+        </div>
+        <button onclick="nextModalSlide(event)" class="absolute right-4 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full bg-black/70 hover:bg-black text-white flex items-center justify-center transition-all z-50 border border-cyan-500/30">
+            <i class="fa-solid fa-chevron-right text-xl"></i>
+        </button>
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/70 px-4 py-1.5 rounded-full text-sm text-white tracking-widest backdrop-blur-sm border border-cyan-500/30">
+            <span id="modal-current">1</span> / <span id="modal-total">1</span>
+        </div>
+    </div>
+
+    <!-- СКРИПТЫ -->
+    <script>
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.nav-link');
+
+        window.addEventListener('scroll', () => {
+            let currentScroll = window.scrollY + 150;
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.offsetHeight;
+                const sectionId = section.getAttribute('id');
+                
+                if (currentScroll >= sectionTop && currentScroll < sectionTop + sectionHeight) {
+                    navLinks.forEach(link => {
+                        if (link.getAttribute('data-target') === sectionId) {
+                            link.classList.add('active-nav');
+                        } else {
+                            link.classList.remove('active-nav');
+                        }
+                    });
                 }
-            } catch (err) {
-                console.error('Помилка мережі:', err);
-                alert('Помилка з'єднання з базою даних.');
-            } finally {
-                submitBtn.disabled = false;
-                submitBtn.textContent = 'Забронювати відпочинок';
+            });
+        });
+
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuIcon = document.getElementById('menu-icon');
+        const mobileLinks = document.querySelectorAll('.mobile-link');
+        let isMenuOpen = false;
+
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.style.maxHeight = "0px";
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
             }
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.style.maxHeight = "0px";
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            });
+        });
+
+        const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
+        const improvedImages = ['1 номер Н.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
+        const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
+        const doubleImages = ['2 (1).png', '2 (1).jpg'];
+        const tripleImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
+
+        let aboutIndex = { val: 0 };
+        let improvedIndex = { val: 0 };
+        let standardIndex = { val: 0 };
+        let doubleIndex = { val: 0 };
+        let tripleIndex = { val: 0 };
+
+        document.getElementById('about-total').innerText = aboutImages.length;
+        document.getElementById('improved-total').innerText = improvedImages.length;
+        document.getElementById('standard-total').innerText = standardImages.length;
+        document.getElementById('double-total').innerText = doubleImages.length;
+        document.getElementById('triple-total').innerText = tripleImages.length;
+
+        function updateSlide(imgId, currentId, imagesArray, indexObj, direction) {
+            const imgElement = document.getElementById(imgId);
+            if (!imgElement) return;
+            imgElement.style.opacity = '0';
+            setTimeout(() => {
+                indexObj.val = (indexObj.val + direction + imagesArray.length) % imagesArray.length;
+                imgElement.src = imagesArray[indexObj.val];
+                const currElement = document.getElementById(currentId);
+                if (currElement) currElement.innerText = indexObj.val + 1;
+                imgElement.style.opacity = '1';
+            }, 150);
+        }
+
+        function nextAboutSlide() { updateSlide('about-slider-img', 'about-current', aboutImages, aboutIndex, 1); }
+        function prevAboutSlide() { updateSlide('about-slider-img', 'about-current', aboutImages, aboutIndex, -1); }
+        function nextImprovedSlide() { updateSlide('improved-slider-img', 'improved-current', improvedImages, improvedIndex, 1); }
+        function prevImprovedSlide() { updateSlide('improved-slider-img', 'improved-current', improvedImages, improvedIndex, -1); }
+        function nextStandardSlide() { updateSlide('standard-slider-img', 'standard-current', standardImages, standardIndex, 1); }
+        function prevStandardSlide() { updateSlide('standard-slider-img', 'standard-current', standardImages, standardIndex, -1); }
+        function nextDoubleSlide() { updateSlide('double-slider-img', 'double-current', doubleImages, doubleIndex, 1); }
+        function prevDoubleSlide() { updateSlide('double-slider-img', 'double-current', doubleImages, doubleIndex, -1); }
+        function nextTripleSlide() { updateSlide('triple-slider-img', 'triple-current', tripleImages, tripleIndex, 1); }
+        function prevTripleSlide() { updateSlide('triple-slider-img', 'triple-current', tripleImages, tripleIndex, -1); }
+
+        let currentModalImages = [];
+        let currentModalIndex = 0;
+
+        function openModalGallery(imagesArray, startIndex = 0) {
+            currentModalImages = imagesArray;
+            currentModalIndex = startIndex;
+            document.getElementById('modal-total').innerText = currentModalImages.length;
+            document.getElementById('modal-current').innerText = currentModalIndex + 1;
+            const modalImg = document.getElementById('modal-img');
+            modalImg.style.opacity = '0';
+            modalImg.src = currentModalImages[currentModalIndex];
+            const modal = document.getElementById('image-modal');
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            document.body.style.overflow = 'hidden';
+            setTimeout(() => { modalImg.style.opacity = '1'; }, 50);
+        }
+
+        function closeModalGallery() {
+            const modal = document.getElementById('image-modal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+            document.body.style.overflow = 'auto';
+        }
+
+        function changeModalSlide(direction, event) {
+            if (event) event.stopPropagation();
+            if (currentModalImages.length === 0) return;
+            const modalImg = document.getElementById('modal-img');
+            modalImg.style.opacity = '0';
+            setTimeout(() => {
+                currentModalIndex = (currentModalIndex + direction + currentModalImages.length) % currentModalImages.length;
+                modalImg.src = currentModalImages[currentModalIndex];
+                document.getElementById('modal-current').innerText = currentModalIndex + 1;
+                modalImg.style.opacity = '1';
+            }, 150);
+        }
+
+        function nextModalSlide(event) { changeModalSlide(1, event); }
+        function prevModalSlide(event) { changeModalSlide(-1, event); }
+
+        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ И ФОРМА БРОНИРОВАНИЯ
+        document.addEventListener('DOMContentLoaded', () => {
+            const roomSelect = document.getElementById('calcRoomType');
+            const toggleBtn = document.getElementById('toggleCalendarBtn');
+            const calendarDropdown = document.getElementById('calendarDropdown');
+            const toggleIcon = document.getElementById('toggleIcon');
+            const barSelectedText = document.getElementById('barSelectedText');
+            const nightsDisplay = document.getElementById('calcNightsCount');
+            const prepayDisplay = document.getElementById('calcPrepayPrice');
+            const priceDisplay = document.getElementById('calcTotalPrice');
+            const resetBtn = document.getElementById('resetDatesBtn');
+
+            const guestNameInput = document.getElementById('guestName');
+            const guestPhoneInput = document.getElementById('guestPhone');
+            const bookNowBtn = document.getElementById('bookNowBtn');
+
+            const month1Grid = document.getElementById('month1Grid');
+            const month2Grid = document.getElementById('month2Grid');
+            const month1Name = document.getElementById('month1Name');
+            const month2Name = document.getElementById('month2Name');
+            const prevMonthBtn = document.getElementById('prevMonthBtn');
+            const nextMonthBtn = document.getElementById('nextMonthBtn');
+
+            let isOpen = false;
+            let startDate = null;
+            let endDate = null;
+
+            let currentPointer = new Date();
+            const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
+
+            toggleBtn.addEventListener('click', () => {
+                isOpen = !isOpen;
+                if (isOpen) {
+                    calendarDropdown.classList.remove('hidden');
+                    toggleIcon.classList.add('rotate-180');
+                } else {
+                    calendarDropdown.classList.add('hidden');
+                    toggleIcon.classList.remove('rotate-180');
+                }
+            });
+
+            prevMonthBtn.addEventListener('click', () => {
+                currentPointer.setMonth(currentPointer.getMonth() - 1);
+                renderCalendars();
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentPointer.setMonth(currentPointer.getMonth() + 1);
+                renderCalendars();
+            });
+
+            function getDayPrice(dateObj, basePrice) {
+                const dayOfWeek = dateObj.getDay();
+                if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
+                    return basePrice + 200;
+                }
+                return basePrice;
+            }
+
+            function renderCalendars() {
+                const year1 = currentPointer.getFullYear();
+                const month1 = currentPointer.getMonth();
+
+                const secondMonthDate = new Date(year1, month1 + 1, 1);
+                const year2 = secondMonthDate.getFullYear();
+                const month2 = secondMonthDate.getMonth();
+
+                renderSingleMonth(year1, month1, month1Grid, month1Name);
+                renderSingleMonth(year2, month2, month2Grid, month2Name);
+            }
+
+            function renderSingleMonth(year, month, gridContainer, nameContainer) {
+                gridContainer.innerHTML = '';
+                nameContainer.textContent = `${monthNames[month]} ${year}`;
+
+                const firstDayIndex = (new Date(year, month, 1).getDay() + 6) % 7;
+                const totalDays = new Date(year, month + 1, 0).getDate();
+
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const emptyDiv = document.createElement('div');
+                    gridContainer.appendChild(emptyDiv);
+                }
+
+                for (let day = 1; day <= totalDays; day++) {
+                    const currentDate = new Date(year, month, day);
+
+                    const dayDiv = document.createElement('div');
+                    dayDiv.className = 'cal-day-cell';
+
+                    const numSpan = document.createElement('span');
+                    numSpan.className = 'day-num';
+                    numSpan.textContent = day;
+
+                    dayDiv.appendChild(numSpan);
+
+                    const timeStamp = currentDate.setHours(0,0,0,0);
+                    const todayTimestamp = new Date().setHours(0,0,0,0);
+
+                    if (timeStamp < todayTimestamp) {
+                        dayDiv.classList.add('disabled');
+                    } else {
+                        if (startDate && timeStamp === startDate.setHours(0,0,0,0)) {
+                            dayDiv.classList.add('selected');
+                        } else if (endDate && timeStamp === endDate.setHours(0,0,0,0)) {
+                            dayDiv.classList.add('selected');
+                        } else if (startDate && endDate && timeStamp > startDate.setHours(0,0,0,0) && timeStamp < endDate.setHours(0,0,0,0)) {
+                            dayDiv.classList.add('in-range');
+                        }
+
+                        dayDiv.addEventListener('click', () => {
+                            handleDateClick(new Date(year, month, day));
+                        });
+                    }
+                    gridContainer.appendChild(dayDiv);
+                }
+            }
+
+            function handleDateClick(clickedDate) {
+                if (!startDate || (startDate && endDate)) {
+                    startDate = clickedDate;
+                    endDate = null;
+                } else if (startDate && !endDate) {
+                    if (clickedDate < startDate) {
+                        startDate = clickedDate;
+                    } else {
+                        endDate = clickedDate;
+                    }
+                }
+                updateCalculation();
+                renderCalendars();
+            }
+
+            function updateCalculation() {
+                const basePrice = parseInt(roomSelect.value);
+
+                if (startDate && endDate) {
+                    let totalSum = 0;
+                    let diffDays = 0;
+                    let curr = new Date(startDate);
+                    let firstDayPrice = getDayPrice(curr, basePrice);
+
+                    while (curr < endDate) {
+                        totalSum += getDayPrice(curr, basePrice);
+                        diffDays++;
+                        curr.setDate(curr.getDate() + 1);
+                    }
+
+                    const options = { day: 'numeric', month: 'short' };
+                    const dateStr = `${startDate.toLocaleDateString('uk-UA', options)} — ${endDate.toLocaleDateString('uk-UA', options)}`;
+                    barSelectedText.textContent = dateStr;
+                    nightsDisplay.textContent = `${diffDays} ${declOfNum(diffDays, ['ніч', 'ночі', 'ночей'])}`;
+                    prepayDisplay.textContent = `${firstDayPrice.toLocaleString()} ₴`;
+                    priceDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
+
+                    bookNowBtn.style.opacity = "1";
+                    bookNowBtn.style.cursor = "pointer";
+                } else if (startDate) {
+                    const dateStr = `Заїзд: ${startDate.toLocaleDateString('uk-UA', { day: 'numeric', month: 'short' })} (оберіть виїзд)`;
+                    barSelectedText.textContent = dateStr;
+                    nightsDisplay.textContent = '0 ночей';
+                    prepayDisplay.textContent = '0 ₴';
+                    priceDisplay.textContent = '0 ₴';
+                } else {
+                    barSelectedText.textContent = 'Оберіть період заїзду та виїзду';
+                    nightsDisplay.textContent = '0 ночей';
+                    prepayDisplay.textContent = '0 ₴';
+                    priceDisplay.textContent = '0 ₴';
+                }
+            }
+
+            function declOfNum(number, titles) {
+                const cases = [2, 0, 1, 1, 1, 2];
+                return titles[(number % 100 > 4 && number % 100 < 20) ? 2 : cases[(number % 10 < 5) ? number % 10 : 5]];
+            }
+
+            roomSelect.addEventListener('change', () => {
+                updateCalculation();
+                renderCalendars();
+            });
+
+            resetBtn.addEventListener('click', () => {
+                startDate = null;
+                endDate = null;
+                updateCalculation();
+                renderCalendars();
+            });
+
+            window.submitBooking = function() {
+                if (!startDate || !endDate) {
+                    alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
+                    return;
+                }
+                if (!guestNameInput.value || !guestPhoneInput.value) {
+                    alert('Будь ласка, введіть ваше ім\'я та номер телефону!');
+                    return;
+                }
+
+                alert(`Дякуємо, ${guestNameInput.value}! Бронювання прийнято. Переходимо до оплати передоплати за 1 день.`);
+            }
+
+            renderCalendars();
         });
     </script>
 </body>
