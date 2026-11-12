@@ -1070,7 +1070,7 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ С ЗАЩИТОЙ ОТ ОВЕРБУКИНГА
+        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ С УЧЁТОМ КОЛИЧЕСТВА НОМЕРОВ (18 НОМЕРОВ)
         (function initBookingCalendar() {
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
@@ -1094,6 +1094,14 @@
             const guestName = document.getElementById('guestName');
             const guestPhone = document.getElementById('guestPhone');
             const bookBtn = document.getElementById('bookNowBtn');
+
+            // Номерной фонд базы "Маяк" (всего 18 номеров)
+            const ROOM_INVENTORY = {
+                '800': 2,   // 2-х місний номер — 2 шт.
+                '1050': 6,  // 3-х місний номер — 6 шт.
+                '1400': 6,  // 4-х місний номер — 6 шт.
+                '1500': 4   // Номер «Люкс» — 4 шт.
+            };
 
             const monthNames = [
                 "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
@@ -1250,7 +1258,55 @@
                 return forms[idx];
             }
 
-            // ПРОВЕРКА НАКЛАДОК И СОХРАНЕНИЕ В БАЗУ
+            function toIso(d) {
+                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+            }
+
+            function formatUaDate(d) {
+                return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
+            }
+
+            // Посуточная проверка занятости по конкретной категории
+            function isRangeAvailable(startDate, endDate, existingBookings, maxRooms) {
+                let cursor = new Date(startDate);
+                while (cursor.getTime() < endDate.getTime()) {
+                    const dayStr = toIso(cursor);
+                    let occupiedCount = 0;
+
+                    for (let b of existingBookings) {
+                        // Правило стыка дат: если гость выезжает 10-го (b.end_date === '2026-07-10'),
+                        // а новый заезжает 10-го (dayStr === '2026-07-10'), условие dayStr < b.end_date ложно — номер свободен!
+                        if (dayStr >= b.start_date && dayStr < b.end_date) {
+                            occupiedCount++;
+                        }
+                    }
+
+                    if (occupiedCount >= maxRooms) {
+                        return false;
+                    }
+                    cursor.setDate(cursor.getDate() + 1);
+                }
+                return true;
+            }
+
+            // Поиск ближайшей свободной даты заезда, если желаемые даты заняты
+            function findNextAvailableDate(desiredStart, desiredEnd, existingBookings, maxRooms) {
+                const nightsCount = Math.round((desiredEnd.getTime() - desiredStart.getTime()) / (1000 * 60 * 60 * 24));
+                let candidateStart = new Date(desiredStart);
+
+                for (let offset = 1; offset <= 90; offset++) {
+                    candidateStart.setDate(candidateStart.getDate() + 1);
+                    let candidateEnd = new Date(candidateStart);
+                    candidateEnd.setDate(candidateEnd.getDate() + nightsCount);
+
+                    if (isRangeAvailable(candidateStart, candidateEnd, existingBookings, maxRooms)) {
+                        return candidateStart;
+                    }
+                }
+                return null;
+            }
+
+            // ПРОВЕРКА НАЛИЧИЯ МЕСТ И СОХРАНЕНИЕ В БАЗУ
             bookBtn.addEventListener('click', async function() {
                 if (!checkIn || !checkOut) {
                     alert('Будь ласка, оберіть дати заїзду та виїзду у календарі!');
@@ -1261,9 +1317,10 @@
                     return;
                 }
 
+                const roomKey = roomSelect.value;
+                const maxRooms = ROOM_INVENTORY[roomKey] || 1;
                 const selectedRoomName = roomSelect.options[roomSelect.selectedIndex].text;
-                const toIso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-                
+
                 const newStart = toIso(checkIn);
                 const newEnd = toIso(checkOut);
 
@@ -1273,34 +1330,35 @@
                 try {
                     if (!supabaseClient) throw new Error('Supabase client not initialized');
 
-                    // ШАГ 1: Проверяем, нет ли уже броней на этот номер, которые пересекаются с нашими датами
+                    // Загружаем все брони по выбранной категории номера
                     const { data: existingBookings, error: fetchError } = await supabaseClient
                         .from('bookings')
-                        .select('*')
+                        .select('start_date, end_date, status')
                         .eq('room_type', selectedRoomName);
 
                     if (fetchError) throw fetchError;
 
-                    // Логика проверки накладок дат
-                    let hasOverlap = false;
-                    if (existingBookings) {
-                        for (let b of existingBookings) {
-                            if (newStart < b.end_date && newEnd > b.start_date) {
-                                hasOverlap = true;
-                                break;
-                            }
-                        }
-                    }
+                    const activeBookings = (existingBookings || []).filter(b => b.status !== 'cancelled');
 
-                    if (hasOverlap) {
-                        alert(`На жаль, цей номер вже зайнятий на вибрані дати! Будь ласка, оберіть інші дати або зв'яжіться з нами по телефону.`);
+                    // Проверяем, есть ли хотя бы 1 свободный номер на каждый день выбранного периода
+                    const available = isRangeAvailable(checkIn, checkOut, activeBookings, maxRooms);
+
+                    if (!available) {
+                        const nextFreeDate = findNextAvailableDate(checkIn, checkOut, activeBookings, maxRooms);
+                        let msg = `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» вже зайняті.`;
+                        if (nextFreeDate) {
+                            msg += `\n\nНайближча вільна дата для заїзду — з ${formatUaDate(nextFreeDate)}.`;
+                        } else {
+                            msg += `\n\nБудь ласка, зателефонуйте нам для підбору іншого варіанту: +38 (093) 575-46-68`;
+                        }
+                        alert(msg);
                         bookBtn.disabled = false;
                         bookBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-1.5"></i>Забронювати номер';
                         return;
                     }
 
-                    // ШАГ 2: Если даты свободны — сохраняем бронь
-                    const baseRate = parseInt(roomSelect.value, 10);
+                    // Если свободный номер есть — оформляем бронь
+                    const baseRate = parseInt(roomKey, 10);
                     let sum = 0;
                     let cursor = new Date(checkIn);
                     const firstNightRate = getNightRate(cursor, baseRate);
