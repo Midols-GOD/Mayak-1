@@ -436,7 +436,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
-                <!-- 1. КАЛЕНДАР ТА БРОНЮВАННЯ -->
+                <!-- 1. КАЛЕНДАР ТА БРОНЮВАННЯ (З ПЕРЕВІРКОЮ НАКЛАДОК) -->
                 <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-7 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Бронювання
@@ -534,7 +534,7 @@
                     </div>
                 </div>
 
-                <!-- 2. КАРТОЧКА ПИТАНИЯ (ЖИВОЙ ПРОСТОЙ ТЕКСТ) -->
+                <!-- 2. КАРТОЧКА ПИТАНИЯ -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-7 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -568,7 +568,7 @@
                     </a>
                 </div>
 
-                <!-- 3. КАРТОЧКА УБД (ЖИВОЙ ПРОСТОЙ ТЕКСТ, ЗАГОЛОВОК ПРОСТО "УБД") -->
+                <!-- 3. КАРТОЧКА УБД -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-7 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         УБД
@@ -1074,7 +1074,7 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ (ПЕРЕПИСАНО НАЧИСТО БЕЗ КОНФЛИКТОВ)
+        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ С ЗАЩИТОЙ ОТ ОВЕРБУКИНГА
         (function initBookingCalendar() {
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
@@ -1109,7 +1109,6 @@
             let checkIn = null;
             let checkOut = null;
 
-            // Открытие / закрытие панели календаря
             toggleBtn.addEventListener('click', function() {
                 const isHidden = panel.classList.contains('hidden');
                 if (isHidden) {
@@ -1142,7 +1141,7 @@
             roomSelect.addEventListener('change', recalculate);
 
             function getNightRate(dateObj, baseRate) {
-                const dow = dateObj.getDay(); // 0 = Вс, 5 = Пт, 6 = Сб
+                const dow = dateObj.getDay();
                 return (dow === 5 || dow === 6 || dow === 0) ? baseRate + 200 : baseRate;
             }
 
@@ -1194,13 +1193,9 @@
             function renderAll() {
                 const y1 = viewDate.getFullYear();
                 const m1 = viewDate.getMonth();
-
                 const nextM = new Date(y1, m1 + 1, 1);
-                const y2 = nextM.getFullYear();
-                const m2 = nextM.getMonth();
-
                 renderMonth(y1, m1, m1Grid, m1Title);
-                renderMonth(y2, m2, m2Grid, m2Title);
+                renderMonth(nextM.getFullYear(), nextM.getMonth(), m2Grid, m2Title);
             }
 
             function selectDate(dateObj) {
@@ -1259,6 +1254,7 @@
                 return forms[idx];
             }
 
+            // ПРОВЕРКА НАКЛАДОК И СОХРАНЕНИЕ В БАЗУ
             bookBtn.addEventListener('click', async function() {
                 if (!checkIn || !checkOut) {
                     alert('Будь ласка, оберіть дати заїзду та виїзду у календарі!');
@@ -1269,38 +1265,72 @@
                     return;
                 }
 
-                const baseRate = parseInt(roomSelect.value, 10);
-                let sum = 0;
-                let cursor = new Date(checkIn);
-                const firstNightRate = getNightRate(cursor, baseRate);
-
-                while (cursor.getTime() < checkOut.getTime()) {
-                    sum += getNightRate(cursor, baseRate);
-                    cursor.setDate(cursor.getDate() + 1);
-                }
-
+                const selectedRoomName = roomSelect.options[roomSelect.selectedIndex].text;
                 const toIso = (d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-
-                const payload = {
-                    room_type: roomSelect.options[roomSelect.selectedIndex].text,
-                    start_date: toIso(checkIn),
-                    end_date: toIso(checkOut),
-                    guest_name: guestName.value.trim(),
-                    guest_phone: guestPhone.value.trim(),
-                    total_price: sum,
-                    prepay_price: firstNightRate,
-                    status: 'new'
-                };
+                
+                const newStart = toIso(checkIn);
+                const newEnd = toIso(checkOut);
 
                 bookBtn.disabled = true;
-                bookBtn.textContent = 'Зберігаємо...';
+                bookBtn.textContent = 'Перевіряємо вільні місця...';
 
                 try {
                     if (!supabaseClient) throw new Error('Supabase client not initialized');
-                    const { error } = await supabaseClient.from('bookings').insert([payload]);
-                    if (error) throw error;
 
-                    alert(`Дякуємо, ${guestName.value.trim()}! Бронювання збережено. Ми зв'яжемося з вами найближчим часом.`);
+                    // ШАГ 1: Проверяем, нет ли уже броней на этот номер, которые пересекаются с нашими датами
+                    const { data: existingBookings, error: fetchError } = await supabaseClient
+                        .from('bookings')
+                        .select('*')
+                        .eq('room_type', selectedRoomName);
+
+                    if (fetchError) throw fetchError;
+
+                    // Логика проверки накладок дат
+                    let hasOverlap = false;
+                    if (existingBookings) {
+                        for (let b of existingBookings) {
+                            // Формула пересечения диапазонов: (StartA < EndB) и (EndA > StartB)
+                            if (newStart < b.end_date && newEnd > b.start_date) {
+                                hasOverlap = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (hasOverlap) {
+                        alert(`На жаль, цей номер вже зайнятий на вибрані дати! Будь ласка, оберіть інші дати або зв'яжіться з нами по телефону.`);
+                        bookBtn.disabled = false;
+                        bookBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-1.5"></i>Забронювати номер';
+                        return;
+                    }
+
+                    // ШАГ 2: Если даты свободны — сохраняем бронь
+                    const baseRate = parseInt(roomSelect.value, 10);
+                    let sum = 0;
+                    let cursor = new Date(checkIn);
+                    const firstNightRate = getNightRate(cursor, baseRate);
+
+                    while (cursor.getTime() < checkOut.getTime()) {
+                        sum += getNightRate(cursor, baseRate);
+                        cursor.setDate(cursor.getDate() + 1);
+                    }
+
+                    const payload = {
+                        room_type: selectedRoomName,
+                        start_date: newStart,
+                        end_date: newEnd,
+                        guest_name: guestName.value.trim(),
+                        guest_phone: guestPhone.value.trim(),
+                        total_price: sum,
+                        prepay_price: firstNightRate,
+                        status: 'new'
+                    };
+
+                    bookBtn.textContent = 'Зберігаємо бронювання...';
+                    const { error: insertError } = await supabaseClient.from('bookings').insert([payload]);
+                    if (insertError) throw insertError;
+
+                    alert(`Дякуємо, ${guestName.value.trim()}! Бронювання успішно створено. Ми зв'яжемося з вами найближчим часом.`);
                     checkIn = null;
                     checkOut = null;
                     guestName.value = '';
@@ -1308,9 +1338,10 @@
                     panel.classList.add('hidden');
                     chevron.style.transform = 'rotate(0deg)';
                     recalculate();
+
                 } catch (err) {
-                    console.error('Booking error:', err);
-                    alert('Не вдалося зберегти заявку онлайн. Будь ласка, зателефонуйте нам: +38 (093) 575-46-68');
+                    console.error('Booking conflict error:', err);
+                    alert('Помилка з\'єднання з базою даних. Будь ласка, зателефонуйте нам: +38 (093) 575-46-68');
                 } finally {
                     bookBtn.disabled = false;
                     bookBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-1.5"></i>Забронювати номер';
