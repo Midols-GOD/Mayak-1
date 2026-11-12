@@ -436,7 +436,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
 
-                <!-- 1. КАЛЕНДАР ТА БРОНЮВАННЯ (З ПЕРЕВІРКОЮ НАКЛАДОК) -->
+                <!-- 1. КАЛЕНДАР ТА БРОНЮВАННЯ -->
                 <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-7 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Бронювання
@@ -568,7 +568,7 @@
                     </a>
                 </div>
 
-                <!-- 3. КАРТОЧКА УБД -->
+                <!-- 3. КАРТОЧКА УБД (МЯГКИЙ И КОРРЕКТНЫЙ ТЕКСТ) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-7 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         УБД
@@ -579,26 +579,22 @@
                         </div>
                         <h3 class="text-xl font-bold text-white mb-3">УБД</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
-                            Для хлопців зі статусом УБД та їхніх сімей у нас діють прості й людяні умови, щоб ви могли нормально відпочити без зайвих нервів.
+                            Для учасників бойових дій та їхніх сімей у нас діють спеціальні умови та знижка 10% на проживання у стандартних номерах.
                         </p>
                         
                         <div class="bg-darkBg/60 rounded-xl p-4 mb-5 border border-gray-800 space-y-3 text-sm text-gray-300">
                             <div class="flex items-start space-x-2.5">
                                 <i class="fa-solid fa-check text-accentCyan mt-1"></i>
-                                <div><strong>Мінус 10% на житло</strong> з першого дня — діє на 2-х, 3-х та 4-х місні номери (по «Люксу» домовляємось окремо по телефону).</div>
+                                <div><strong>Знижка 10%</strong> на проживання у стандартних номерах (2-х, 3-х та 4-х місцевих) при пред'явленні посвідчення.</div>
                             </div>
                             <div class="flex items-start space-x-2.5 border-t border-gray-800/60 pt-2.5">
                                 <i class="fa-solid fa-check text-accentCyan mt-1"></i>
-                                <div><strong>Харчування по 400 ₴/день</strong> діє одразу, навіть якщо ви заїхали всього на 1–2 дні.</div>
-                            </div>
-                            <div class="flex items-start space-x-2.5 border-t border-gray-800/60 pt-2.5">
-                                <i class="fa-solid fa-check text-accentCyan mt-1"></i>
-                                <div><strong>Гроші не згорають:</strong> якщо змінилися плани або довелося поїхати раніше — передоплата та залишок днів просто переносяться на наступний ваш заїзд у цьому сезоні.</div>
+                                <div><strong>Пільгові умови:</strong> деталі щодо харчування, термінів та розміщення можна індивідуально узгодити за телефоном.</div>
                             </div>
                         </div>
 
                         <p class="text-xs text-gray-400 mb-4">
-                            *При заселенні просто покажіть посвідчення.
+                            *Будемо раді відповісти на всі запитання та допомогти з комфортним розміщенням.
                         </p>
                     </div>
 
@@ -1289,7 +1285,6 @@
                     let hasOverlap = false;
                     if (existingBookings) {
                         for (let b of existingBookings) {
-                            // Формула пересечения диапазонов: (StartA < EndB) и (EndA > StartB)
                             if (newStart < b.end_date && newEnd > b.start_date) {
                                 hasOverlap = true;
                                 break;
