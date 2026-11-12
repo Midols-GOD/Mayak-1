@@ -13,8 +13,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO-теги для пошукової видачі Google -->
-    <title>База відпочинку «Маяк» — Затишний відпочинок біля моря в Одеській області</title>
-    <meta name="description" content="База відпочинку «Маяк» в Одеській області. Комфортні номери від 800 грн/день, кафе, зона барбекю, доглянута зелена територія. Всього 3 хвилини до моря!">
+    <title>База відпочинку «Маяк» Приморське — Затишний відпочинок біля моря</title>
+    <meta name="description" content="База відпочинку «Маяк» в Одеській області (Приморське). Комфортні номери від 800 грн/день, кафе, зона барбекю, знижки для УБД. Всього 3 хвилини до моря!">
     
     <!-- Фавіконка -->
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
@@ -84,9 +84,8 @@
             border-color: rgba(6, 182, 212, 0.2);
         }
         .cal-day-cell.disabled {
-            opacity: 0.25;
+            opacity: 0.3;
             cursor: not-allowed;
-            pointer-events: none;
         }
         .day-num {
             font-size: 0.95rem;
@@ -129,12 +128,6 @@
                 <a href="#contacts" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="contacts">Контакти</a>
             </nav>
 
-            <div class="hidden sm:block">
-                <a href="tel:+380935754668" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm hover:opacity-90 transition-all shadow-lg shadow-cyan-500/20">
-                    <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
-                </a>
-            </div>
-
             <div class="md:hidden flex items-center">
                 <button id="menu-btn" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
                     <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
@@ -153,7 +146,7 @@
             <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="reviews">Відгуки</a>
             <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300" data-target="contacts">Контакти</a>
             <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
-                <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
+                <i class="fa-solid fa-phone mr-2"></i>Позвнити
             </a>
         </div>
     </header>
@@ -439,12 +432,12 @@
         </div>
     </section>
 
-    <!-- КАЛЕНДАРЬ И БРОНИРОВАНИЕ -->
+    <!-- КАЛЕНДАРЬ, БРОНИРОВАНИЕ И УБД -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
-                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та вигідні умови</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Календар та пропозиція</h2>
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та пільги</span>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white">Календар та умови для УБД</h2>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start">
@@ -457,7 +450,7 @@
                     <div>
                         <div class="text-center max-w-xl mx-auto mb-6">
                             <h3 class="text-2xl font-bold text-white mb-2">Виберіть дати та забронюйте</h3>
-                            <p class="text-gray-400 text-sm">Оберіть категорію номера, натисніть на кнопку вибору дат та заповніть дані для броні.</p>
+                            <p class="text-gray-400 text-sm">Оберіть категорію номера, натисніть на кнопку вибору дат та оберіть заїзд і виїзд.</p>
                         </div>
 
                         <!-- Выбор категории номера -->
@@ -479,9 +472,9 @@
                             </div>
                         </div>
 
-                        <!-- КНОПКА-ПЛАШКА ДЛЯ РАЗВЕРТЫВАНИЯ КАЛЕНДАРЯ -->
+                        <!-- 100% РАБОТАЮЩАЯ КНОПКА-ПЛАШКА -->
                         <div class="mb-5">
-                            <button type="button" id="toggleCalendarBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md cursor-pointer">
+                            <div id="toggleCalendarBtn" onclick="toggleCalendarDropdown()" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-2xl px-6 py-4 flex items-center justify-between text-left transition-all shadow-md cursor-pointer select-none">
                                 <div class="flex items-center space-x-3 w-full pointer-events-none">
                                     <i class="fa-regular fa-calendar-days text-accentCyan text-xl flex-shrink-0"></i>
                                     <div id="barSelectedText" class="text-white font-bold text-base sm:text-lg tracking-wide w-full">
@@ -491,7 +484,7 @@
                                 <div class="text-accentCyan flex-shrink-0 ml-3 pointer-events-none">
                                     <i id="toggleIcon" class="fa-solid fa-chevron-down text-lg transition-transform duration-300"></i>
                                 </div>
-                            </button>
+                            </div>
                         </div>
 
                         <!-- ВЫДВИЖНОЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ -->
@@ -511,14 +504,14 @@
 
                             <div class="grid grid-cols-1 gap-6">
                                 <div>
-                                    <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Місяць 1</div>
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month1Name">Листопад 2026</div>
                                     <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
                                         <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
                                     </div>
                                     <div id="month1Grid" class="grid grid-cols-7 gap-1.5"></div>
                                 </div>
                                 <div class="border-t border-gray-800 pt-4">
-                                    <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Місяць 2</div>
+                                    <div class="text-center font-bold text-white text-base mb-3" id="month2Name">Грудень 2026</div>
                                     <div class="grid grid-cols-7 gap-1 text-center text-xs text-gray-500 mb-2 font-semibold">
                                         <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
                                     </div>
@@ -565,48 +558,42 @@
                     </div>
                 </div>
 
-                <!-- 2. КАРТОЧКА АКЦИИ (СПРАВА) -->
+                <!-- 2. КАРТОЧКА ПЬОГОТ / УБД (СПРАВА) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between h-full">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
-                        Акція
+                        Спецпропозиція УБД
                     </div>
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-6">
-                            <i class="fa-solid fa-utensils"></i>
+                            <i class="fa-solid fa-medal"></i>
                         </div>
-                        <h3 class="text-2xl font-bold text-white mb-3">🍽️ Спеціальна пропозиція на харчування (від 4 днів)</h3>
+                        <h3 class="text-2xl font-bold text-white mb-3">🛡️ Особливі умови та пільги для УБД</h3>
                         <p class="text-gray-300 text-sm mb-6 leading-relaxed">
-                            Плануєте відпочинок від 4 днів і довше? Замовляйте повний комплекс домашнього харчування у нашому кафе на весь період перебування та заощаджуйте!
+                            Ми висловлюємо глибоку вдячність захисникам і запроваджуємо спеціальні привілеї на проживання та харчування на нашій базі відпочинку.
                         </p>
                         
-                        <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
-                            <div class="flex justify-between items-center text-sm text-gray-300">
-                                <span>Сніданок + Обід + Вечеря (окремо):</span>
-                                <span class="line-through text-gray-500">600 ₴ / день</span>
+                        <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-3">
+                            <div class="flex items-start space-x-3 text-sm text-gray-300">
+                                <i class="fa-solid fa-check text-accentCyan mt-1"></i>
+                                <div><strong>Знижка 10%</strong> на проживання в будь-якому номері з першого дня (навіть при заїзді на 1-2 дні).</div>
                             </div>
-                            <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
-                                <span class="text-accentCyan">Ціна за комплексом:</span>
-                                <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                            <div class="flex items-start space-x-3 text-sm text-gray-300 border-t border-gray-800/60 pt-2">
+                                <i class="fa-solid fa-check text-accentCyan mt-1"></i>
+                                <div><strong>Спецціна на харчування:</strong> Пільгові умови на комплексне харчування в нашому кафе автоматично застосовуються незалежно від кількості днів.</div>
                             </div>
-                            <div class="text-xs text-gray-400 pt-1 border-t border-gray-800/40">
-                                *Включає сніданок (150₴), обід (250₴) та вечерю (200₴). Діє при замовленні від 4 днів і до кінця виїзду.
+                            <div class="flex items-start space-x-3 text-sm text-gray-300 border-t border-gray-800/60 pt-2">
+                                <i class="fa-solid fa-check text-accentCyan mt-1"></i>
+                                <div><strong>Перенесення броні та залишку:</strong> Передоплата та залишок коштів при достроковому виїзді чи зміні дат (наприклад, з 10 по 15 число) не згорають, а переносяться на наступний заїзд у поточному сезоні.</div>
                             </div>
                         </div>
 
-                        <ul class="space-y-3 text-sm text-gray-300 border-t border-gray-800 pt-5 mb-8">
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span><strong>Діє від 4 днів:</strong> Умова автоматично застосовується для всіх гостей, які замовляють комплексне харчування від 4 діб і до самого від'їзду.</span>
-                            </li>
-                            <li class="flex items-start">
-                                <i class="fa-solid fa-circle-check text-accentCyan mt-1 mr-3 flex-shrink-0"></i>
-                                <span>Свіжі домашні страви щодня у просторому кафе на території бази.</span>
-                            </li>
-                        </ul>
+                        <p class="text-xs text-gray-400 mb-6">
+                            *Для підтвердження знижки та пільгових умов достатньо пред'явити відповідне посвідчення при заселенні.
+                        </p>
                     </div>
 
                     <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
-                        <i class="fa-solid fa-phone mr-2"></i>Зателефонувати для замовлення
+                        <i class="fa-solid fa-phone mr-2"></i>Уточнити деталі для УБД
                     </a>
                 </div>
 
@@ -711,7 +698,7 @@
                         Яка сума передоплати потрібна для підтвердження броні?
                     </h3>
                     <p class="text-gray-300 text-sm pl-7 leading-relaxed">
-                        Для підтвердження броні необхідно сплатити вартість одного дня проживання. Решту суми ви сплачуєте при заїзді.
+                        Для підтвердження броні необхідно сплатити вартість одного дня проживання. Решту суми ви сплачуєте при заїзді. Для УБД передоплата у разі перенесення дат не згорає.
                     </p>
                 </div>
 
@@ -731,17 +718,17 @@
                         Який час заїзду та виїзду?
                     </h3>
                     <p class="text-gray-300 text-sm pl-7 leading-relaxed">
-                        Заїзд гостей здійснюється з 13:00, а виїзд — до 12:00 годин дня. У разі індивідуальних побажань ви завжди можете зв'язатися з нами.
+                        Заїзд гостей здійснюється з 13:00, а виїзд — до 12:00 годин дня.
                     </p>
                 </div>
 
                 <div class="bg-cardBg rounded-2xl p-6 border border-gray-800">
                     <h3 class="text-lg font-bold text-white mb-2 flex items-center">
                         <i class="fa-solid fa-circle-question text-accentCyan mr-2.5"></i>
-                        Чи можна замовляти харчування в кафе окремо або за розкладом?
+                        Як діють знижки для учасників бойових дій (УБД)?
                     </h3>
                     <p class="text-gray-300 text-sm pl-7 leading-relaxed">
-                        У нашому великому кафе ви можете замовляти свіжі домашні страви щодня, а також скористатися вигідним комплексним харчуванням при бронюванні від 4 днів!
+                        Для УБД діє знижка 10% на проживання з першого дня, пільгові умови на харчування та можливість перенесення невикористаних коштів чи передплат на наступний заїзд у сезоні.
                     </p>
                 </div>
             </div>
@@ -866,7 +853,7 @@
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
                 </a>
                 <p class="text-xs text-accentCyan font-medium">
-                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація нашої бази відпочинку «Маяк»
+                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація нашої бази відпочинку «Маяк» (Приморське)
                 </p>
             </div>
 
@@ -893,7 +880,7 @@
             </div>
             <div class="flex items-center space-x-3">
                 <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
-                    <i class="fa-solid fa-gift mr-1.5"></i> Спецпропозиції
+                    <i class="fa-solid fa-gift mr-1.5"></i> Спецпропозиції УБД
                 </a>
                 <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
                     <i class="fa-solid fa-phone mr-1.5"></i> Позвнити
@@ -904,7 +891,7 @@
 
     <!-- ФУТЕР -->
     <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm mb-12 sm:mb-0">
-        <p>&copy; 2026 База відпочинку «Маяк». Всі права захищені.</p>
+        <p>&copy; 2026 База відпочинку «Маяк» (Приморське). Всі права захищені.</p>
     </footer>
 
     <!-- МОДАЛЬНЕ ОКНО ГАЛЕРЕИ -->
@@ -961,20 +948,18 @@
         const mobileLinks = document.querySelectorAll('.mobile-link');
         let isMenuOpen = false;
 
-        if (menuBtn) {
-            menuBtn.addEventListener('click', () => {
-                isMenuOpen = !isMenuOpen;
-                if (isMenuOpen) {
-                    mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
-                    menuIcon.classList.remove('fa-bars');
-                    menuIcon.classList.add('fa-xmark');
-                } else {
-                    mobileMenu.style.maxHeight = "0px";
-                    menuIcon.classList.remove('fa-xmark');
-                    menuIcon.classList.add('fa-bars');
-                }
-            });
-        }
+        menuBtn.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            if (isMenuOpen) {
+                mobileMenu.style.maxHeight = mobileMenu.scrollHeight + "px";
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-xmark');
+            } else {
+                mobileMenu.style.maxHeight = "0px";
+                menuIcon.classList.remove('fa-xmark');
+                menuIcon.classList.add('fa-bars');
+            }
+        });
 
         mobileLinks.forEach(link => {
             link.addEventListener('click', () => {
@@ -1068,12 +1053,24 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // ІНТЕРАКТИВНИЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ И ФОРМА БРОНИРОВАНИЯ
+        // ЖЕЛЕЗОБЕТОННО РАБОТАЮЩАЯ ФУНКЦИЯ ОТКРЫТИЯ КАЛЕНДАРЯ
+        let isCalendarOpen = false;
+        function toggleCalendarDropdown() {
+            const dropdown = document.getElementById('calendarDropdown');
+            const icon = document.getElementById('toggleIcon');
+            isCalendarOpen = !isCalendarOpen;
+            if (isCalendarOpen) {
+                dropdown.style.display = 'block';
+                icon.style.transform = 'rotate(180deg)';
+            } else {
+                dropdown.style.display = 'none';
+                icon.style.transform = 'rotate(0deg)';
+            }
+        }
+
+        // ИНТЕРАКТИВНЫЙ ДВУХМЕСЯЧНЫЙ КАЛЕНДАРЬ И ФОРМА БРОНИРОВАНИЯ
         document.addEventListener('DOMContentLoaded', () => {
             const roomSelect = document.getElementById('calcRoomType');
-            const toggleBtn = document.getElementById('toggleCalendarBtn');
-            const calendarDropdown = document.getElementById('calendarDropdown');
-            const toggleIcon = document.getElementById('toggleIcon');
             const barSelectedText = document.getElementById('barSelectedText');
             const nightsDisplay = document.getElementById('calcNightsCount');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
@@ -1091,35 +1088,11 @@
             const prevMonthBtn = document.getElementById('prevMonthBtn');
             const nextMonthBtn = document.getElementById('nextMonthBtn');
 
-            let isCalendarOpen = false;
             let startDate = null;
             let endDate = null;
 
             let currentPointer = new Date();
             const monthNames = ["Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень", "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"];
-
-            // Открытие / закрытие календаря
-            toggleBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                isCalendarOpen = !isCalendarOpen;
-                if (isCalendarOpen) {
-                    calendarDropdown.style.display = 'block';
-                    toggleIcon.style.transform = 'rotate(180deg)';
-                } else {
-                    calendarDropdown.style.display = 'none';
-                    toggleIcon.style.transform = 'rotate(0deg)';
-                }
-            });
-
-            // Закрытие при клике вне зоны
-            document.addEventListener('click', (e) => {
-                const calcContainer = document.getElementById('calculator');
-                if (calcContainer && !calcContainer.contains(e.target)) {
-                    isCalendarOpen = false;
-                    calendarDropdown.style.display = 'none';
-                    toggleIcon.style.transform = 'rotate(0deg)';
-                }
-            });
 
             prevMonthBtn.addEventListener('click', (e) => {
                 e.stopPropagation();
@@ -1135,7 +1108,6 @@
 
             function getDayPrice(dateObj, basePrice) {
                 const dayOfWeek = dateObj.getDay();
-                // Наценка на пятницу (5), субботу (6) и воскресенье (0)
                 if (dayOfWeek === 5 || dayOfWeek === 6 || dayOfWeek === 0) {
                     return basePrice + 200;
                 }
@@ -1266,7 +1238,7 @@
                 renderCalendars();
             });
 
-            // Отправка бронирования
+            // Функция отправки бронирования в Supabase
             window.submitBooking = async function() {
                 if (!startDate || !endDate) {
                     alert('Будь ласка, оберіть період заїзду та виїзду у календарі!');
@@ -1278,6 +1250,7 @@
                 }
 
                 const selectedOptionText = roomSelect.options[roomSelect.selectedIndex].text;
+                
                 const basePrice = parseInt(roomSelect.value);
                 let totalSum = 0;
                 let curr = new Date(startDate);
@@ -1324,8 +1297,8 @@
                         guestNameInput.value = '';
                         guestPhoneInput.value = '';
                         isCalendarOpen = false;
-                        calendarDropdown.style.display = 'none';
-                        toggleIcon.style.transform = 'rotate(0deg)';
+                        document.getElementById('calendarDropdown').style.display = 'none';
+                        document.getElementById('toggleIcon').style.transform = 'rotate(0deg)';
                         updateCalculation();
                         renderCalendars();
                     }
