@@ -89,7 +89,6 @@
             cursor: not-allowed;
         }
 
-        /* Плавная анимация раскрытия для календаря и списка номеров */
         .smooth-collapse {
             display: grid;
             grid-template-rows: 0fr;
@@ -104,7 +103,6 @@
             overflow: hidden;
         }
 
-        /* Анимация появления фирменного модального окна */
         @keyframes modalPop {
             0% { opacity: 0; transform: scale(0.92) translateY(10px); }
             100% { opacity: 1; transform: scale(1) translateY(0); }
@@ -164,7 +162,7 @@
             <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="reviews">Відгуки</a>
             <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300" data-target="contacts">Контакти</a>
             <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
-                <i class="fa-solid fa-phone mr-2"></i>Позвнити
+                <i class="fa-solid fa-phone mr-2"></i>Подзвонити
             </a>
         </div>
     </header>
@@ -256,7 +254,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (ПО УБЫВАНИЮ ВМЕСТИМОСТИ) -->
+    <!-- НОМЕРИ -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -457,7 +455,6 @@
                 <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block shadow-md shadow-cyan-500/15">Бронювання та акції</span>
             </div>
 
-            <!-- ВЕРХНИЙ БЛОК: КАЛЕНДАРЬ И БРОНИРОВАНИЕ -->
             <div class="max-w-4xl mx-auto mb-10">
                 <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-10 border border-accentCyan/30 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
@@ -470,7 +467,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                        <!-- КАСТОМНЫЙ ВЫПАДАЮЩИЙ СПИСОК НОМЕРОВ С ЦЕННИКАМИ (БЕЗ ДЕЛЕНИЯ НА VIP И КОЛИЧЕСТВО ЛЮДЕЙ) -->
                         <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Номер:</label>
                             <input type="hidden" id="calcRoomType" value="800" data-label="2-х місний номер (800 ₴)">
@@ -483,7 +479,6 @@
                                 <i id="roomDropdownChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
                             </button>
 
-                            <!-- Выпадающая лента номеров (единый аккуратный стиль с ценами и Пт-Нд) -->
                             <div id="roomDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl">
                                 <div class="smooth-collapse-inner divide-y divide-gray-800/80">
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="800" data-label="2-х місний номер (800 ₴)">
@@ -521,7 +516,6 @@
                             </div>
                         </div>
 
-                        <!-- КНОПКА КАЛЕНДАРЯ -->
                         <div>
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Дати заїзду / виїзду:</label>
                             <button type="button" id="calendarToggleBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-xl px-4 py-3.5 flex items-center justify-between text-left transition-all shadow-md cursor-pointer">
@@ -534,7 +528,6 @@
                         </div>
                     </div>
 
-                    <!-- ВЫПАДАЮЩИЙ КАЛЕНДАРЬ НА 2 МЕСЯЦА С ПЛАВНОЙ АНИМАЦИЕЙ -->
                     <div id="calendarPanel" class="smooth-collapse max-w-2xl mx-auto">
                         <div class="smooth-collapse-inner">
                             <div class="bg-darkBg border border-cyan-500/40 p-5 rounded-2xl shadow-xl mt-2 mb-6">
@@ -571,7 +564,6 @@
                         </div>
                     </div>
 
-                    <!-- ЯРКАЯ ПЛАШКА ВЫБРАННОГО МЕСЯЦА И ДАТ -->
                     <div id="selectedMonthBadge" class="hidden max-w-2xl mx-auto mb-4">
                         <div class="flex items-center justify-between bg-rose-950/50 border border-rose-500/50 rounded-xl px-4 py-2.5 text-sm">
                             <span class="flex items-center text-rose-200 font-medium">
@@ -584,7 +576,6 @@
                         </div>
                     </div>
 
-                    <!-- Итоги и форма отправки -->
                     <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-xl p-4 mb-5">
                             <div class="flex justify-between text-xs text-gray-400 mb-1">
@@ -613,10 +604,7 @@
                 </div>
             </div>
 
-            <!-- НИЖНИЙ БЛОК: АКЦИИ И УБД -->
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-
-                <!-- 1. КАРТОЧКА ПИТАНИЯ -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -650,7 +638,6 @@
                     </a>
                 </div>
 
-                <!-- 2. КАРТОЧКА УБД -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         УБД
@@ -684,11 +671,11 @@
                         <i class="fa-solid fa-phone mr-2"></i>Подзвонити нам
                     </a>
                 </div>
-
             </div>
         </div>
     </section>
-<!-- БЛОК ШАХМАТКИ НОМЕРНОГО ФОНДУ (АДМІН-ПАНЕЛЬ) -->
+
+    <!-- ШАХМАТКА НОМЕРНОГО ФОНДУ -->
     <div class="max-w-7xl mx-auto px-4 py-12">
         <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -696,7 +683,6 @@
                     <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-table-cells text-accentCyan mr-2"></i>Шахматка номерного фонду</h3>
                     <p class="text-gray-400 text-sm">Візуальний контроль зайнятості всіх 18 номерів бази «Маяк»</p>
                 </div>
-                <!-- Перемикач місяців -->
                 <div class="flex items-center space-x-3 bg-darkBg px-4 py-2 rounded-xl border border-gray-800">
                     <button type="button" id="matrixPrevMonth" class="text-accentCyan hover:text-white px-2 cursor-pointer"><i class="fa-solid fa-chevron-left"></i></button>
                     <span id="matrixMonthTitle" class="text-white font-bold text-sm uppercase tracking-wider">Липень 2026</span>
@@ -704,7 +690,6 @@
                 </div>
             </div>
 
-            <!-- Легенда кольорів -->
             <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-gray-300 bg-darkBg/60 p-3 rounded-xl border border-gray-800">
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-emerald-500/20 border border-emerald-500/50"></div>
@@ -720,130 +705,12 @@
                 </div>
             </div>
 
-            <!-- Таблиця-шахматка -->
             <div class="overflow-x-auto">
-                <div id="matrixTableContainer" class="min-w-[900px]">
-                    <!-- Сюди скрипт автоматично збудує сітку -->
-                </div>
+                <div id="matrixTableContainer" class="min-w-[900px]"></div>
             </div>
         </div>
     </div>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", async function() {
-            const container = document.getElementById('matrixTableContainer');
-            const titleEl = document.getElementById('matrixMonthTitle');
-            const prevBtn = document.getElementById('matrixPrevMonth');
-            const nextBtn = document.getElementById('matrixNextMonth');
-
-            let currentViewDate = new Date();
-            currentViewDate.setDate(1);
-
-            const monthNames = [
-                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
-                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
-            ];
-
-            const roomsStructure = [
-                { category: "Номер «Люкс»", count: 4 },
-                { category: "4-х місний номер", count: 6 },
-                { category: "3-х місний номер", count: 6 },
-                { category: "2-х місний номер", count: 2 }
-            ];
-
-            async function loadMatrixData() {
-                const year = currentViewDate.getFullYear();
-                const month = currentViewDate.getMonth();
-                titleEl.textContent = `${monthNames[month]} ${year}`;
-
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-                let bookings = [];
-                try {
-                    if (window.supabaseClient) {
-                        const { data, error } = await window.supabaseClient
-                            .from('bookings')
-                            .select('*')
-                            .neq('status', 'cancelled');
-
-                        if (!error && data) {
-                            bookings = data;
-                        }
-                    }
-                } catch (e) {
-                    console.warn('Помилка завантаження шахматки:', e);
-                }
-
-                let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
-                html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
-
-                for (let d = 1; d <= daysInMonth; d++) {
-                    html += `<th class="p-1 text-center text-gray-400 font-medium w-8">${d}</th>`;
-                }
-                html += `</tr></thead><tbody>`;
-
-                const today = new Date();
-                today.setHours(0,0,0,0);
-
-                roomsStructure.forEach(group => {
-                    html += `<tr class="bg-darkBg/40"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
-
-                    for (let rNum = 1; rNum <= group.count; rNum++) {
-                        html += `<tr class="border-b border-gray-800/40 hover:bg-gray-800/20">`;
-                        html += `<td class="p-2 text-white font-medium sticky left-0 bg-cardBg z-10 border-r border-gray-800">№${rNum}</td>`;
-
-                        for (let d = 1; d <= daysInMonth; d++) {
-                            const cellDate = new Date(year, month, d);
-                            cellDate.setHours(0,0,0,0);
-                            const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
-
-                            let cellStatus = 'free'; 
-                            let guestInfo = '';
-
-                            for (let b of bookings) {
-                                if (b.room_type === group.category && String(b.room_number) === String(rNum)) {
-                                    if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
-                                        if (cellDate.getTime() === today.getTime() || cellDate.getTime() > today.getTime()) {
-                                            cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
-                                        } else {
-                                            cellStatus = 'active';
-                                        }
-                                        guestInfo = `Гість: ${b.guest_name} (${b.start_date} — ${b.end_date})`;
-                                        break;
-                                    }
-                                }
-                            }
-
-                            let bgClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                            if (cellStatus === 'booked') {
-                                bgClass = "bg-amber-500/30 text-amber-300 border-amber-500/50 font-bold";
-                            } else if (cellStatus === 'active') {
-                                bgClass = "bg-rose-500/30 text-rose-300 border-rose-500/50 font-bold";
-                            }
-
-                            html += `<td class="p-1 text-center"><div class="h-7 rounded border ${bgClass} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${guestInfo || 'Вільно'}"></div></td>`;
-                        }
-                        html += `</tr>`;
-                    }
-                });
-
-                html += `</tbody></table>`;
-                container.innerHTML = html;
-            }
-
-            prevBtn.addEventListener('click', () => {
-                currentViewDate.setMonth(currentViewDate.getMonth() - 1);
-                loadMatrixData();
-            });
-
-            nextBtn.addEventListener('click', () => {
-                currentViewDate.setMonth(currentViewDate.getMonth() + 1);
-                loadMatrixData();
-            });
-
-            loadMatrixData();
-        });
-    </script>
     <!-- ПОСЛУГИ ТА РОЗВАГИ -->
     <section id="services" class="py-20 px-4 bg-darkBg w-full">
         <div class="max-w-7xl mx-auto w-full">
@@ -1082,6 +949,38 @@
                         </div>
                     </div>
                 </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Номер «Люкс» — просто чудний вибір! Кондиціонер рятує у спеку, ліжко неймовірно зручне, а власний санвузол додає максимального комфорту. Дуже задоволені відпочинком!»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">Г</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Ганна</div>
+                            <div class="text-xs text-gray-400">нещодавно</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-8 rounded-2xl bg-cardBg border border-gray-800 flex flex-col justify-between shadow-xl">
+                    <div>
+                        <div class="flex items-center space-x-1 text-priceYellow mb-6 text-sm">
+                            <i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i><i class="fa-solid fa-star"></i>
+                        </div>
+                        <p class="text-gray-300 text-base mb-8 leading-relaxed font-normal">«Приїжджали на сімейний відпочинок у 4-місний номер. Місця вистачило всім, чисто, затишно. Особливо сподобалась зелена територія та близькість до моря. Обов'язково повернемось!»</p>
+                    </div>
+                    <div class="border-t border-gray-800/80 pt-4 flex items-center space-x-3">
+                        <div class="w-10 h-10 rounded-full bg-cyan-950 border border-cyan-800/50 flex items-center justify-center font-bold text-accentCyan text-base">О</div>
+                        <div>
+                            <div class="text-white font-semibold text-sm">Олександр</div>
+                            <div class="text-xs text-gray-400">2 місяці тому</div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -1156,7 +1055,7 @@
         </div>
     </div>
 
-    <!-- ФИРМЕННОЕ МОДАЛЬНОЕ ОКНО ВМЕСТО СИСТЕМНОГО ALERT -->
+    <!-- ФИРМЕННОЕ МОДАЛЬНОЕ ОКНО -->
     <div id="customNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div id="customNoticeBox" class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate">
             <div id="noticeIconWrap" class="w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-5">
@@ -1174,7 +1073,7 @@
         </div>
     </div>
 
-    <!-- СКРИПТЫ -->
+    <!-- ВСІ СКРИПТИ -->
     <script>
         // 1. SUPABASE
         const SUPABASE_URL = 'https://ayemtrpizbzfpylzefhh.supabase.co';
@@ -1188,7 +1087,7 @@
             console.warn('Supabase init warning:', e);
         }
 
-        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ (ВМЕСТО ALERT)
+        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ
         function showCustomNotice({ title, message, badgeText = '', type = 'info' }) {
             const modal = document.getElementById('customNoticeModal');
             const box = document.getElementById('customNoticeBox');
@@ -1285,7 +1184,7 @@
             });
         });
 
-        // 3. СЛАЙДЕРЫ ФОТОГРАФИЙ
+        // 3. СЛАЙДЕРЫ И ГАЛЕРЕЯ
         const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
         const improvedImages = ['1 номер Н.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
         const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
@@ -1369,9 +1268,8 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ С УЧЁТОМ КОЛИЧЕСТВА НОМЕРОВ (18 НОМЕРОВ)
+        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ
         (function initBookingCalendar() {
-            // Элементы кастомного выпадающего списка номеров
             const roomBtn = document.getElementById('roomDropdownBtn');
             const roomMenu = document.getElementById('roomDropdownMenu');
             const roomChevron = document.getElementById('roomDropdownChevron');
@@ -1379,7 +1277,6 @@
             const roomInput = document.getElementById('calcRoomType');
             const roomOptions = document.querySelectorAll('.room-option');
 
-            // Элементы календаря
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
             const chevron = document.getElementById('calendarChevron');
@@ -1405,12 +1302,10 @@
             const guestPhone = document.getElementById('guestPhone');
             const bookBtn = document.getElementById('bookNowBtn');
 
-            // Фильтрация ввода телефона (разрешаем только цифры, +, пробел, тире, скобки)
             guestPhone.addEventListener('input', function() {
                 this.value = this.value.replace(/[^\d+\-\s()]/g, '');
             });
 
-            // Логика плавного раскрытия списка номеров
             roomBtn.addEventListener('click', function() {
                 const isOpen = roomMenu.classList.contains('open');
                 if (!isOpen) {
@@ -1436,12 +1331,11 @@
                 });
             });
 
-            // Номерной фонд базы "Маяк" (всего 18 номеров)
             const ROOM_INVENTORY = {
-                '800': 2,   // 2-х місний номер - 2 шт.
-                '1050': 6,  // 3-х місний номер - 6 шт.
-                '1400': 6,  // 4-х місний номер - 6 шт.
-                '1500': 4   // Номер «Люкс» - 4 шт.
+                '800': 2,
+                '1050': 6,
+                '1400': 6,
+                '1500': 4
             };
 
             const monthNames = [
@@ -1454,7 +1348,6 @@
             let checkIn = null;
             let checkOut = null;
 
-            // Плавное раскрытие календаря
             toggleBtn.addEventListener('click', function() {
                 const isOpen = panel.classList.contains('open');
                 if (!isOpen) {
@@ -1669,7 +1562,6 @@
                     return;
                 }
 
-                // Проверка количества цифр в телефоне (от 9 до 15 цифр)
                 const digitsOnly = guestPhone.value.replace(/\D/g, '');
                 if (digitsOnly.length < 9 || digitsOnly.length > 15) {
                     showCustomNotice({
@@ -1777,6 +1669,121 @@
 
             renderAll();
         })();
+
+        // 5. ШАХМАТКА НОМЕРНОГО ФОНДУ
+        document.addEventListener("DOMContentLoaded", async function() {
+            const container = document.getElementById('matrixTableContainer');
+            const titleEl = document.getElementById('matrixMonthTitle');
+            const prevBtn = document.getElementById('matrixPrevMonth');
+            const nextBtn = document.getElementById('matrixNextMonth');
+
+            let currentViewDate = new Date();
+            currentViewDate.setDate(1);
+
+            const monthNames = [
+                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
+            ];
+
+            const roomsStructure = [
+                { category: "Номер «Люкс»", count: 4 },
+                { category: "4-х місний номер", count: 6 },
+                { category: "3-х місний номер", count: 6 },
+                { category: "2-х місний номер", count: 2 }
+            ];
+
+            async function loadMatrixData() {
+                const year = currentViewDate.getFullYear();
+                const month = currentViewDate.getMonth();
+                titleEl.textContent = `${monthNames[month]} ${year}`;
+
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                let bookings = [];
+                try {
+                    if (window.supabaseClient) {
+                        const { data, error } = await window.supabaseClient
+                            .from('bookings')
+                            .select('*')
+                            .neq('status', 'cancelled');
+
+                        if (!error && data) {
+                            bookings = data;
+                        }
+                    }
+                } catch (e) {
+                    console.warn('Помилка завантаження шахматки:', e);
+                }
+
+                let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
+                html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
+
+                for (let d = 1; d <= daysInMonth; d++) {
+                    html += `<th class="p-1 text-center text-gray-400 font-medium w-8">${d}</th>`;
+                }
+                html += `</tr></thead><tbody>`;
+
+                const today = new Date();
+                today.setHours(0,0,0,0);
+
+                roomsStructure.forEach(group => {
+                    html += `<tr class="bg-darkBg/40"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
+
+                    for (let rNum = 1; rNum <= group.count; rNum++) {
+                        html += `<tr class="border-b border-gray-800/40 hover:bg-gray-800/20">`;
+                        html += `<td class="p-2 text-white font-medium sticky left-0 bg-cardBg z-10 border-r border-gray-800">№${rNum}</td>`;
+
+                        for (let d = 1; d <= daysInMonth; d++) {
+                            const cellDate = new Date(year, month, d);
+                            cellDate.setHours(0,0,0,0);
+                            const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+
+                            let cellStatus = 'free'; 
+                            let guestInfo = '';
+
+                            for (let b of bookings) {
+                                if (b.room_type === group.category && String(b.room_number) === String(rNum)) {
+                                    if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
+                                        if (cellDate.getTime() === today.getTime() || cellDate.getTime() > today.getTime()) {
+                                            cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
+                                        } else {
+                                            cellStatus = 'active';
+                                        }
+                                        guestInfo = `Гість: ${b.guest_name} (${b.start_date} — ${b.end_date})`;
+                                        break;
+                                    }
+                                }
+                            }
+
+                            let bgClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
+                            if (cellStatus === 'booked') {
+                                bgClass = "bg-amber-500/30 text-amber-300 border-amber-500/50 font-bold";
+                            } else if (cellStatus === 'active') {
+                                bgClass = "bg-rose-500/30 text-rose-300 border-rose-500/50 font-bold";
+                            }
+
+                            html += `<td class="p-1 text-center"><div class="h-7 rounded border ${bgClass} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${guestInfo || 'Вільно'}"></div></td>`;
+                        }
+                        html += `</tr>`;
+                    }
+                });
+
+                html += `</tbody></table>`;
+                container.innerHTML = html;
+            }
+
+            prevBtn.addEventListener('click', () => {
+                currentViewDate.setMonth(currentViewDate.getMonth() - 1);
+                loadMatrixData();
+            });
+
+            nextBtn.addEventListener('click', () => {
+                currentViewDate.setMonth(currentViewDate.getMonth() + 1);
+                loadMatrixData();
+            });
+
+            loadMatrixData();
+        });
     </script>
 </body>
 </html>
