@@ -564,18 +564,6 @@
                         </div>
                     </div>
 
-                    <div id="selectedMonthBadge" class="hidden max-w-2xl mx-auto mb-4">
-                        <div class="flex items-center justify-between bg-rose-950/50 border border-rose-500/50 rounded-xl px-4 py-2.5 text-sm">
-                            <span class="flex items-center text-rose-200 font-medium">
-                                <i class="fa-solid fa-calendar-check text-rose-400 mr-2"></i>
-                                Місяць відпочинку:
-                            </span>
-                            <span id="selectedMonthText" class="px-3 py-0.5 rounded-lg bg-rose-600 text-white font-bold text-xs uppercase tracking-wider shadow">
-                                Листопад 2026
-                            </span>
-                        </div>
-                    </div>
-
                     <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-xl p-4 mb-5">
                             <div class="flex justify-between text-xs text-gray-400 mb-1">
@@ -1282,9 +1270,6 @@
             const chevron = document.getElementById('calendarChevron');
             const btnLabel = document.getElementById('calendarBtnLabel');
 
-            const monthBadge = document.getElementById('selectedMonthBadge');
-            const monthBadgeText = document.getElementById('selectedMonthText');
-
             const nightsDisplay = document.getElementById('calcNightsCount');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
             const totalDisplay = document.getElementById('calcTotalPrice');
@@ -1468,25 +1453,16 @@
                         cursor.setDate(cursor.getDate() + 1);
                     }
 
-                    const mStart = `${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`;
-                    const mEnd = `${monthNames[checkOut.getMonth()]} ${checkOut.getFullYear()}`;
-                    monthBadgeText.textContent = (mStart === mEnd) ? mStart : `${mStart} — ${mEnd}`;
-                    monthBadge.classList.remove('hidden');
-
                     btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
                     nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
                     prepayDisplay.textContent = `${firstNightRate.toLocaleString()} ₴`;
                     totalDisplay.textContent = `${sum.toLocaleString()} ₴`;
                 } else if (checkIn) {
-                    monthBadgeText.textContent = `${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`;
-                    monthBadge.classList.remove('hidden');
-
                     btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
                 } else {
-                    monthBadge.classList.add('hidden');
                     btnLabel.textContent = 'Обрати дати заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
@@ -1508,24 +1484,32 @@
                 return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
             }
 
-            function isRangeAvailable(startDate, endDate, existingBookings, maxRooms) {
-                let cursor = new Date(startDate);
-                while (cursor.getTime() < endDate.getTime()) {
-                    const dayStr = toIso(cursor);
-                    let occupiedCount = 0;
+            function findAvailableRoomNumber(roomCategory, startDate, endDate, existingBookings, maxRooms) {
+                for (let rNum = 1; rNum <= maxRooms; rNum++) {
+                    let isRoomFree = true;
+                    let cursor = new Date(startDate);
 
-                    for (let b of existingBookings) {
-                        if (dayStr >= b.start_date && dayStr < b.end_date) {
-                            occupiedCount++;
+                    while (cursor.getTime() < endDate.getTime()) {
+                        const dayStr = toIso(cursor);
+                        const isOccupied = existingBookings.some(b => 
+                            b.room_type === roomCategory && 
+                            String(b.room_number) === String(rNum) && 
+                            dayStr >= b.start_date && 
+                            dayStr < b.end_date
+                        );
+
+                        if (isOccupied) {
+                            isRoomFree = false;
+                            break;
                         }
+                        cursor.setDate(cursor.getDate() + 1);
                     }
 
-                    if (occupiedCount >= maxRooms) {
-                        return false;
+                    if (isRoomFree) {
+                        return rNum;
                     }
-                    cursor.setDate(cursor.getDate() + 1);
                 }
-                return true;
+                return null;
             }
 
             function findNextAvailableDate(desiredStart, desiredEnd, existingBookings, maxRooms) {
@@ -1537,8 +1521,17 @@
                     let candidateEnd = new Date(candidateStart);
                     candidateEnd.setDate(candidateEnd.getDate() + nightsCount);
 
-                    if (isRangeAvailable(candidateStart, candidateEnd, existingBookings, maxRooms)) {
-                        return candidateStart;
+                    let canFit = true;
+                    for (let rNum = 1; rNum <= maxRooms; rNum++) {
+                        let roomFree = true;
+                        let cur = new Date(candidateStart);
+                        while(cur.getTime() < candidateEnd.getTime()) {
+                            let dayStr = toIso(cur);
+                            let occ = existingBookings.some(b => b.room_type === roomInput.getAttribute('data-label') && String(b.room_number) === String(rNum) && dayStr >= b.start_date && dayStr < b.end_date);
+                            if (occ) { roomFree = false; break; }
+                            cur.setDate(cur.getDate() + 1);
+                        }
+                        if (roomFree) { return candidateStart; }
                     }
                 }
                 return null;
@@ -1587,15 +1580,17 @@
 
                     const { data: existingBookings, error: fetchError } = await supabaseClient
                         .from('bookings')
-                        .select('start_date, end_date, status')
+                        .select('room_number, start_date, end_date, status')
                         .eq('room_type', selectedRoomName);
 
                     if (fetchError) throw fetchError;
 
                     const activeBookings = (existingBookings || []).filter(b => b.status !== 'cancelled');
-                    const available = isRangeAvailable(checkIn, checkOut, activeBookings, maxRooms);
+                    
+                    // Автоматически находим точный номер комнаты (1, 2, 3...)
+                    const assignedRoomNumber = findAvailableRoomNumber(selectedRoomName, checkIn, checkOut, activeBookings, maxRooms);
 
-                    if (!available) {
+                    if (!assignedRoomNumber) {
                         const nextFreeDate = findNextAvailableDate(checkIn, checkOut, activeBookings, maxRooms);
                         let badgeInfo = '';
                         if (nextFreeDate) {
@@ -1626,6 +1621,7 @@
 
                     const payload = {
                         room_type: selectedRoomName,
+                        room_number: assignedRoomNumber, // <-- Записывается точный номер для шахматки
                         start_date: newStart,
                         end_date: newEnd,
                         guest_name: guestName.value.trim(),
@@ -1641,8 +1637,8 @@
 
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Вашу заявку успішно збережено. Ми зв'яжемося з вами найближчим часом.`,
-                        badgeText: `Обраний місяць: ${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Вашу заявку успішно збережено. Номер №${assignedRoomNumber} закріплено за вами.`,
+                        badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
 
@@ -1686,10 +1682,10 @@
             ];
 
             const roomsStructure = [
-                { category: "Номер «Люкс»", count: 4 },
-                { category: "4-х місний номер", count: 6 },
-                { category: "3-х місний номер", count: 6 },
-                { category: "2-х місний номер", count: 2 }
+                { category: "Номер «Люкс» (1500 ₴)", count: 4 },
+                { category: "4-х місний номер (1400 ₴)", count: 6 },
+                { category: "3-х місний номер (1050 ₴)", count: 6 },
+                { category: "2-х місний номер (800 ₴)", count: 2 }
             ];
 
             async function loadMatrixData() {
@@ -1701,8 +1697,8 @@
 
                 let bookings = [];
                 try {
-                    if (window.supabaseClient) {
-                        const { data, error } = await window.supabaseClient
+                    if (supabaseClient) {
+                        const { data, error } = await supabaseClient
                             .from('bookings')
                             .select('*')
                             .neq('status', 'cancelled');
@@ -1744,11 +1740,7 @@
                             for (let b of bookings) {
                                 if (b.room_type === group.category && String(b.room_number) === String(rNum)) {
                                     if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
-                                        if (cellDate.getTime() === today.getTime() || cellDate.getTime() > today.getTime()) {
-                                            cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
-                                        } else {
-                                            cellStatus = 'active';
-                                        }
+                                        cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
                                         guestInfo = `Гість: ${b.guest_name} (${b.start_date} — ${b.end_date})`;
                                         break;
                                     }
