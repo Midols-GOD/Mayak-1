@@ -14,7 +14,7 @@
     
     <!-- SEO-теги для пошукової видачі Google -->
     <title>База відпочинку «Маяк» Приморське — Затишний відпочинок біля моря</title>
-    <meta name="description" content="База відпочинку «Маяк» в Одеській області (Приморське). Комфортні номери від 800 грн/день, кафе, зона барбекю, знижки для УБД. Всього 3 хвилини до моря!">
+    <meta name="description" content="База відпочинку «Маяк» в Одеській області (Приморське, вул. Курортна). Комфортні номери від 800 грн/день, кафе, зона барбекю, знижки для УБД. Всього 3 хвилини до моря!">
     
     <!-- Фавіконка -->
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
@@ -986,14 +986,19 @@
                 <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6">
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
                 </a>
-                <p class="text-xs text-accentCyan font-medium">
-                    <i class="fa-solid fa-location-dot mr-1"></i> Точна геолокація нашої бази відпочинку «Маяк» (Приморське)
-                </p>
+                <div class="space-y-2 mt-4">
+                    <p class="text-sm text-gray-200 font-semibold">
+                        <i class="fa-solid fa-location-dot text-accentCyan mr-1.5"></i> Адреса: вул. Курортна, с. Приморське, Одеська область, 68350
+                    </p>
+                    <p class="text-xs text-gray-400">
+                        <i class="fa-solid fa-star text-priceYellow mr-1"></i> Рейтинг на Google Картах: <strong class="text-white">4.2</strong> (на основі 68 відгуків)
+                    </p>
+                </div>
             </div>
 
             <div class="rounded-2xl overflow-hidden border border-gray-800 shadow-2xl h-96 w-full photo-frame">
                 <iframe 
-                    src="https://maps.google.com/maps?q=45.53215723968708,29.646525527810656&z=19&output=embed" 
+                    src="https://maps.google.com/maps?q=%D0%9A%D1%83%D1%80%D0%BE%D1%80%D1%82%D0%BD%D0%B0,+%D0%9F%D1%80%D0%B8%D0%BC%D0%BE%D1%80%D1%81%D1%8C%D0%BA%D0%B5,+%D0%9E%D0%B4%D0%B5%D1%81%D1%8C%D0%BA%D0%B0+%D0%BE%D0%B1%D0%BB%D0%B0%D1%81%D1%82%D1%8C,+68350&z=17&output=embed" 
                     width="100%" 
                     height="100%" 
                     style="border:0;" 
@@ -1109,7 +1114,7 @@
             if (adminSection) adminSection.classList.remove('hidden');
         }
 
-        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ (иконка красная, остальное в фирменных тонах)
+        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ
         function showCustomNotice({ title, message, badgeText = '', type = 'info' }) {
             const modal = document.getElementById('customNoticeModal');
             const box = document.getElementById('customNoticeBox');
@@ -1129,7 +1134,6 @@
                 badgeEl.classList.add('hidden');
             }
 
-            // Фокус на сине-бирюзовых тонах, но иконка ошибки/предупреждения — красная
             if (type === 'error' || type === 'warning') {
                 box.className = 'bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate';
                 iconWrap.className = 'w-16 h-16 rounded-2xl bg-rose-950/80 border border-rose-500/50 flex items-center justify-center text-rose-500 text-3xl mx-auto mb-5';
@@ -1549,13 +1553,11 @@
                 return null;
             }
 
-            // Функция для поиска ближайшей свободной даты
             function getNextAvailableDateStr(roomCategory, requestedStart, existingBookings, maxRooms) {
                 let testDate = new Date(requestedStart);
-                // Проверяем до 30 дней вперёд
                 for (let i = 0; i < 30; i++) {
                     let nextDay = new Date(testDate);
-                    nextDay.setDate(nextDay.getDate() + 1); // Проверяем 1 ночь для простоты подсказки
+                    nextDay.setDate(nextDay.getDate() + 1);
                     const assigned = findAvailableRoomNumber(roomCategory, testDate, nextDay, existingBookings, maxRooms);
                     if (assigned !== null) {
                         return `${String(testDate.getDate()).padStart(2, '0')}.${String(testDate.getMonth() + 1).padStart(2, '0')}.${testDate.getFullYear()}`;
@@ -1617,7 +1619,6 @@
                     const assignedRoomNumber = findAvailableRoomNumber(selectedRoomName, checkIn, checkOut, activeBookings, maxRooms);
 
                     if (!assignedRoomNumber) {
-                        // Ищем ближайшую свободную дату для подсказки клиенту
                         const nextFreeDate = getNextAvailableDateStr(selectedRoomName, checkIn, activeBookings, maxRooms);
                         let suggestionText = nextFreeDate ? `Свободный номер будет доступен начиная с ${nextFreeDate}.` : 'На жаль, на найближчі дні все зайнято.';
 
@@ -1712,7 +1713,9 @@
 
             deleteBookingBtn.addEventListener('click', async () => {
                 if (!currentBookingToDelete) return;
-                if (!confirm(`Ви дійсно хочете скасувати бронь гостя ${currentBookingToDelete.guest_name}?`)) return;
+
+                bookingModal.classList.add('hidden');
+                bookingModal.classList.remove('flex');
 
                 try {
                     const { error } = await supabaseClient
@@ -1722,17 +1725,19 @@
 
                     if (error) throw error;
 
-                    bookingModal.classList.add('hidden');
-                    bookingModal.classList.remove('flex');
                     loadMatrixData();
                     showCustomNotice({
-                        title: 'Бронь видалено',
-                        message: 'Бронювання успішно скасовано, номер знову вільний.',
+                        title: 'Бронь скасовано',
+                        message: 'Бронювання успішно видалено з бази, номер знову вільний.',
                         type: 'success'
                     });
                 } catch (err) {
                     console.error('Delete error:', err);
-                    alert('Помилка при видаленні бронювання');
+                    showCustomNotice({
+                        title: 'Помилка видалення',
+                        message: 'Не вдалося видалити бронь. Перевірте політики безпеки (RLS) у Supabase для операції DELETE.',
+                        type: 'error'
+                    });
                 }
             });
 
@@ -1807,17 +1812,15 @@
                             let cellStatus = 'free'; 
                             let bookingInfo = null;
                             let isCheckoutDay = false;
-                            let isTurnaroundDay = false; // Стиковка: в этот день выезд одних и заезд других
+                            let isTurnaroundDay = false;
 
                             for (let b of bookings) {
                                 if (b.room_type && b.room_type.trim().toLowerCase() === group.category.trim().toLowerCase() && String(b.room_number) === String(rNum)) {
-                                    // Проверяем проживание (с start_date включительно по end_date исключительно, но end_date отображаем как день выезда)
                                     if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
                                         cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
                                         bookingInfo = b;
                                         break;
                                     }
-                                    // Проверяем, является ли текущая ячейка днем выезда (end_date)
                                     if (cellDateIso === b.end_date) {
                                         isCheckoutDay = true;
                                         bookingInfo = b;
@@ -1825,7 +1828,6 @@
                                 }
                             }
 
-                            // Проверяем стиковку (в день выезда кто-то другой заезжает)
                             if (isCheckoutDay) {
                                 const hasAnotherCheckin = bookings.some(b => 
                                     b.room_type && b.room_type.trim().toLowerCase() === group.category.trim().toLowerCase() && 
@@ -1843,7 +1845,6 @@
                             let clickAction = "";
 
                             if (isTurnaroundDay) {
-                                // Особый яркий цвет для дня стиковки (впритык)
                                 bgClass = "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md animate-pulse";
                                 titleText = `Стиковка (впритык): виїзд та заїзд в один день!`;
                             } else if (cellStatus === 'booked' || cellStatus === 'active') {
@@ -1861,7 +1862,6 @@
                                 const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (isCheckoutDay) {
-                                // День выезда гостя (до 12:00) показываем желтоватым/оранжевым оттенком
                                 bgClass = "bg-amber-500/20 text-amber-300 border-amber-500/40 font-medium";
                                 titleText = `День виїзду гостя (до 12:00)`;
                             }
