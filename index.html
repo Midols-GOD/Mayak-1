@@ -88,6 +88,30 @@
             opacity: 0.25;
             cursor: not-allowed;
         }
+
+        /* Плавная анимация раскрытия для календаря и списка номеров */
+        .smooth-collapse {
+            display: grid;
+            grid-template-rows: 0fr;
+            opacity: 0;
+            transition: grid-template-rows 0.38s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.3s ease, margin 0.38s ease;
+        }
+        .smooth-collapse.open {
+            grid-template-rows: 1fr;
+            opacity: 1;
+        }
+        .smooth-collapse-inner {
+            overflow: hidden;
+        }
+
+        /* Анимация появления фирменного модального окна */
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate {
+            animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
     </style>
 </head>
 <body class="bg-darkBg text-gray-100 font-sans antialiased selection:bg-accentCyan selection:text-darkBg overflow-x-hidden pb-20 sm:pb-0">
@@ -429,12 +453,11 @@
     <!-- БРОНЮВАННЯ, АКЦІЇ ТА УБД -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
-            <div class="text-center max-w-2xl mx-auto mb-16 flex flex-col items-center">
-                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block mb-4 shadow-md shadow-cyan-500/15">Бронювання та акції</span>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white">Дати, харчування та УБД</h2>
+            <div class="text-center max-w-2xl mx-auto mb-12 flex flex-col items-center">
+                <span class="px-6 py-2.5 rounded-full bg-cyan-950/90 border border-cyan-500/40 text-accentCyan text-sm sm:text-base uppercase tracking-widest font-bold inline-block shadow-md shadow-cyan-500/15">Бронювання та акції</span>
             </div>
 
-            <!-- ВЕРХНИЙ БЛОК: КАЛЕНДАРЬ И БРОНИРОВАНИЕ (БОЛЬШОЙ И НА ВИДНОМ МЕСТЕ) -->
+            <!-- ВЕРХНИЙ БЛОК: КАЛЕНДАРЬ И БРОНИРОВАНИЕ -->
             <div class="max-w-4xl mx-auto mb-10">
                 <div id="calculator" class="bg-cardBg rounded-3xl p-6 sm:p-10 border border-accentCyan/30 shadow-2xl relative overflow-hidden">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
@@ -446,19 +469,54 @@
                         <p class="text-gray-400 text-sm">Виберіть категорію номера, натисніть на календар нижче та вкажіть дати заїзду і виїзду.</p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                        <!-- Выбор категории номера -->
-                        <div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
+                        <!-- КАСТОМНЫЙ ВЫПАДАЮЩИЙ СПИСОК НОМЕРОВ С ПЛАВНОЙ АНИМАЦИЕЙ -->
+                        <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Номер:</label>
-                            <div class="relative">
-                                <select id="calcRoomType" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-white font-bold text-sm focus:outline-none focus:ring-2 focus:ring-accentCyan transition-all appearance-none cursor-pointer">
-                                    <option value="800">2-х місний номер (800 ₴)</option>
-                                    <option value="1050">3-х місний номер (1050 ₴)</option>
-                                    <option value="1400">4-х місний номер (1400 ₴)</option>
-                                    <option value="1500">Номер «Люкс» (1500 ₴)</option>
-                                </select>
-                                <div class="absolute inset-y-0 right-0 flex items-center pr-3.5 pointer-events-none text-accentCyan">
-                                    <i class="fa-solid fa-chevron-down text-sm"></i>
+                            <input type="hidden" id="calcRoomType" value="800" data-label="2-х місний номер (800 ₴)">
+                            
+                            <button type="button" id="roomDropdownBtn" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-left flex items-center justify-between transition-all shadow-md cursor-pointer">
+                                <span class="flex items-center space-x-2.5 overflow-hidden">
+                                    <i class="fa-solid fa-bed text-accentCyan text-base flex-shrink-0"></i>
+                                    <span id="roomDropdownLabel" class="text-white font-bold text-sm truncate">2-х місний номер (800 ₴)</span>
+                                </span>
+                                <i id="roomDropdownChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
+                            </button>
+
+                            <!-- Выпадающая лента номеров -->
+                            <div id="roomDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl">
+                                <div class="smooth-collapse-inner divide-y divide-gray-800/80">
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="800" data-label="2-х місний номер (800 ₴)">
+                                        <div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">2-х місний номер</div>
+                                            <div class="text-xs text-gray-400">Для 2 осіб · Пт-Нд: 1 000 ₴</div>
+                                        </div>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">800 ₴</span>
+                                    </button>
+                                    
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="1050" data-label="3-х місний номер (1050 ₴)">
+                                        <div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">3-х місний номер</div>
+                                            <div class="text-xs text-gray-400">Для 3 осіб · Пт-Нд: 1 250 ₴</div>
+                                        </div>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">1 050 ₴</span>
+                                    </button>
+
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="1400" data-label="4-х місний номер (1400 ₴)">
+                                        <div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">4-х місний номер</div>
+                                            <div class="text-xs text-gray-400">Для 4 осіб · Пт-Нд: 1 600 ₴</div>
+                                        </div>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">1 400 ₴</span>
+                                    </button>
+
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="1500" data-label="Номер «Люкс» (1500 ₴)">
+                                        <div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
+                                            <div class="text-xs text-gray-400">Покращений комфорт · Пт-Нд: 1 700 ₴</div>
+                                        </div>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">1 500 ₴</span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -471,46 +529,63 @@
                                     <i class="fa-regular fa-calendar-days text-accentCyan text-lg flex-shrink-0"></i>
                                     <span id="calendarBtnLabel" class="text-white font-bold text-sm truncate">Обрати дати заїзду та виїзду</span>
                                 </span>
-                                <i id="calendarChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-200 ml-2 flex-shrink-0"></i>
+                                <i id="calendarChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
                             </button>
                         </div>
                     </div>
 
-                    <!-- ВЫПАДАЮЩИЙ КАЛЕНДАРЬ НА 2 МЕСЯЦА (ОБВЕДЕН ОТДЕЛЬНО, НЕ ТЯНЕТ СОСЕДНИЕ БЛОКИ) -->
-                    <div id="calendarPanel" class="hidden bg-darkBg border border-cyan-500/40 p-5 rounded-2xl shadow-xl mb-6 max-w-2xl mx-auto">
-                        <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-800">
-                            <div class="flex items-center space-x-2">
-                                <button type="button" id="calPrevMonth" class="w-8 h-8 rounded-lg bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900">
-                                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                                </button>
-                                <button type="button" id="calNextMonth" class="w-8 h-8 rounded-lg bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900">
-                                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                                </button>
-                            </div>
-                            <button type="button" id="calResetBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-2.5 py-1 rounded-lg border border-cyan-800/40">Скинути</button>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <div class="text-center font-bold text-white text-sm mb-2" id="calMonth1Title">Місяць 1</div>
-                                <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-gray-500 mb-1 font-semibold">
-                                    <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                    <!-- ВЫПАДАЮЩИЙ КАЛЕНДАРЬ НА 2 МЕСЯЦА С ПЛАВНОЙ АНИМАЦИЕЙ -->
+                    <div id="calendarPanel" class="smooth-collapse max-w-2xl mx-auto">
+                        <div class="smooth-collapse-inner">
+                            <div class="bg-darkBg border border-cyan-500/40 p-5 rounded-2xl shadow-xl mt-2 mb-6">
+                                <div class="flex justify-between items-center mb-4 pb-2 border-b border-gray-800">
+                                    <div class="flex items-center space-x-2">
+                                        <button type="button" id="calPrevMonth" class="w-8 h-8 rounded-lg bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900">
+                                            <i class="fa-solid fa-chevron-left text-xs"></i>
+                                        </button>
+                                        <button type="button" id="calNextMonth" class="w-8 h-8 rounded-lg bg-cyan-950 text-accentCyan border border-cyan-800/50 flex items-center justify-center hover:bg-cyan-900">
+                                            <i class="fa-solid fa-chevron-right text-xs"></i>
+                                        </button>
+                                    </div>
+                                    <button type="button" id="calResetBtn" class="text-xs text-accentCyan hover:underline bg-cyan-950/60 px-2.5 py-1 rounded-lg border border-cyan-800/40">Скинути</button>
                                 </div>
-                                <div id="calMonth1Grid" class="grid grid-cols-7 gap-1"></div>
-                            </div>
 
-                            <div class="border-t md:border-t-0 md:border-l border-gray-800 pt-4 md:pt-0 md:pl-6">
-                                <div class="text-center font-bold text-white text-sm mb-2" id="calMonth2Title">Місяць 2</div>
-                                <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-gray-500 mb-1 font-semibold">
-                                    <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div>
+                                        <div class="text-center font-bold text-white text-sm mb-2" id="calMonth1Title">Місяць 1</div>
+                                        <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-gray-500 mb-1 font-semibold">
+                                            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                        </div>
+                                        <div id="calMonth1Grid" class="grid grid-cols-7 gap-1"></div>
+                                    </div>
+
+                                    <div class="border-t md:border-t-0 md:border-l border-gray-800 pt-4 md:pt-0 md:pl-6">
+                                        <div class="text-center font-bold text-white text-sm mb-2" id="calMonth2Title">Місяць 2</div>
+                                        <div class="grid grid-cols-7 gap-1 text-center text-[11px] text-gray-500 mb-1 font-semibold">
+                                            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>нд</span>
+                                        </div>
+                                        <div id="calMonth2Grid" class="grid grid-cols-7 gap-1"></div>
+                                    </div>
                                 </div>
-                                <div id="calMonth2Grid" class="grid grid-cols-7 gap-1"></div>
                             </div>
                         </div>
                     </div>
 
+                    <!-- ЯРКАЯ ПЛАШКА ВЫБРАННОГО МЕСЯЦА И ДАТ -->
+                    <div id="selectedMonthBadge" class="hidden max-w-2xl mx-auto mb-4">
+                        <div class="flex items-center justify-between bg-rose-950/50 border border-rose-500/50 rounded-xl px-4 py-2.5 text-sm">
+                            <span class="flex items-center text-rose-200 font-medium">
+                                <i class="fa-solid fa-calendar-check text-rose-400 mr-2"></i>
+                                Місяць відпочинку:
+                            </span>
+                            <span id="selectedMonthText" class="px-3 py-0.5 rounded-lg bg-rose-600 text-white font-bold text-xs uppercase tracking-wider shadow">
+                                Листопад 2026
+                            </span>
+                        </div>
+                    </div>
+
                     <!-- Итоги и форма отправки -->
-                    <div class="max-w-2xl mx-auto">
+                    <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-xl p-4 mb-5">
                             <div class="flex justify-between text-xs text-gray-400 mb-1">
                                 <span>Тривалість:</span>
@@ -528,7 +603,7 @@
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-3">
                             <input type="text" id="guestName" placeholder="Ваше ім'я та прізвище *" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none text-sm">
-                            <input type="tel" id="guestPhone" placeholder="Телефон (Viber / Telegram) *" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none text-sm">
+                            <input type="tel" id="guestPhone" maxlength="18" placeholder="Телефон (+380 / +373...) *" class="w-full bg-darkBg border border-gray-700 focus:border-accentCyan rounded-xl px-4 py-3 text-white focus:outline-none text-sm">
                         </div>
 
                         <button type="button" id="bookNowBtn" class="w-full py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer">
@@ -538,10 +613,10 @@
                 </div>
             </div>
 
-            <!-- НИЖНИЙ БЛОК: АКЦИИ И УБД (В ОТДЕЛЬНОМ ШИРОКОМ РЯДУ) -->
+            <!-- НИЖНИЙ БЛОК: АКЦИИ И УБД -->
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                <!-- 1. КАРТОЧКА ПИТАНИЯ (ТИРЕ ЗАМЕНЕНЫ НА МИНУСЫ) -->
+                <!-- 1. КАРТОЧКА ПИТАНИЯ (С ОБНОВЛЕННЫМ НАЗВАНИЕМ) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -550,7 +625,7 @@
                         <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-5">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Домашнє харчування (від 4 днів)</h3>
+                        <h3 class="text-xl font-bold text-white mb-3">Домашнє комплексне харчування (від 4 днів)</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
                             Якщо їдете відпочивати від 4 днів і більше - можна одразу взяти триразове харчування у нашому кафе на весь відпочинок. Так виходить помітно дешевше, ніж замовляти все окремо, і не треба стояти біля плити у відпустці.
                         </p>
@@ -575,14 +650,14 @@
                     </a>
                 </div>
 
-                <!-- 2. КАРТОЧКА УБД (ТИРЕ ЗАМЕНЕНЫ НА МИНУСЫ) -->
+                <!-- 2. КАРТОЧКА УБД (СО СТРОГОЙ ИКОНКОЙ ЩИТА) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         УБД
                     </div>
                     <div>
                         <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-5">
-                            <i class="fa-solid fa-medal"></i>
+                            <i class="fa-solid fa-shield-halved"></i>
                         </div>
                         <h3 class="text-xl font-bold text-white mb-3">УБД</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
@@ -926,6 +1001,24 @@
         </div>
     </div>
 
+    <!-- ФИРМЕННОЕ МОДАЛЬНОЕ ОКНО ВМЕСТО СИСТЕМНОГО ALERT -->
+    <div id="customNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div id="customNoticeBox" class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate">
+            <div id="noticeIconWrap" class="w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-5">
+                <i id="noticeIcon" class="fa-solid fa-circle-info"></i>
+            </div>
+            <h3 id="noticeTitle" class="text-xl font-bold text-white mb-3">Повідомлення</h3>
+            <p id="noticeMessage" class="text-gray-300 text-sm leading-relaxed mb-4"></p>
+            
+            <div id="noticeHighlightBadge" class="hidden bg-rose-950/60 border border-rose-500/50 rounded-xl p-3 mb-6 text-rose-200 text-sm font-semibold">
+            </div>
+
+            <button type="button" id="noticeCloseBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer">
+                Зрозуміло
+            </button>
+        </div>
+    </div>
+
     <!-- СКРИПТЫ -->
     <script>
         // 1. SUPABASE
@@ -939,6 +1032,50 @@
         } catch (e) {
             console.warn('Supabase init warning:', e);
         }
+
+        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ (ВМЕСТО ALERT)
+        function showCustomNotice({ title, message, badgeText = '', type = 'info' }) {
+            const modal = document.getElementById('customNoticeModal');
+            const box = document.getElementById('customNoticeBox');
+            const iconWrap = document.getElementById('noticeIconWrap');
+            const icon = document.getElementById('noticeIcon');
+            const titleEl = document.getElementById('noticeTitle');
+            const msgEl = document.getElementById('noticeMessage');
+            const badgeEl = document.getElementById('noticeHighlightBadge');
+
+            titleEl.textContent = title;
+            msgEl.textContent = message;
+
+            if (badgeText) {
+                badgeEl.textContent = badgeText;
+                badgeEl.classList.remove('hidden');
+            } else {
+                badgeEl.classList.add('hidden');
+            }
+
+            if (type === 'error' || type === 'warning') {
+                box.className = 'bg-cardBg border border-rose-500/50 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate';
+                iconWrap.className = 'w-16 h-16 rounded-2xl bg-rose-950/80 border border-rose-500/40 flex items-center justify-center text-rose-400 text-3xl mx-auto mb-5';
+                icon.className = 'fa-solid fa-calendar-xmark';
+            } else if (type === 'success') {
+                box.className = 'bg-cardBg border border-emerald-500/50 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate';
+                iconWrap.className = 'w-16 h-16 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 flex items-center justify-center text-emerald-400 text-3xl mx-auto mb-5';
+                icon.className = 'fa-solid fa-circle-check';
+            } else {
+                box.className = 'bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate';
+                iconWrap.className = 'w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-5';
+                icon.className = 'fa-solid fa-circle-info';
+            }
+
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+        }
+
+        document.getElementById('noticeCloseBtn').addEventListener('click', () => {
+            const modal = document.getElementById('customNoticeModal');
+            modal.classList.add('hidden');
+            modal.classList.remove('flex');
+        });
 
         // 2. НАВИГАЦИЯ И МОБИЛЬНОЕ МЕНЮ
         const sections = document.querySelectorAll('section[id]');
@@ -1079,12 +1216,23 @@
 
         // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ С УЧЁТОМ КОЛИЧЕСТВА НОМЕРОВ (18 НОМЕРОВ)
         (function initBookingCalendar() {
+            // Элементы кастомного выпадающего списка номеров
+            const roomBtn = document.getElementById('roomDropdownBtn');
+            const roomMenu = document.getElementById('roomDropdownMenu');
+            const roomChevron = document.getElementById('roomDropdownChevron');
+            const roomLabel = document.getElementById('roomDropdownLabel');
+            const roomInput = document.getElementById('calcRoomType');
+            const roomOptions = document.querySelectorAll('.room-option');
+
+            // Элементы календаря
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
             const chevron = document.getElementById('calendarChevron');
             const btnLabel = document.getElementById('calendarBtnLabel');
 
-            const roomSelect = document.getElementById('calcRoomType');
+            const monthBadge = document.getElementById('selectedMonthBadge');
+            const monthBadgeText = document.getElementById('selectedMonthText');
+
             const nightsDisplay = document.getElementById('calcNightsCount');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
             const totalDisplay = document.getElementById('calcTotalPrice');
@@ -1101,6 +1249,37 @@
             const guestName = document.getElementById('guestName');
             const guestPhone = document.getElementById('guestPhone');
             const bookBtn = document.getElementById('bookNowBtn');
+
+            // Фильтрация ввода телефона (разрешаем только цифры, +, пробел, тире, скобки)
+            guestPhone.addEventListener('input', function() {
+                this.value = this.value.replace(/[^\d+\-\s()]/g, '');
+            });
+
+            // Логика плавного раскрытия списка номеров
+            roomBtn.addEventListener('click', function() {
+                const isOpen = roomMenu.classList.contains('open');
+                if (!isOpen) {
+                    roomMenu.classList.add('open');
+                    roomChevron.style.transform = 'rotate(180deg)';
+                } else {
+                    roomMenu.classList.remove('open');
+                    roomChevron.style.transform = 'rotate(0deg)';
+                }
+            });
+
+            roomOptions.forEach(opt => {
+                opt.addEventListener('click', function() {
+                    const val = this.getAttribute('data-value');
+                    const lbl = this.getAttribute('data-label');
+                    roomInput.value = val;
+                    roomInput.setAttribute('data-label', lbl);
+                    roomLabel.textContent = lbl;
+
+                    roomMenu.classList.remove('open');
+                    roomChevron.style.transform = 'rotate(0deg)';
+                    recalculate();
+                });
+            });
 
             // Номерной фонд базы "Маяк" (всего 18 номеров)
             const ROOM_INVENTORY = {
@@ -1120,14 +1299,15 @@
             let checkIn = null;
             let checkOut = null;
 
+            // Плавное раскрытие календаря
             toggleBtn.addEventListener('click', function() {
-                const isHidden = panel.classList.contains('hidden');
-                if (isHidden) {
-                    panel.classList.remove('hidden');
-                    chevron.style.transform = 'rotate(180deg)';
+                const isOpen = panel.classList.contains('open');
+                if (!isOpen) {
                     renderAll();
+                    panel.classList.add('open');
+                    chevron.style.transform = 'rotate(180deg)';
                 } else {
-                    panel.classList.add('hidden');
+                    panel.classList.remove('open');
                     chevron.style.transform = 'rotate(0deg)';
                 }
             });
@@ -1148,8 +1328,6 @@
                 recalculate();
                 renderAll();
             });
-
-            roomSelect.addEventListener('change', recalculate);
 
             function getNightRate(dateObj, baseRate) {
                 const dow = dateObj.getDay();
@@ -1227,7 +1405,7 @@
             }
 
             function recalculate() {
-                const baseRate = parseInt(roomSelect.value, 10);
+                const baseRate = parseInt(roomInput.value, 10);
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
@@ -1242,16 +1420,25 @@
                         cursor.setDate(cursor.getDate() + 1);
                     }
 
+                    const mStart = `${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`;
+                    const mEnd = `${monthNames[checkOut.getMonth()]} ${checkOut.getFullYear()}`;
+                    monthBadgeText.textContent = (mStart === mEnd) ? mStart : `${mStart} — ${mEnd}`;
+                    monthBadge.classList.remove('hidden');
+
                     btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
                     nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
                     prepayDisplay.textContent = `${firstNightRate.toLocaleString()} ₴`;
                     totalDisplay.textContent = `${sum.toLocaleString()} ₴`;
                 } else if (checkIn) {
+                    monthBadgeText.textContent = `${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`;
+                    monthBadge.classList.remove('hidden');
+
                     btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
                 } else {
+                    monthBadge.classList.add('hidden');
                     btnLabel.textContent = 'Обрати дати заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
                     prepayDisplay.textContent = '0 ₴';
@@ -1311,17 +1498,36 @@
 
             bookBtn.addEventListener('click', async function() {
                 if (!checkIn || !checkOut) {
-                    alert('Будь ласка, оберіть дати заїзду та виїзду у календарі!');
+                    showCustomNotice({
+                        title: 'Оберіть дати',
+                        message: 'Будь ласка, виберіть дати заїзду та виїзду у календарі перед бронюванням.',
+                        type: 'warning'
+                    });
                     return;
                 }
-                if (!guestName.value.trim() || !guestPhone.value.trim()) {
-                    alert('Будь ласка, введіть ваше ім\'я та номер телефону!');
+                if (!guestName.value.trim()) {
+                    showCustomNotice({
+                        title: 'Вкажіть ім\'я',
+                        message: 'Будь ласка, введіть ваше ім\'я та прізвище.',
+                        type: 'warning'
+                    });
                     return;
                 }
 
-                const roomKey = roomSelect.value;
+                // Проверка количества цифр в телефоне (от 9 до 15 цифр)
+                const digitsOnly = guestPhone.value.replace(/\D/g, '');
+                if (digitsOnly.length < 9 || digitsOnly.length > 15) {
+                    showCustomNotice({
+                        title: 'Перевірте номер телефону',
+                        message: 'Введіть коректний номер телефону (від 9 до 15 цифр, наприклад +380... або +373...).',
+                        type: 'warning'
+                    });
+                    return;
+                }
+
+                const roomKey = roomInput.value;
                 const maxRooms = ROOM_INVENTORY[roomKey] || 1;
-                const selectedRoomName = roomSelect.options[roomSelect.selectedIndex].text;
+                const selectedRoomName = roomInput.getAttribute('data-label');
 
                 const newStart = toIso(checkIn);
                 const newEnd = toIso(checkOut);
@@ -1344,13 +1550,18 @@
 
                     if (!available) {
                         const nextFreeDate = findNextAvailableDate(checkIn, checkOut, activeBookings, maxRooms);
-                        let msg = `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» вже зайняті.`;
+                        let badgeInfo = '';
                         if (nextFreeDate) {
-                            msg += `\n\nНайближча вільна дата для заїзду — з ${formatUaDate(nextFreeDate)}.`;
-                        } else {
-                            msg += `\n\nБудь ласка, зателефонуйте нам для підбору іншого варіанту: +38 (093) 575-46-68`;
+                            badgeInfo = `Найближча вільна дата заїзду: ${formatUaDate(nextFreeDate)} (${monthNames[nextFreeDate.getMonth()]})`;
                         }
-                        alert(msg);
+
+                        showCustomNotice({
+                            title: 'Вільних номерів немає',
+                            message: `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» вже зайняті.`,
+                            badgeText: badgeInfo || 'Зателефонуйте нам для підбору іншого варіанту: +38 (093) 575-46-68',
+                            type: 'error'
+                        });
+
                         bookBtn.disabled = false;
                         bookBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-1.5"></i>Забронювати номер';
                         return;
@@ -1381,18 +1592,28 @@
                     const { error: insertError } = await supabaseClient.from('bookings').insert([payload]);
                     if (insertError) throw insertError;
 
-                    alert(`Дякуємо, ${guestName.value.trim()}! Бронювання успішно створено. Ми зв'яжемося з вами найближчим часом.`);
+                    showCustomNotice({
+                        title: 'Бронювання створено!',
+                        message: `Дякуємо, ${guestName.value.trim()}! Вашу заявку успішно збережено. Ми зв'яжемося з вами найближчим часом.`,
+                        badgeText: `Обраний місяць: ${monthNames[checkIn.getMonth()]} ${checkIn.getFullYear()}`,
+                        type: 'success'
+                    });
+
                     checkIn = null;
                     checkOut = null;
                     guestName.value = '';
                     guestPhone.value = '';
-                    panel.classList.add('hidden');
+                    panel.classList.remove('open');
                     chevron.style.transform = 'rotate(0deg)';
                     recalculate();
 
                 } catch (err) {
                     console.error('Booking conflict error:', err);
-                    alert('Помилка з\'єднання з базою даних. Будь ласка, зателефонуйте нам: +38 (093) 575-46-68');
+                    showCustomNotice({
+                        title: 'Помилка з\'єднання',
+                        message: 'Не вдалося з\'єднатися з базою даних. Будь ласка, зателефонуйте нам: +38 (093) 575-46-68',
+                        type: 'error'
+                    });
                 } finally {
                     bookBtn.disabled = false;
                     bookBtn.innerHTML = '<i class="fa-solid fa-check-to-slot mr-1.5"></i>Забронювати номер';
