@@ -689,7 +689,7 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-rose-500/40 border border-rose-500"></div>
-                    <span>Проживає гість</span>
+                    <span>Проживає гість (сьогодні)</span>
                 </div>
             </div>
 
@@ -1491,7 +1491,6 @@
                 return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
             }
 
-            // ИСПРАВЛЕННЫЙ ПОИСК СВОБОДНОГО НОМЕРА (перебирает ВСЕ комнаты категории, а не зацикливается на №1)
             function findAvailableRoomNumber(roomCategory, startDate, endDate, existingBookings, maxRooms) {
                 for (let rNum = 1; rNum <= maxRooms; rNum++) {
                     let isRoomFree = true;
@@ -1514,10 +1513,10 @@
                     }
 
                     if (isRoomFree) {
-                        return rNum; // Возвращает первый свободный номер (например, №2, если №1 занят)
+                        return rNum;
                     }
                 }
-                return null; // Все комнаты этой категории заняты
+                return null;
             }
 
             function findNextAvailableDate(desiredStart, desiredEnd, existingBookings, maxRooms) {
@@ -1595,7 +1594,6 @@
 
                     const activeBookings = (existingBookings || []).filter(b => b.status !== 'cancelled');
                     
-                    // Автоматически находим следующий свободный точный номер комнаты (1, 2, 3...)
                     const assignedRoomNumber = findAvailableRoomNumber(selectedRoomName, checkIn, checkOut, activeBookings, maxRooms);
 
                     if (!assignedRoomNumber) {
@@ -1629,7 +1627,7 @@
 
                     const payload = {
                         room_type: selectedRoomName,
-                        room_number: assignedRoomNumber, // <-- Записывается правильный свободный номер (1, 2, 3...)
+                        room_number: assignedRoomNumber,
                         start_date: newStart,
                         end_date: newEnd,
                         guest_name: guestName.value.trim(),
@@ -1674,10 +1672,10 @@
             renderAll();
         })();
 
-        // 5. ШАХМАТКА НОМЕРНОГО ФОНДУ
+        // 5. УЛУЧШЕННАЯ ШАХМАТКА С РАЗДЕЛИТЕЛЯМИ И ДЕТАЛЬНОЙ ИНФОРМАЦИЕЙ О ГОСТЯХ
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
-            if (!container) return; // Если шахматка скрыта, выходим
+            if (!container) return;
 
             const titleEl = document.getElementById('matrixMonthTitle');
             const prevBtn = document.getElementById('matrixPrevMonth');
@@ -1697,6 +1695,13 @@
                 { category: "3-х місний номер (1050 ₴)", count: 6 },
                 { category: "2-х місний номер (800 ₴)", count: 2 }
             ];
+
+            function formatDateUa(isoStr) {
+                if (!isoStr) return '';
+                const parts = isoStr.split('-');
+                if (parts.length === 3) return `${parts[2]}.${parts[1]}.${parts[0]}`;
+                return isoStr;
+            }
 
             async function loadMatrixData() {
                 const year = currentViewDate.getFullYear();
@@ -1745,26 +1750,55 @@
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
                             let cellStatus = 'free'; 
-                            let guestInfo = '';
+                            let bookingInfo = null;
 
+                            // Находим бронирование для конкретного дня
                             for (let b of bookings) {
                                 if (b.room_type === group.category && String(b.room_number) === String(rNum)) {
                                     if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
                                         cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
-                                        guestInfo = `Гість: ${b.guest_name} (${b.start_date} — ${b.end_date})`;
+                                        bookingInfo = b;
                                         break;
                                     }
                                 }
                             }
 
                             let bgClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
-                            if (cellStatus === 'booked') {
-                                bgClass = "bg-amber-500/30 text-amber-300 border-amber-500/50 font-bold";
-                            } else if (cellStatus === 'active') {
-                                bgClass = "bg-rose-500/30 text-rose-300 border-rose-500/50 font-bold";
+                            let borderStyle = "";
+                            let titleText = "Вільно";
+
+                            if (cellStatus === 'booked' || cellStatus === 'active') {
+                                if (cellStatus === 'active') {
+                                    bgClass = "bg-rose-500/40 text-rose-200 border-rose-500 font-bold shadow-sm";
+                                } else {
+                                    bgClass = "bg-amber-500/40 text-amber-200 border-amber-500 font-bold shadow-sm";
+                                }
+
+                                // Добавляем разделение (отступы) между разными заездами
+                                const prevDayDate = new Date(cellDate);
+                                prevDayDate.setDate(prevDayDate.getDate() - 1);
+                                const prevDayIso = `${prevDayDate.getFullYear()}-${String(prevDayDate.getMonth() + 1).padStart(2, '0')}-${String(prevDayDate.getDate()).padStart(2, '0')}`;
+                                
+                                const nextDayDate = new Date(cellDate);
+                                nextDayDate.setDate(nextDayDate.getDate() + 1);
+                                const nextDayIso = `${nextDayDate.getFullYear()}-${String(nextDayDate.getMonth() + 1).padStart(2, '0')}-${String(nextDayDate.getDate()).padStart(2, '0')}`;
+
+                                if (cellDateIso === bookingInfo.start_date) {
+                                    borderStyle += "border-l-4 border-l-white "; // Начало заезда
+                                }
+                                
+                                const checkOutMinusOne = new Date(bookingInfo.end_date);
+                                checkOutMinusOne.setDate(checkOutMinusOne.getDate() - 1);
+                                const lastNightIso = `${checkOutMinusOne.getFullYear()}-${String(checkOutMinusOne.getMonth() + 1).padStart(2, '0')}-${String(checkOutMinusOne.getDate()).padStart(2, '0')}`;
+                                
+                                if (cellDateIso === lastNightIso) {
+                                    borderStyle += "border-r-4 border-r-white "; // Последняя ночь перед выездом
+                                }
+
+                                titleText = `Гість: ${bookingInfo.guest_name}\nТелефон: ${bookingInfo.guest_phone}\nЗаїзд: ${formatDateUa(bookingInfo.start_date)}\nВиїзд: ${formatDateUa(bookingInfo.end_date)} (до 12:00)`;
                             }
 
-                            html += `<td class="p-1 text-center"><div class="h-7 rounded border ${bgClass} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${guestInfo || 'Вільно'}"></div></td>`;
+                            html += `<td class="p-1 text-center"><div class="h-7 rounded border ${bgClass} ${borderStyle} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${titleText}"></div></td>`;
                         }
                         html += `</tr>`;
                     }
