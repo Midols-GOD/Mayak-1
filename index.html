@@ -450,7 +450,7 @@
         </div>
     </section>
 
-    <!-- БРОНЮВАННЯ, АКЦІЇ ТА УБД -->
+    <!-- БРОНЮВАННЯ ТА АКЦІЇ -->
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-12 flex flex-col items-center">
@@ -483,7 +483,7 @@
                                 <i id="roomDropdownChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
                             </button>
 
-                            <!-- Выпадающая лента номеров -->
+                            <!-- Выпадающая лента номеров (Люкс выделен иконкой кровати) -->
                             <div id="roomDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl">
                                 <div class="smooth-collapse-inner divide-y divide-gray-800/80">
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="800" data-label="2-х місний номер (800 ₴)">
@@ -510,10 +510,17 @@
                                         <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">1 400 ₴</span>
                                     </button>
 
-                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-value="1500" data-label="Номер «Люкс» (1500 ₴)">
-                                        <div>
-                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-gray-400">Покращений комфорт · Пт-Нд: 1 700 ₴</div>
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group bg-cyan-950/30" data-value="1500" data-label="Номер «Люкс» (1500 ₴)">
+                                        <div class="flex items-center space-x-2.5">
+                                            <div class="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center text-accentCyan flex-shrink-0">
+                                                <i class="fa-solid fa-bed text-xs"></i>
+                                            </div>
+                                            <div>
+                                                <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors flex items-center">
+                                                    Номер «Люкс» <span class="ml-2 text-[10px] bg-accentCyan text-darkBg font-extrabold px-1.5 py-0.5 rounded">VIP</span>
+                                                </div>
+                                                <div class="text-xs text-gray-400">Підвищений комфорт · Пт-Нд: 1 700 ₴</div>
+                                            </div>
                                         </div>
                                         <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-2.5 py-1 rounded-lg border border-cyan-800/50">1 500 ₴</span>
                                     </button>
@@ -616,7 +623,7 @@
             <!-- НИЖНИЙ БЛОК: АКЦИИ И УБД -->
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
 
-                <!-- 1. КАРТОЧКА ПИТАНИЯ (С ОБНОВЛЕННЫМ НАЗВАНИЕМ) -->
+                <!-- 1. КАРТОЧКА ПИТАНИЯ -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -650,7 +657,7 @@
                     </a>
                 </div>
 
-                <!-- 2. КАРТОЧКА УБД (СО СТРОГОЙ ИКОНКОЙ ЩИТА) -->
+                <!-- 2. КАРТОЧКА УБД -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         УБД
