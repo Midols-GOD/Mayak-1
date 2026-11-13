@@ -1600,9 +1600,9 @@
 
                     if (!assignedRoomNumber) {
                         showCustomNotice({
-                            title: 'Вільних номерів немає',
-                            message: `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» вже зайняті.`,
-                            badgeText: 'Зателефонуйте нам: +38 (093) 575-46-68',
+                            title: 'Вільних номерів немає (Овербукинг зупинено!)',
+                            message: `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» (усі ${maxRooms} номери) вже зайняті іншими гостями.`,
+                            badgeText: 'Зателефонуйте нам для уточнення: +38 (093) 575-46-68',
                             type: 'error'
                         });
 
@@ -1782,7 +1782,6 @@
                             const cellDate = new Date(year, month, d);
                             cellDate.setHours(0,0,0,0);
                             
-                            // Строгое формирование даты без часовых поясов
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
                             let cellStatus = 'free'; 
@@ -1824,7 +1823,6 @@
 
                                 titleText = `Гість: ${bookingInfo.guest_name} | Заїзд: ${formatDateUa(bookingInfo.start_date)} - Виїзд: ${formatDateUa(bookingInfo.end_date)}`;
                                 
-                                // Сохраняем данные брони для клика
                                 const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             }
