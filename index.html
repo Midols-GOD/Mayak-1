@@ -134,7 +134,7 @@
                 </a>
             </div>
 
-            <nav class="hidden md:flex items-center space-x-8 text-sm font-medium">
+            <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
                 <a href="#about" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="about">Про нас</a>
                 <a href="#rooms" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="rooms">Номери</a>
                 <a href="#promotions" class="text-priceYellow font-semibold hover:opacity-80 transition-opacity" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Акції та УБД</a>
@@ -142,17 +142,27 @@
                 <a href="#advantages" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="advantages">Переваги</a>
                 <a href="#faq" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="faq">FAQ</a>
                 <a href="#reviews" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="reviews">Відгуки</a>
-                <a href="#contacts" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="contacts">Контакти</a>
+                <a href="#contacts" class="nav-link text-gray-300 hover:text-accentCyan transition-colors" data-target="contacts"><i class="fa-solid fa-map-location-dot mr-1"></i>Карта</a>
             </nav>
 
-            <div class="md:hidden flex items-center">
-                <button id="menu-btn" type="button" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
-                    <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
-                </button>
+            <div class="flex items-center space-x-3">
+                <div class="hidden lg:block text-right">
+                    <div class="text-xs text-gray-400">Адміністратор</div>
+                    <div class="text-xs font-bold text-accentCyan">Тамара Василівна</div>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="menu-btn" type="button" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
+                        <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
+                    </button>
+                </div>
             </div>
         </div>
 
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
+            <div class="py-2.5 px-3 bg-darkBg/60 rounded-xl border border-gray-800 mt-2 flex justify-between items-center text-xs">
+                <span class="text-gray-400">Адміністратор:</span>
+                <span class="text-accentCyan font-bold">Тамара Василівна</span>
+            </div>
             <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="about">Про нас</a>
             <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="rooms">Номери</a>
             <a href="#promotions" class="mobile-link block py-3 text-priceYellow font-semibold border-b border-gray-800/50" data-target="promotions"><i class="fa-solid fa-gift mr-1"></i>Акції та УБД</a>
@@ -160,42 +170,20 @@
             <a href="#advantages" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="advantages">Переваги</a>
             <a href="#faq" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="faq">FAQ (Питання)</a>
             <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="reviews">Відгуки</a>
-            <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300" data-target="contacts">Контакти</a>
+            <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="contacts"><i class="fa-solid fa-map-location-dot mr-1"></i>Контакти та Карта</a>
             <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
                 <i class="fa-solid fa-phone mr-2"></i>Подзвонити
             </a>
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН -->
-    <section id="home" class="hidden sm:flex relative min-h-screen items-center justify-center pt-24 pb-16 px-4 overflow-hidden bg-gradient-to-b from-darkBg via-[#0d1527] to-darkBg w-full">
-        <div class="absolute inset-0 opacity-20 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-4xl mx-auto text-center relative z-10 w-full">
-            <div class="inline-flex items-center space-x-2 px-4 py-2 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs sm:text-sm mb-6">
-                <i class="fa-solid fa-water"></i>
-                <span>Приморське • Одеська область • 3 хвилини до моря</span>
-            </div>
-            <h1 class="text-4xl sm:text-6xl font-extrabold text-white tracking-tight mb-6 leading-tight">
-                Спокійний відпочинок біля моря <span class="text-transparent bg-clip-text bg-gradient-to-r from-accentCyan to-accentBlue">без міського шуму та метушні</span>
-            </h1>
-            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Зелений затишний двір, чисті номери з кондиціонерами, домашня кухня та вечори біля мангалу за кілька кроків від узбережжя.
-            </p>
-            <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 text-center">
-                    Обрати номер
-                </a>
-                <a href="#promotions" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cardBg border border-gray-700 hover:border-accentCyan text-white font-bold text-base transition-all text-center">
-                    Забронювати дати
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- БЛОК "ЛАСКОВО ПРОСИМО" -->
-    <section id="about" class="py-20 px-4 bg-darkBg border-t border-gray-900 w-full pt-28 sm:pt-20">
+    <!-- БЛОК "ЛАСКОВО ПРОСИМО" / ПРО НАС -->
+    <section id="about" class="py-20 px-4 bg-darkBg w-full pt-28 sm:pt-28">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
+                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs mb-4 font-semibold uppercase tracking-wider">
+                    <span>Ласкаво просимо</span>
+                </div>
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">База відпочинку «Маяк» — місце, куди хочеться повертатися</h2>
                 <p class="text-gray-300 mb-4 leading-relaxed">
                     Ми створили затишний сімейний куточок у Приморському для тих, хто втомився від міського ритму й хоче по-справжньому перезавантажитися біля Чорного моря. Тут немає гучних нічних клубів під вікнами — лише тиша, зелень, морський бриз і щира гостинність.
@@ -564,19 +552,19 @@
                     </div>
 
                     <div class="max-w-2xl mx-auto mt-2">
-                        <!-- Увеличенная плашка для телефонов и ПК -->
-                        <div class="bg-darkBg border border-gray-800 rounded-2xl p-5 sm:p-6 mb-5 space-y-3.5">
-                            <div class="flex justify-between text-sm sm:text-base text-gray-300">
+                        <!-- Плашка с адаптивными размерами: крупнее на телефонах, компактная на ПК -->
+                        <div class="bg-darkBg border border-gray-800 rounded-2xl p-5 sm:p-4 mb-5 space-y-3.5 sm:space-y-2">
+                            <div class="flex justify-between text-base sm:text-sm text-gray-300">
                                 <span>Тривалість:</span>
-                                <span id="calcNightsCount" class="text-white font-bold text-base sm:text-lg">0 ночей</span>
+                                <span id="calcNightsCount" class="text-white font-bold text-base sm:text-sm">0 ночей</span>
                             </div>
-                            <div class="flex justify-between text-sm sm:text-base text-gray-300">
+                            <div class="flex justify-between text-base sm:text-sm text-gray-300">
                                 <span>Передоплата (1 день):</span>
-                                <span id="calcPrepayPrice" class="text-priceYellow font-bold text-base sm:text-lg">0 ₴</span>
+                                <span id="calcPrepayPrice" class="text-priceYellow font-bold text-base sm:text-sm">0 ₴</span>
                             </div>
-                            <div class="flex justify-between items-center text-base sm:text-lg border-t border-gray-800 pt-3.5 mt-2">
+                            <div class="flex justify-between items-center text-lg sm:text-base border-t border-gray-800 pt-3.5 sm:pt-2.5 mt-2">
                                 <span class="text-gray-200 font-bold">Разом:</span>
-                                <span id="calcTotalPrice" class="text-2xl sm:text-3xl font-black text-accentCyan">0 ₴</span>
+                                <span id="calcTotalPrice" class="text-3xl sm:text-2xl font-black text-accentCyan">0 ₴</span>
                             </div>
                         </div>
 
@@ -987,6 +975,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Зв'яжіться з нами</h2>
+                <p class="text-gray-300 mb-2">Адміністратор: <strong class="text-white">Тамара Василівна</strong></p>
                 <p class="text-gray-300 mb-8">Готові уточнити деталі або є запитання щодо ціни? Телефонуйте нам у будь-який час!</p>
                 <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6">
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
@@ -1024,7 +1013,7 @@
                     <i class="fa-solid fa-gift mr-1.5"></i> Акції та УБД
                 </a>
                 <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
-                    <i class="fa-solid fa-phone mr-1.5"></i> Позвнити
+                    <i class="fa-solid fa-phone mr-1.5"></i> Подзвонити
                 </a>
             </div>
         </div>
