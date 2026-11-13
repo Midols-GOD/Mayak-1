@@ -669,7 +669,7 @@
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-table-cells text-accentCyan mr-2"></i>Шахматка номерного фонду (Адмін)</h3>
-                    <p class="text-gray-400 text-sm">Візуальний контроль зайнятості всіх 18 номерів бази «Маяк»</p>
+                    <p class="text-gray-400 text-sm">Візуальний контроль зайнятості та керування бронюваннями</p>
                 </div>
                 <div class="flex items-center space-x-3 bg-darkBg px-4 py-2 rounded-xl border border-gray-800">
                     <button type="button" id="matrixPrevMonth" class="text-accentCyan hover:text-white px-2 cursor-pointer"><i class="fa-solid fa-chevron-left"></i></button>
@@ -685,11 +685,11 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-amber-500/40 border border-amber-500"></div>
-                    <span>Заброньовано (очікується заїзд)</span>
+                    <span>Заброньовано</span>
                 </div>
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-rose-500/40 border border-rose-500"></div>
-                    <span>Проживає гість (сьогодні)</span>
+                    <span>Проживає (сьогодні)</span>
                 </div>
             </div>
 
@@ -1043,6 +1043,29 @@
         </div>
     </div>
 
+    <!-- МОДАЛЬНОЕ ОКНО УПРАВЛЕНИЯ БРОНЬЮ (УДАЛЕНИЕ) -->
+    <div id="adminBookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl modal-animate">
+            <div class="w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-5">
+                <i class="fa-solid fa-address-card"></i>
+            </div>
+            <h3 class="text-xl font-bold text-white mb-3 text-center">Деталі бронювання</h3>
+            
+            <div id="bookingDetailsContent" class="space-y-2 mb-6 text-sm text-gray-300 bg-darkBg/60 p-4 rounded-xl border border-gray-800">
+                <!-- Здесь будут данные брони -->
+            </div>
+
+            <div class="flex gap-3">
+                <button type="button" id="closeBookingModalBtn" class="w-1/2 py-3.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm transition-all cursor-pointer">
+                    Закрити
+                </button>
+                <button type="button" id="deleteBookingBtn" class="w-1/2 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg shadow-rose-600/20 transition-all cursor-pointer">
+                    Скасувати бронь
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- ФИРМЕННОЕ МОДАЛЬНОЕ ОКНО -->
     <div id="customNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div id="customNoticeBox" class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate">
@@ -1374,6 +1397,14 @@
                 return (dow === 5 || dow === 6 || dow === 0) ? baseRate + 200 : baseRate;
             }
 
+            // Функция точного форматирования даты без сдвига часовых поясов
+            function toLocalDateIso(d) {
+                const year = d.getFullYear();
+                const month = String(d.getMonth() + 1).padStart(2, '0');
+                const day = String(d.getDate()).padStart(2, '0');
+                return `${year}-${month}-${day}`;
+            }
+
             function renderMonth(year, month, gridEl, titleEl) {
                 gridEl.innerHTML = '';
                 titleEl.textContent = `${monthNames[month]} ${year}`;
@@ -1483,10 +1514,6 @@
                 return forms[idx];
             }
 
-            function toIso(d) {
-                return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
-            }
-
             function formatUaDate(d) {
                 return `${String(d.getDate()).padStart(2, '0')}.${String(d.getMonth() + 1).padStart(2, '0')}.${d.getFullYear()}`;
             }
@@ -1497,7 +1524,7 @@
                     let cursor = new Date(startDate);
 
                     while (cursor.getTime() < endDate.getTime()) {
-                        const dayStr = toIso(cursor);
+                        const dayStr = toLocalDateIso(cursor);
                         const isOccupied = existingBookings.some(b => 
                             b.room_type === roomCategory && 
                             String(b.room_number) === String(rNum) && 
@@ -1514,31 +1541,6 @@
 
                     if (isRoomFree) {
                         return rNum;
-                    }
-                }
-                return null;
-            }
-
-            function findNextAvailableDate(desiredStart, desiredEnd, existingBookings, maxRooms) {
-                const nightsCount = Math.round((desiredEnd.getTime() - desiredStart.getTime()) / (1000 * 60 * 60 * 24));
-                let candidateStart = new Date(desiredStart);
-
-                for (let offset = 1; offset <= 90; offset++) {
-                    candidateStart.setDate(candidateStart.getDate() + 1);
-                    let candidateEnd = new Date(candidateStart);
-                    candidateEnd.setDate(candidateEnd.getDate() + nightsCount);
-
-                    let canFit = true;
-                    for (let rNum = 1; rNum <= maxRooms; rNum++) {
-                        let roomFree = true;
-                        let cur = new Date(candidateStart);
-                        while(cur.getTime() < candidateEnd.getTime()) {
-                            let dayStr = toIso(cur);
-                            let occ = existingBookings.some(b => b.room_type === roomInput.getAttribute('data-label') && String(b.room_number) === String(rNum) && dayStr >= b.start_date && dayStr < b.end_date);
-                            if (occ) { roomFree = false; break; }
-                            cur.setDate(cur.getDate() + 1);
-                        }
-                        if (roomFree) { return candidateStart; }
                     }
                 }
                 return null;
@@ -1576,8 +1578,8 @@
                 const maxRooms = ROOM_INVENTORY[roomKey] || 1;
                 const selectedRoomName = roomInput.getAttribute('data-label');
 
-                const newStart = toIso(checkIn);
-                const newEnd = toIso(checkOut);
+                const newStart = toLocalDateIso(checkIn);
+                const newEnd = toLocalDateIso(checkOut);
 
                 bookBtn.disabled = true;
                 bookBtn.textContent = 'Перевіряємо вільні місця...';
@@ -1597,16 +1599,10 @@
                     const assignedRoomNumber = findAvailableRoomNumber(selectedRoomName, checkIn, checkOut, activeBookings, maxRooms);
 
                     if (!assignedRoomNumber) {
-                        const nextFreeDate = findNextAvailableDate(checkIn, checkOut, activeBookings, maxRooms);
-                        let badgeInfo = '';
-                        if (nextFreeDate) {
-                            badgeInfo = `Найближча вільна дата заїзду: ${formatUaDate(nextFreeDate)} (${monthNames[nextFreeDate.getMonth()]})`;
-                        }
-
                         showCustomNotice({
                             title: 'Вільних номерів немає',
                             message: `На жаль, на вибрані дати всі номери категорії «${selectedRoomName}» вже зайняті.`,
-                            badgeText: badgeInfo || 'Зателефонуйте нам для підбору іншого варіанту: +38 (093) 575-46-68',
+                            badgeText: 'Зателефонуйте нам: +38 (093) 575-46-68',
                             type: 'error'
                         });
 
@@ -1643,7 +1639,7 @@
 
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Вашу заявку успішно збережено. Номер №${assignedRoomNumber} закріплено за вами.`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано.`,
                         badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -1657,10 +1653,10 @@
                     recalculate();
 
                 } catch (err) {
-                    console.error('Booking conflict error:', err);
+                    console.error('Booking error:', err);
                     showCustomNotice({
                         title: 'Помилка з\'єднання',
-                        message: 'Не вдалося з\'єднатися з базою даних. Будь ласка, зателефонуйте нам: +38 (093) 575-46-68',
+                        message: 'Не вдалося зберегти бронювання. Зателефонуйте нам: +38 (093) 575-46-68',
                         type: 'error'
                     });
                 } finally {
@@ -1672,7 +1668,7 @@
             renderAll();
         })();
 
-        // 5. УЛУЧШЕННАЯ ШАХМАТКА С РАЗДЕЛИТЕЛЯМИ И ДЕТАЛЬНОЙ ИНФОРМАЦИЕЙ О ГОСТЯХ
+        // 5. УЛУЧШЕННАЯ ШАХМАТКА С УПРАВЛЕНИЕМ И УДАЛЕНИЕМ БРОНИЙ
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             if (!container) return;
@@ -1680,6 +1676,44 @@
             const titleEl = document.getElementById('matrixMonthTitle');
             const prevBtn = document.getElementById('matrixPrevMonth');
             const nextBtn = document.getElementById('matrixNextMonth');
+
+            const bookingModal = document.getElementById('adminBookingModal');
+            const detailsContent = document.getElementById('bookingDetailsContent');
+            const closeBookingModalBtn = document.getElementById('closeBookingModalBtn');
+            const deleteBookingBtn = document.getElementById('deleteBookingBtn');
+
+            let currentBookingToDelete = null;
+
+            closeBookingModalBtn.addEventListener('click', () => {
+                bookingModal.classList.add('hidden');
+                bookingModal.classList.remove('flex');
+            });
+
+            deleteBookingBtn.addEventListener('click', async () => {
+                if (!currentBookingToDelete) return;
+                if (!confirm(`Ви дійсно хочете скасувати бронь гостя ${currentBookingToDelete.guest_name}?`)) return;
+
+                try {
+                    const { error } = await supabaseClient
+                        .from('bookings')
+                        .delete()
+                        .eq('id', currentBookingToDelete.id);
+
+                    if (error) throw error;
+
+                    bookingModal.classList.add('hidden');
+                    bookingModal.classList.remove('flex');
+                    loadMatrixData();
+                    showCustomNotice({
+                        title: 'Бронь видалено',
+                        message: 'Бронювання успішно скасовано, номер знову вільний.',
+                        type: 'success'
+                    });
+                } catch (err) {
+                    console.error('Delete error:', err);
+                    alert('Помилка при видаленні бронювання');
+                }
+            });
 
             let currentViewDate = new Date();
             currentViewDate.setDate(1);
@@ -1747,12 +1781,13 @@
                         for (let d = 1; d <= daysInMonth; d++) {
                             const cellDate = new Date(year, month, d);
                             cellDate.setHours(0,0,0,0);
+                            
+                            // Строгое формирование даты без часовых поясов
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
                             let cellStatus = 'free'; 
                             let bookingInfo = null;
 
-                            // Находим бронирование для конкретного дня
                             for (let b of bookings) {
                                 if (b.room_type === group.category && String(b.room_number) === String(rNum)) {
                                     if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
@@ -1765,7 +1800,8 @@
 
                             let bgClass = "bg-emerald-500/10 text-emerald-400 border-emerald-500/20";
                             let borderStyle = "";
-                            let titleText = "Вільно";
+                            let titleText = "Вільно (Натисніть для бронювання)";
+                            let clickAction = "";
 
                             if (cellStatus === 'booked' || cellStatus === 'active') {
                                 if (cellStatus === 'active') {
@@ -1774,31 +1810,26 @@
                                     bgClass = "bg-amber-500/40 text-amber-200 border-amber-500 font-bold shadow-sm";
                                 }
 
-                                // Добавляем разделение (отступы) между разными заездами
-                                const prevDayDate = new Date(cellDate);
-                                prevDayDate.setDate(prevDayDate.getDate() - 1);
-                                const prevDayIso = `${prevDayDate.getFullYear()}-${String(prevDayDate.getMonth() + 1).padStart(2, '0')}-${String(prevDayDate.getDate()).padStart(2, '0')}`;
-                                
-                                const nextDayDate = new Date(cellDate);
-                                nextDayDate.setDate(nextDayDate.getDate() + 1);
-                                const nextDayIso = `${nextDayDate.getFullYear()}-${String(nextDayDate.getMonth() + 1).padStart(2, '0')}-${String(nextDayDate.getDate()).padStart(2, '0')}`;
-
                                 if (cellDateIso === bookingInfo.start_date) {
-                                    borderStyle += "border-l-4 border-l-white "; // Начало заезда
+                                    borderStyle += "border-l-4 border-l-white "; 
                                 }
                                 
-                                const checkOutMinusOne = new Date(bookingInfo.end_date);
+                                const checkOutMinusOne = new Date(bookingInfo.end_date + 'T00:00:00');
                                 checkOutMinusOne.setDate(checkOutMinusOne.getDate() - 1);
                                 const lastNightIso = `${checkOutMinusOne.getFullYear()}-${String(checkOutMinusOne.getMonth() + 1).padStart(2, '0')}-${String(checkOutMinusOne.getDate()).padStart(2, '0')}`;
                                 
                                 if (cellDateIso === lastNightIso) {
-                                    borderStyle += "border-r-4 border-r-white "; // Последняя ночь перед выездом
+                                    borderStyle += "border-r-4 border-r-white "; 
                                 }
 
-                                titleText = `Гість: ${bookingInfo.guest_name}\nТелефон: ${bookingInfo.guest_phone}\nЗаїзд: ${formatDateUa(bookingInfo.start_date)}\nВиїзд: ${formatDateUa(bookingInfo.end_date)} (до 12:00)`;
+                                titleText = `Гість: ${bookingInfo.guest_name} | Заїзд: ${formatDateUa(bookingInfo.start_date)} - Виїзд: ${formatDateUa(bookingInfo.end_date)}`;
+                                
+                                // Сохраняем данные брони для клика
+                                const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
+                                clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             }
 
-                            html += `<td class="p-1 text-center"><div class="h-7 rounded border ${bgClass} ${borderStyle} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${titleText}"></div></td>`;
+                            html += `<td class="p-1 text-center"><div ${clickAction} class="h-7 rounded border ${bgClass} ${borderStyle} flex items-center justify-center cursor-pointer transition-transform hover:scale-110" title="${titleText}"></div></td>`;
                         }
                         html += `</tr>`;
                     }
@@ -1807,6 +1838,23 @@
                 html += `</tbody></table>`;
                 container.innerHTML = html;
             }
+
+            window.openBookingModal = function(bookingObj) {
+                if (typeof bookingObj === 'string') bookingObj = JSON.parse(bookingObj);
+                currentBookingToDelete = bookingObj;
+
+                detailsContent.innerHTML = `
+                    <div><strong>Гість:</strong> <span class="text-white">${bookingObj.guest_name}</span></div>
+                    <div><strong>Телефон:</strong> <span class="text-accentCyan">${bookingObj.guest_phone}</span></div>
+                    <div><strong>Категорія:</strong> ${bookingObj.room_type} (Номер №${bookingObj.room_number})</div>
+                    <div><strong>Заїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.start_date)}</span> (з 13:00)</div>
+                    <div><strong>Виїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.end_date)}</span> (до 12:00)</div>
+                    <div><strong>Сума:</strong> <span class="text-priceYellow">${bookingObj.total_price} ₴</span></div>
+                `;
+
+                bookingModal.classList.remove('hidden');
+                bookingModal.classList.add('flex');
+            };
 
             prevBtn.addEventListener('click', () => {
                 currentViewDate.setMonth(currentViewDate.getMonth() - 1);
