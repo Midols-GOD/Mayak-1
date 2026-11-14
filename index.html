@@ -73,7 +73,7 @@
             background-color: rgba(6, 182, 212, 0.25);
             border-color: #06b6d4;
         }
-        /* ВОЗВРАТ БИРЮЗОВОГО ЦВЕТА ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
+        /* БИРЮЗОВЫЙ ЦВЕТ ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
         .cal-day.selected {
             background-color: #06b6d4 !important;
             color: #090d16 !important;
@@ -130,10 +130,6 @@
                     </div>
                     <span class="text-lg sm:text-xl font-bold tracking-wider text-white">МАЯК</span>
                 </a>
-
-                <a href="#promotions" class="flex items-center text-priceYellow text-xs font-medium bg-cyan-950/50 px-3 py-2 rounded-lg border border-cyan-800/40 ml-2">
-                    <i class="fa-solid fa-gift mr-1"></i>Акції та УБД
-                </a>
             </div>
 
             <nav class="hidden md:flex items-center space-x-6 text-sm font-medium">
@@ -175,7 +171,7 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (HERO) - БЕЗ МЕРЦАНИЯ -->
+    <!-- ГОЛОВНИЙ ЕКРАН (HERO) -->
     <section id="home" class="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
             <img src="Улица 2.jpg" alt="База відпочинку Маяк" class="w-full h-full object-cover filter brightness-[0.4] scale-105">
@@ -206,7 +202,7 @@
         </div>
     </section>
 
-    <!-- БЛОК "ЛАСКОВО ПРОСИМО" / ПРО НАС -->
+    <!-- ПРО НАС -->
     <section id="about" class="py-20 px-4 bg-darkBg w-full pt-20 sm:pt-24">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
@@ -605,7 +601,7 @@
             </div>
 
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- КАРТОЧКА ХАРЧУВАННЯ (ВІД 3 ДНІВ) -->
+                <!-- ХАРЧУВАННЯ (ВІД 3 ДНІВ) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -1030,20 +1026,23 @@
         </div>
     </section>
 
-    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ВНИЗУ (С ИМЕНЕМ АДМИНИСТРАТОРА ТАМАРА ВАСИЛЬЕВНА) -->
+    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ВНИЗУ (АДМИН СПРАВА ОТ ЗВОНКА) -->
     <div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl">
         <div class="flex items-center justify-between max-w-4xl mx-auto">
             <div>
                 <div class="text-xs text-gray-400">Ціни від <span class="text-white font-bold">800 ₴ / день</span></div>
-                <div class="text-xs text-accentCyan font-semibold mt-0.5">Адмін: Тамара Василівна</div>
             </div>
             <div class="flex items-center space-x-3">
                 <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
                     <i class="fa-solid fa-gift mr-1.5"></i> Акції та УБД
                 </a>
-                <a href="tel:+380935754668" class="px-6 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
+                <a href="tel:+380935754668" class="px-5 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-90 transition-all">
                     <i class="fa-solid fa-phone mr-1.5"></i> Подзвонити
                 </a>
+                <div class="text-left pl-1 border-l border-gray-800">
+                    <div class="text-[10px] text-gray-400">Адмін:</div>
+                    <div class="text-xs text-accentCyan font-bold whitespace-nowrap">Тамара Василівна</div>
+                </div>
             </div>
         </div>
     </div>
@@ -1709,7 +1708,7 @@
             renderAll();
         })();
 
-        // 5. ИСПРАВЛЕННАЯ ШАХМАТКА ДЛЯ КОРРЕКТНОГО ОТОБРАЖЕНИЯ СТИКОВОК (СИНИЙ ЦВЕТ)
+        // 5. ШАХМАТКА
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             if (!container) return;
@@ -1851,7 +1850,6 @@
                             let clickAction = "";
                             let cellInner = "";
 
-                            // СТИКОВКА (Выезд одного и заезд другого в один день) -> СИНИЙ ЦВЕТ
                             if (checkoutBooking && checkinBooking) {
                                 bgClass = "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md";
                                 titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name}) в один день!`;
