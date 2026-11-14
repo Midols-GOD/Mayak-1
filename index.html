@@ -2063,19 +2063,16 @@
                 const todayIso = getTodayIsoString();
                 const statusInfo = getBookingStatusInfo(bookingObj, todayIso);
 
-                // Пошук стиковки: чи є заїзд іншої сім'ї в день виїзду поточного гостя в той самий номер
-                let nextGuestName = null;
+                // Пошук наступної броні (стиковки) у тому ж номері
+                let matchedNext = null;
                 if (globalBookingsCache && globalBookingsCache.length > 0) {
-                    const matchedNext = globalBookingsCache.find(b => {
+                    matchedNext = globalBookingsCache.find(b => {
                         return b.id !== bookingObj.id &&
                                b.room_type && bookingObj.room_type &&
                                b.room_type.trim().toLowerCase() === bookingObj.room_type.trim().toLowerCase() &&
                                String(b.room_number) === String(bookingObj.room_number) &&
                                b.start_date === bookingObj.end_date;
                     });
-                    if (matchedNext) {
-                        nextGuestName = matchedNext.guest_name;
-                    }
                 }
 
                 bookingModalBox.className = `border-2 ${statusInfo.modalBorderClass} rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl modal-animate my-auto`;
@@ -2090,11 +2087,18 @@
                 const guestsText = bookingObj.guest_count ? `${bookingObj.guest_count} ос.` : 'Не вказано';
 
                 let immediateCheckinHtml = '';
-                if (nextGuestName) {
+                if (matchedNext) {
+                    const nextJson = encodeURIComponent(JSON.stringify(matchedNext));
                     immediateCheckinHtml = `
-                        <div class="p-3 rounded-xl bg-sky-950/60 border border-sky-500/50 text-sky-200 text-xs font-semibold flex items-center space-x-2.5 mt-2">
-                            <i class="fa-solid fa-right-to-bracket text-sky-400 text-base flex-shrink-0"></i>
-                            <div>При виїзді одразу ж заселяється інша сім'я: <strong class="text-white">${nextGuestName}</strong></div>
+                        <div class="p-3 rounded-xl bg-sky-950/60 border border-sky-500/50 text-sky-200 text-xs font-semibold mt-2">
+                            <div class="flex items-center space-x-2 mb-1.5">
+                                <i class="fa-solid fa-right-to-bracket text-sky-400 text-base flex-shrink-0"></i>
+                                <span>При виїзді одразу ж заселяється інша сім'я:</span>
+                            </div>
+                            <button type="button" onclick='openBookingModal(decodeURIComponent("${nextJson}"))' class="w-full text-left bg-sky-900/40 hover:bg-sky-900/80 border border-sky-400/40 p-2.5 rounded-xl text-white font-bold transition-all flex items-center justify-between cursor-pointer shadow-md">
+                                <span class="truncate pr-2"><i class="fa-solid fa-user mr-1.5 text-accentCyan"></i>${matchedNext.guest_name}</span>
+                                <span class="text-[11px] text-accentCyan bg-darkBg/80 px-2.5 py-1 rounded-lg border border-sky-500/30 flex-shrink-0">Картка <i class="fa-solid fa-chevron-right text-[9px] ml-1"></i></span>
+                            </button>
                         </div>
                     `;
                 }
