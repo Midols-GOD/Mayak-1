@@ -73,7 +73,6 @@
             background-color: rgba(6, 182, 212, 0.25);
             border-color: #06b6d4;
         }
-        /* БИРЮЗОВЫЙ ЦВЕТ ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
         .cal-day.selected {
             background-color: #06b6d4 !important;
             color: #090d16 !important;
@@ -113,7 +112,6 @@
             animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
 
-        /* Стильний точковий паттерн для головного екрана */
         .hero-dots {
             background-image: radial-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px);
             background-size: 24px 24px;
@@ -177,13 +175,15 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (HERO) - З ТОЧКОВИМ ПАТТЕРНОМ БЕЗ ФОТО -->
+    <!-- ГОЛОВНИЙ ЕКРАН (HERO) - З ФОТО НА ДЕСКТОПІ ТА ПАТТЕРНОМ НА ТЕЛЕФОНІ -->
     <section id="home" class="relative min-h-[85vh] flex items-center justify-center pt-28 pb-16 px-4 overflow-hidden hero-dots bg-darkBg">
-        <div class="absolute inset-0 bg-gradient-to-b from-darkBg/40 via-darkBg/80 to-darkBg"></div>
+        <!-- Десктопний фоновий шар з фото та затемненням -->
+        <div class="hidden md:block absolute inset-0 bg-[url('Улица 2.jpg')] bg-cover bg-center"></div>
+        <div class="absolute inset-0 bg-gradient-to-b from-darkBg/70 via-darkBg/85 to-darkBg"></div>
         
         <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
             <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-accentCyan text-xs sm:text-sm mb-6 font-semibold uppercase tracking-widest backdrop-blur-md shadow-lg shadow-cyan-500/20">
-                <i class="fa-solid fa-anchor mr-1.5"></i> Приморське, Одеська область
+                <i class="fa-solid fa-anchor mr-1.5"></i> База відпочинку «Маяк» • Приморське, Одещина
             </div>
             
             <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
@@ -195,8 +195,8 @@
             </p>
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
-                <a href="#promotions" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-xl shadow-cyan-500/30 hover:opacity-95 transition-all text-center">
-                    <i class="fa-solid fa-calendar-days mr-2"></i>Забронювати
+                <a href="#rooms" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-xl shadow-cyan-500/30 hover:opacity-95 transition-all text-center">
+                    <i class="fa-solid fa-bed mr-2"></i>Подивитися номери
                 </a>
                 <a href="tel:+380935754668" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-cardBg/90 hover:bg-cardBg text-white border border-cyan-500/40 font-bold text-base backdrop-blur-md transition-all text-center shadow-lg">
                     <i class="fa-solid fa-phone mr-2 text-accentCyan"></i>+38 (093) 575-46-68
@@ -236,8 +236,8 @@
 
                 <div class="grid grid-cols-3 gap-4 pt-2">
                     <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
-                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">12+</div>
-                        <div class="text-xs sm:text-sm text-gray-400">Років приймаємо гостей</div>
+                        <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">24 роки</div>
+                        <div class="text-xs sm:text-sm text-gray-400">Приймаємо гостей</div>
                     </div>
                     <div class="p-4 rounded-2xl bg-cardBg border border-gray-800 text-center">
                         <div class="text-2xl sm:text-3xl font-extrabold text-accentCyan mb-1">24/7</div>
@@ -269,7 +269,7 @@
         </div>
     </section>
 
-    <!-- НОМЕРИ (ЦІНИ БЕЗ ЧОРНИХ РАМОК) -->
+    <!-- НОМЕРИ -->
     <section id="rooms" class="py-20 px-4 bg-[#0c101c] w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-16">
@@ -478,7 +478,6 @@
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
-                        <!-- Випадаюче меню номерів з рівними вирівняними цінами -->
                         <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Номер:</label>
                             <input type="hidden" id="calcRoomType" value="Номер «Люкс»" data-label="Номер «Люкс»" data-base-price="1500">
@@ -681,7 +680,7 @@
         </div>
     </section>
 
-    <!-- ШАХМАТНА ДОШКА ЗАЙНЯТОСТІ (СКРЫТА ДЛЯ ОБЫЧНЫХ ПОСЕТИТЕЛЕЙ, ВИДНА ТОЛЬКО ПО ССЫЛКЕ С ?admin=1) -->
+    <!-- ШАХМАТНА ДОШКА ЗАЙНЯТОСТІ (АДМІН-ПАНЕЛЬ) -->
     <div id="adminMatrixSection" class="max-w-7xl mx-auto px-4 py-12 hidden">
         <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
@@ -715,11 +714,17 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-blue-600 border border-blue-400"></div>
-                    <span>Стикування (виїзд + заїзд в один день)</span>
+                    <span>Стикування</span>
                 </div>
             </div>
 
-            <div class="overflow-x-auto">
+            <!-- Зручний мобільний список броней (видимий на телефонах) -->
+            <div id="adminMobileBookingsList" class="block sm:hidden mb-8 space-y-3">
+                <!-- Динамічно заповнюється скриптом -->
+            </div>
+
+            <!-- Десктопна шахматна таблиця -->
+            <div class="overflow-x-auto hidden sm:block">
                 <div id="matrixTableContainer" class="min-w-[900px]"></div>
             </div>
         </div>
@@ -1084,7 +1089,7 @@
             <h3 class="text-xl font-bold text-white mb-3 text-center">Деталі бронювання</h3>
             
             <div id="bookingDetailsContent" class="space-y-2 mb-6 text-sm text-gray-300 bg-darkBg/60 p-4 rounded-xl border border-gray-800">
-                <!-- Здесь будут данные брони -->
+                <!-- Дані броні -->
             </div>
 
             <div class="flex gap-3">
@@ -1130,14 +1135,12 @@
             console.warn('Supabase init warning:', e);
         }
 
-        // ПРОВЕРКА АДМИНА ДЛЯ ШАХМАТКИ (?admin=1)
         const urlParams = new URLSearchParams(window.location.search);
         if (urlParams.get('admin') === '1') {
             const adminSection = document.getElementById('adminMatrixSection');
             if (adminSection) adminSection.classList.remove('hidden');
         }
 
-        // ФУНКЦИЯ ФИРМЕННОГО УВЕДОМЛЕНИЯ
         function showCustomNotice({ title, message, badgeText = '', type = 'info' }) {
             const modal = document.getElementById('customNoticeModal');
             const box = document.getElementById('customNoticeBox');
@@ -1712,9 +1715,10 @@
             renderAll();
         })();
 
-        // 5. ШАХМАТКА
+        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
+            const mobileListContainer = document.getElementById('adminMobileBookingsList');
             if (!container) return;
 
             const titleEl = document.getElementById('matrixMonthTitle');
@@ -1757,7 +1761,7 @@
                     console.error('Delete error:', err);
                     showCustomNotice({
                         title: 'Помилка видалення',
-                        message: 'Не вдалося видалити бронь. Перевірте політики безпеки (RLS) у Supabase для операції DELETE.',
+                        message: 'Не вдалося видалити бронь. Перевірте політики безпеки у Supabase.',
                         type: 'error'
                     });
                 }
@@ -1808,6 +1812,41 @@
                     console.warn('Помилка завантаження шахматки:', e);
                 }
 
+                // РЕНДЕР МОБІЛЬНОГО СПИСКУ БРОНЕЙ
+                if (mobileListContainer) {
+                    const currentMonthBookings = bookings.filter(b => {
+                        const start = new Date(b.start_date);
+                        const end = new Date(b.end_date);
+                        const mStart = new Date(year, month, 1);
+                        const mEnd = new Date(year, month + 1, 0);
+                        return start <= mEnd && end >= mStart;
+                    });
+
+                    if (currentMonthBookings.length === 0) {
+                        mobileListContainer.innerHTML = `<div class="p-4 rounded-xl bg-darkBg/60 text-center text-gray-400 text-xs border border-gray-800">У цьому місяці поки немає бронювань.</div>`;
+                    } else {
+                        let mHtml = `<div class="text-xs font-bold text-accentCyan uppercase tracking-wider mb-2">Бронювання за місяць (${currentMonthBookings.length}):</div>`;
+                        currentMonthBookings.forEach(b => {
+                            const bJson = encodeURIComponent(JSON.stringify(b));
+                            mHtml += `
+                                <div onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="p-3.5 rounded-xl bg-darkBg border border-cyan-500/30 flex justify-between items-center cursor-pointer hover:border-accentCyan transition-all shadow-md">
+                                    <div>
+                                        <div class="text-white font-bold text-sm">${b.guest_name}</div>
+                                        <div class="text-xs text-accentCyan mt-0.5">${b.room_type} (№${b.room_number})</div>
+                                        <div class="text-[11px] text-gray-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i>${formatDateUa(b.start_date)} — ${formatDateUa(b.end_date)}</div>
+                                    </div>
+                                    <div class="text-right">
+                                        <span class="text-priceYellow font-extrabold text-sm">${b.total_price} ₴</span>
+                                        <div class="text-[10px] text-gray-400 mt-1 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800/40 inline-block">Деталі</div>
+                                    </div>
+                                </div>
+                            `;
+                        });
+                        mobileListContainer.innerHTML = mHtml;
+                    }
+                }
+
+                // РЕНДЕР ДЕСКТОПНОЇ ТАБЛИЦІ
                 let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
                 html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
 
@@ -1818,6 +1857,7 @@
 
                 const today = new Date();
                 today.setHours(0,0,0,0);
+                const todayMs = today.getTime();
 
                 roomsStructure.forEach(group => {
                     html += `<tr class="bg-darkBg/40"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
@@ -1829,6 +1869,7 @@
                         for (let d = 1; d <= daysInMonth; d++) {
                             const cellDate = new Date(year, month, d);
                             cellDate.setHours(0,0,0,0);
+                            const cellMs = cellDate.getTime();
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
                             let activeBooking = null;
@@ -1854,19 +1895,28 @@
                             let clickAction = "";
                             let cellInner = "";
 
+                            const isTodayCell = (cellMs === todayMs);
+
                             if (checkoutBooking && checkinBooking) {
-                                bgClass = "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md";
-                                titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name}) в один день!`;
+                                bgClass = isTodayCell ? "bg-rose-600 text-white border-rose-400 font-bold shadow-md" : "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md";
+                                titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                                 cellInner = '⚡';
+                            } else if (isTodayCell && (activeBooking || checkinBooking)) {
+                                // Пряме суворе правило для сьогоднішнього дня під час проживання гостя
+                                const currentB = activeBooking || checkinBooking;
+                                bgClass = "bg-rose-600 text-white border-rose-400 font-bold shadow-md";
+                                titleText = `Проживає сьогодні: ${currentB.guest_name} (${formatDateUa(currentB.start_date)} - ${formatDateUa(currentB.end_date)})`;
+                                const bJson = encodeURIComponent(JSON.stringify(currentB));
+                                clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (checkinBooking) {
                                 bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md border-l-4 border-l-white";
                                 titleText = `Заїзд: ${checkinBooking.guest_name} (${formatDateUa(checkinBooking.start_date)} - ${formatDateUa(checkinBooking.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (activeBooking) {
-                                bgClass = (cellDate.getTime() === today.getTime()) ? "bg-rose-600 text-white border-rose-400 font-bold shadow-sm" : "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
+                                bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
                                 titleText = `Гість: ${activeBooking.guest_name} | Заїзд: ${formatDateUa(activeBooking.start_date)} - Виїзд: ${formatDateUa(activeBooking.end_date)}`;
                                 const bJson = encodeURIComponent(JSON.stringify(activeBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
@@ -1898,7 +1948,7 @@
                     <div><strong>Заїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.start_date)}</span> (з 13:00)</div>
                     <div><strong>Виїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.end_date)}</span> (до 12:00)</div>
                     <div><strong>Загальна сума:</strong> <span class="text-priceYellow">${bookingObj.total_price} ₴</span></div>
-                    <div class="pt-2 border-t border-gray-800"><strong>Передоплата (до внесення):</strong> <span class="text-accentCyan font-bold">${bookingObj.prepay_price || bookingObj.total_price} ₴</span></div>
+                    <div class="pt-2 border-t border-gray-800"><strong>Передоплата:</strong> <span class="text-accentCyan font-bold">${bookingObj.prepay_price || bookingObj.total_price} ₴</span></div>
                 `;
 
                 bookingModal.classList.remove('hidden');
