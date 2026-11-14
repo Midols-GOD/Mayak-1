@@ -73,16 +73,18 @@
             background-color: rgba(6, 182, 212, 0.25);
             border-color: #06b6d4;
         }
+        /* НАСЫЩЕННЫЙ СИНИЙ ЦВЕТ ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
         .cal-day.selected {
-            background-color: #06b6d4 !important;
-            color: #090d16 !important;
+            background-color: #2563eb !important;
+            color: #ffffff !important;
             font-weight: 800;
-            border-color: #06b6d4;
+            border-color: #60a5fa;
+            box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
         }
         .cal-day.in-range {
-            background-color: rgba(6, 182, 212, 0.18);
-            color: #38bdf8;
-            border-color: rgba(6, 182, 212, 0.3);
+            background-color: rgba(37, 99, 235, 0.25);
+            color: #93c5fd;
+            border-color: rgba(59, 130, 246, 0.4);
         }
         .cal-day.disabled {
             opacity: 0.25;
@@ -129,7 +131,7 @@
                     <span class="text-lg sm:text-xl font-bold tracking-wider text-white">МАЯК</span>
                 </a>
 
-                <a href="#promotions" class="md:hidden flex items-center text-priceYellow text-xs font-medium bg-cyan-950/50 px-2 py-1.5 rounded-lg border border-cyan-800/40 ml-1">
+                <a href="#promotions" class="flex items-center text-priceYellow text-xs font-medium bg-cyan-950/50 px-3 py-2 rounded-lg border border-cyan-800/40 ml-2">
                     <i class="fa-solid fa-gift mr-1"></i>Акції та УБД
                 </a>
             </div>
@@ -146,10 +148,6 @@
             </nav>
 
             <div class="flex items-center space-x-3">
-                <div class="hidden lg:block text-right">
-                    <div class="text-xs text-gray-400">Адміністратор</div>
-                    <div class="text-xs font-bold text-accentCyan">Тамара Василівна</div>
-                </div>
                 <div class="md:hidden flex items-center">
                     <button id="menu-btn" type="button" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
                         <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
@@ -177,10 +175,10 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (HERO) -->
+    <!-- ГОЛОВНИЙ ЕКРАН (HERO) - БЕЗ МЕРЦАНИЯ -->
     <section id="home" class="relative min-h-[90vh] flex items-center justify-center pt-28 pb-16 px-4 overflow-hidden">
         <div class="absolute inset-0 z-0">
-            <img src="Улица 2.jpg" alt="База відпочинку Маяк" class="w-full h-full object-cover filter brightness-[0.4] scale-105 animate-pulse duration-[10000ms]">
+            <img src="Улица 2.jpg" alt="База відпочинку Маяк" class="w-full h-full object-cover filter brightness-[0.4] scale-105">
             <div class="absolute inset-0 bg-gradient-to-t from-darkBg via-darkBg/60 to-transparent"></div>
         </div>
         
@@ -199,7 +197,7 @@
 
             <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
                 <a href="#promotions" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-xl shadow-cyan-500/30 hover:opacity-95 transition-all text-center">
-                    <i class="fa-solid fa-calendar-days mr-2"></i>Забронювати номер
+                    <i class="fa-solid fa-calendar-days mr-2"></i>Забронювати
                 </a>
                 <a href="tel:+380935754668" class="w-full sm:w-auto px-8 py-4 rounded-2xl bg-cardBg/90 hover:bg-cardBg text-white border border-cyan-500/40 font-bold text-base backdrop-blur-md transition-all text-center shadow-lg">
                     <i class="fa-solid fa-phone mr-2 text-accentCyan"></i>+38 (093) 575-46-68
@@ -212,12 +210,8 @@
     <section id="about" class="py-20 px-4 bg-darkBg w-full pt-20 sm:pt-24">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-12 items-center w-full">
             <div>
-                <div class="inline-flex items-center space-x-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/50 text-accentCyan text-xs mb-4 font-semibold uppercase tracking-wider">
-                    <span>Ласкаво просимо</span>
-                </div>
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">База відпочинку «Маяк» — місце, куди хочеться повертатися</h2>
                 <p class="text-gray-300 mb-4 leading-relaxed">
-                    Ми створили затишний сімейний куточок у Приморському для тих, хто втомився від міського ритму й хоче по-справжньому перезавантажитися біля Чорного моря. Тут немає гучних нічних клубів під вікнами — лише тиша, зелень, морський бриз і щира гостинність.
+                    База відпочинку «Маяк» створена для спокійного сімейного відпочинку біля Чорного моря в затишному куточку Приморського.
                 </p>
                 <p class="text-gray-300 mb-4 leading-relaxed">
                     <strong>Усе для вашого комфорту на одній території:</strong>
@@ -487,32 +481,24 @@
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
                         <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Номер:</label>
-                            <input type="hidden" id="calcRoomType" value="2-х місний номер" data-label="2-х місний номер" data-base-price="800">
+                            <input type="hidden" id="calcRoomType" value="Номер «Люкс»" data-label="Номер «Люкс»" data-base-price="1500">
                             
                             <button type="button" id="roomDropdownBtn" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-left flex items-center justify-between transition-all shadow-md cursor-pointer">
                                 <span class="flex items-center space-x-2.5 overflow-hidden">
                                     <i class="fa-solid fa-bed text-accentCyan text-base flex-shrink-0"></i>
-                                    <span id="roomDropdownLabel" class="text-white font-bold text-sm truncate">2-х місний номер</span>
+                                    <span id="roomDropdownLabel" class="text-white font-bold text-sm truncate">Номер «Люкс»</span>
                                 </span>
                                 <i id="roomDropdownChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
                             </button>
 
                             <div id="roomDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl">
                                 <div class="smooth-collapse-inner divide-y divide-gray-800/80">
-                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="2-х місний номер" data-price="800" data-label="2-х місний номер">
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»">
                                         <div>
-                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">2-х місний номер</div>
-                                            <div class="text-xs text-gray-400">Розраховано на 2 особи або більше / менше</div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
+                                            <div class="text-xs text-gray-400">Власний санвузол, кухня (розраховано на 4+)</div>
                                         </div>
-                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">800 ₴</span>
-                                    </button>
-                                    
-                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="3-х місний номер" data-price="1050" data-label="3-х місний номер">
-                                        <div>
-                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">3-х місний номер</div>
-                                            <div class="text-xs text-gray-400">Розраховано на 3 особи або більше / менше</div>
-                                        </div>
-                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">1 050 ₴</span>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">1 500 ₴</span>
                                     </button>
 
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="4-х місний номер" data-price="1400" data-label="4-х місний номер">
@@ -523,12 +509,20 @@
                                         <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">1 400 ₴</span>
                                     </button>
 
-                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»">
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="3-х місний номер" data-price="1050" data-label="3-х місний номер">
                                         <div>
-                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-gray-400">Власний санвузол, кухня (розраховано на 4+)</div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">3-х місний номер</div>
+                                            <div class="text-xs text-gray-400">Розраховано на 3 особи або більше / менше</div>
                                         </div>
-                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">1 500 ₴</span>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">1 050 ₴</span>
+                                    </button>
+
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="2-х місний номер" data-price="800" data-label="2-х місний номер">
+                                        <div>
+                                            <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">2-х місний номер</div>
+                                            <div class="text-xs text-gray-400">Розраховано на 2 особи або більше / менше</div>
+                                        </div>
+                                        <span class="text-priceYellow font-extrabold text-sm bg-cyan-950/80 px-3 py-1.5 rounded-lg border border-cyan-800/50 text-right min-w-[110px] flex-shrink-0">800 ₴</span>
                                     </button>
                                 </div>
                             </div>
@@ -707,15 +701,15 @@
                     <span>Вільно</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-amber-500/40 border border-amber-500"></div>
+                    <div class="w-4 h-4 rounded bg-amber-500 text-darkBg font-bold border border-amber-400"></div>
                     <span>Заброньовано</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-rose-500/40 border border-rose-500"></div>
+                    <div class="w-4 h-4 rounded bg-rose-600 text-white font-bold border border-rose-400"></div>
                     <span>Проживає (сьогодні)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-purple-600/60 border border-purple-400"></div>
+                    <div class="w-4 h-4 rounded bg-purple-600 text-white font-bold border border-purple-400"></div>
                     <span>День виїзду (до 12:00)</span>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -1035,12 +1029,12 @@
         </div>
     </section>
 
-    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ВНИЗУ -->
+    <!-- ПЛАВАЮЩАЯ ПАНЕЛЬ ВНИЗУ (С ИМЕНЕМ АДМИНИСТРАТОРА ТАМАРА ВАСИЛЬЕВНА) -->
     <div class="fixed bottom-0 left-0 right-0 z-40 bg-cardBg/95 backdrop-blur-md border-t border-gray-800 px-4 py-3 shadow-2xl">
         <div class="flex items-center justify-between max-w-4xl mx-auto">
             <div>
-                <div class="text-xs text-gray-400">Ціни від</div>
-                <div class="text-white font-bold text-base sm:text-lg">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                <div class="text-xs text-gray-400">Ціни від <span class="text-white font-bold">800 ₴ / день</span></div>
+                <div class="text-xs text-accentCyan font-semibold mt-0.5">Адмін: Тамара Василівна</div>
             </div>
             <div class="flex items-center space-x-3">
                 <a href="#promotions" class="hidden sm:inline-flex items-center text-xs text-priceYellow font-semibold bg-cyan-950/60 px-3 py-2 rounded-lg border border-cyan-800/40">
@@ -1511,7 +1505,7 @@
             }
 
             function recalculate() {
-                const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '800', 10);
+                const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
@@ -1620,7 +1614,7 @@
                 }
 
                 const selectedRoomName = roomInput.value;
-                const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '800', 10);
+                const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
                 const maxRooms = ROOM_INVENTORY_COUNTS[selectedRoomName] || 1;
 
                 const newStart = toLocalDateIso(checkIn);
@@ -1863,7 +1857,6 @@
                                 }
                             }
 
-                            // ИЗМЕНЕННЫЙ СВЕТЛЫЙ И КОНТРАСТНЫЙ ЦВЕТ ДЛЯ СВОБОДНЫХ ДНЕЙ
                             let bgClass = "bg-teal-600/30 text-teal-200 border-teal-400/60";
                             let borderStyle = "";
                             let titleText = "Вільно";
@@ -1874,9 +1867,9 @@
                                 titleText = `Стиковка (впритык): виїзд та заїзд в один день!`;
                             } else if (cellStatus === 'booked' || cellStatus === 'active') {
                                 if (cellStatus === 'active') {
-                                    bgClass = "bg-rose-500/40 text-rose-200 border-rose-500 font-bold shadow-sm";
+                                    bgClass = "bg-rose-600 text-white border-rose-400 font-bold shadow-sm";
                                 } else {
-                                    bgClass = "bg-amber-500/40 text-amber-200 border-amber-500 font-bold shadow-sm";
+                                    bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
                                 }
 
                                 if (cellDateIso === bookingInfo.start_date) {
@@ -1887,8 +1880,7 @@
                                 const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (isCheckoutDay) {
-                                // ЯРКИЙ КОНТРАСТНЫЙ ФИОЛЕТОВЫЙ/ИНДИГО ДЛЯ ДНЯ ВЫЕЗДА, ЧТОБЫ БЫЛО ИДЕАЛЬНО ВИДНО РОДИТЕЛЯМ
-                                bgClass = "bg-purple-600/70 text-white border-purple-400 font-bold shadow-sm";
+                                bgClass = "bg-purple-600 text-white border-purple-400 font-bold shadow-sm";
                                 titleText = `День виїзду гостя (до 12:00)`;
                                 const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
