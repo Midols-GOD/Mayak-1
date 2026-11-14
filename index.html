@@ -113,8 +113,8 @@
         }
 
         .hero-dots {
-            background-image: radial-gradient(rgba(6, 182, 212, 0.15) 1px, transparent 1px);
-            background-size: 24px 24px;
+            background-image: radial-gradient(rgba(6, 182, 212, 0.22) 1.2px, transparent 1.2px);
+            background-size: 22px 22px;
         }
     </style>
 </head>
@@ -175,22 +175,23 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (HERO) - З ФОТО НА ДЕСКТОПІ ТА ПАТТЕРНОМ НА ТЕЛЕФОНІ -->
+    <!-- ГОЛОВНИЙ ЕКРАН (HERO): ТОЧКИ НА ТЕЛЕФОНІ ТА ВЕЛИКА ФОТОГРАФІЯ НА КОМП'ЮТЕРІ -->
     <section id="home" class="relative min-h-[85vh] flex items-center justify-center pt-28 pb-16 px-4 overflow-hidden hero-dots bg-darkBg">
-        <!-- Десктопний фоновий шар з фото та затемненням -->
-        <div class="hidden md:block absolute inset-0 bg-[url('Улица 2.jpg')] bg-cover bg-center"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-darkBg/70 via-darkBg/85 to-darkBg"></div>
+        <!-- Велика фонова фотографія тільки для комп'ютерів -->
+        <img src="Улица 2.jpg" alt="База відпочинку Маяк" class="hidden md:block absolute inset-0 w-full h-full object-cover object-center z-0 opacity-65">
+        <!-- М'який градієнт поверх фото на ПК, щоб текст читався ідеально -->
+        <div class="hidden md:block absolute inset-0 bg-gradient-to-b from-darkBg/65 via-darkBg/50 to-darkBg z-0"></div>
         
         <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
-            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-500/40 text-accentCyan text-xs sm:text-sm mb-6 font-semibold uppercase tracking-widest backdrop-blur-md shadow-lg shadow-cyan-500/20">
+            <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-cyan-950/85 border border-cyan-500/40 text-accentCyan text-xs sm:text-sm mb-6 font-semibold uppercase tracking-widest backdrop-blur-md shadow-lg shadow-cyan-500/20">
                 <i class="fa-solid fa-anchor mr-1.5"></i> База відпочинку «Маяк» • Приморське, Одещина
             </div>
             
-            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-lg">
+            <h1 class="text-4xl sm:text-6xl lg:text-7xl font-black text-white mb-6 tracking-tight drop-shadow-xl">
                 МАЯК
             </h1>
             
-            <p class="text-base sm:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed font-normal">
+            <p class="text-base sm:text-xl text-gray-200 mb-10 max-w-2xl mx-auto leading-relaxed font-normal drop-shadow-md">
                 Затишний сімейний відпочинок на Чорному морі. Комфортні номери, зелена територія, власне кафе та лише 3 хвилини до пляжу.
             </p>
 
@@ -682,7 +683,7 @@
 
     <!-- ШАХМАТНА ДОШКА ЗАЙНЯТОСТІ (АДМІН-ПАНЕЛЬ) -->
     <div id="adminMatrixSection" class="max-w-7xl mx-auto px-4 py-12 hidden">
-        <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl">
+        <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-gray-800 shadow-2xl">
             <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
                 <div>
                     <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-table-cells text-accentCyan mr-2"></i>Шахматна дошка зайнятості (Адмін)</h3>
@@ -695,33 +696,32 @@
                 </div>
             </div>
 
-            <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-gray-300 bg-darkBg/60 p-3 rounded-xl border border-gray-800">
+            <!-- М'яка, спокійна палітра легенди -->
+            <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-gray-300 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800/80">
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-teal-600/30 border border-teal-400"></div>
+                    <div class="w-4 h-4 rounded bg-emerald-950/50 border border-emerald-700/50"></div>
                     <span>Вільно</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-amber-500 text-darkBg font-bold border border-amber-400"></div>
+                    <div class="w-4 h-4 rounded bg-amber-600/85 border border-amber-500/70"></div>
                     <span>Заброньовано</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-rose-600 text-white font-bold border border-rose-400"></div>
+                    <div class="w-4 h-4 rounded bg-rose-600/90 border border-rose-400"></div>
                     <span>Проживає (сьогодні)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-purple-600 text-white font-bold border border-purple-400"></div>
+                    <div class="w-4 h-4 rounded bg-purple-700/75 border border-purple-500/60"></div>
                     <span>День виїзду (до 12:00)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-blue-600 border border-blue-400"></div>
+                    <div class="w-4 h-4 rounded bg-sky-600/85 border border-sky-400"></div>
                     <span>Стикування</span>
                 </div>
             </div>
 
             <!-- Зручний мобільний список броней (видимий на телефонах) -->
-            <div id="adminMobileBookingsList" class="block sm:hidden mb-8 space-y-3">
-                <!-- Динамічно заповнюється скриптом -->
-            </div>
+            <div id="adminMobileBookingsList" class="block sm:hidden mb-4 space-y-3"></div>
 
             <!-- Десктопна шахматна таблиця -->
             <div class="overflow-x-auto hidden sm:block">
@@ -744,7 +744,7 @@
                         <i class="fa-solid fa-utensils"></i>
                     </div>
                     <h3 class="text-xl font-bold text-white mb-3">Велике кафе та барна стійка</h3>
-                    <p class="text-gray-400 text-sm leading-relaxed">Простора затишна зала з гарячим харчуванням та барною стійкою з широким вибором напоїв і коктейлів.</p>
+                    <p class="text-gray-400 text-sm leading-relaxed">Простора зала з гарячим харчуванням та барною стійкою з широким вибором напоїв і коктейлів.</p>
                 </div>
                 <div class="p-8 rounded-2xl bg-cardBg border border-gray-800">
                     <div class="w-14 h-14 rounded-xl bg-cyan-950 flex items-center justify-center text-accentCyan text-2xl mb-6">
@@ -1645,7 +1645,7 @@
 
                     if (!assignedRoomNumber) {
                         const nextFreeDate = getNextAvailableDateStr(selectedRoomName, checkIn, activeBookings, maxRooms);
-                        let suggestionText = nextFreeDate ? `Свободный номер будет доступен начиная с ${nextFreeDate}.` : 'На жаль, на найближчі дні все зайнято.';
+                        let suggestionText = nextFreeDate ? `Вільний номер буде доступний починаючи з ${nextFreeDate}.` : 'На жаль, на найближчі дні все зайнято.';
 
                         showCustomNotice({
                             title: 'Вільних номерів немає',
@@ -1789,12 +1789,21 @@
                 return isoStr;
             }
 
+            function getTodayIsoString() {
+                const now = new Date();
+                const y = now.getFullYear();
+                const m = String(now.getMonth() + 1).padStart(2, '0');
+                const d = String(now.getDate()).padStart(2, '0');
+                return `${y}-${m}-${d}`;
+            }
+
             async function loadMatrixData() {
                 const year = currentViewDate.getFullYear();
                 const month = currentViewDate.getMonth();
                 titleEl.textContent = `${monthNames[month]} ${year}`;
 
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const todayIso = getTodayIsoString();
 
                 let bookings = [];
                 try {
@@ -1814,12 +1823,10 @@
 
                 // РЕНДЕР МОБІЛЬНОГО СПИСКУ БРОНЕЙ
                 if (mobileListContainer) {
+                    const monthStrPrefix = `${year}-${String(month + 1).padStart(2, '0')}`;
                     const currentMonthBookings = bookings.filter(b => {
-                        const start = new Date(b.start_date);
-                        const end = new Date(b.end_date);
-                        const mStart = new Date(year, month, 1);
-                        const mEnd = new Date(year, month + 1, 0);
-                        return start <= mEnd && end >= mStart;
+                        return (b.start_date && b.start_date.startsWith(monthStrPrefix)) || 
+                               (b.end_date && b.end_date.startsWith(monthStrPrefix));
                     });
 
                     if (currentMonthBookings.length === 0) {
@@ -1827,11 +1834,18 @@
                     } else {
                         let mHtml = `<div class="text-xs font-bold text-accentCyan uppercase tracking-wider mb-2">Бронювання за місяць (${currentMonthBookings.length}):</div>`;
                         currentMonthBookings.forEach(b => {
+                            const isLivingToday = (todayIso >= b.start_date && todayIso < b.end_date);
+                            const cardBorder = isLivingToday ? 'border-rose-500/70 bg-rose-950/20' : 'border-cyan-500/30 bg-darkBg';
+                            const statusBadge = isLivingToday ? `<span class="text-[10px] bg-rose-600/90 text-white px-2 py-0.5 rounded font-bold">Проживає сьогодні</span>` : '';
                             const bJson = encodeURIComponent(JSON.stringify(b));
+                            
                             mHtml += `
-                                <div onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="p-3.5 rounded-xl bg-darkBg border border-cyan-500/30 flex justify-between items-center cursor-pointer hover:border-accentCyan transition-all shadow-md">
+                                <div onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="p-3.5 rounded-xl ${cardBorder} border flex justify-between items-center cursor-pointer hover:border-accentCyan transition-all shadow-md">
                                     <div>
-                                        <div class="text-white font-bold text-sm">${b.guest_name}</div>
+                                        <div class="flex items-center gap-2">
+                                            <span class="text-white font-bold text-sm">${b.guest_name}</span>
+                                            ${statusBadge}
+                                        </div>
                                         <div class="text-xs text-accentCyan mt-0.5">${b.room_type} (№${b.room_number})</div>
                                         <div class="text-[11px] text-gray-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i>${formatDateUa(b.start_date)} — ${formatDateUa(b.end_date)}</div>
                                     </div>
@@ -1846,18 +1860,17 @@
                     }
                 }
 
-                // РЕНДЕР ДЕСКТОПНОЇ ТАБЛИЦІ
+                // РЕНДЕР ДЕСКТОПНОЇ ТАБЛИЦІ (М'які кольори + залізна логіка червоного кольору на сьогодні)
                 let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
                 html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
 
                 for (let d = 1; d <= daysInMonth; d++) {
-                    html += `<th class="p-1 text-center text-gray-400 font-medium w-8">${d}</th>`;
+                    const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                    const isTodayCol = (colIso === todayIso);
+                    const thClass = isTodayCol ? "p-1 text-center text-rose-400 font-extrabold w-8 bg-rose-950/30 rounded-t" : "p-1 text-center text-gray-400 font-medium w-8";
+                    html += `<th class="${thClass}">${d}</th>`;
                 }
                 html += `</tr></thead><tbody>`;
-
-                const today = new Date();
-                today.setHours(0,0,0,0);
-                const todayMs = today.getTime();
 
                 roomsStructure.forEach(group => {
                     html += `<tr class="bg-darkBg/40"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
@@ -1867,10 +1880,8 @@
                         html += `<td class="p-2 text-white font-medium sticky left-0 bg-cardBg z-10 border-r border-gray-800">№${rNum}</td>`;
 
                         for (let d = 1; d <= daysInMonth; d++) {
-                            const cellDate = new Date(year, month, d);
-                            cellDate.setHours(0,0,0,0);
-                            const cellMs = cellDate.getTime();
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
+                            const isTodayCell = (cellDateIso === todayIso);
 
                             let activeBooking = null;
                             let checkoutBooking = null;
@@ -1890,38 +1901,38 @@
                                 }
                             }
 
-                            let bgClass = "bg-teal-600/30 text-teal-200 border-teal-400/60";
+                            let bgClass = "bg-emerald-950/35 text-emerald-300/60 border-emerald-800/40";
                             let titleText = "Вільно";
                             let clickAction = "";
                             let cellInner = "";
 
-                            const isTodayCell = (cellMs === todayMs);
-
                             if (checkoutBooking && checkinBooking) {
-                                bgClass = isTodayCell ? "bg-rose-600 text-white border-rose-400 font-bold shadow-md" : "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md";
+                                bgClass = isTodayCell 
+                                    ? "bg-rose-600/90 text-white border-rose-400 font-bold shadow-sm" 
+                                    : "bg-sky-600/85 text-white border-sky-400/70 font-bold shadow-sm";
                                 titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                                 cellInner = '⚡';
                             } else if (isTodayCell && (activeBooking || checkinBooking)) {
-                                // Пряме суворе правило для сьогоднішнього дня під час проживання гостя
+                                // Сьогодні людина проживає або заїжджає — залізно фарбуємо в червоний
                                 const currentB = activeBooking || checkinBooking;
-                                bgClass = "bg-rose-600 text-white border-rose-400 font-bold shadow-md";
+                                bgClass = "bg-rose-600/90 text-white border-rose-400 font-bold shadow-sm";
                                 titleText = `Проживає сьогодні: ${currentB.guest_name} (${formatDateUa(currentB.start_date)} - ${formatDateUa(currentB.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(currentB));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (checkinBooking) {
-                                bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md border-l-4 border-l-white";
+                                bgClass = "bg-amber-600/85 text-white border-amber-500/70 font-bold border-l-2 border-l-white";
                                 titleText = `Заїзд: ${checkinBooking.guest_name} (${formatDateUa(checkinBooking.start_date)} - ${formatDateUa(checkinBooking.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (activeBooking) {
-                                bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
+                                bgClass = "bg-amber-600/85 text-white border-amber-500/70 font-bold";
                                 titleText = `Гість: ${activeBooking.guest_name} | Заїзд: ${formatDateUa(activeBooking.start_date)} - Виїзд: ${formatDateUa(activeBooking.end_date)}`;
                                 const bJson = encodeURIComponent(JSON.stringify(activeBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (checkoutBooking) {
-                                bgClass = "bg-purple-600 text-white border-purple-400 font-bold shadow-sm";
+                                bgClass = "bg-purple-700/75 text-white border-purple-500/60 font-semibold";
                                 titleText = `Виїзд гостя до 12:00: ${checkoutBooking.guest_name}`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkoutBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
