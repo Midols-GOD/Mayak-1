@@ -73,18 +73,18 @@
             background-color: rgba(6, 182, 212, 0.25);
             border-color: #06b6d4;
         }
-        /* НАСЫЩЕННЫЙ СИНИЙ ЦВЕТ ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
+        /* ВОЗВРАТ БИРЮЗОВОГО ЦВЕТА ДЛЯ ВЫБРАННЫХ ДАТ В КАЛЕНДАРЕ */
         .cal-day.selected {
-            background-color: #2563eb !important;
-            color: #ffffff !important;
+            background-color: #06b6d4 !important;
+            color: #090d16 !important;
             font-weight: 800;
-            border-color: #60a5fa;
-            box-shadow: 0 0 12px rgba(37, 99, 235, 0.6);
+            border-color: #06b6d4;
+            box-shadow: 0 0 10px rgba(6, 182, 212, 0.5);
         }
         .cal-day.in-range {
-            background-color: rgba(37, 99, 235, 0.25);
-            color: #93c5fd;
-            border-color: rgba(59, 130, 246, 0.4);
+            background-color: rgba(6, 182, 212, 0.18);
+            color: #38bdf8;
+            border-color: rgba(6, 182, 212, 0.3);
         }
         .cal-day.disabled {
             opacity: 0.25;
@@ -301,8 +301,8 @@
                         <div>
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">Номер «Люкс»</h3>
-                                <div class="text-right">
-                                    <div class="text-2xl font-black text-priceYellow">1 500 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                <div class="text-right px-2.5 py-1 rounded-xl bg-darkBg/60 border border-gray-800">
+                                    <div class="text-xl font-black text-priceYellow">1 500 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
                                 </div>
                             </div>
 
@@ -345,8 +345,8 @@
                         <div>
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">4-х місний номер</h3>
-                                <div class="text-right">
-                                    <div class="text-2xl font-black text-priceYellow">1 400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                <div class="text-right px-2.5 py-1 rounded-xl bg-darkBg/60 border border-gray-800">
+                                    <div class="text-xl font-black text-priceYellow">1 400 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
                                 </div>
                             </div>
 
@@ -389,8 +389,8 @@
                         <div>
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">3-х місний номер</h3>
-                                <div class="text-right">
-                                    <div class="text-2xl font-black text-priceYellow">1 050 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                <div class="text-right px-2.5 py-1 rounded-xl bg-darkBg/60 border border-gray-800">
+                                    <div class="text-xl font-black text-priceYellow">1 050 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
                                 </div>
                             </div>
 
@@ -433,8 +433,8 @@
                         <div>
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">2-х місний номер</h3>
-                                <div class="text-right">
-                                    <div class="text-2xl font-black text-priceYellow">800 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></div>
+                                <div class="text-right px-2.5 py-1 rounded-xl bg-darkBg/60 border border-gray-800">
+                                    <div class="text-xl font-black text-priceYellow">800 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
                                 </div>
                             </div>
 
@@ -605,6 +605,7 @@
             </div>
 
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- КАРТОЧКА ХАРЧУВАННЯ (ВІД 3 ДНІВ) -->
                 <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-accentCyan/30 shadow-2xl relative overflow-hidden flex flex-col justify-between">
                     <div class="absolute top-0 right-0 bg-gradient-to-l from-accentBlue to-accentCyan text-darkBg font-extrabold text-xs px-4 py-1.5 rounded-bl-2xl uppercase tracking-wider">
                         Харчування
@@ -613,9 +614,9 @@
                         <div class="w-12 h-12 rounded-2xl bg-cyan-950/80 border border-cyan-800/50 flex items-center justify-center text-accentCyan text-xl mb-5">
                             <i class="fa-solid fa-utensils"></i>
                         </div>
-                        <h3 class="text-xl font-bold text-white mb-3">Домашнє комплексне харчування (від 4 днів)</h3>
+                        <h3 class="text-xl font-bold text-white mb-3">Домашнє комплексне харчування (від 3 днів)</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
-                            Якщо їдете відпочивати від 4 днів і більше - можна одразу взяти триразове харчування у нашому кафе на весь відпочинок. Так виходить помітно дешевше, ніж замовляти все окремо, і не треба стояти біля плити у відпустці.
+                            Якщо їдете відпочивати від 3 днів і більше - можна одразу взяти триразове харчування у нашому кафе на весь відпочинок. Так виходить помітно дешевше, ніж замовляти все окремо, і не треба стояти біля плити у відпустці.
                         </p>
                         
                         <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
@@ -624,7 +625,7 @@
                                 <span class="line-through">600 ₴ / день</span>
                             </div>
                             <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
-                                <span class="text-accentCyan">За комплексом (від 4 днів):</span>
+                                <span class="text-accentCyan">За комплексом (від 3 днів):</span>
                                 <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
                             </div>
                             <div class="text-xs text-gray-400 pt-1.5 border-t border-gray-800/40">
@@ -1708,7 +1709,7 @@
             renderAll();
         })();
 
-        // 5. УЛУЧШЕННАЯ ШАХМАТКА С УЧЕТОМ ДНЯ ВЫЕЗДА И СТИКУЙКИ (ВПРИТЫК)
+        // 5. ИСПРАВЛЕННАЯ ШАХМАТКА ДЛЯ КОРРЕКТНОГО ОТОБРАЖЕНИЯ СТИКОВОК (СИНИЙ ЦВЕТ)
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             if (!container) return;
@@ -1827,66 +1828,54 @@
                             cellDate.setHours(0,0,0,0);
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
 
-                            let cellStatus = 'free'; 
-                            let bookingInfo = null;
-                            let isCheckoutDay = false;
-                            let isTurnaroundDay = false;
+                            let activeBooking = null;
+                            let checkoutBooking = null;
+                            let checkinBooking = null;
 
                             for (let b of bookings) {
                                 if (b.room_type && b.room_type.trim().toLowerCase() === group.category.trim().toLowerCase() && String(b.room_number) === String(rNum)) {
-                                    if (cellDateIso >= b.start_date && cellDateIso < b.end_date) {
-                                        cellStatus = (cellDate.getTime() === today.getTime()) ? 'active' : 'booked';
-                                        bookingInfo = b;
-                                        break;
+                                    if (cellDateIso > b.start_date && cellDateIso < b.end_date) {
+                                        activeBooking = b;
+                                    }
+                                    if (cellDateIso === b.start_date) {
+                                        checkinBooking = b;
                                     }
                                     if (cellDateIso === b.end_date) {
-                                        isCheckoutDay = true;
-                                        bookingInfo = b;
+                                        checkoutBooking = b;
                                     }
-                                }
-                            }
-
-                            if (isCheckoutDay) {
-                                const hasAnotherCheckin = bookings.some(b => 
-                                    b.room_type && b.room_type.trim().toLowerCase() === group.category.trim().toLowerCase() && 
-                                    String(b.room_number) === String(rNum) && 
-                                    b.start_date === cellDateIso
-                                );
-                                if (hasAnotherCheckin) {
-                                    isTurnaroundDay = true;
                                 }
                             }
 
                             let bgClass = "bg-teal-600/30 text-teal-200 border-teal-400/60";
-                            let borderStyle = "";
                             let titleText = "Вільно";
                             let clickAction = "";
+                            let cellInner = "";
 
-                            if (isTurnaroundDay) {
-                                bgClass = "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md animate-pulse";
-                                titleText = `Стиковка (впритык): виїзд та заїзд в один день!`;
-                            } else if (cellStatus === 'booked' || cellStatus === 'active') {
-                                if (cellStatus === 'active') {
-                                    bgClass = "bg-rose-600 text-white border-rose-400 font-bold shadow-sm";
-                                } else {
-                                    bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
-                                }
-
-                                if (cellDateIso === bookingInfo.start_date) {
-                                    borderStyle += "border-l-4 border-l-white "; 
-                                }
-                                titleText = `Гість: ${bookingInfo.guest_name} | Заїзд: ${formatDateUa(bookingInfo.start_date)} - Виїзд: ${formatDateUa(bookingInfo.end_date)}`;
-                                
-                                const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
+                            // СТИКОВКА (Выезд одного и заезд другого в один день) -> СИНИЙ ЦВЕТ
+                            if (checkoutBooking && checkinBooking) {
+                                bgClass = "bg-blue-600 text-white border-blue-400 font-extrabold shadow-md";
+                                titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name}) в один день!`;
+                                const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
-                            } else if (isCheckoutDay) {
+                                cellInner = '⚡';
+                            } else if (checkinBooking) {
+                                bgClass = "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md border-l-4 border-l-white";
+                                titleText = `Заїзд: ${checkinBooking.guest_name} (${formatDateUa(checkinBooking.start_date)} - ${formatDateUa(checkinBooking.end_date)})`;
+                                const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
+                                clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
+                            } else if (activeBooking) {
+                                bgClass = (cellDate.getTime() === today.getTime()) ? "bg-rose-600 text-white border-rose-400 font-bold shadow-sm" : "bg-amber-500 text-darkBg border-amber-400 font-extrabold shadow-md";
+                                titleText = `Гість: ${activeBooking.guest_name} | Заїзд: ${formatDateUa(activeBooking.start_date)} - Виїзд: ${formatDateUa(activeBooking.end_date)}`;
+                                const bJson = encodeURIComponent(JSON.stringify(activeBooking));
+                                clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
+                            } else if (checkoutBooking) {
                                 bgClass = "bg-purple-600 text-white border-purple-400 font-bold shadow-sm";
-                                titleText = `День виїзду гостя (до 12:00)`;
-                                const bJson = encodeURIComponent(JSON.stringify(bookingInfo));
+                                titleText = `Виїзд гостя до 12:00: ${checkoutBooking.guest_name}`;
+                                const bJson = encodeURIComponent(JSON.stringify(checkoutBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             }
 
-                            html += `<td class="p-1 text-center"><div ${clickAction} class="h-7 rounded border ${bgClass} ${borderStyle} flex items-center justify-center cursor-pointer transition-transform hover:scale-110 text-[10px]" title="${titleText}">${isTurnaroundDay ? '⚡' : ''}</div></td>`;
+                            html += `<td class="p-1 text-center"><div ${clickAction} class="h-7 rounded border ${bgClass} flex items-center justify-center cursor-pointer transition-transform hover:scale-110 text-[10px]" title="${titleText}">${cellInner}</div></td>`;
                         }
                         html += `</tr>`;
                     }
