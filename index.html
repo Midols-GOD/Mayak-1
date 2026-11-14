@@ -175,11 +175,9 @@
         </div>
     </header>
 
-    <!-- ГОЛОВНИЙ ЕКРАН (HERO): ТОЧКИ НА ТЕЛЕФОНІ ТА ВЕЛИКА ФОТОГРАФІЯ НА КОМП'ЮТЕРІ -->
+    <!-- ГОЛОВНИЙ ЕКРАН (HERO) -->
     <section id="home" class="relative min-h-[85vh] flex items-center justify-center pt-28 pb-16 px-4 overflow-hidden hero-dots bg-darkBg">
-        <!-- Велика фонова фотографія тільки для комп'ютерів -->
         <img src="Улица 2.jpg" alt="База відпочинку Маяк" class="hidden md:block absolute inset-0 w-full h-full object-cover object-center z-0 opacity-65">
-        <!-- М'який градієнт поверх фото на ПК, щоб текст читався ідеально -->
         <div class="hidden md:block absolute inset-0 bg-gradient-to-b from-darkBg/65 via-darkBg/50 to-darkBg z-0"></div>
         
         <div class="relative z-10 max-w-4xl mx-auto text-center px-4">
@@ -475,7 +473,7 @@
                     
                     <div class="max-w-2xl mx-auto text-center mb-8">
                         <h3 class="text-2xl font-bold text-white mb-2 mt-2">Оберіть дати відпочинку</h3>
-                        <p class="text-gray-400 text-sm">Виберіть категорію номера, натисніть на календар нижче та вкажіть дати заїзду і виїзду.</p>
+                        <p class="text-gray-400 text-sm">Виберіть категорію номера, кількість гостей, натисніть на календар та вкажіть дати.</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-4">
@@ -529,15 +527,27 @@
                         </div>
 
                         <div>
-                            <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Дати заїзду / виїзду:</label>
-                            <button type="button" id="calendarToggleBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-xl px-4 py-3.5 flex items-center justify-between text-left transition-all shadow-md cursor-pointer">
-                                <span class="flex items-center space-x-2.5 overflow-hidden">
-                                    <i class="fa-regular fa-calendar-days text-accentCyan text-lg flex-shrink-0"></i>
-                                    <span id="calendarBtnLabel" class="text-white font-bold text-sm truncate">Обрати дати заїзду та виїзду</span>
-                                </span>
-                                <i id="calendarChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
-                            </button>
+                            <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Кількість гостей:</label>
+                            <select id="guestCountSelect" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm cursor-pointer shadow-md">
+                                <option value="1">1 гість</option>
+                                <option value="2" selected>2 гостей</option>
+                                <option value="3">3 гостей</option>
+                                <option value="4">4 гостей</option>
+                                <option value="5">5 гостей</option>
+                                <option value="6">6 гостей</option>
+                            </select>
                         </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Дати заїзду / виїзду:</label>
+                        <button type="button" id="calendarToggleBtn" class="w-full bg-darkBg border border-cyan-500/50 hover:border-accentCyan rounded-xl px-4 py-3.5 flex items-center justify-between text-left transition-all shadow-md cursor-pointer">
+                            <span class="flex items-center space-x-2.5 overflow-hidden">
+                                <i class="fa-regular fa-calendar-days text-accentCyan text-lg flex-shrink-0"></i>
+                                <span id="calendarBtnLabel" class="text-white font-bold text-sm truncate">Обрати дати заїзду та виїзду</span>
+                            </span>
+                            <i id="calendarChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
+                        </button>
                     </div>
 
                     <div id="calendarPanel" class="smooth-collapse max-w-2xl mx-auto">
@@ -696,7 +706,7 @@
                 </div>
             </div>
 
-            <!-- М'яка, спокійна палітра легенди -->
+            <!-- Легенда кольорів -->
             <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-gray-300 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800/80">
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-emerald-950/50 border border-emerald-700/50"></div>
@@ -704,10 +714,10 @@
                 </div>
                 <div class="flex items-center space-x-2">
                     <div class="w-4 h-4 rounded bg-amber-600/85 border border-amber-500/70"></div>
-                    <span>Заброньовано</span>
+                    <span>Заброньовано (майбутній заїзд)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-rose-600/90 border border-rose-400"></div>
+                    <div class="w-4 h-4 rounded bg-emerald-600/90 border border-emerald-400"></div>
                     <span>Проживає (сьогодні)</span>
                 </div>
                 <div class="flex items-center space-x-2">
@@ -720,7 +730,7 @@
                 </div>
             </div>
 
-            <!-- Зручний мобільний список броней (видимий на телефонах) -->
+            <!-- Зручний мобільний список броней (інтуїтивний для телефону) -->
             <div id="adminMobileBookingsList" class="block sm:hidden mb-4 space-y-3"></div>
 
             <!-- Десктопна шахматна таблиця -->
@@ -1329,6 +1339,7 @@
             const roomLabel = document.getElementById('roomDropdownLabel');
             const roomInput = document.getElementById('calcRoomType');
             const roomOptions = document.querySelectorAll('.room-option');
+            const guestCountSelect = document.getElementById('guestCountSelect');
 
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
@@ -1623,6 +1634,7 @@
                 const selectedRoomName = roomInput.value;
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
                 const maxRooms = ROOM_INVENTORY_COUNTS[selectedRoomName] || 1;
+                const guestCount = parseInt(guestCountSelect.value || '2', 10);
 
                 const newStart = toLocalDateIso(checkIn);
                 const newEnd = toLocalDateIso(checkOut);
@@ -1675,6 +1687,7 @@
                         end_date: newEnd,
                         guest_name: guestName.value.trim(),
                         guest_phone: guestPhone.value.trim(),
+                        guest_count: guestCount,
                         total_price: sum,
                         prepay_price: firstNightRate,
                         status: 'new'
@@ -1686,7 +1699,7 @@
 
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано. Передоплата становить ${firstNightRate.toLocaleString()} ₴.`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано для ${guestCount} гостей. Передоплата становить ${firstNightRate.toLocaleString()} ₴.`,
                         badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -1821,7 +1834,7 @@
                     console.warn('Помилка завантаження шахматки:', e);
                 }
 
-                // РЕНДЕР МОБІЛЬНОГО СПИСКУ БРОНЕЙ
+                // РЕНДЕР МОБІЛЬНОГО СПИСКУ БРОНЕЙ (ІНТУЇТИВНИЙ ДЛЯ ТЕЛЕФОНУ)
                 if (mobileListContainer) {
                     const monthStrPrefix = `${year}-${String(month + 1).padStart(2, '0')}`;
                     const currentMonthBookings = bookings.filter(b => {
@@ -1835,18 +1848,24 @@
                         let mHtml = `<div class="text-xs font-bold text-accentCyan uppercase tracking-wider mb-2">Бронювання за місяць (${currentMonthBookings.length}):</div>`;
                         currentMonthBookings.forEach(b => {
                             const isLivingToday = (todayIso >= b.start_date && todayIso < b.end_date);
-                            const cardBorder = isLivingToday ? 'border-rose-500/70 bg-rose-950/20' : 'border-cyan-500/30 bg-darkBg';
-                            const statusBadge = isLivingToday ? `<span class="text-[10px] bg-rose-600/90 text-white px-2 py-0.5 rounded font-bold">Проживає сьогодні</span>` : '';
+                            
+                            // Зелений колір якщо проживає сьогодні, оранжевий/жовтий якщо майбутнє бронь
+                            const cardBorder = isLivingToday ? 'border-emerald-500/80 bg-emerald-950/25' : 'border-amber-500/50 bg-amber-950/15';
+                            const statusBadge = isLivingToday 
+                                ? `<span class="text-[10px] bg-emerald-600 text-white px-2 py-0.5 rounded font-bold">Проживає (сьогодні)</span>` 
+                                : `<span class="text-[10px] bg-amber-600/90 text-darkBg px-2 py-0.5 rounded font-bold">Заброньовано</span>`;
+                            
+                            const guestsCountText = b.guest_count ? `👥 ${b.guest_count} гостей` : '';
                             const bJson = encodeURIComponent(JSON.stringify(b));
                             
                             mHtml += `
                                 <div onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="p-3.5 rounded-xl ${cardBorder} border flex justify-between items-center cursor-pointer hover:border-accentCyan transition-all shadow-md">
                                     <div>
-                                        <div class="flex items-center gap-2">
+                                        <div class="flex items-center gap-2 mb-1">
                                             <span class="text-white font-bold text-sm">${b.guest_name}</span>
                                             ${statusBadge}
                                         </div>
-                                        <div class="text-xs text-accentCyan mt-0.5">${b.room_type} (№${b.room_number})</div>
+                                        <div class="text-xs text-accentCyan mt-0.5 font-medium">${b.room_type} (№${b.room_number}) ${guestsCountText ? '• <span class="text-gray-300">' + guestsCountText + '</span>' : ''}</div>
                                         <div class="text-[11px] text-gray-400 mt-1"><i class="fa-regular fa-calendar mr-1"></i>${formatDateUa(b.start_date)} — ${formatDateUa(b.end_date)}</div>
                                     </div>
                                     <div class="text-right">
@@ -1860,14 +1879,14 @@
                     }
                 }
 
-                // РЕНДЕР ДЕСКТОПНОЇ ТАБЛИЦІ (М'які кольори + залізна логіка червоного кольору на сьогодні)
+                // РЕНДЕР ДЕСКТОПНОЇ ТАБЛИЦІ
                 let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
                 html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
 
                 for (let d = 1; d <= daysInMonth; d++) {
                     const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                     const isTodayCol = (colIso === todayIso);
-                    const thClass = isTodayCol ? "p-1 text-center text-rose-400 font-extrabold w-8 bg-rose-950/30 rounded-t" : "p-1 text-center text-gray-400 font-medium w-8";
+                    const thClass = isTodayCol ? "p-1 text-center text-emerald-400 font-extrabold w-8 bg-emerald-950/30 rounded-t" : "p-1 text-center text-gray-400 font-medium w-8";
                     html += `<th class="${thClass}">${d}</th>`;
                 }
                 html += `</tr></thead><tbody>`;
@@ -1908,16 +1927,16 @@
 
                             if (checkoutBooking && checkinBooking) {
                                 bgClass = isTodayCell 
-                                    ? "bg-rose-600/90 text-white border-rose-400 font-bold shadow-sm" 
+                                    ? "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm" 
                                     : "bg-sky-600/85 text-white border-sky-400/70 font-bold shadow-sm";
                                 titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                                 cellInner = '⚡';
                             } else if (isTodayCell && (activeBooking || checkinBooking)) {
-                                // Сьогодні людина проживає або заїжджає — залізно фарбуємо в червоний
+                                // Сьогодні проживає — робимо зефірним/смарагдовим за твоїм бажанням
                                 const currentB = activeBooking || checkinBooking;
-                                bgClass = "bg-rose-600/90 text-white border-rose-400 font-bold shadow-sm";
+                                bgClass = "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm";
                                 titleText = `Проживає сьогодні: ${currentB.guest_name} (${formatDateUa(currentB.start_date)} - ${formatDateUa(currentB.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(currentB));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
@@ -1952,10 +1971,13 @@
                 if (typeof bookingObj === 'string') bookingObj = JSON.parse(bookingObj);
                 currentBookingToDelete = bookingObj;
 
+                const guestsText = bookingObj.guest_count ? `<span><strong>Кількість гостей:</strong> ${bookingObj.guest_count} ос.</span><br>` : '';
+
                 detailsContent.innerHTML = `
                     <div><strong>Гість:</strong> <span class="text-white">${bookingObj.guest_name}</span></div>
                     <div><strong>Телефон:</strong> <span class="text-accentCyan">${bookingObj.guest_phone}</span></div>
                     <div><strong>Категорія:</strong> ${bookingObj.room_type} (Номер №${bookingObj.room_number})</div>
+                    <div>${guestsText}</div>
                     <div><strong>Заїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.start_date)}</span> (з 13:00)</div>
                     <div><strong>Виїзд:</strong> <span class="text-white">${formatDateUa(bookingObj.end_date)}</span> (до 12:00)</div>
                     <div><strong>Загальна сума:</strong> <span class="text-priceYellow">${bookingObj.total_price} ₴</span></div>
