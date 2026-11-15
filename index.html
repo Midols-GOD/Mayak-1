@@ -158,8 +158,8 @@
 
         <div id="mobile-menu" class="max-h-0 overflow-hidden md:hidden bg-cardBg border-b border-gray-800 transition-all duration-300 ease-in-out px-4 space-y-2">
             <div class="py-2.5 px-3 bg-darkBg/60 rounded-xl border border-gray-800 mt-2 flex justify-between items-center text-xs">
-                <span class="text-gray-400">Администратор:</span>
-                <span class="text-accentCyan font-bold">Тамара Васильевна</span>
+                <span class="text-gray-400">Адміністратор:</span>
+                <span class="text-accentCyan font-bold">Тамара Василівна</span>
             </div>
             <a href="#about" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="about">Про нас</a>
             <a href="#rooms" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="rooms">Номери</a>
@@ -462,7 +462,7 @@
     <section id="promotions" class="py-20 px-4 bg-[#0d1322] border-t border-b border-gray-800/60 w-full">
         <div class="max-w-7xl mx-auto w-full">
             <div class="text-center max-w-2xl mx-auto mb-12">
-                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Бронирование</h2>
+                <h2 class="text-3xl sm:text-4xl font-bold text-white mb-4">Бронювання</h2>
             </div>
 
             <div class="max-w-4xl mx-auto mb-16">
@@ -526,7 +526,7 @@
                             </div>
                         </div>
 
-                        <!-- КАСТОМНАЯ КНОПКА ГОСТЕЙ ВМЕСТО СИСТЕМНОГО SELECT -->
+                        <!-- КАСТОМНА КНОПКА ГОСТЕЙ ВМЕСТО СИСТЕМНОГО SELECT -->
                         <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Кількість гостей <span id="maxGuestsHint" class="text-accentCyan font-normal">(макс. 4)</span>:</label>
                             <input type="hidden" id="calcGuestCount" value="2">
@@ -541,7 +541,7 @@
 
                             <div id="guestDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl z-20 absolute left-0 right-0">
                                 <div id="guestOptionsContainer" class="smooth-collapse-inner divide-y divide-gray-800/80">
-                                    <!-- Динамически заполняется скриптом -->
+                                    <!-- Динамічно заповнюється скриптом -->
                                 </div>
                             </div>
                         </div>
@@ -594,7 +594,7 @@
                         </div>
                     </div>
 
-                    <!-- ОПЦИЯ АКЦИИ НА ПИТАНИЕ (СНИЖЕНА ДО 350 ГРН В ДЕНЬ С ЧЕЛОВЕКА) -->
+                    <!-- ОПЦІЯ АКЦІЇ НА ХАРЧУВАННЯ -->
                     <div class="mb-5">
                         <label class="flex items-center space-x-3 bg-darkBg border border-cyan-500/30 hover:border-accentCyan rounded-xl p-4 cursor-pointer transition-all shadow-md">
                             <input type="checkbox" id="includeMeals" class="w-5 h-5 rounded border-gray-700 text-accentCyan focus:ring-accentCyan bg-darkBg cursor-pointer">
@@ -610,6 +610,10 @@
                             <div class="flex justify-between text-base sm:text-sm text-gray-300">
                                 <span>Тривалість:</span>
                                 <span id="calcNightsCount" class="text-white font-bold text-base sm:text-sm">0 ночей</span>
+                            </div>
+                            <div class="flex justify-between text-base sm:text-sm text-gray-300">
+                                <span>Проживання:</span>
+                                <span id="calcRoomPrice" class="text-white font-bold text-base sm:text-sm">0 ₴</span>
                             </div>
                             <div id="calcMealsRow" class="flex justify-between text-base sm:text-sm text-gray-300 hidden">
                                 <span>Харчування:</span>
@@ -637,7 +641,7 @@
                 </div>
             </div>
 
-            <h3 class="text-2xl font-bold text-white text-center mb-8">Бронирование</h3>
+            <h3 class="text-2xl font-bold text-white text-center mb-8">Акції</h3>
 
             <div class="max-w-4xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
                 <!-- ХАРЧУВАННЯ (ВІД 3 ДНІВ) -->
@@ -1044,7 +1048,7 @@
         <div class="max-w-5xl mx-auto">
             <div class="text-center max-w-2xl mx-auto mb-16">
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Зв'яжіться з нами</h2>
-                <p class="text-gray-300 mb-2">Адміністратор: <strong class="text-white">Тамара Васильевна</strong></p>
+                <p class="text-gray-300 mb-2">Адміністратор: <strong class="text-white">Тамара Василівна</strong></p>
                 <p class="text-gray-300 mb-8">Готові уточнити деталі або є запитання щодо ціни? Телефонуйте нам у будь-який час!</p>
                 <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6">
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
@@ -1075,7 +1079,7 @@
         <p>&copy; 2026 База відпочинку «Маяк» (Приморське). Всі права захищені.</p>
     </footer>
 
-    <!-- МОДАЛЬНЕ ОКНО ГАЛЕРЕИ -->
+    <!-- МОДАЛЬНЕ ОКНО ГАЛЕРЕЇ -->
     <div id="image-modal" onclick="closeModalGallery()" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-md">
         <button type="button" onclick="closeModalGallery()" class="absolute top-6 right-6 text-gray-400 hover:text-white text-3xl focus:outline-none z-50 transition-colors">
             <i class="fa-solid fa-xmark"></i>
@@ -1127,20 +1131,20 @@
         </div>
     </div>
 
-    <!-- ФИРМЕННОЕ МОДАЛЬНОЕ ОКНО -->
+    <!-- ФІРМОВЕ МОДАЛЬНЕ ВІКНО -->
     <div id="customNoticeModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
         <div id="customNoticeBox" class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate">
             <div id="noticeIconWrap" class="w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-5">
                 <i id="noticeIcon" class="fa-solid fa-circle-info"></i>
             </div>
-            <h3 id="noticeTitle" class="text-xl font-bold text-white mb-3">Сообщение</h3>
+            <h3 id="noticeTitle" class="text-xl font-bold text-white mb-3">Повідомлення</h3>
             <p id="noticeMessage" class="text-gray-300 text-sm leading-relaxed mb-4"></p>
             
             <div id="noticeHighlightBadge" class="hidden bg-cyan-950/60 border border-cyan-500/50 rounded-xl p-3 mb-6 text-cyan-200 text-sm font-semibold">
             </div>
 
             <button type="button" id="noticeCloseBtn" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-sm shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all cursor-pointer">
-                Понятно
+                Зрозуміло
             </button>
         </div>
     </div>
@@ -1208,7 +1212,7 @@
             modal.classList.remove('flex');
         });
 
-        // 2. НАВИГАЦИЯ И МОБИЛЬНОЕ МЕНЮ
+        // 2. НАВІГАЦІЯ ТА МОБІЛЬНЕ МЕНЮ
         const sections = document.querySelectorAll('section[id]');
         const navLinks = document.querySelectorAll('.nav-link');
 
@@ -1261,7 +1265,7 @@
             });
         });
 
-        // 3. СЛАЙДЕРЫ И ГАЛЕРЕЯ
+        // 3. СЛАЙДЕРИ ТА ГАЛЕРЕЯ
         const aboutImages = ['Улица 2.jpg', 'Улица снизу.jpg', 'Улица.jpg'];
         const improvedImages = ['1 номер Н.jpg', '2номер Н.jpg', '3 номер Н.jpg', '3номер Н.jpg'];
         const standardImages = ['3 номер.jpg', '8 номер.jpg', '12 номер.jpg'];
@@ -1345,7 +1349,7 @@
         function nextModalSlide(event) { changeModalSlide(1, event); }
         function prevModalSlide(event) { changeModalSlide(-1, event); }
 
-        // 4. КАЛЕНДАРЬ И БРОНИРОВАНИЕ
+        // 4. КАЛЕНДАР ТА БРОНЮВАННЯ
         (function initBookingCalendar() {
             const roomBtn = document.getElementById('roomDropdownBtn');
             const roomMenu = document.getElementById('roomDropdownMenu');
@@ -1354,7 +1358,7 @@
             const roomInput = document.getElementById('calcRoomType');
             const roomOptions = document.querySelectorAll('.room-option');
             
-            // Кастомный выбор гостей
+            // Кастомний вибір гостей
             const guestBtn = document.getElementById('guestDropdownBtn');
             const guestMenu = document.getElementById('guestDropdownMenu');
             const guestChevron = document.getElementById('guestDropdownChevron');
@@ -1371,6 +1375,7 @@
             const btnLabel = document.getElementById('calendarBtnLabel');
 
             const nightsDisplay = document.getElementById('calcNightsCount');
+            const roomPriceDisplay = document.getElementById('calcRoomPrice');
             const mealsRow = document.getElementById('calcMealsRow');
             const mealsDisplay = document.getElementById('calcMealsPrice');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
@@ -1401,7 +1406,7 @@
                     btn.type = 'button';
                     btn.className = 'w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
                     btn.innerHTML = `
-                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">${i === 1 ? '1 гость' : `${i} гостей`}</span>
+                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">${i === 1 ? '1 гість' : `${i} гостей`}</span>
                         ${i === currentVal ? '<i class="fa-solid fa-check text-accentCyan"></i>' : ''}
                     `;
                     btn.addEventListener('click', () => {
@@ -1476,7 +1481,6 @@
                 });
             }
 
-            // Инициализация гостей при загрузке (для Люкса по умолчанию 2 гостя, макс 4)
             updateGuestOptionsForRoom(4);
 
             const ROOM_INVENTORY_COUNTS = {
@@ -1487,8 +1491,8 @@
             };
 
             const monthNames = [
-                "Январь", "Февраль", "Март", "Апрель", "Май", "Июнь",
-                "Июль", "Август", "Сентябрь", "Октябрь", "Ноябрь", "Декабрь"
+                "Січень", "Лютий", "Березень", "Квітень", "Травень", "Червень",
+                "Липень", "Серпень", "Вересень", "Жовтень", "Листопад", "Грудень"
             ];
 
             let viewDate = new Date();
@@ -1630,7 +1634,6 @@
 
                     let mealsSum = 0;
                     if (includeMealsCheckbox && includeMealsCheckbox.checked) {
-                        // Акционная цена питания снижена до 350 грн в день с человека
                         mealsSum = nights * guestCount * 350;
                         mealsRow.classList.remove('hidden');
                         mealsDisplay.textContent = `${mealsSum.toLocaleString()} ₴`;
@@ -1640,19 +1643,22 @@
 
                     let totalSum = roomSum + mealsSum;
 
-                    btnLabel.textContent = `${checkIn.toLocaleDateString('ru-RU', opts)} - ${checkOut.toLocaleDateString('ru-RU', opts)}`;
+                    btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
                     nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
+                    roomPriceDisplay.textContent = `${roomSum.toLocaleString()} ₴`;
                     prepayDisplay.textContent = `${currentNightRate.toLocaleString()} ₴`;
                     totalDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
                 } else if (checkIn) {
-                    btnLabel.textContent = `Заезд: ${checkIn.toLocaleDateString('ru-RU', opts)} (выберите выезд)`;
+                    btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
                     nightsDisplay.textContent = '0 ночей';
+                    roomPriceDisplay.textContent = '0 ₴';
                     mealsRow.classList.add('hidden');
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
                 } else {
-                    btnLabel.textContent = 'Выбрать даты заезда и выезда';
+                    btnLabel.textContent = 'Обрати дати заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
+                    roomPriceDisplay.textContent = '0 ₴';
                     mealsRow.classList.add('hidden');
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
@@ -1660,7 +1666,7 @@
             }
 
             function pluralNights(n) {
-                const forms = ['ночь', 'ночи', 'ночей'];
+                const forms = ['ніч', 'ночі', 'ночей'];
                 const idx = (n % 100 > 4 && n % 100 < 20) ? 2 : [2, 0, 1, 1, 1, 2][Math.min(n % 10, 5)];
                 return forms[idx];
             }
@@ -1710,16 +1716,16 @@
             bookBtn.addEventListener('click', async function() {
                 if (!checkIn || !checkOut) {
                     showCustomNotice({
-                        title: 'Выберите даты',
-                        message: 'Пожалуйста, выберите даты заезда и выезда в календаре перед бронированием.',
+                        title: 'Оберіть дати',
+                        message: 'Будь ласка, оберіть дати заїзду та виїзду в календарі перед бронюванням.',
                         type: 'warning'
                     });
                     return;
                 }
                 if (!guestName.value.trim()) {
                     showCustomNotice({
-                        title: 'Укажите имя',
-                        message: 'Пожалуйста, введите ваше имя и фамилию.',
+                        title: "Вкажіть ім'я",
+                        message: "Будь ласка, введіть ваше ім'я та прізвище.",
                         type: 'warning'
                     });
                     return;
@@ -1728,8 +1734,8 @@
                 const digitsOnly = guestPhone.value.replace(/\D/g, '');
                 if (digitsOnly.length < 9 || digitsOnly.length > 15) {
                     showCustomNotice({
-                        title: 'Проверьте номер телефона',
-                        message: 'Введите корректный номер телефона (от 9 до 15 цифр, например +380...).',
+                        title: 'Перевірте номер телефону',
+                        message: 'Введіть коректний номер телефону (від 9 до 15 цифр, наприклад +380...).',
                         type: 'warning'
                     });
                     return;
@@ -1745,7 +1751,7 @@
                 const newEnd = toLocalDateIso(checkOut);
 
                 bookBtn.disabled = true;
-                bookBtn.textContent = 'Проверяем свободные места...';
+                bookBtn.textContent = 'Перевіряємо вільні місця...';
 
                 try {
                     if (!supabaseClient) throw new Error('Supabase client not initialized');
@@ -1762,12 +1768,12 @@
 
                     if (!assignedRoomNumber) {
                         const nextFreeDate = getNextAvailableDateStr(selectedRoomName, checkIn, activeBookings, maxRooms);
-                        let suggestionText = nextFreeDate ? `Свободный номер будет доступен начиная с ${nextFreeDate}.` : 'К сожалению, на ближайшие дни все занято.';
+                        let suggestionText = nextFreeDate ? `Вільний номер буде доступний починаючи з ${nextFreeDate}.` : 'На жаль, на найближчі дні все зайнято.';
 
                         showCustomNotice({
-                            title: 'Свободных номеров нет',
-                            message: `К сожалению, на выбранные даты все номера этой категории уже заняты другими гостями. ${suggestionText}`,
-                            badgeText: 'Пожалуйста, выберите другие даты или свяжитесь с нами: +38 (093) 575-46-68',
+                            title: 'Вільних номерів немає',
+                            message: `На жаль, на обрані дати всі номери цієї категорії вже зайняті іншими гостями. ${suggestionText}`,
+                            badgeText: "Будь ласка, оберіть інші дати або зв'яжіться з нами: +38 (093) 575-46-68",
                             type: 'error'
                         });
 
@@ -1810,7 +1816,7 @@
                         status: 'new'
                     };
 
-                    bookBtn.textContent = 'Сохраняем бронирование...';
+                    bookBtn.textContent = 'Зберігаємо бронювання...';
                     let { error: insertError } = await supabaseClient.from('bookings').insert([payloadWithGuests]);
 
                     if (insertError && (insertError.message && insertError.message.includes('guest_count') || insertError.code === '42703' || insertError.code === 'PGRST204')) {
@@ -1822,9 +1828,9 @@
                     if (insertError) throw insertError;
 
                     showCustomNotice({
-                        title: 'Бронирование создано!',
-                        message: `Спасибо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успешно забронирован (${guestCount} чел.${hasMeals ? ', с питанием' : ''}). Предоплата составляет ${firstNightRate.toLocaleString()} ₴.`,
-                        badgeText: `Категория: ${selectedRoomName}`,
+                        title: 'Бронювання створено!',
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${guestCount} осіб${hasMeals ? ', з харчуванням' : ''}). Передоплата становить ${firstNightRate.toLocaleString()} ₴.`,
+                        badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
 
@@ -1840,8 +1846,8 @@
                 } catch (err) {
                     console.error('Booking error:', err);
                     showCustomNotice({
-                        title: 'Ошибка соединения',
-                        message: 'Не удалось сохранить бронирование. Позвоните нам: +38 (093) 575-46-68',
+                        title: "Помилка з'єднання",
+                        message: 'Не вдалося зберегти бронювання. Зателефонуйте нам: +38 (093) 575-46-68',
                         type: 'error'
                     });
                 } finally {
