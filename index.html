@@ -2318,34 +2318,17 @@
 
             loadMatrixData();
         });
-    </script>
-    <script>
-    // Автоматическая проверка админ-режима и подключение пушей OneSignal
-    const urlParams = new URLSearchParams(window.location.search);
-    if (urlParams.get('admin') === '1') {
-        // 1. Показываем шахматку занятости для админа
-        window.addEventListener('DOMContentLoaded', () => {
-            const adminSection = document.getElementById('adminMatrixSection');
-            if (adminSection) adminSection.classList.remove('hidden');
-        });
-
-        // 2. Подключаем пуш-уведомления OneSignal ТОЛЬКО для админа
-        const oneSignalScript = document.createElement('script');
-        oneSignalScript.src = "https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js";
-        oneSignalScript.defer = true;
-        document.head.appendChild(oneSignalScript);
-
-        window.OneSignalDeferred = window.OneSignalDeferred || [];
-        window.OneSignalDeferred.push(async function(OneSignal) {
-            await OneSignal.init({
-                appId: "535504a3-6954-4735-9310-459f4fcf742e", // Твой уникальный ID
-                safari_web_id: "",
-                notifyButton: { 
-                    enable: true 
-                },
-            });
-        });
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    if (new URLSearchParams(window.location.search).get('admin') === '1') {
+      await OneSignal.init({
+        appId: "535504a3-6954-4735-9310-459f4fcf742e",
+      });
+      await OneSignal.Slidedown.promptPush();
     }
+  });
 </script>
 </body>
 </html>
