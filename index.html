@@ -2370,26 +2370,24 @@
           alert("Помилка: " + err.message);
       }
   }
-</script>
-
-<!-- OneSignal SDK и автоматический запрос подписки для админа (?admin=1) -->
+<!-- OneSignal Web SDK -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js" async></script>
 <script>
   window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
+  window.OneSignalDeferred.push(async function(OneSignal) {
     await OneSignal.init({
       appId: "535504a3-6954-4735-9310-459f4fcf742e",
     });
-
-    // Автоматический запрос на подписку, если открыта ссылка с ?admin=1
-    if (new URLSearchParams(window.location.search).get('admin') === '1') {
-        try {
-            await OneSignal.Slidedown.promptPush();
-        } catch (e) {
-            console.log("Помилка запиту підписки:", e);
-        }
-    }
+    console.log("OneSignal успешно инициализирован!");
   });
 </script>
+    <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+    🔔 Подписаться на пуши
+</button>
+    function enablePush() {
+    window.OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.Slidedown.promptPush();
+    });
+}
 </body>
 </html>
