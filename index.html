@@ -526,14 +526,24 @@
                             </div>
                         </div>
 
-                        <div>
+                        <!-- КАСТОМНАЯ КНОПКА ГОСТЕЙ ВМЕСТО СИСТЕМНОГО SELECT -->
+                        <div class="relative">
                             <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Кількість гостей <span id="maxGuestsHint" class="text-accentCyan font-normal">(макс. 4)</span>:</label>
-                            <select id="guestCountSelect" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-white focus:outline-none text-sm cursor-pointer shadow-md">
-                                <option value="1">1 гість</option>
-                                <option value="2" selected>2 гостей</option>
-                                <option value="3">3 гостей</option>
-                                <option value="4">4 гостей</option>
-                            </select>
+                            <input type="hidden" id="calcGuestCount" value="2">
+                            
+                            <button type="button" id="guestDropdownBtn" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-left flex items-center justify-between transition-all shadow-md cursor-pointer">
+                                <span class="flex items-center space-x-2.5 overflow-hidden">
+                                    <i class="fa-solid fa-users text-accentCyan text-base flex-shrink-0"></i>
+                                    <span id="guestDropdownLabel" class="text-white font-bold text-sm truncate">2 гостей</span>
+                                </span>
+                                <i id="guestDropdownChevron" class="fa-solid fa-chevron-down text-accentCyan text-sm transition-transform duration-300 ml-2 flex-shrink-0"></i>
+                            </button>
+
+                            <div id="guestDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl z-20 absolute left-0 right-0">
+                                <div id="guestOptionsContainer" class="smooth-collapse-inner divide-y divide-gray-800/80">
+                                    <!-- Динамически заполняется скриптом -->
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -584,13 +594,13 @@
                         </div>
                     </div>
 
-                    <!-- ОПЦИЯ АКЦИИ НА ПИТАНИЕ В КАЛЬКУЛЯТОРЕ -->
+                    <!-- ОПЦИЯ АКЦИИ НА ПИТАНИЕ (СНИЖЕНА ДО 350 ГРН В ДЕНЬ С ЧЕЛОВЕКА) -->
                     <div class="mb-5">
                         <label class="flex items-center space-x-3 bg-darkBg border border-cyan-500/30 hover:border-accentCyan rounded-xl p-4 cursor-pointer transition-all shadow-md">
                             <input type="checkbox" id="includeMeals" class="w-5 h-5 rounded border-gray-700 text-accentCyan focus:ring-accentCyan bg-darkBg cursor-pointer">
                             <span class="text-xs sm:text-sm text-gray-300 select-none flex-1">
                                 <strong class="text-white"><i class="fa-solid fa-utensils text-accentCyan mr-1.5"></i> Додати комплексне харчування</strong> 
-                                <span class="text-accentCyan block sm:inline font-semibold mt-0.5 sm:mt-0 sm:ml-1">(+400 ₴ / день за 1 особу замість 600 ₴)</span>
+                                <span class="text-accentCyan block sm:inline font-semibold mt-0.5 sm:mt-0 sm:ml-1">(спеціальна ціна акції: 350 ₴ / день за особу замість 600 ₴)</span>
                             </span>
                         </label>
                     </div>
@@ -641,7 +651,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-white mb-3">Домашнє комплексне харчування (від 3 днів)</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
-                            Якщо їдете відпочивати від 3 днів і більше - можна одразу взяти триразове харчування у нашому кафе на весь відпочинок. Так виходить помітно дешевше, ніж замовляти все окремо, і не треба стояти біля плити у відпустці.
+                            Якщо їдете відпочивати від 3 днів і більше - можна одразу взяти триразове харчування у нашому кафе на весь відпочинок. По акції це значно дешевше і вигідно!
                         </p>
                         
                         <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
@@ -650,8 +660,8 @@
                                 <span class="line-through">600 ₴ / день</span>
                             </div>
                             <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
-                                <span class="text-accentCyan">За комплексом (від 3 днів):</span>
-                                <span class="text-white text-lg">400 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день</span></span>
+                                <span class="text-accentCyan">По акції (від 3 днів):</span>
+                                <span class="text-white text-lg">350 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день за особу</span></span>
                             </div>
                             <div class="text-xs text-gray-400 pt-1.5 border-t border-gray-800/40">
                                 У ціну входить сніданок, обід та вечеря. Готуємо по-домашньому, свіже щодня.
@@ -1343,7 +1353,15 @@
             const roomLabel = document.getElementById('roomDropdownLabel');
             const roomInput = document.getElementById('calcRoomType');
             const roomOptions = document.querySelectorAll('.room-option');
-            const guestCountSelect = document.getElementById('guestCountSelect');
+            
+            // Кастомный выбор гостей
+            const guestBtn = document.getElementById('guestDropdownBtn');
+            const guestMenu = document.getElementById('guestDropdownMenu');
+            const guestChevron = document.getElementById('guestDropdownChevron');
+            const guestLabel = document.getElementById('guestDropdownLabel');
+            const guestInput = document.getElementById('calcGuestCount');
+            const guestOptionsContainer = document.getElementById('guestOptionsContainer');
+            
             const maxGuestsHint = document.getElementById('maxGuestsHint');
             const includeMealsCheckbox = document.getElementById('includeMeals');
 
@@ -1372,23 +1390,48 @@
             const bookBtn = document.getElementById('bookNowBtn');
 
             function updateGuestOptionsForRoom(maxGuests) {
-                const currentVal = parseInt(guestCountSelect.value || '2', 10);
-                guestCountSelect.innerHTML = '';
+                let currentVal = parseInt(guestInput.value || '2', 10);
+                if (currentVal > maxGuests) currentVal = maxGuests;
+                guestInput.value = currentVal;
+                guestLabel.textContent = currentVal === 1 ? '1 гість' : `${currentVal} гостей`;
+
+                guestOptionsContainer.innerHTML = '';
                 for (let i = 1; i <= maxGuests; i++) {
-                    const opt = document.createElement('option');
-                    opt.value = i;
-                    opt.textContent = i === 1 ? '1 гость' : `${i} гостей`;
-                    guestCountSelect.appendChild(opt);
+                    const btn = document.createElement('button');
+                    btn.type = 'button';
+                    btn.className = 'w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
+                    btn.innerHTML = `
+                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">${i === 1 ? '1 гость' : `${i} гостей`}</span>
+                        ${i === currentVal ? '<i class="fa-solid fa-check text-accentCyan"></i>' : ''}
+                    `;
+                    btn.addEventListener('click', () => {
+                        guestInput.value = i;
+                        guestLabel.textContent = i === 1 ? '1 гість' : `${i} гостей`;
+                        guestMenu.classList.remove('open');
+                        guestChevron.style.transform = 'rotate(0deg)';
+                        updateGuestOptionsForRoom(maxGuests);
+                        recalculate();
+                    });
+                    guestOptionsContainer.appendChild(btn);
                 }
-                if (currentVal <= maxGuests) {
-                    guestCountSelect.value = currentVal;
-                } else {
-                    guestCountSelect.value = maxGuests;
-                }
+
                 if (maxGuestsHint) {
                     maxGuestsHint.textContent = `(макс. ${maxGuests})`;
                 }
             }
+
+            guestBtn.addEventListener('click', function() {
+                const isOpen = guestMenu.classList.contains('open');
+                if (!isOpen) {
+                    roomMenu.classList.remove('open');
+                    roomChevron.style.transform = 'rotate(0deg)';
+                    guestMenu.classList.add('open');
+                    guestChevron.style.transform = 'rotate(180deg)';
+                } else {
+                    guestMenu.classList.remove('open');
+                    guestChevron.style.transform = 'rotate(0deg)';
+                }
+            });
 
             guestPhone.addEventListener('input', function() {
                 this.value = this.value.replace(/[^\d+\-\s()]/g, '');
@@ -1397,6 +1440,8 @@
             roomBtn.addEventListener('click', function() {
                 const isOpen = roomMenu.classList.contains('open');
                 if (!isOpen) {
+                    guestMenu.classList.remove('open');
+                    guestChevron.style.transform = 'rotate(0deg)';
                     roomMenu.classList.add('open');
                     roomChevron.style.transform = 'rotate(180deg)';
                 } else {
@@ -1425,15 +1470,14 @@
                 });
             });
 
-            guestCountSelect.addEventListener('change', function() {
-                recalculate();
-            });
-
             if (includeMealsCheckbox) {
                 includeMealsCheckbox.addEventListener('change', function() {
                     recalculate();
                 });
             }
+
+            // Инициализация гостей при загрузке (для Люкса по умолчанию 2 гостя, макс 4)
+            updateGuestOptionsForRoom(4);
 
             const ROOM_INVENTORY_COUNTS = {
                 '2-х місний номер': 2,
@@ -1483,7 +1527,7 @@
 
             function getNightRate(baseRate) {
                 const roomName = roomInput.value;
-                const guestCount = parseInt(guestCountSelect.value || '2', 10);
+                const guestCount = parseInt(guestInput.value || '2', 10);
                 if (roomName === 'Номер «Люкс»' && guestCount === 4) {
                     return 2000;
                 }
@@ -1569,7 +1613,7 @@
 
             function recalculate() {
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
-                const guestCount = parseInt(guestCountSelect.value || '2', 10);
+                const guestCount = parseInt(guestInput.value || '2', 10);
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
@@ -1586,7 +1630,8 @@
 
                     let mealsSum = 0;
                     if (includeMealsCheckbox && includeMealsCheckbox.checked) {
-                        mealsSum = nights * guestCount * 400;
+                        // Акционная цена питания снижена до 350 грн в день с человека
+                        mealsSum = nights * guestCount * 350;
                         mealsRow.classList.remove('hidden');
                         mealsDisplay.textContent = `${mealsSum.toLocaleString()} ₴`;
                     } else {
@@ -1693,7 +1738,7 @@
                 const selectedRoomName = roomInput.value;
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
                 const maxRooms = ROOM_INVENTORY_COUNTS[selectedRoomName] || 1;
-                const guestCount = parseInt(guestCountSelect.value || '2', 10);
+                const guestCount = parseInt(guestInput.value || '2', 10);
                 const hasMeals = includeMealsCheckbox && includeMealsCheckbox.checked;
 
                 const newStart = toLocalDateIso(checkIn);
@@ -1749,7 +1794,7 @@
                         cursor.setDate(cursor.getDate() + 1);
                     }
 
-                    let mealsSum = hasMeals ? (nights * guestCount * 400) : 0;
+                    let mealsSum = hasMeals ? (nights * guestCount * 350) : 0;
                     let totalSum = roomSum + mealsSum;
 
                     const payloadWithGuests = {
