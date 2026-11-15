@@ -2319,11 +2319,11 @@
         });
     </script>
 
-   <script>
+<script>
   // 1. Функция отправки пуша администратору через OneSignal API
   async function sendPushToAdmin(booking) {
       const ONESIGNAL_APP_ID = "535504a3-6954-4735-9310-459f4fcf742e";
-      const ONESIGNAL_REST_API_KEY = oeuf2vfunea6usviulthqbvfo // 👈 Твой длинный REST API ключ из панели OneSignal
+      const ONESIGNAL_REST_API_KEY = "oeuf2vfunea6usviulthqbvfo"; // 👈 Обязательно в кавычках!
 
       try {
           await fetch("https://onesignal.com/api/v1/notifications", {
@@ -2350,7 +2350,6 @@
   // 2. Универсальная функция создания брони (сохранение в Supabase + автоматический пуш)
   async function createBookingAndNotify(payloadWithGuests) {
       try {
-          // Шаг 1: Сохраняем бронирование в базу данных Supabase
           let { data, error: insertError } = await supabaseClient
               .from('bookings')
               .insert([payloadWithGuests]);
@@ -2360,16 +2359,27 @@
           }
 
           console.log("Бронювання успішно збережено в Supabase!");
-
-          // Шаг 2: Сразу после успешного сохранения отправляем пуш администратору
           await sendPushToAdmin(payloadWithGuests);
-
           alert("Бронювання успішно створено!");
       } catch (err) {
           console.error("Помилка збереження броні:", err);
           alert("Помилка: " + err.message);
       }
   }
+
+  // 3. Функция ручного вызова окна подписки
+  function enablePush() {
+      window.OneSignalDeferred.push(async function(OneSignal) {
+          try {
+              await OneSignal.Slidedown.promptPush();
+              console.log("Запрос подписки вызван!");
+          } catch (e) {
+              console.error("Ошибка вызова подписки:", e);
+          }
+      });
+  }
+</script>
+
 <!-- OneSignal Web SDK -->
 <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js" async></script>
 <script>
@@ -2381,13 +2391,10 @@
     console.log("OneSignal успешно инициализирован!");
   });
 </script>
-    <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer;">
+
+<!-- Кнопка для ручной подписки -->
+<button onclick="enablePush()" style="background: #2ed573; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 15px;">
     🔔 Подписаться на пуши
 </button>
-    function enablePush() {
-    window.OneSignalDeferred.push(async function(OneSignal) {
-        await OneSignal.Slidedown.promptPush();
-    });
-}
 </body>
 </html>
