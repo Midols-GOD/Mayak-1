@@ -2308,57 +2308,18 @@
 
             loadMatrixData();
         });
-    </script>
-
+   <!-- OneSignal SDK (версия page.js) -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
 <script>
-  // 1. Функция отправки пуша администратору через OneSignal API
-  async function sendPushToAdmin(booking) {
-      const ONESIGNAL_APP_ID = "535504a3-6954-4735-9310-459f4fcf742e";
-      const ONESIGNAL_REST_API_KEY = "oeuf2vfunea6usviulthqbvfo"; // 👈 Обязательно в кавычках!
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  window.OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "535504a3-6954-4735-9310-459f4fcf742e",
+    });
+    console.log("OneSignal успешно инициализирован!");
+  });
 
-      try {
-          await fetch("https://onesignal.com/api/v1/notifications", {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json; charset=utf-8",
-                  "Authorization": `Basic ${ONESIGNAL_REST_API_KEY}`
-              },
-              body: JSON.stringify({
-                  app_id: ONESIGNAL_APP_ID,
-                  included_segments: ["Total Subscriptions"],
-                  headings: { "uk": "🛎️ Нове бронювання на базі 'Маяк'!" },
-                  contents: { 
-                      "uk": `Гість: ${booking.guest_name || 'Гість'}. Номер: №${booking.room_number || '?'}.` 
-                  }
-              })
-          });
-          console.log("Пуш-повідомлення успішно відправлено!");
-      } catch (pushErr) {
-          console.warn("Не вдалося надіслати пуш:", pushErr);
-      }
-  }
-
-  // 2. Универсальная функция создания брони (сохранение в Supabase + автоматический пуш)
-  async function createBookingAndNotify(payloadWithGuests) {
-      try {
-          let { data, error: insertError } = await supabaseClient
-              .from('bookings')
-              .insert([payloadWithGuests]);
-
-          if (insertError) {
-              throw insertError;
-          }
-
-          console.log("Бронювання успішно збережено в Supabase!");
-          await sendPushToAdmin(payloadWithGuests);
-          alert("Бронювання успішно створено!");
-      } catch (err) {
-          console.error("Помилка збереження броні:", err);
-          alert("Помилка: " + err.message);
-      }
-  }
-
-  // 3. Функция ручного вызова окна подписки
+  // Функция вызова окна подписки
   function enablePush() {
       window.OneSignalDeferred.push(async function(OneSignal) {
           try {
@@ -2371,41 +2332,12 @@
   }
 </script>
 
-<!-- OneSignal Web SDK -->
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "535504a3-6954-4735-9310-459f4fcf742e",
-    });
-    console.log("OneSignal успешно инициализирован!");
-  });
-</script>
-
-<!-- Кнопка для ручной подписки -->
-<button onclick="enablePush()" style="background: #2ed573; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 15px;">
-    🔔 Подписаться на пуши
-</button>
-    <!-- Скрипты инициализации OneSignal и функция enablePush -->
-    <script>
-      function enablePush() {
-          window.OneSignalDeferred.push(async function(OneSignal) {
-              try {
-                  await OneSignal.Slidedown.promptPush();
-                  console.log("Запрос подписки вызван!");
-              } catch (e) {
-                  console.error("Ошибка вызова подписки:", e);
-              }
-          });
-      }
-    </script>
-
-    <!-- 👇 Вот сюда можно вставить саму кнопку, чтобы она появилась на странице -->
-    <div style="text-align: center; margin: 30px;">
-        <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
-            🔔 Подписаться на пуши
-        </button>
-    </div>
+<!-- Единственная аккуратная кнопка подписки -->
+<div style="text-align: center; margin: 30px;">
+    <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+        🔔 Подписаться на пуши
+    </button>
+</div>
 
 </body>
 </html>
