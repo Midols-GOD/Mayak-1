@@ -2319,18 +2319,77 @@
         });
     </script>
 
-    <!-- OneSignal Web Push SDK для адміна -->
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-    <script>
-      window.OneSignalDeferred = window.OneSignalDeferred || [];
-      OneSignalDeferred.push(async function(OneSignal) {
-        if (new URLSearchParams(window.location.search).get('admin') === '1') {
-          await OneSignal.init({
-            appId: "535504a3-6954-4735-9310-459f4fcf742e",
+   <script>
+  // 1. Функция отправки пуша администратору через OneSignal API
+  async function sendPushToAdmin(booking) {
+      const ONESIGNAL_APP_ID = "535504a3-6954-4735-9310-459f4fcf742e";
+      const ONESIGNAL_REST_API_KEY = oeuf2vfunea6usviulthqbvfo // 👈 Твой длинный REST API ключ из панели OneSignal
+
+      try {
+          await fetch("https://onesignal.com/api/v1/notifications", {
+              method: "POST",
+              headers: {
+                  "Content-Type": "application/json; charset=utf-8",
+                  "Authorization": `Basic ${ONESIGNAL_REST_API_KEY}`
+              },
+              body: JSON.stringify({
+                  app_id: ONESIGNAL_APP_ID,
+                  included_segments: ["Total Subscriptions"],
+                  headings: { "uk": "🛎️ Нове бронювання на базі 'Маяк'!" },
+                  contents: { 
+                      "uk": `Гість: ${booking.guest_name || 'Гість'}. Номер: №${booking.room_number || '?'}.` 
+                  }
+              })
           });
-          await OneSignal.Slidedown.promptPush();
+          console.log("Пуш-повідомлення успішно відправлено!");
+      } catch (pushErr) {
+          console.warn("Не вдалося надіслати пуш:", pushErr);
+      }
+  }
+
+  // 2. Универсальная функция создания брони (сохранение в Supabase + автоматический пуш)
+  async function createBookingAndNotify(payloadWithGuests) {
+      try {
+          // Шаг 1: Сохраняем бронирование в базу данных Supabase
+          let { data, error: insertError } = await supabaseClient
+              .from('bookings')
+              .insert([payloadWithGuests]);
+
+          if (insertError) {
+              throw insertError;
+          }
+
+          console.log("Бронювання успішно збережено в Supabase!");
+
+          // Шаг 2: Сразу после успешного сохранения отправляем пуш администратору
+          await sendPushToAdmin(payloadWithGuests);
+
+          alert("Бронювання успішно створено!");
+      } catch (err) {
+          console.error("Помилка збереження броні:", err);
+          alert("Помилка: " + err.message);
+      }
+  }
+</script>
+
+<!-- OneSignal SDK и автоматический запрос подписки для админа (?admin=1) -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.sw.js" async></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "535504a3-6954-4735-9310-459f4fcf742e",
+    });
+
+    // Автоматический запрос на подписку, если открыта ссылка с ?admin=1
+    if (new URLSearchParams(window.location.search).get('admin') === '1') {
+        try {
+            await OneSignal.Slidedown.promptPush();
+        } catch (e) {
+            console.log("Помилка запиту підписки:", e);
         }
-      });
-    </script>
+    }
+  });
+</script>
 </body>
 </html>
