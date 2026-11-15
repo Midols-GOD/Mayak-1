@@ -300,7 +300,7 @@
                             <div class="flex justify-between items-start mb-3">
                                 <h3 class="text-xl font-bold text-white">Номер «Люкс»</h3>
                                 <div class="text-right">
-                                    <div class="text-xl font-black text-priceYellow">1 500 - 2 000 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
+                                    <div class="text-xl font-black text-priceYellow">1 500 <span class="text-priceYellow">₴</span> <span class="text-[11px] text-gray-400 font-normal">/ день</span></div>
                                 </div>
                             </div>
 
@@ -494,9 +494,9 @@
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»" data-max-guests="4">
                                         <div>
                                             <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-gray-400">Власний санвузол, кухня (до 4 гостей: 3 ос. — 1500₴, 4 ос. — 2000₴)</div>
+                                            <div class="text-xs text-gray-400">3 гості — 1500 ₴, 4 гості — 2000 ₴</div>
                                         </div>
-                                        <span class="text-priceYellow font-extrabold text-sm text-right flex-shrink-0 ml-4">від 1 500 ₴</span>
+                                        <span class="text-priceYellow font-extrabold text-sm text-right flex-shrink-0 ml-4">1 500 ₴</span>
                                     </button>
 
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="4-х місний номер" data-price="1400" data-label="4-х місний номер" data-max-guests="4">
@@ -584,11 +584,26 @@
                         </div>
                     </div>
 
+                    <!-- ОПЦИЯ АКЦИИ НА ПИТАНИЕ В КАЛЬКУЛЯТОРЕ -->
+                    <div class="mb-5">
+                        <label class="flex items-center space-x-3 bg-darkBg border border-cyan-500/30 hover:border-accentCyan rounded-xl p-4 cursor-pointer transition-all shadow-md">
+                            <input type="checkbox" id="includeMeals" class="w-5 h-5 rounded border-gray-700 text-accentCyan focus:ring-accentCyan bg-darkBg cursor-pointer">
+                            <span class="text-xs sm:text-sm text-gray-300 select-none flex-1">
+                                <strong class="text-white"><i class="fa-solid fa-utensils text-accentCyan mr-1.5"></i> Додати комплексне харчування</strong> 
+                                <span class="text-accentCyan block sm:inline font-semibold mt-0.5 sm:mt-0 sm:ml-1">(+400 ₴ / день за 1 особу замість 600 ₴)</span>
+                            </span>
+                        </label>
+                    </div>
+
                     <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-2xl p-5 sm:p-4 mb-5 space-y-3.5 sm:space-y-2">
                             <div class="flex justify-between text-base sm:text-sm text-gray-300">
                                 <span>Тривалість:</span>
                                 <span id="calcNightsCount" class="text-white font-bold text-base sm:text-sm">0 ночей</span>
+                            </div>
+                            <div id="calcMealsRow" class="flex justify-between text-base sm:text-sm text-gray-300 hidden">
+                                <span>Харчування:</span>
+                                <span id="calcMealsPrice" class="text-accentCyan font-bold text-base sm:text-sm">0 ₴</span>
                             </div>
                             <div class="flex justify-between text-base sm:text-sm text-gray-300">
                                 <span>Передоплата (1 день):</span>
@@ -1330,6 +1345,7 @@
             const roomOptions = document.querySelectorAll('.room-option');
             const guestCountSelect = document.getElementById('guestCountSelect');
             const maxGuestsHint = document.getElementById('maxGuestsHint');
+            const includeMealsCheckbox = document.getElementById('includeMeals');
 
             const toggleBtn = document.getElementById('calendarToggleBtn');
             const panel = document.getElementById('calendarPanel');
@@ -1337,6 +1353,8 @@
             const btnLabel = document.getElementById('calendarBtnLabel');
 
             const nightsDisplay = document.getElementById('calcNightsCount');
+            const mealsRow = document.getElementById('calcMealsRow');
+            const mealsDisplay = document.getElementById('calcMealsPrice');
             const prepayDisplay = document.getElementById('calcPrepayPrice');
             const totalDisplay = document.getElementById('calcTotalPrice');
 
@@ -1410,6 +1428,12 @@
             guestCountSelect.addEventListener('change', function() {
                 recalculate();
             });
+
+            if (includeMealsCheckbox) {
+                includeMealsCheckbox.addEventListener('change', function() {
+                    recalculate();
+                });
+            }
 
             const ROOM_INVENTORY_COUNTS = {
                 '2-х місний номер': 2,
@@ -1545,32 +1569,46 @@
 
             function recalculate() {
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
+                const guestCount = parseInt(guestCountSelect.value || '2', 10);
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
-                    let sum = 0;
+                    let roomSum = 0;
                     let nights = 0;
                     let cursor = new Date(checkIn);
                     const currentNightRate = getNightRate(baseRate);
 
                     while (cursor.getTime() < checkOut.getTime()) {
-                        sum += getNightRate(baseRate);
+                        roomSum += getNightRate(baseRate);
                         nights++;
                         cursor.setDate(cursor.getDate() + 1);
                     }
 
+                    let mealsSum = 0;
+                    if (includeMealsCheckbox && includeMealsCheckbox.checked) {
+                        mealsSum = nights * guestCount * 400;
+                        mealsRow.classList.remove('hidden');
+                        mealsDisplay.textContent = `${mealsSum.toLocaleString()} ₴`;
+                    } else {
+                        mealsRow.classList.add('hidden');
+                    }
+
+                    let totalSum = roomSum + mealsSum;
+
                     btnLabel.textContent = `${checkIn.toLocaleDateString('ru-RU', opts)} - ${checkOut.toLocaleDateString('ru-RU', opts)}`;
                     nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
                     prepayDisplay.textContent = `${currentNightRate.toLocaleString()} ₴`;
-                    totalDisplay.textContent = `${sum.toLocaleString()} ₴`;
+                    totalDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
                 } else if (checkIn) {
                     btnLabel.textContent = `Заезд: ${checkIn.toLocaleDateString('ru-RU', opts)} (выберите выезд)`;
                     nightsDisplay.textContent = '0 ночей';
+                    mealsRow.classList.add('hidden');
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
                 } else {
                     btnLabel.textContent = 'Выбрать даты заезда и выезда';
                     nightsDisplay.textContent = '0 ночей';
+                    mealsRow.classList.add('hidden');
                     prepayDisplay.textContent = '0 ₴';
                     totalDisplay.textContent = '0 ₴';
                 }
@@ -1656,6 +1694,7 @@
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '1500', 10);
                 const maxRooms = ROOM_INVENTORY_COUNTS[selectedRoomName] || 1;
                 const guestCount = parseInt(guestCountSelect.value || '2', 10);
+                const hasMeals = includeMealsCheckbox && includeMealsCheckbox.checked;
 
                 const newStart = toLocalDateIso(checkIn);
                 const newEnd = toLocalDateIso(checkOut);
@@ -1699,24 +1738,29 @@
                         return parseInt(bRate, 10);
                     }
 
-                    let sum = 0;
+                    let roomSum = 0;
+                    let nights = 0;
                     let cursor = new Date(checkIn);
                     const firstNightRate = getBookingNightRate(selectedRoomName, guestCount, baseRate);
 
                     while (cursor.getTime() < checkOut.getTime()) {
-                        sum += getBookingNightRate(selectedRoomName, guestCount, baseRate);
+                        roomSum += getBookingNightRate(selectedRoomName, guestCount, baseRate);
+                        nights++;
                         cursor.setDate(cursor.getDate() + 1);
                     }
 
+                    let mealsSum = hasMeals ? (nights * guestCount * 400) : 0;
+                    let totalSum = roomSum + mealsSum;
+
                     const payloadWithGuests = {
-                        room_type: selectedRoomName,
+                        room_type: selectedRoomName + (hasMeals ? ' (+ харчування)' : ''),
                         room_number: assignedRoomNumber,
                         start_date: newStart,
                         end_date: newEnd,
                         guest_name: guestName.value.trim(),
                         guest_phone: guestPhone.value.trim(),
                         guest_count: guestCount,
-                        total_price: sum,
+                        total_price: totalSum,
                         prepay_price: firstNightRate,
                         status: 'new'
                     };
@@ -1734,7 +1778,7 @@
 
                     showCustomNotice({
                         title: 'Бронирование создано!',
-                        message: `Спасибо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успешно забронирован (${guestCount} чел.). Предоплата составляет ${firstNightRate.toLocaleString()} ₴.`,
+                        message: `Спасибо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успешно забронирован (${guestCount} чел.${hasMeals ? ', с питанием' : ''}). Предоплата составляет ${firstNightRate.toLocaleString()} ₴.`,
                         badgeText: `Категория: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -1743,6 +1787,7 @@
                     checkOut = null;
                     guestName.value = '';
                     guestPhone.value = '';
+                    if (includeMealsCheckbox) includeMealsCheckbox.checked = false;
                     panel.classList.remove('open');
                     chevron.style.transform = 'rotate(0deg)';
                     recalculate();
@@ -1968,7 +2013,7 @@
                             const hasTurnaround = bookings.some(other => 
                                 other.id !== b.id &&
                                 other.room_type && b.room_type &&
-                                other.room_type.trim().toLowerCase() === b.room_type.trim().toLowerCase() &&
+                                other.room_type.split(' (')[0].trim().toLowerCase() === b.room_type.split(' (')[0].trim().toLowerCase() &&
                                 String(other.room_number) === String(b.room_number) &&
                                 other.start_date === b.end_date
                             );
@@ -2032,7 +2077,8 @@
                             let checkinBooking = null;
 
                             for (let b of bookings) {
-                                if (b.room_type && b.room_type.trim().toLowerCase() === group.category.trim().toLowerCase() && String(b.room_number) === String(rNum)) {
+                                const bTypeClean = b.room_type ? b.room_type.split(' (')[0].trim().toLowerCase() : '';
+                                if (bTypeClean === group.category.trim().toLowerCase() && String(b.room_number) === String(rNum)) {
                                     if (cellDateIso > b.start_date && cellDateIso < b.end_date) {
                                         activeBooking = b;
                                     }
@@ -2102,9 +2148,10 @@
                 let matchedNext = null;
                 if (globalBookingsCache && globalBookingsCache.length > 0) {
                     matchedNext = globalBookingsCache.find(b => {
+                        const bTypeClean = b.room_type ? b.room_type.split(' (')[0].trim().toLowerCase() : '';
+                        const objTypeClean = bookingObj.room_type ? bookingObj.room_type.split(' (')[0].trim().toLowerCase() : '';
                         return b.id !== bookingObj.id &&
-                               b.room_type && bookingObj.room_type &&
-                               b.room_type.trim().toLowerCase() === bookingObj.room_type.trim().toLowerCase() &&
+                               bTypeClean === objTypeClean &&
                                String(b.room_number) === String(bookingObj.room_number) &&
                                b.start_date === bookingObj.end_date;
                     });
