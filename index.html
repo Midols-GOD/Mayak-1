@@ -736,17 +736,17 @@
                     <span>Проживает (сегодня)</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-purple-700/75 border border-purple-500/60"></div>
-                    <span>День выезда (свободно после)</span>
+                    <div class="w-4 h-4 rounded bg-sky-600/85 border border-sky-400"></div>
+                    <span>Выезд сегодня</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-sky-600/85 border border-sky-400"></div>
-                    <span>Стыковка (сразу заезд другой семьи)</span>
+                    <div class="w-4 h-4 rounded bg-rose-600 border border-rose-400"></div>
+                    <span>Стыковка смен</span>
                 </div>
             </div>
 
             <!-- Зручний мобільний список броней -->
-            <div id="adminMobileBookingsList" class="block sm:hidden mb-4 space-y-3"></div>
+            <div id="adminMobileBookingsList" class="block sm:hidden mb-4 space-y-4"></div>
 
             <!-- Десктопна шахматна таблиця -->
             <div class="overflow-x-auto hidden sm:block">
@@ -1628,7 +1628,7 @@
                     while (cursor.getTime() < endDate.getTime()) {
                         const dayStr = toLocalDateIso(cursor);
                         const isOccupied = existingBookings.some(b => {
-                            const sameCategory = b.room_type && b.room_type.trim().toLowerCase() === roomCategory.trim().toLowerCase();
+                            const sameCategory = b.room_type && b.room_type.split(' (')[0].trim().toLowerCase() === roomCategory.trim().toLowerCase();
                             const sameRoom = String(b.room_number) === String(rNum);
                             const overlaps = (dayStr >= b.start_date && dayStr < b.end_date);
                             return sameCategory && sameRoom && overlaps;
@@ -1917,26 +1917,26 @@
                 if (isCheckoutToday) {
                     return {
                         type: 'checkout',
-                        label: 'Выезд сегодня (до 12:00)',
-                        timeHint: 'Освобождает номер сегодня в 12:00',
-                        cardClass: 'border-purple-500/80 bg-purple-950/30',
-                        badgeClass: 'bg-purple-600 text-white',
-                        modalBorderClass: 'border-purple-500 bg-[#150f24]',
-                        iconWrapClass: 'bg-purple-950 border-purple-500/50 text-purple-300'
+                        label: 'ВЫЕЗД СЕГОДНЯ (до 12:00)',
+                        timeHint: 'Освобождают номер сегодня в 12:00',
+                        cardClass: 'border-y border-r border-sky-500/40 border-l-8 border-l-sky-400 bg-[#0c1e38]',
+                        badgeClass: 'bg-sky-600 text-white',
+                        modalBorderClass: 'border-sky-400 bg-[#0c1e38]',
+                        iconWrapClass: 'bg-sky-950 border-sky-400/50 text-sky-300'
                     };
                 }
                 if (isCheckinToday || isLivingToday) {
                     const daysLeft = getDaysDiff(todayIso, b.end_date);
                     const timeHint = daysLeft === 1 
                         ? 'Выезд завтра до 12:00' 
-                        : `Осталось проживать: ${daysLeft} ${pluralDaysRu(daysLeft)}`;
+                        : `Осталось жить: ${daysLeft} ${pluralDaysRu(daysLeft)}`;
                     return {
                         type: 'living',
-                        label: isCheckinToday ? 'Заезд сегодня (с 13:00)' : 'Проживает (сегодня)',
+                        label: isCheckinToday ? 'ЗАЕЗД СЕГОДНЯ (с 13:00)' : 'ПРОЖИВАЮТ СЕЙЧАС',
                         timeHint: timeHint,
-                        cardClass: 'border-emerald-500/85 bg-emerald-950/30',
+                        cardClass: 'border-y border-r border-emerald-500/40 border-l-8 border-l-emerald-500 bg-[#062419]',
                         badgeClass: 'bg-emerald-600 text-white',
-                        modalBorderClass: 'border-emerald-500 bg-[#0d1f1a]',
+                        modalBorderClass: 'border-emerald-500 bg-[#062419]',
                         iconWrapClass: 'bg-emerald-950 border-emerald-500/50 text-emerald-400'
                     };
                 }
@@ -1947,19 +1947,19 @@
                         : `Заезд через ${daysUntil} ${pluralDaysRu(daysUntil)}`;
                     return {
                         type: 'booked',
-                        label: 'Забронировано',
+                        label: 'ЗАБРОНИРОВАНО',
                         timeHint: timeHint,
-                        cardClass: 'border-amber-500/75 bg-amber-950/25',
+                        cardClass: 'border-y border-r border-amber-500/40 border-l-8 border-l-amber-500 bg-[#261a08]',
                         badgeClass: 'bg-amber-500 text-darkBg',
-                        modalBorderClass: 'border-amber-500 bg-[#1f180d]',
+                        modalBorderClass: 'border-amber-500 bg-[#261a08]',
                         iconWrapClass: 'bg-amber-950 border-amber-500/50 text-amber-400'
                     };
                 }
                 return {
                     type: 'past',
-                    label: 'Завершено',
-                    timeHint: 'Гость уже выехал',
-                    cardClass: 'border-gray-700 bg-darkBg/50 opacity-75',
+                    label: 'УЖЕ ВЫЕХАЛИ',
+                    timeHint: 'Бронь завершена',
+                    cardClass: 'border-y border-r border-gray-700 border-l-8 border-l-gray-500 bg-darkBg/60 opacity-70',
                     badgeClass: 'bg-gray-700 text-gray-200',
                     modalBorderClass: 'border-gray-600 bg-cardBg',
                     iconWrapClass: 'bg-gray-800 border-gray-600 text-gray-300'
@@ -2003,12 +2003,12 @@
                     currentMonthBookings.sort((a, b) => (a.start_date || '').localeCompare(b.start_date || ''));
 
                     if (currentMonthBookings.length === 0) {
-                        mobileListContainer.innerHTML = `<div class="p-4 rounded-xl bg-darkBg/60 text-center text-gray-400 text-xs border border-gray-800">В этом месяце пока нет бронирований.</div>`;
+                        mobileListContainer.innerHTML = `<div class="p-5 rounded-2xl bg-cardBg text-center text-gray-300 text-sm border border-gray-700">В этом месяце пока нет бронирований.</div>`;
                     } else {
-                        let mHtml = `<div class="text-xs font-bold text-accentCyan uppercase tracking-wider mb-2">Бронирования за месяц (${currentMonthBookings.length}):</div>`;
+                        let mHtml = `<div class="text-sm font-bold text-accentCyan uppercase tracking-wider mb-3">Бронирования за месяц (${currentMonthBookings.length}):</div>`;
                         currentMonthBookings.forEach(b => {
                             const statusInfo = getBookingStatusInfo(b, todayIso);
-                            const guestsCountText = b.guest_count ? `👥 ${b.guest_count} чел.` : '';
+                            const guestsCountText = b.guest_count ? `👥 ${b.guest_count} гостей` : '';
                             
                             const hasTurnaround = bookings.some(other => 
                                 other.id !== b.id &&
@@ -2020,28 +2020,43 @@
 
                             let turnaroundTag = '';
                             if (hasTurnaround) {
-                                turnaroundTag = `<div class="mt-2 text-[11px] font-bold text-sky-300 bg-sky-950/70 px-2.5 py-1 rounded-lg border border-sky-500/40 inline-flex items-center gap-1.5"><i class="fa-solid fa-arrows-rotate text-sky-400"></i> Стыковка: сразу заезд другой семьи</div>`;
+                                turnaroundTag = `<div class="mt-2 text-xs font-bold text-white bg-rose-700 px-3 py-1.5 rounded-xl border border-rose-400 inline-flex items-center gap-2"><i class="fa-solid fa-arrows-rotate"></i> Стыковка: сразу заезд другой семьи!</div>`;
                             } else if (todayIso === b.end_date) {
-                                turnaroundTag = `<div class="mt-2 text-[11px] font-semibold text-purple-300 bg-purple-950/70 px-2.5 py-1 rounded-lg border border-purple-500/40 inline-flex items-center gap-1.5"><i class="fa-solid fa-door-open text-purple-400"></i> Выезд (свободно после)</div>`;
+                                turnaroundTag = `<div class="mt-2 text-xs font-bold text-white bg-sky-700 px-3 py-1.5 rounded-xl border border-sky-400 inline-flex items-center gap-2"><i class="fa-solid fa-door-open"></i> Выезд (уборка номера)</div>`;
                             }
 
                             const bJson = encodeURIComponent(JSON.stringify(b));
                             
                             mHtml += `
-                                <div onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="p-3.5 rounded-2xl ${statusInfo.cardClass} border-2 flex justify-between items-center cursor-pointer transition-all shadow-md">
-                                    <div class="pr-2">
-                                        <div class="flex flex-wrap items-center gap-1.5 mb-1">
-                                            <span class="text-white font-bold text-sm">${b.guest_name}</span>
-                                            <span class="text-[10px] ${statusInfo.badgeClass} px-2 py-0.5 rounded font-extrabold">${statusInfo.label}</span>
+                                <div class="p-4 sm:p-5 rounded-2xl ${statusInfo.cardClass} shadow-xl relative">
+                                    <div class="flex justify-between items-start gap-2 mb-2">
+                                        <div>
+                                            <span class="text-xs font-black ${statusInfo.badgeClass} px-2.5 py-1 rounded-lg uppercase tracking-wide inline-block mb-1.5">${statusInfo.label}</span>
+                                            <h4 class="text-xl font-extrabold text-white leading-snug">${b.guest_name}</h4>
                                         </div>
-                                        <div class="text-xs text-accentCyan font-semibold">${b.room_type} (№${b.room_number}) ${guestsCountText ? '• <span class="text-white font-bold">' + guestsCountText + '</span>' : ''}</div>
-                                        <div class="text-[11px] text-gray-300 mt-1"><i class="fa-regular fa-calendar mr-1 text-gray-400"></i>${formatDateUa(b.start_date)} — ${formatDateUa(b.end_date)}</div>
-                                        <div class="text-[11px] font-bold text-white/90 mt-1"><i class="fa-regular fa-clock mr-1 text-accentCyan"></i>${statusInfo.timeHint}</div>
-                                        ${turnaroundTag}
+                                        <div class="text-right flex-shrink-0">
+                                            <span class="text-priceYellow font-black text-xl block">${Number(b.total_price).toLocaleString()} ₴</span>
+                                        </div>
                                     </div>
-                                    <div class="text-right flex-shrink-0 self-start">
-                                        <span class="text-priceYellow font-black text-base block">${Number(b.total_price).toLocaleString()} ₴</span>
-                                        <div class="text-[11px] text-white font-semibold mt-2 bg-white/10 px-2.5 py-1 rounded-lg border border-white/15 inline-block">Детали <i class="fa-solid fa-chevron-right text-[9px] ml-0.5"></i></div>
+
+                                    <div class="text-sm text-cyan-200 font-bold mb-2">
+                                        🏨 ${b.room_type} — Номер №${b.room_number} ${guestsCountText ? '• ' + guestsCountText : ''}
+                                    </div>
+
+                                    <div class="bg-black/40 p-3 rounded-xl border border-white/10 space-y-1 mb-3 text-sm">
+                                        <div class="text-white font-semibold"><i class="fa-regular fa-calendar mr-1.5 text-accentCyan"></i>${formatDateUa(b.start_date)} — ${formatDateUa(b.end_date)}</div>
+                                        <div class="text-cyan-300 font-bold"><i class="fa-regular fa-clock mr-1.5 text-accentCyan"></i>${statusInfo.timeHint}</div>
+                                    </div>
+
+                                    ${turnaroundTag}
+
+                                    <div class="flex gap-2.5 mt-4 pt-3 border-t border-white/10">
+                                        <a href="tel:${b.guest_phone}" onclick="event.stopPropagation()" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center text-sm shadow-md transition-all flex items-center justify-center gap-2">
+                                            <i class="fa-solid fa-phone text-base"></i> Позвонить гостю
+                                        </a>
+                                        <button type="button" onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="py-3 px-5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm border border-gray-600 transition-all cursor-pointer">
+                                            Детали
+                                        </button>
                                     </div>
                                 </div>
                             `;
