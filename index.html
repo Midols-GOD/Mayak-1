@@ -2386,5 +2386,28 @@
 <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; margin: 15px;">
     🔔 Подписаться на пуши
 </button>
+    <!-- Скрипты инициализации OneSignal и функция enablePush -->
+    <script>
+      function enablePush() {
+          window.OneSignalDeferred.push(async function(OneSignal) {
+              try {
+                  await OneSignal.Slidedown.promptPush();
+                  console.log("Запрос подписки вызван!");
+              } catch (e) {
+                  console.error("Ошибка вызова подписки:", e);
+              }
+          });
+      }
+    </script>
+
+    <!-- 👇 Вот сюда можно вставить саму кнопку, чтобы она появилась на странице -->
+    <div style="text-align: center; margin: 30px;">
+        <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
+            🔔 Подписаться на пуши
+        </button>
+    </div>
+
+</body>
+</html>
 </body>
 </html>
