@@ -2232,7 +2232,12 @@
                 const prepay = Number(bookingObj.prepay_price || 0);
                 const dueOnArrival = Math.max(0, total - prepay);
                 const totalNights = getDaysDiff(bookingObj.start_date, bookingObj.end_date);
+                const guestCount = bookingObj.guest_count || 2;
                 const guestsText = bookingObj.guest_count ? `${bookingObj.guest_count} гостей` : 'Не вказано';
+
+                const hasMeals = bookingObj.room_type && bookingObj.room_type.includes('харчування');
+                const mealsSum = hasMeals ? (totalNights * guestCount * 350) : 0;
+                const roomSum = total - mealsSum;
 
                 let immediateCheckinHtml = '';
                 if (matchedNext) {
@@ -2273,8 +2278,17 @@
                     ${immediateCheckinHtml}
 
                     <div class="border-t border-gray-800 pt-3 space-y-2 bg-black/25 p-3.5 rounded-xl">
-                        <div class="flex justify-between items-center">
-                            <span class="text-gray-300">Загальна сума:</span>
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-300">Проживання (${totalNights} ночей):</span>
+                            <span class="text-white font-semibold">${roomSum.toLocaleString()} ₴</span>
+                        </div>
+                        ${hasMeals ? `
+                        <div class="flex justify-between items-center text-sm">
+                            <span class="text-gray-300">Харчування (${totalNights} дн. × ${guestCount} ос.):</span>
+                            <span class="text-accentCyan font-semibold">${mealsSum.toLocaleString()} ₴</span>
+                        </div>` : ''}
+                        <div class="flex justify-between items-center border-t border-gray-700/80 pt-2 mt-1">
+                            <span class="text-gray-200 font-bold">Загальна сума:</span>
                             <span class="text-white font-bold text-base">${total.toLocaleString()} ₴</span>
                         </div>
                         <div class="flex justify-between items-center">
