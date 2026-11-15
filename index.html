@@ -886,7 +886,7 @@
                         Який час заїзду та виїзду?
                     </h3>
                     <p class="text-gray-300 text-sm pl-7 leading-relaxed">
-                        Заїзд гостей здійснюється з 13:00, а виїзд - до 12:00 годин дня.
+                        Заїзд гостей здійснюється з 12:00, а виїзд - до 10:00 годин ранку.
                     </p>
                 </div>
 
@@ -1122,10 +1122,10 @@
 
             <div class="flex gap-3">
                 <button type="button" id="closeBookingModalBtn" class="w-1/2 py-3.5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm transition-all cursor-pointer">
-                    Закрыть
+                    Закрити
                 </button>
                 <button type="button" id="deleteBookingBtn" class="w-1/2 py-3.5 rounded-xl bg-rose-600 hover:bg-rose-500 text-white font-bold text-sm shadow-lg shadow-rose-600/20 transition-all cursor-pointer">
-                    <i class="fa-solid fa-trash-can mr-1.5"></i>Отменить бронь
+                    <i class="fa-solid fa-trash-can mr-1.5"></i>Скасувати бронь
                 </button>
             </div>
         </div>
@@ -1968,8 +1968,8 @@
                 if (isCheckoutToday) {
                     return {
                         type: 'checkout',
-                        label: 'ВЫЕЗД СЕГОДНЯ (до 12:00)',
-                        timeHint: 'Освобождают номер сегодня в 12:00',
+                        label: 'ВИЇЗД СЬОГОДНІ (до 10:00)',
+                        timeHint: 'Звільняють номер сьогодні до 10:00 ранку',
                         cardClass: 'border-y border-r border-sky-500/40 border-l-8 border-l-sky-400 bg-[#0c1e38]',
                         badgeClass: 'bg-sky-600 text-white',
                         modalBorderClass: 'border-sky-400 bg-[#0c1e38]',
@@ -1979,11 +1979,11 @@
                 if (isCheckinToday || isLivingToday) {
                     const daysLeft = getDaysDiff(todayIso, b.end_date);
                     const timeHint = daysLeft === 1 
-                        ? 'Выезд завтра до 12:00' 
-                        : `Осталось жить: ${daysLeft} ${pluralDaysRu(daysLeft)}`;
+                        ? 'Виїзд завтра до 10:00' 
+                        : `Залишилось жити: ${daysLeft} ${pluralDaysRu(daysLeft)}`;
                     return {
                         type: 'living',
-                        label: isCheckinToday ? 'ЗАЕЗД СЕГОДНЯ (с 13:00)' : 'ПРОЖИВАЮТ СЕЙЧАС',
+                        label: isCheckinToday ? 'ЗАЇЗД СЬОГОДНІ (з 12:00)' : 'ПРОЖИВАЮТЬ ЗАРАЗ',
                         timeHint: timeHint,
                         cardClass: 'border-y border-r border-emerald-500/40 border-l-8 border-l-emerald-500 bg-[#062419]',
                         badgeClass: 'bg-emerald-600 text-white',
@@ -1994,11 +1994,11 @@
                 if (isFuture) {
                     const daysUntil = getDaysDiff(todayIso, b.start_date);
                     const timeHint = daysUntil === 1 
-                        ? 'Заезд уже завтра с 13:00' 
-                        : `Заезд через ${daysUntil} ${pluralDaysRu(daysUntil)}`;
+                        ? 'Заїзд вже завтра з 12:00' 
+                        : `Заїзд через ${daysUntil} ${pluralDaysRu(daysUntil)}`;
                     return {
                         type: 'booked',
-                        label: 'ЗАБРОНИРОВАНО',
+                        label: 'ЗАБРОНЬОВАНО',
                         timeHint: timeHint,
                         cardClass: 'border-y border-r border-amber-500/40 border-l-8 border-l-amber-500 bg-[#261a08]',
                         badgeClass: 'bg-amber-500 text-darkBg',
@@ -2008,8 +2008,8 @@
                 }
                 return {
                     type: 'past',
-                    label: 'УЖЕ ВЫЕХАЛИ',
-                    timeHint: 'Бронь завершена',
+                    label: 'ВЖЕ ВИЇХАЛИ',
+                    timeHint: 'Бронь завершено',
                     cardClass: 'border-y border-r border-gray-700 border-l-8 border-l-gray-500 bg-darkBg/60 opacity-70',
                     badgeClass: 'bg-gray-700 text-gray-200',
                     modalBorderClass: 'border-gray-600 bg-cardBg',
@@ -2040,7 +2040,7 @@
                         }
                     }
                 } catch (e) {
-                    console.warn('Ошибка загрузки шахматки:', e);
+                    console.warn('Помилка завантаження шахмітки:', e);
                 }
                 globalBookingsCache = bookings;
 
@@ -2054,9 +2054,9 @@
                     currentMonthBookings.sort((a, b) => (a.start_date || '').localeCompare(b.start_date || ''));
 
                     if (currentMonthBookings.length === 0) {
-                        mobileListContainer.innerHTML = `<div class="p-5 rounded-2xl bg-cardBg text-center text-gray-300 text-sm border border-gray-700">В этом месяце пока нет бронирований.</div>`;
+                        mobileListContainer.innerHTML = `<div class="p-5 rounded-2xl bg-cardBg text-center text-gray-300 text-sm border border-gray-700">У цьому місяці поки немає бронювань.</div>`;
                     } else {
-                        let mHtml = `<div class="text-sm font-bold text-accentCyan uppercase tracking-wider mb-3">Бронирования за месяц (${currentMonthBookings.length}):</div>`;
+                        let mHtml = `<div class="text-sm font-bold text-accentCyan uppercase tracking-wider mb-3">Бронювання за місяць (${currentMonthBookings.length}):</div>`;
                         currentMonthBookings.forEach(b => {
                             const statusInfo = getBookingStatusInfo(b, todayIso);
                             const guestsCountText = b.guest_count ? `👥 ${b.guest_count} гостей` : '';
@@ -2073,7 +2073,7 @@
                             if (hasTurnaround) {
                                 turnaroundTag = `<div class="mt-2 text-xs font-bold text-white bg-rose-700 px-3 py-1.5 rounded-xl border border-rose-400 inline-flex items-center gap-2"><i class="fa-solid fa-arrows-rotate"></i> Стыковка: сразу заезд другой семьи!</div>`;
                             } else if (todayIso === b.end_date) {
-                                turnaroundTag = `<div class="mt-2 text-xs font-bold text-white bg-sky-700 px-3 py-1.5 rounded-xl border border-sky-400 inline-flex items-center gap-2"><i class="fa-solid fa-door-open"></i> Выезд (уборка номера)</div>`;
+                                turnaroundTag = `<div class="mt-2 text-xs font-bold text-white bg-sky-700 px-3 py-1.5 rounded-xl border border-sky-400 inline-flex items-center gap-2"><i class="fa-solid fa-door-open"></i> Виїзд (прибирання номера)</div>`;
                             }
 
                             const bJson = encodeURIComponent(JSON.stringify(b));
@@ -2103,10 +2103,10 @@
 
                                     <div class="flex gap-2.5 mt-4 pt-3 border-t border-white/10">
                                         <a href="tel:${b.guest_phone}" onclick="event.stopPropagation()" class="flex-1 py-3 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-bold text-center text-sm shadow-md transition-all flex items-center justify-center gap-2">
-                                            <i class="fa-solid fa-phone text-base"></i> Позвонить гостю
+                                            <i class="fa-solid fa-phone text-base"></i> Зателефонувати гостю
                                         </a>
                                         <button type="button" onclick='openBookingModal(decodeURIComponent("${bJson}"))' class="py-3 px-5 rounded-xl bg-gray-800 hover:bg-gray-700 text-white font-bold text-sm border border-gray-600 transition-all cursor-pointer">
-                                            Детали
+                                            Деталі
                                         </button>
                                     </div>
                                 </div>
@@ -2158,7 +2158,7 @@
                             }
 
                             let bgClass = "bg-emerald-950/35 text-emerald-300/60 border-emerald-800/40";
-                            let titleText = "Свободно";
+                            let titleText = "Вільно";
                             let clickAction = "";
                             let cellInner = "";
 
@@ -2166,29 +2166,29 @@
                                 bgClass = isTodayCell 
                                     ? "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm" 
                                     : "bg-sky-600/85 text-white border-sky-400/70 font-bold shadow-sm";
-                                titleText = `Стыковка: Выезд (${checkoutBooking.guest_name}) и Заезд (${checkinBooking.guest_name})`;
+                                titleText = `Стиковка: Виїзд (${checkoutBooking.guest_name}) та Заїзд (${checkinBooking.guest_name})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                                 cellInner = '🔄';
                             } else if (isTodayCell && (activeBooking || checkinBooking)) {
                                 const currentB = activeBooking || checkinBooking;
                                 bgClass = "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm";
-                                titleText = `Проживает сегодня: ${currentB.guest_name} (${formatDateUa(currentB.start_date)} - ${formatDateUa(currentB.end_date)})`;
+                                titleText = `Проживає сьогодні: ${currentB.guest_name} (${formatDateUa(currentB.start_date)} - ${formatDateUa(currentB.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(currentB));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (checkinBooking) {
                                 bgClass = "bg-amber-600/85 text-white border-amber-500/70 font-bold border-l-2 border-l-white";
-                                titleText = `Заезд: ${checkinBooking.guest_name} (${formatDateUa(checkinBooking.start_date)} - ${formatDateUa(checkinBooking.end_date)})`;
+                                titleText = `Заїзд: ${checkinBooking.guest_name} (${formatDateUa(checkinBooking.start_date)} - ${formatDateUa(checkinBooking.end_date)})`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkinBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (activeBooking) {
                                 bgClass = "bg-amber-600/85 text-white border-amber-500/70 font-bold";
-                                titleText = `Гость: ${activeBooking.guest_name} | Заезд: ${formatDateUa(activeBooking.start_date)} - Выезд: ${formatDateUa(activeBooking.end_date)}`;
+                                titleText = `Гість: ${activeBooking.guest_name} | Заїзд: ${formatDateUa(activeBooking.start_date)} - Виїзд: ${formatDateUa(activeBooking.end_date)}`;
                                 const bJson = encodeURIComponent(JSON.stringify(activeBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             } else if (checkoutBooking) {
                                 bgClass = "bg-purple-700/75 text-white border-purple-500/60 font-semibold";
-                                titleText = `Выезд гостя до 12:00 (свободно после): ${checkoutBooking.guest_name}`;
+                                titleText = `Виїзд гостя до 10:00 (вільно після): ${checkoutBooking.guest_name}`;
                                 const bJson = encodeURIComponent(JSON.stringify(checkoutBooking));
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                                 cellInner = '🚪';
@@ -2232,7 +2232,7 @@
                 const prepay = Number(bookingObj.prepay_price || 0);
                 const dueOnArrival = Math.max(0, total - prepay);
                 const totalNights = getDaysDiff(bookingObj.start_date, bookingObj.end_date);
-                const guestsText = bookingObj.guest_count ? `${bookingObj.guest_count} чел.` : 'Не указано';
+                const guestsText = bookingObj.guest_count ? `${bookingObj.guest_count} гостей` : 'Не вказано';
 
                 let immediateCheckinHtml = '';
                 if (matchedNext) {
@@ -2241,11 +2241,11 @@
                         <div class="p-3 rounded-xl bg-sky-950/60 border border-sky-500/50 text-sky-200 text-xs font-semibold mt-2">
                             <div class="flex items-center space-x-2 mb-1.5">
                                 <i class="fa-solid fa-arrows-rotate text-sky-400 text-base flex-shrink-0"></i>
-                                <span>При выезде сразу же заселяется другая семья:</span>
+                                <span>При виїзді одразу ж заїжджає інша сім'я:</span>
                             </div>
                             <button type="button" onclick='openBookingModal(decodeURIComponent("${nextJson}"))' class="w-full text-left bg-sky-900/40 hover:bg-sky-900/80 border border-sky-400/40 p-2.5 rounded-xl text-white font-bold transition-all flex items-center justify-between cursor-pointer shadow-md">
                                 <span class="truncate pr-2"><i class="fa-solid fa-user mr-1.5 text-accentCyan"></i>${matchedNext.guest_name}</span>
-                                <span class="text-[11px] text-accentCyan bg-darkBg/80 px-2.5 py-1 rounded-lg border border-sky-500/30 flex-shrink-0">Карточка <i class="fa-solid fa-chevron-right text-[9px] ml-1"></i></span>
+                                <span class="text-[11px] text-accentCyan bg-darkBg/80 px-2.5 py-1 rounded-lg border border-sky-500/30 flex-shrink-0">Картка <i class="fa-solid fa-chevron-right text-[9px] ml-1"></i></span>
                             </button>
                         </div>
                     `;
@@ -2253,36 +2253,36 @@
 
                 detailsContent.innerHTML = `
                     <div class="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                        <div class="text-xs text-gray-400 uppercase tracking-wider mb-0.5">Текущий статус</div>
+                        <div class="text-xs text-gray-400 uppercase tracking-wider mb-0.5">Поточний статус</div>
                         <div class="text-base font-extrabold text-white">${statusInfo.timeHint}</div>
                     </div>
 
                     <div class="space-y-2 pt-1">
-                        <div class="flex justify-between"><span class="text-gray-400">Гость:</span> <span class="text-white font-bold">${bookingObj.guest_name}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Гість:</span> <span class="text-white font-bold">${bookingObj.guest_name}</span></div>
                         <div class="flex justify-between"><span class="text-gray-400">Телефон:</span> <a href="tel:${bookingObj.guest_phone}" class="text-accentCyan font-bold underline">${bookingObj.guest_phone}</a></div>
                         <div class="flex justify-between"><span class="text-gray-400">Номер:</span> <span class="text-white font-semibold">${bookingObj.room_type} (№${bookingObj.room_number})</span></div>
-                        <div class="flex justify-between"><span class="text-gray-400">Количество гостей:</span> <span class="text-white font-bold">${guestsText}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Кількість гостей:</span> <span class="text-white font-bold">${guestsText}</span></div>
                     </div>
 
                     <div class="border-t border-gray-800 pt-2.5 space-y-2">
-                        <div class="flex justify-between"><span class="text-gray-400">Заезд (с 13:00):</span> <span class="text-white font-semibold">${formatDateUa(bookingObj.start_date)}</span></div>
-                        <div class="flex justify-between"><span class="text-gray-400">Выезд (до 12:00):</span> <span class="text-white font-semibold">${formatDateUa(bookingObj.end_date)}</span></div>
-                        <div class="flex justify-between"><span class="text-gray-400">Всего ночей:</span> <span class="text-white font-bold">${totalNights}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Заїзд (з 12:00):</span> <span class="text-white font-semibold">${formatDateUa(bookingObj.start_date)}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Виїзд (до 10:00):</span> <span class="text-white font-semibold">${formatDateUa(bookingObj.end_date)}</span></div>
+                        <div class="flex justify-between"><span class="text-gray-400">Всього ночей:</span> <span class="text-white font-bold">${totalNights}</span></div>
                     </div>
 
                     ${immediateCheckinHtml}
 
                     <div class="border-t border-gray-800 pt-3 space-y-2 bg-black/25 p-3.5 rounded-xl">
                         <div class="flex justify-between items-center">
-                            <span class="text-gray-300">Общая сумма:</span>
+                            <span class="text-gray-300">Загальна сума:</span>
                             <span class="text-white font-bold text-base">${total.toLocaleString()} ₴</span>
                         </div>
                         <div class="flex justify-between items-center">
-                            <span class="text-gray-300">Предоплата (бронь):</span>
+                            <span class="text-gray-300">Передоплата (бронь):</span>
                             <span class="text-accentCyan font-bold text-base">${prepay.toLocaleString()} ₴</span>
                         </div>
                         <div class="flex justify-between items-center border-t border-gray-700/80 pt-2 mt-1">
-                            <span class="text-priceYellow font-extrabold">К оплате при заезде:</span>
+                            <span class="text-priceYellow font-extrabold">До сплати при заїзді:</span>
                             <span class="text-priceYellow font-black text-xl">${dueOnArrival.toLocaleString()} ₴</span>
                         </div>
                     </div>
