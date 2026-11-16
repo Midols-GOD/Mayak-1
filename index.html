@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="uk" class="scroll-smooth">
 <head>
-    <link rel="icon" href="favicon.jpg" type="image/jpeg">
-    <link rel="stylesheet" href="style.css">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-79MRZ0C366"></script>
     <script>
@@ -17,9 +15,7 @@
     <!-- SEO-теги для пошукової видачі Google -->
     <title>База відпочинку «Маяк» Приморське — Затишний відпочинок біля моря</title>
     <meta name="description" content="База відпочинку «Маяк» в Одеській області (Приморське, вул. Курортна). Комфортні номери від 800 грн/день, кафе, зона барбекю, знижки для УБД. Всього 3 хвилини до моря!">
-    <svg class="w-6 h-6 notranslate" translate="no" viewBox="0 0 24 24">
-    <path d="M12 2L2 22h20L12 2z"></path>
-</svg>
+    
     <!-- Фавіконка -->
     <link rel="icon" type="image/jpeg" href="favicon.jpg">
 
@@ -106,6 +102,19 @@
         }
         .smooth-collapse-inner {
             overflow: hidden;
+        }
+
+        @keyframes modalPop {
+            0% { opacity: 0; transform: scale(0.92) translateY(10px); }
+            100% { opacity: 1; transform: scale(1) translateY(0); }
+        }
+        .modal-animate {
+            animation: modalPop 0.28s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-dots {
+            background-image: radial-gradient(rgba(6, 182, 212, 0.22) 1.2px, transparent 1.2px);
+            background-size: 22px 22px;
         }
     </style>
 </head>
@@ -2308,38 +2317,20 @@
 
             loadMatrixData();
         });
-   <!-- OneSignal SDK (версия page.js) -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  window.OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "535504a3-6954-4735-9310-459f4fcf742e",
-    });
-    console.log("OneSignal успешно инициализирован!");
-  });
+    </script>
 
-  // Функция вызова окна подписки
-  function enablePush() {
-      window.OneSignalDeferred.push(async function(OneSignal) {
-          try {
-              await OneSignal.Slidedown.promptPush();
-              console.log("Запрос подписки вызван!");
-          } catch (e) {
-              console.error("Ошибка вызова подписки:", e);
-          }
+    <!-- OneSignal Web Push SDK для адміна -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        if (new URLSearchParams(window.location.search).get('admin') === '1') {
+          await OneSignal.init({
+            appId: "535504a3-6954-4735-9310-459f4fcf742e",
+          });
+          await OneSignal.Slidedown.promptPush();
+        }
       });
-  }
-</script>
-
-<!-- Единственная аккуратная кнопка подписки -->
-<div style="text-align: center; margin: 30px;">
-    <button onclick="enablePush()" style="background: #2ed573; color: white; padding: 12px 20px; border: none; border-radius: 8px; font-size: 16px; cursor: pointer; box-shadow: 0 4px 6px rgba(0,0,0,0.2);">
-        🔔 Подписаться на пуши
-    </button>
-</div>
-
-</body>
-</html>
+    </script>
 </body>
 </html>
