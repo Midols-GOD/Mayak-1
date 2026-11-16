@@ -307,7 +307,7 @@
                             <p class="text-gray-200 text-base mb-6 leading-relaxed">Просторний номер із сучасним ремонтом, підвищеним затишком та повним комплектом зручностей для ідеального відпочинку.</p>
                             
                             <div class="space-y-3 mb-8 text-base text-gray-200 border-t border-b border-gray-800 py-4">
-                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-3 text-base"></i><span>Розраховано на 3 або 4 людей</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-3 text-base"></i><span>Розраховано до 4 людей (основний на 3)</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-3 text-base"></i><span>Двоспальне ліжко, а також зручний диван</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-3 text-base"></i><span>Кондиціонер для приємної прохолоди</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-3 text-base"></i><span>Ванна кімната (санвузол, душ)</span></div>
@@ -491,10 +491,10 @@
 
                             <div id="roomDropdownMenu" class="smooth-collapse mt-2 bg-darkBg border border-cyan-500/40 rounded-2xl shadow-2xl">
                                 <div class="smooth-collapse-inner divide-y divide-gray-800/80">
-                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»" data-min-guests="3" data-max-guests="4" data-default-guests="3">
+                                    <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»" data-min-guests="1" data-max-guests="4" data-default-guests="3">
                                         <div>
                                             <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-gray-400">3 гості — 1500 ₴, 4 гості — 2000 ₴</div>
+                                            <div class="text-xs text-gray-400">1-3 гості — 1500 ₴, 4 гості — 2000 ₴</div>
                                         </div>
                                         <span class="text-priceYellow font-extrabold text-sm text-right flex-shrink-0 ml-4">1 500 ₴</span>
                                     </button>
@@ -528,7 +528,7 @@
 
                         <!-- КНОПКА ГОСТЕЙ -->
                         <div class="relative">
-                            <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Кількість гостей <span id="maxGuestsHint" class="text-accentCyan font-normal">(3-4 гост.)</span>:</label>
+                            <label class="block text-xs font-bold text-gray-300 uppercase mb-1.5">Кількість гостей <span id="maxGuestsHint" class="text-accentCyan font-normal">(1-4 гост.)</span>:</label>
                             <input type="hidden" id="calcGuestCount" value="3">
                             
                             <button type="button" id="guestDropdownBtn" class="w-full bg-darkBg border border-cyan-500/40 hover:border-accentCyan rounded-xl px-4 py-3.5 text-left flex items-center justify-between transition-all shadow-md cursor-pointer">
@@ -1480,8 +1480,8 @@
                 });
             }
 
-            // Инициализация при загрузке (по умолчанию Люкс -> 3 гостя)
-            updateGuestDropdown(3, 4, 3);
+            // Ініціалізація при завантаженні (Люкс -> 3 гостя за замовчуванням)
+            updateGuestDropdown(1, 4, 3);
 
             const ROOM_INVENTORY_COUNTS = {
                 '2-х місний номер': 2,
