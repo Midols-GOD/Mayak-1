@@ -756,8 +756,8 @@
                     <span>Выезд сегодня</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-gray-900 border border-gray-800 opacity-40"></div>
-                    <span>Прошедший день</span>
+                    <div class="w-4 h-4 rounded bg-amber-900/30 border border-amber-800/40 opacity-70"></div>
+                    <span>Прошедший день (уже жили)</span>
                 </div>
             </div>
 
@@ -1860,7 +1860,7 @@
             renderAll();
         })();
 
-        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН)
+        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН) З АВТООБНОВЛЕННЯМ (REALTIME)
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             const mobileListContainer = document.getElementById('adminMobileBookingsList');
@@ -2011,7 +2011,7 @@
                     type: 'past',
                     label: 'УЖЕ ВЫЕХАЛИ',
                     timeHint: 'Бронь завершена',
-                    cardClass: 'border-y border-r border-gray-700 border-l-8 border-l-gray-500 bg-darkBg/60 opacity-70',
+                    cardClass: 'border-y border-r border-gray-700 border-l-8 border-l-gray-600 bg-darkBg/60 opacity-80',
                     badgeClass: 'bg-gray-700 text-gray-200',
                     modalBorderClass: 'border-gray-600 bg-cardBg',
                     iconWrapClass: 'bg-gray-800 border-gray-600 text-gray-300'
@@ -2175,9 +2175,17 @@
                             let cellInner = "";
 
                             if (isPastCell) {
-                                // Прошедший день — приглушенный серый фон, без визуального шума
-                                bgClass = "bg-gray-900/60 text-gray-600 border-gray-800/40 opacity-40";
-                                titleText = "Прошедший день";
+                                if (activeBooking || checkinBooking || checkoutBooking) {
+                                    // Прошедший день, когда люди реально жили — приглушенный мягкий оранжевый оттенок
+                                    const pastB = activeBooking || checkinBooking || checkoutBooking;
+                                    bgClass = "bg-amber-950/40 text-amber-200/50 border-amber-800/30 opacity-75";
+                                    titleText = `Проживали: ${pastB.guest_name} (${formatDateUa(pastB.start_date)} - ${formatDateUa(pastB.end_date)})`;
+                                    const bJson = encodeURIComponent(JSON.stringify(pastB));
+                                    clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
+                                } else {
+                                    bgClass = "bg-gray-900/60 text-gray-600 border-gray-800/40 opacity-40";
+                                    titleText = "Прошедший день";
+                                }
                             } else if (checkoutBooking && checkinBooking) {
                                 bgClass = isTodayCell 
                                     ? "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm" 
@@ -2337,6 +2345,21 @@
             });
 
             loadMatrixData();
+
+            // Автообновление в реальном времени (Realtime) через Supabase
+            if (supabaseClient) {
+                try {
+                    supabaseClient
+                        .channel('public:bookings')
+                        .on('postgres_changes', { event: '*', schema: 'public', table: 'bookings' }, payload => {
+                            console.log('Realtime change received:', payload);
+                            loadMatrixData();
+                        })
+                        .subscribe();
+                } catch (e) {
+                    console.warn('Realtime subscription warning:', e);
+                }
+            }
         });
     </script>
 
