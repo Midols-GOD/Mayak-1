@@ -657,7 +657,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-white mb-3">Домашнє комплексне харчування</h3>
                         <p class="text-gray-300 text-sm mb-5 leading-relaxed">
-                            Замовляйте комплексне триразове харчування у нашому кафе на весь відпочинок або на окремі дні за спеціальною ціною.
+                            Замовляйте комплексне трёхразове харчування у нашому кафе на весь відпочинок або на окремі дні за спеціальною ціною. Готуємо по-домашньому, свіже щодня — смачні сніданки, обіди та вечері у нашому затишному кафе.
                         </p>
                         
                         <div class="bg-darkBg/60 rounded-xl p-4 mb-6 border border-gray-800 space-y-2">
@@ -670,7 +670,7 @@
                                 <span class="text-white text-lg">350 <span class="text-priceYellow">₴</span> <span class="text-xs text-gray-400 font-normal">/ день за особу</span></span>
                             </div>
                             <div class="text-xs text-gray-400 pt-1.5 border-t border-gray-800/40">
-                                У ціну входить сніданок, обід та вечеря. Готуємо по-домашньому, свіже щодня.
+                                У ціну входить сніданок, обід та вечеря.
                             </div>
                         </div>
                     </div>
@@ -705,7 +705,7 @@
                             </div>
                             <div class="flex items-start space-x-2.5 border-t border-gray-800/60 pt-2.5">
                                 <i class="fa-solid fa-check text-accentCyan mt-1"></i>
-                                <div><strong>Гнучкий графік заїзду/виїзду</strong> - за наявності вільного номера йдемо назустріч щодо раннього заїзду або пізнього виїзду без додаткової плати.</div>
+                                <div><strong>Гнучкий графік заїзду</strong> - за наявності вільного номера йдемо назустріч щодо раннього заїзду без додаткової плати.</div>
                             </div>
                         </div>
 
@@ -756,7 +756,7 @@
                     <span>Выезд сегодня</span>
                 </div>
                 <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-amber-900/30 border border-amber-800/40 opacity-70"></div>
+                    <div class="w-4 h-4 rounded bg-cyan-950/50 border border-cyan-800/60 opacity-80"></div>
                     <span>Прошедший день (уже жили)</span>
                 </div>
             </div>
@@ -1860,7 +1860,7 @@
             renderAll();
         })();
 
-        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН) З АВТООБНОВЛЕННЯМ (REALTIME)
+        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН) З АВТООБНОВЛЕННЯМ (REALTIME + POLLING)
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             const mobileListContainer = document.getElementById('adminMobileBookingsList');
@@ -2176,9 +2176,9 @@
 
                             if (isPastCell) {
                                 if (activeBooking || checkinBooking || checkoutBooking) {
-                                    // Прошедший день, когда люди реально жили — приглушенный мягкий оранжевый оттенок
+                                    // Прошедший день, когда люди жили — чистый, аккуратный приглушенный сине-бирюзовый оттенок (никакой коричневицы)
                                     const pastB = activeBooking || checkinBooking || checkoutBooking;
-                                    bgClass = "bg-amber-950/40 text-amber-200/50 border-amber-800/30 opacity-75";
+                                    bgClass = "bg-cyan-950/50 text-cyan-200/60 border-cyan-800/50 opacity-80";
                                     titleText = `Проживали: ${pastB.guest_name} (${formatDateUa(pastB.start_date)} - ${formatDateUa(pastB.end_date)})`;
                                     const bJson = encodeURIComponent(JSON.stringify(pastB));
                                     clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
@@ -2346,7 +2346,7 @@
 
             loadMatrixData();
 
-            // Автообновление в реальном времени (Realtime) через Supabase
+            // Автообновление в реальном времени (Realtime + Polling каждые 5 сек)
             if (supabaseClient) {
                 try {
                     supabaseClient
@@ -2360,6 +2360,11 @@
                     console.warn('Realtime subscription warning:', e);
                 }
             }
+
+            // Дополнительный опрос базы каждые 5 секунд для мгновенного обновления без F5
+            setInterval(() => {
+                loadMatrixData();
+            }, 5000);
         });
     </script>
 
