@@ -221,7 +221,7 @@
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-utensils text-accentCyan mt-1 mr-3 text-sm"></i>
-                        <span><strong>Власне кафе та бар:</strong> Домашня їжа, ситні сніданки, обіди й вечері, а також прохолодні напої протягом дня.</span>
+                        <span><strong>Власне кафе та бар (домашня їжа):</strong> Ситні сніданки, обіди й вечері зі свіжих продуктів, а також прохолодні напої.</span>
                     </li>
                     <li class="flex items-start">
                         <i class="fa-solid fa-fire text-accentCyan mt-1 mr-3 text-sm"></i>
@@ -722,50 +722,66 @@
     </section>
 
     <!-- ШАХМАТНА ДОШКА ЗАЙНЯТОСТІ (АДМІН-ПАНЕЛЬ) -->
-    <div id="adminMatrixSection" class="max-w-7xl mx-auto px-4 py-12 hidden">
-        <div class="bg-cardBg rounded-3xl p-6 sm:p-8 border border-gray-800 shadow-2xl">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-6 gap-4">
+    <div id="adminMatrixSection" class="max-w-7xl mx-auto px-3 sm:px-4 py-8 sm:py-12 hidden">
+        <div class="bg-cardBg rounded-3xl p-4 sm:p-8 border border-gray-800 shadow-2xl">
+            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-5 gap-4">
                 <div>
-                    <h3 class="text-2xl font-bold text-white mb-1"><i class="fa-solid fa-table-cells text-accentCyan mr-2"></i>Шахматная доска занятости (Админ)</h3>
-                    <p class="text-gray-400 text-sm">Визуальный контроль занятости и управление бронированиями</p>
+                    <h3 class="text-xl sm:text-2xl font-bold text-white mb-1">
+                        <i class="fa-solid fa-table-cells text-accentCyan mr-2"></i>Шахматная доска занятости
+                    </h3>
+                    <p class="text-gray-400 text-xs sm:text-sm">Листайте таблицу пальцем влево-вправо. Нажмите на цветную ячейку для деталей.</p>
                 </div>
-                <div class="flex items-center space-x-3 bg-darkBg px-4 py-2 rounded-xl border border-gray-800">
-                    <button type="button" id="matrixPrevMonth" class="text-accentCyan hover:text-white px-2 cursor-pointer"><i class="fa-solid fa-chevron-left"></i></button>
-                    <span id="matrixMonthTitle" class="text-white font-bold text-sm uppercase tracking-wider">Июль 2026</span>
-                    <button type="button" id="matrixNextMonth" class="text-accentCyan hover:text-white px-2 cursor-pointer"><i class="fa-solid fa-chevron-right"></i></button>
+                
+                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                    <!-- Переключатель вида для мобильных устройств -->
+                    <div class="flex sm:hidden bg-darkBg p-1 rounded-xl border border-gray-800">
+                        <button type="button" id="viewModeGridBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-accentCyan text-darkBg transition-all">
+                            <i class="fa-solid fa-table-cells mr-1"></i>Сетка
+                        </button>
+                        <button type="button" id="viewModeListBtn" class="px-3 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all">
+                            <i class="fa-solid fa-list mr-1"></i>Список
+                        </button>
+                    </div>
+
+                    <!-- Навигация по месяцам -->
+                    <div class="flex items-center space-x-3 bg-darkBg px-3.5 py-2 rounded-xl border border-gray-800">
+                        <button type="button" id="matrixPrevMonth" class="text-accentCyan hover:text-white px-1.5 cursor-pointer"><i class="fa-solid fa-chevron-left"></i></button>
+                        <span id="matrixMonthTitle" class="text-white font-bold text-xs sm:text-sm uppercase tracking-wider">Июль 2026</span>
+                        <button type="button" id="matrixNextMonth" class="text-accentCyan hover:text-white px-1.5 cursor-pointer"><i class="fa-solid fa-chevron-right"></i></button>
+                    </div>
                 </div>
             </div>
 
             <!-- Легенда цветов -->
-            <div class="flex flex-wrap items-center gap-4 mb-6 text-xs text-gray-300 bg-darkBg/60 p-3.5 rounded-xl border border-gray-800/80">
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-emerald-950/50 border border-emerald-700/50"></div>
+            <div class="flex flex-wrap items-center gap-3 sm:gap-4 mb-5 text-[11px] sm:text-xs text-gray-300 bg-darkBg/60 p-3 rounded-xl border border-gray-800/80">
+                <div class="flex items-center space-x-1.5">
+                    <div class="w-3.5 h-3.5 rounded bg-emerald-950/50 border border-emerald-700/50"></div>
                     <span>Свободно</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-amber-600/85 border border-amber-500/70"></div>
-                    <span>Забронировано (будущий заезд)</span>
+                <div class="flex items-center space-x-1.5">
+                    <div class="w-3.5 h-3.5 rounded bg-amber-600/85 border border-amber-500/70"></div>
+                    <span>Бронь</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-emerald-600/90 border border-emerald-400"></div>
-                    <span>Проживает (сегодня)</span>
+                <div class="flex items-center space-x-1.5">
+                    <div class="w-3.5 h-3.5 rounded bg-emerald-600/90 border border-emerald-400"></div>
+                    <span>Проживает</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-sky-600/85 border border-sky-400"></div>
-                    <span>Выезд сегодня</span>
+                <div class="flex items-center space-x-1.5">
+                    <div class="w-3.5 h-3.5 rounded bg-sky-600/85 border border-sky-400"></div>
+                    <span>Выезд</span>
                 </div>
-                <div class="flex items-center space-x-2">
-                    <div class="w-4 h-4 rounded bg-gray-800/80 border border-gray-700"></div>
-                    <span>Прошедший день (уже жили)</span>
+                <div class="flex items-center space-x-1.5">
+                    <div class="w-3.5 h-3.5 rounded bg-gray-800/80 border border-gray-700"></div>
+                    <span>Прошедший</span>
                 </div>
             </div>
 
-            <!-- Мобильный список броней -->
-            <div id="adminMobileBookingsList" class="block sm:hidden mb-4 space-y-4"></div>
+            <!-- Мобильный список броней (по умолчанию скрыт, открывается по кнопке "Список") -->
+            <div id="adminMobileBookingsList" class="hidden mb-4 space-y-4"></div>
 
-            <!-- Десктопная шахматная таблица -->
-            <div class="overflow-x-auto hidden sm:block">
-                <div id="matrixTableContainer" class="min-w-[900px]"></div>
+            <!-- Адаптивная шахматная таблица (работает и на ПК, и на телефоне) -->
+            <div id="matrixWrapper" class="overflow-x-auto pb-2 -mx-2 px-2 sm:mx-0 sm:px-0">
+                <div id="matrixTableContainer" class="min-w-[1150px] sm:min-w-[950px]"></div>
             </div>
         </div>
     </div>
@@ -1099,7 +1115,7 @@
         </div>
     </div>
 
-    <!-- МОДАЛЬНОЕ ОКНО УПРАВЛЕНИЯ БРОНЬЮ (ДЕТАЛИ БРОНИРОВАНИЯ - РУССКИЙ ЯЗЫК, КРУПНЫЙ ТЕКСТ) -->
+    <!-- МОДАЛЬНОЕ ОКНО УПРАВЛЕНИЯ БРОНЬЮ -->
     <div id="adminBookingModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4 overflow-y-auto">
         <div id="adminBookingModalBox" class="bg-cardBg border-2 border-cyan-500/50 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl modal-animate my-auto">
             <div class="flex items-center justify-between mb-4">
@@ -1859,7 +1875,7 @@
             renderAll();
         })();
 
-        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН) З АВТООБНОВЛЕННЯМ (REALTIME + POLLING)
+        // 5. ШАХМАТКА ТА МОБІЛЬНИЙ СПИСОК БРОНЕЙ (АДМИН) З АВТООБНОВЛЕННЯМ
         document.addEventListener("DOMContentLoaded", async function() {
             const container = document.getElementById('matrixTableContainer');
             const mobileListContainer = document.getElementById('adminMobileBookingsList');
@@ -1868,6 +1884,26 @@
             const titleEl = document.getElementById('matrixMonthTitle');
             const prevBtn = document.getElementById('matrixPrevMonth');
             const nextBtn = document.getElementById('matrixNextMonth');
+
+            const viewModeGridBtn = document.getElementById('viewModeGridBtn');
+            const viewModeListBtn = document.getElementById('viewModeListBtn');
+            const matrixWrapper = document.getElementById('matrixWrapper');
+
+            if (viewModeGridBtn && viewModeListBtn) {
+                viewModeGridBtn.addEventListener('click', () => {
+                    matrixWrapper.classList.remove('hidden');
+                    mobileListContainer.classList.add('hidden');
+                    viewModeGridBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-accentCyan text-darkBg transition-all';
+                    viewModeListBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all';
+                });
+
+                viewModeListBtn.addEventListener('click', () => {
+                    matrixWrapper.classList.add('hidden');
+                    mobileListContainer.classList.remove('hidden');
+                    viewModeListBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold bg-accentCyan text-darkBg transition-all';
+                    viewModeGridBtn.className = 'px-3 py-1.5 rounded-lg text-xs font-bold text-gray-400 hover:text-white transition-all';
+                });
+            }
 
             const bookingModal = document.getElementById('adminBookingModal');
             const bookingModalBox = document.getElementById('adminBookingModalBox');
@@ -2127,22 +2163,37 @@
                 }
 
                 let html = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
-                html += `<th class="p-2 text-left text-gray-400 font-semibold w-40 sticky left-0 bg-cardBg z-10">Номер</th>`;
+                html += `<th class="p-2 text-left text-gray-400 font-semibold w-24 sm:w-40 sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">Номер</th>`;
 
                 for (let d = 1; d <= daysInMonth; d++) {
                     const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                     const isTodayCol = (colIso === todayIso);
-                    const thClass = isTodayCol ? "p-1 text-center text-emerald-400 font-extrabold w-8 bg-emerald-950/30 rounded-t" : "p-1 text-center text-gray-400 font-medium w-8";
-                    html += `<th class="${thClass}">${d}</th>`;
+                    const thId = isTodayCol ? 'id="todayMatrixCol"' : '';
+                    const thClass = isTodayCol 
+                        ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[36px] bg-emerald-950/40 rounded-t" 
+                        : "p-1.5 text-center text-gray-400 font-medium min-w-[36px]";
+                    html += `<th ${thId} class="${thClass}">${d}</th>`;
                 }
                 html += `</tr></thead><tbody>`;
 
                 roomsStructure.forEach(group => {
-                    html += `<tr class="bg-darkBg/40"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
+                    const shortCat = group.category
+                        .replace('Номер «Люкс»', 'Люкс')
+                        .replace('4-х місний номер', '4-місн.')
+                        .replace('3-х місний номер', '3-місн.')
+                        .replace('2-х місний номер', '2-місн.');
+
+                    html += `<tr class="bg-darkBg/60">
+                        <td class="p-2 font-bold text-accentCyan text-[11px] sm:text-xs uppercase tracking-wider border-t border-gray-800 sticky left-0 bg-[#0d1322] z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">
+                            <span class="sm:hidden">${shortCat}</span>
+                            <span class="hidden sm:inline">${group.category}</span>
+                        </td>
+                        <td colspan="${daysInMonth}" class="border-t border-gray-800 bg-darkBg/40"></td>
+                    </tr>`;
 
                     for (let rNum = 1; rNum <= group.count; rNum++) {
                         html += `<tr class="border-b border-gray-800/40 hover:bg-gray-800/20">`;
-                        html += `<td class="p-2 text-white font-medium sticky left-0 bg-cardBg z-10 border-r border-gray-800">№${rNum}</td>`;
+                        html += `<td class="p-2 text-white font-bold sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">№${rNum}</td>`;
 
                         for (let d = 1; d <= daysInMonth; d++) {
                             const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
@@ -2215,7 +2266,7 @@
                                 clickAction = `onclick='openBookingModal(decodeURIComponent("${bJson}"))'`;
                             }
 
-                            html += `<td class="p-1 text-center"><div ${clickAction} class="h-7 rounded border ${bgClass} flex items-center justify-center cursor-pointer transition-transform hover:scale-110 text-[10px]" title="${titleText}">${cellInner}</div></td>`;
+                            html += `<td class="p-1 text-center"><div ${clickAction} class="h-9 sm:h-7 min-w-[32px] rounded-md border ${bgClass} flex items-center justify-center cursor-pointer active:scale-95 sm:hover:scale-110 transition-transform text-[11px] font-bold" title="${titleText}">${cellInner}</div></td>`;
                         }
                         html += `</tr>`;
                     }
@@ -2223,6 +2274,14 @@
 
                 html += `</tbody></table>`;
                 container.innerHTML = html;
+
+                const todayColEl = document.getElementById('todayMatrixCol');
+                if (todayColEl && matrixWrapper) {
+                    const offsetLeft = todayColEl.offsetLeft - 110;
+                    if (offsetLeft > 0) {
+                        matrixWrapper.scrollTo({ left: offsetLeft, behavior: 'smooth' });
+                    }
+                }
             }
 
             window.openBookingModal = function(bookingObj) {
@@ -2344,7 +2403,6 @@
 
             loadMatrixData();
 
-            // Автообновление в реальном времени (Realtime + Polling каждые 5 сек)
             if (supabaseClient) {
                 try {
                     supabaseClient
