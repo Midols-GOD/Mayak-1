@@ -150,6 +150,9 @@
             </nav>
 
             <div class="flex items-center space-x-3">
+                <button type="button" onclick="openCallAdminModal()" class="hidden sm:inline-flex items-center px-4 py-2.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-xs hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
+                    <i class="fa-solid fa-phone mr-2"></i>Подзвонити
+                </button>
                 <div class="md:hidden flex items-center">
                     <button id="menu-btn" type="button" class="text-gray-300 hover:text-white focus:outline-none p-2 transition-transform duration-300">
                         <i id="menu-icon" class="fa-solid fa-bars text-2xl"></i>
@@ -172,9 +175,9 @@
             <a href="#faq" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="faq">FAQ (Питання)</a>
             <a href="#reviews" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="reviews">Відгуки</a>
             <a href="#contacts" class="mobile-link nav-link block py-3 text-gray-300 border-b border-gray-800/50" data-target="contacts"><i class="fa-solid fa-map-location-dot mr-1"></i>Контакти та Карта</a>
-            <a href="tel:+380935754668" class="block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20">
+            <button type="button" onclick="openCallAdminModal()" class="w-full block text-center my-4 py-3 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold shadow-lg shadow-cyan-500/20 cursor-pointer">
                 <i class="fa-solid fa-phone mr-2"></i>Подзвонити
-            </a>
+            </button>
         </div>
     </header>
 
@@ -320,9 +323,9 @@
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20">
+                        <button type="button" onclick="openCallAdminModal()" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 cursor-pointer">
                             <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -364,9 +367,9 @@
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20">
+                        <button type="button" onclick="openCallAdminModal()" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 cursor-pointer">
                             <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -408,9 +411,9 @@
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20">
+                        <button type="button" onclick="openCallAdminModal()" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 cursor-pointer">
                             <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -452,9 +455,9 @@
                             </div>
                         </div>
 
-                        <a href="tel:+380935754668" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20">
+                        <button type="button" onclick="openCallAdminModal()" class="block w-full py-4 rounded-2xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-extrabold text-base hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 cursor-pointer">
                             <i class="fa-solid fa-phone mr-2"></i>Зателефонувати
-                        </a>
+                        </button>
                     </div>
                 </div>
 
@@ -481,7 +484,7 @@
                         </div>
                         <h3 class="text-xl font-bold text-white mb-3">Комплексне харчування</h3>
                         <p class="text-gray-300 text-sm mb-4 leading-relaxed">
-                            Повноцінне триразове домашнє харчування у нашому кафе зі свіжих продуктів. У день заїзду (з 12:00, сніданок до 13:00) доступний повний цикл, а в день виїзду (до 10:00) — сніданок (100 ₴/особу).
+                            Повноцінне триразове домашнє харчування у нашому кафе зі свіжих продуктів. У день заїзду (з 12:00, сніданок з 9:00 до 13:00) доступний повний цикл, а в день виїзду (до 10:00) — сніданок (100 ₴/особу).
                         </p>
 
                         <!-- Плашка про дітей -->
@@ -494,10 +497,10 @@
                         </div>
 
                         <div class="bg-darkBg/50 rounded-xl p-3 mb-4 border border-gray-800/80 text-xs text-gray-300 space-y-1">
-                            <div class="font-bold text-accentCyan uppercase tracking-wider mb-1">Звичайна вартість за прийомами їжі:</div>
-                            <div class="flex justify-between"><span>• Сніданок (до 13:00)</span><span class="font-semibold text-white">150 ₴</span></div>
-                            <div class="flex justify-between"><span>• Обід (з 13:00)</span><span class="font-semibold text-white">250 ₴</span></div>
-                            <div class="flex justify-between"><span>• Вечеря</span><span class="font-semibold text-white">200 ₴</span></div>
+                            <div class="font-bold text-accentCyan uppercase tracking-wider mb-1">Графік та звичайна вартість:</div>
+                            <div class="flex justify-between"><span>• Сніданок (з 9:00 до 13:00)</span><span class="font-semibold text-white">150 ₴</span></div>
+                            <div class="flex justify-between"><span>• Обід (з 13:00 до 16:00)</span><span class="font-semibold text-white">250 ₴</span></div>
+                            <div class="flex justify-between"><span>• Вечеря (з 16:00 до 20:00)</span><span class="font-semibold text-white">200 ₴</span></div>
                         </div>
 
                         <!-- Кнопка відкриття прикладу меню -->
@@ -509,9 +512,9 @@
                             <div id="menuExamplePanel" class="smooth-collapse">
                                 <div class="smooth-collapse-inner">
                                     <div class="mt-2 bg-darkBg/80 rounded-xl p-3.5 border border-gray-800 text-xs text-gray-300 space-y-2">
-                                        <div><strong class="text-white">Сніданок:</strong> домашні сирники зі сметаною, омлет із зеленню, молочні каші, млинці, чай/кава.</div>
-                                        <div class="border-t border-gray-800/70 pt-1.5"><strong class="text-white">Обід:</strong> український борщ зі сметаною або домашній супчик з локшиною, гарнір (картопля, гречка, плов) з м'ясною стравою та свіжий салат.</div>
-                                        <div class="border-t border-gray-800/70 pt-1.5"><strong class="text-white">Вечеря:</strong> запіканка, риба або відбивна з гарніром, овочева нарізка, випічка або сезонні фрукти.</div>
+                                        <div><strong class="text-white">Сніданок (9:00 – 13:00):</strong> сирники, омлет, молочні каші, млинці, чай або кава.</div>
+                                        <div class="border-t border-gray-800/70 pt-1.5"><strong class="text-white">Обід (13:00 – 16:00):</strong> перше (борщ або суп), друге (гарнір з м'ясною стравою), салат та компот.</div>
+                                        <div class="border-t border-gray-800/70 pt-1.5"><strong class="text-white">Вечеря (16:00 – 20:00):</strong> гаряче друге з гарніром, овочева нарізка, випічка або сезонні фрукти, чай.</div>
                                     </div>
                                 </div>
                             </div>
@@ -532,9 +535,9 @@
                         </div>
                     </div>
 
-                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                    <button type="button" onclick="openCallAdminModal()" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
                         <i class="fa-solid fa-phone mr-2"></i>Замовити або спитати
-                    </a>
+                    </button>
                 </div>
 
                 <!-- УБД -->
@@ -572,9 +575,9 @@
                         </p>
                     </div>
 
-                    <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20">
+                    <button type="button" onclick="openCallAdminModal()" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg text-center font-bold text-sm hover:opacity-95 transition-all shadow-lg shadow-cyan-500/20 cursor-pointer">
                         <i class="fa-solid fa-phone mr-2"></i>Подзвонити нам
-                    </a>
+                    </button>
                 </div>
             </div>
         </div>
@@ -963,7 +966,7 @@
                         Який час заїзду та виїзду?
                     </h3>
                     <p class="text-gray-300 text-sm pl-7 leading-relaxed">
-                        Заїзд гостей здійснюється з 12:00 (сніданок до 13:00), а виїзд - до 10:00 годин ранку.
+                        Заїзд гостей здійснюється з 12:00 (сніданок з 9:00 до 13:00), а виїзд - до 10:00 годин ранку.
                     </p>
                 </div>
 
@@ -1127,9 +1130,9 @@
                 <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Зв'яжіться з нами</h2>
                 <p class="text-gray-300 mb-2">Адміністратор: <strong class="text-white">Тамара Василівна</strong></p>
                 <p class="text-gray-300 mb-8">Готові уточнити деталі або є запитання щодо ціни? Телефонуйте нам у будь-який час!</p>
-                <a href="tel:+380935754668" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6">
+                <button type="button" onclick="openCallAdminModal()" class="inline-flex items-center px-8 py-4 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-bold text-lg hover:opacity-90 transition-all shadow-xl shadow-cyan-500/20 mb-6 cursor-pointer">
                     <i class="fa-solid fa-phone mr-3 text-xl"></i> +38 (093) 575-46-68
-                </a>
+                </button>
                 <div class="space-y-2 mt-4">
                     <p class="text-sm text-gray-200 font-semibold">
                         <i class="fa-solid fa-location-dot text-accentCyan mr-1.5"></i> Адреса: вул. Курортна, с. Приморське, Одеська область, 68350
@@ -1155,6 +1158,39 @@
     <footer class="py-8 px-4 bg-darkBg border-t border-gray-900 text-center text-gray-500 text-sm mb-6 sm:mb-0">
         <p>&copy; 2026 База відпочинку «Маяк» (Приморське, Одеська область). Всі права захищені.</p>
     </footer>
+
+    <!-- МОДАЛЬНЕ ВІКНО ДЗВІНКА АДМІНІСТРАТОРУ -->
+    <div id="callAdminModal" onclick="closeCallAdminModal()" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden items-center justify-center p-4">
+        <div class="bg-cardBg border border-cyan-500/40 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl text-center modal-animate relative" onclick="event.stopPropagation()">
+            <button type="button" onclick="closeCallAdminModal()" class="absolute top-4 right-4 text-gray-400 hover:text-white text-xl p-1 cursor-pointer">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div class="w-16 h-16 rounded-2xl bg-cyan-950/90 border border-cyan-500/40 flex items-center justify-center text-accentCyan text-3xl mx-auto mb-4">
+                <i class="fa-solid fa-phone-volume"></i>
+            </div>
+
+            <div class="text-xs uppercase tracking-widest text-accentCyan font-bold mb-1">Адміністратор бази «Маяк»</div>
+            <h3 class="text-2xl font-black text-white mb-2">Тамара Василівна</h3>
+            <p class="text-gray-300 text-sm mb-5 leading-relaxed">
+                Відповість на всі запитання щодо вільних номерів, цін та умов заселення.
+            </p>
+
+            <div class="bg-darkBg/90 border border-gray-800 rounded-2xl p-4 mb-5">
+                <div class="text-xs text-gray-400 mb-1">Номер телефону:</div>
+                <div class="text-2xl font-black text-priceYellow tracking-wide select-all">+38 (093) 575-46-68</div>
+            </div>
+
+            <div class="space-y-2.5">
+                <a href="tel:+380935754668" class="block w-full py-3.5 rounded-xl bg-gradient-to-r from-accentCyan to-accentBlue text-darkBg font-extrabold text-base shadow-lg shadow-cyan-500/20 hover:opacity-95 transition-all">
+                    <i class="fa-solid fa-phone mr-2"></i>Зателефонувати зараз
+                </a>
+                <button type="button" id="copyPhoneBtn" onclick="copyAdminPhone()" class="w-full py-3 rounded-xl bg-darkBg hover:bg-gray-800 border border-gray-700 text-gray-200 font-bold text-sm transition-all cursor-pointer">
+                    <i class="fa-regular fa-copy mr-2 text-accentCyan"></i><span id="copyPhoneBtnText">Скопіювати номер телефону</span>
+                </button>
+            </div>
+        </div>
+    </div>
 
     <!-- МОДАЛЬНЕ ОКНО ГАЛЕРЕЇ -->
     <div id="image-modal" onclick="closeModalGallery()" class="fixed inset-0 z-50 bg-black/90 hidden items-center justify-center p-4 backdrop-blur-md">
@@ -1227,6 +1263,43 @@
 
     <!-- ВСІ СКРИПТИ -->
     <script>
+        // Модальне вікно зв'язку з адміністратором (Тамара Василівна)
+        function openCallAdminModal() {
+            const modal = document.getElementById('callAdminModal');
+            const copyText = document.getElementById('copyPhoneBtnText');
+            if (copyText) copyText.textContent = 'Скопіювати номер телефону';
+            if (modal) {
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            }
+        }
+
+        function closeCallAdminModal() {
+            const modal = document.getElementById('callAdminModal');
+            if (modal) {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }
+        }
+
+        function copyAdminPhone() {
+            const phone = '+380935754668';
+            const copyText = document.getElementById('copyPhoneBtnText');
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(phone).then(() => {
+                    if (copyText) copyText.textContent = 'Номер скопійовано!';
+                }).catch(() => {});
+            } else {
+                const tmp = document.createElement('input');
+                tmp.value = phone;
+                document.body.appendChild(tmp);
+                tmp.select();
+                document.execCommand('copy');
+                document.body.removeChild(tmp);
+                if (copyText) copyText.textContent = 'Номер скопійовано!';
+            }
+        }
+
         // Спойлер прикладу меню
         const toggleMenuBtn = document.getElementById('toggleMenuExampleBtn');
         const menuExamplePanel = document.getElementById('menuExamplePanel');
@@ -1974,7 +2047,7 @@
                         showCustomNotice({
                             title: 'Вільних номерів немає',
                             message: `На жаль, на обрані дати всі номери цієї категорії вже зайняті іншими гостями. ${suggestionText}`,
-                            badgeText: "Будь ласка, оберіть інші дати або зв'яжіться з нами: +38 (093) 575-46-68",
+                            badgeText: "Тамара Василівна (адміністратор): +38 (093) 575-46-68",
                             type: 'error'
                         });
 
@@ -2055,7 +2128,7 @@
                     console.error('Booking error:', err);
                     showCustomNotice({
                         title: "Помилка з'єднання",
-                        message: 'Не вдалося зберегти бронювання. Зателефонуйте нам: +38 (093) 575-46-68',
+                        message: 'Не вдалося зберегти бронювання. Зателефонуйте адміністратору Тамарі Василівні: +38 (093) 575-46-68',
                         type: 'error'
                     });
                 } finally {
