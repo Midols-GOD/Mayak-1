@@ -526,7 +526,7 @@
                                 <span class="line-through">600 ₴ / день</span>
                             </div>
                             <div class="flex justify-between items-center text-sm font-bold border-t border-gray-800/60 pt-2">
-                                <span class="text-white">спеціфльна ціна:</span>
+                                <span class="text-white">Акційна ціна:</span>
                                 <span class="text-priceYellow text-lg font-black">350 ₴ <span class="text-xs text-gray-300 font-normal">/ день за особу</span></span>
                             </div>
                             <div class="text-xs text-gray-400 pt-1.5 border-t border-gray-800/40">
@@ -746,13 +746,13 @@
                                 <span id="calcNightsCount" class="text-white font-bold">0 ночей</span>
                             </div>
 
-                            <!-- Плашка підвищеного тарифу вихідного дня для коротких заїздів (до 4 ночей) -->
-                            <div id="weekendSurchargeBadge" class="hidden mb-3 px-3.5 py-2.5 rounded-xl bg-amber-950/45 border border-amber-500/40 text-xs text-amber-200 flex items-center justify-between gap-2">
+                            <!-- Плашка підвищеного тарифу для коротких заїздів (< 4 ночей) -->
+                            <div id="shortStayBadge" class="hidden mb-3 px-3.5 py-2.5 rounded-xl bg-amber-950/45 border border-amber-500/40 text-xs text-amber-200 flex items-center justify-between gap-2">
                                 <span class="flex items-center gap-2 font-semibold">
-                                    <i class="fa-solid fa-calendar-week text-priceYellow flex-shrink-0"></i>
-                                    <span id="weekendSurchargeText">Тариф короткого заїзду (до 4 ночей): +200 ₴ за вихідні дні</span>
+                                    <i class="fa-solid fa-bolt text-priceYellow flex-shrink-0"></i>
+                                    <span id="shortStayBadgeText">Підвищений тариф за короткий заїзд (до 4 ночей)</span>
                                 </span>
-                                <span id="weekendSurchargeAmount" class="font-black text-priceYellow whitespace-nowrap">+0 ₴</span>
+                                <span id="shortStayBadgeRate" class="font-black text-priceYellow whitespace-nowrap">+0 ₴</span>
                             </div>
 
                             <div id="calcSortedRows" class="space-y-2.5 text-sm">
@@ -1326,59 +1326,41 @@
         const FULL_MEAL_DAY_RATE = 350;
         const EXIT_BREAKFAST_RATE = 100;
 
-        // Надбавка за вихідні (+200 ₴/ніч пт-нд) діє лише для коротких заїздів (< 4 ночей)
-        const WEEKEND_SURCHARGE_RATE = 200;
+        // Надбавка за короткий заїзд (< 4 ночей) діє на ВСІ дні незалежно від дня тижня:
+        // «Люкс» — +200 ₴ за кожну ніч; звичайні номери без санвузла — +100 ₴ за кожну ніч.
         const LONG_STAY_NIGHTS_THRESHOLD = 4;
 
-        function isWeekendNight(dateObj) {
-            const day = dateObj.getDay(); // 0 = нд, 5 = пт, 6 = сб
-            return day === 5 || day === 6 || day === 0;
+        function getShortStayNightSurcharge(roomName) {
+            return roomName === 'Номер «Люкс»' ? 200 : 100;
         }
 
-        function calculateStayPricing(startDate, endDate, baseRate) {
+        function calculateStayPricing(startDate, endDate, baseRate, roomName) {
             const parsedBase = parseInt(baseRate, 10) || 800;
             let nights = 0;
-            let weekendNightsCount = 0;
             let cursor = new Date(startDate);
             cursor.setHours(0, 0, 0, 0);
 
             const endMs = new Date(endDate).setHours(0, 0, 0, 0);
-            const nightBreakdown = [];
 
             while (cursor.getTime() < endMs) {
-                const weekend = isWeekendNight(cursor);
-                if (weekend) weekendNightsCount++;
                 nights++;
-                nightBreakdown.push({
-                    date: new Date(cursor),
-                    isWeekend: weekend,
-                    baseRate: parsedBase
-                });
                 cursor.setDate(cursor.getDate() + 1);
             }
 
             const isShortStay = nights > 0 && nights < LONG_STAY_NIGHTS_THRESHOLD;
-            const appliedWeekendNights = isShortStay ? weekendNightsCount : 0;
-            const weekendSurcharge = appliedWeekendNights * WEEKEND_SURCHARGE_RATE;
-
-            const nightsWithRates = nightBreakdown.map(n => ({
-                ...n,
-                surcharge: isShortStay && n.isWeekend ? WEEKEND_SURCHARGE_RATE : 0,
-                rate: n.baseRate + (isShortStay && n.isWeekend ? WEEKEND_SURCHARGE_RATE : 0)
-            }));
-
-            const rawRoomSum = nightsWithRates.reduce((acc, item) => acc + item.rate, 0);
-            const firstNightRate = nightsWithRates.length > 0 ? nightsWithRates[0].rate : parsedBase;
+            const perNightSurcharge = isShortStay ? getShortStayNightSurcharge(roomName) : 0;
+            const nightRate = parsedBase + perNightSurcharge;
+            const shortStaySurchargeTotal = perNightSurcharge * nights;
+            const rawRoomSum = nightRate * nights;
 
             return {
                 nights,
                 isShortStay,
-                weekendNightsCount,
-                appliedWeekendNights,
-                weekendSurcharge,
+                perNightSurcharge,
+                nightRate,
+                shortStaySurchargeTotal,
                 rawRoomSum,
-                firstNightRate,
-                nightsWithRates
+                firstNightRate: nightRate
             };
         }
 
@@ -1620,9 +1602,9 @@
             const btnLabel = document.getElementById('calendarBtnLabel');
 
             const nightsDisplay = document.getElementById('calcNightsCount');
-            const weekendBadge = document.getElementById('weekendSurchargeBadge');
-            const weekendBadgeText = document.getElementById('weekendSurchargeText');
-            const weekendBadgeAmount = document.getElementById('weekendSurchargeAmount');
+            const shortStayBadge = document.getElementById('shortStayBadge');
+            const shortStayBadgeText = document.getElementById('shortStayBadgeText');
+            const shortStayBadgeRate = document.getElementById('shortStayBadgeRate');
             const sortedRowsContainer = document.getElementById('calcSortedRows');
             const mealsBreakdownEl = document.getElementById('calcMealsBreakdown');
             const totalDisplay = document.getElementById('calcTotalPrice');
@@ -1875,16 +1857,15 @@
                 renderAll();
             }
 
-            function updateWeekendBadge(pricing) {
-                if (!weekendBadge || !weekendBadgeText || !weekendBadgeAmount) return;
+            function updateShortStayBadge(pricing) {
+                if (!shortStayBadge || !shortStayBadgeText || !shortStayBadgeRate) return;
 
-                if (pricing && pricing.isShortStay && pricing.weekendSurcharge > 0) {
-                    const dWord = pricing.appliedWeekendNights === 1 ? 'день' : 'дні';
-                    weekendBadgeText.textContent = `Підвищений тариф короткого заїзду (до 4 ночей): +${WEEKEND_SURCHARGE_RATE} ₴ за ${pricing.appliedWeekendNights} ${dWord} вихідних`;
-                    weekendBadgeAmount.textContent = `+${pricing.weekendSurcharge.toLocaleString()} ₴`;
-                    weekendBadge.classList.remove('hidden');
+                if (pricing && pricing.isShortStay && pricing.perNightSurcharge > 0) {
+                    shortStayBadgeText.textContent = `Підвищений тариф короткого заїзду (до 4 ночей): +${pricing.perNightSurcharge} ₴/ніч`;
+                    shortStayBadgeRate.textContent = `+${pricing.shortStaySurchargeTotal.toLocaleString()} ₴`;
+                    shortStayBadge.classList.remove('hidden');
                 } else {
-                    weekendBadge.classList.add('hidden');
+                    shortStayBadge.classList.add('hidden');
                 }
             }
 
@@ -1939,14 +1920,15 @@
             }
 
             function recalculate() {
+                const selectedRoomName = roomInput.value;
                 const baseRate = parseInt(roomInput.getAttribute('data-base-price') || '800', 10);
                 const guestCount = parseInt(guestInput.value || '2', 10);
-                const isUbd = includeUbdCheckbox && includeUbdCheckbox.checked && roomInput.value !== 'Номер «Люкс»';
+                const isUbd = includeUbdCheckbox && includeUbdCheckbox.checked && selectedRoomName !== 'Номер «Люкс»';
                 const hasMeals = includeMealsCheckbox && includeMealsCheckbox.checked;
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
-                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate);
+                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName);
                     const nights = pricing.nights;
                     const rawRoomSum = pricing.rawRoomSum;
 
@@ -1959,7 +1941,7 @@
 
                     btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
                     nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
-                    updateWeekendBadge(pricing);
+                    updateShortStayBadge(pricing);
 
                     renderSortedSummaryRows({
                         ubdDiscount,
@@ -1984,7 +1966,7 @@
                 } else if (checkIn) {
                     btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
                     nightsDisplay.textContent = '0 ночей';
-                    updateWeekendBadge(null);
+                    updateShortStayBadge(null);
                     renderSortedSummaryRows({
                         ubdDiscount: 0,
                         prepaySum: 0,
@@ -1998,7 +1980,7 @@
                 } else {
                     btnLabel.textContent = 'Обрати дати заїзду та виїзду';
                     nightsDisplay.textContent = '0 ночей';
-                    updateWeekendBadge(null);
+                    updateShortStayBadge(null);
                     renderSortedSummaryRows({
                         ubdDiscount: 0,
                         prepaySum: 0,
@@ -2130,7 +2112,7 @@
                         return;
                     }
 
-                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate);
+                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName);
                     const nights = pricing.nights;
                     const rawRoomSum = pricing.rawRoomSum;
 
@@ -2142,7 +2124,7 @@
                     const totalSum = finalRoomSum + mealsSum;
 
                     const tags = [];
-                    if (pricing.isShortStay && pricing.weekendSurcharge > 0) tags.push('вихідний тариф');
+                    if (pricing.isShortStay && pricing.shortStaySurchargeTotal > 0) tags.push('короткий заїзд');
                     if (hasMeals) tags.push('+ харчування');
                     if (hasUbd) tags.push('+ УБД');
                     const roomTypeWithTags = tags.length > 0 ? `${selectedRoomName} (${tags.join(', ')})` : selectedRoomName;
@@ -2172,7 +2154,7 @@
                     if (insertError) throw insertError;
 
                     const extraNotes = [];
-                    if (pricing.isShortStay && pricing.weekendSurcharge > 0) extraNotes.push(`вихідний тариф +${pricing.weekendSurcharge.toLocaleString()} ₴`);
+                    if (pricing.isShortStay && pricing.shortStaySurchargeTotal > 0) extraNotes.push(`короткий заїзд +${pricing.shortStaySurchargeTotal.toLocaleString()} ₴`);
                     if (hasMeals) extraNotes.push('з харчуванням');
                     if (hasUbd) extraNotes.push('знижка УБД 10%');
 
