@@ -557,7 +557,7 @@
                         <div class="bg-darkBg/60 rounded-xl p-4 sm:p-5 mb-6 border border-gray-800 space-y-3 text-sm text-white">
                             <div class="flex items-start space-x-2.5">
                                 <i class="fa-solid fa-check text-accentCyan mt-1"></i>
-                                <div><strong class="text-priceYellow font-extrabold">Знижка -10%</strong> на проживання у 2-х, 3-х та 4-х місних номерах за посвідченням УБД.</div>
+                                <div><strong class="text-priceYellow font-extrabold">Знижка -10%</strong> - на проживання у 2-х, 3-х та 4-х місних номерах за посвідченням УБД.</div>
                             </div>
                             <div class="flex items-start space-x-2.5 border-t border-gray-800/60 pt-2.5">
                                 <i class="fa-solid fa-check text-accentCyan mt-1"></i>
@@ -822,7 +822,7 @@
                     <span>Выезд (до 10:00)</span>
                 </div>
                 <div class="flex items-center space-x-1.5">
-                    <span class="px-1.5 py-0.5 rounded bg-white text-darkBg font-black text-[10px] leading-none border border-gray-300">⇄</span>
+                    <span class="px-1.5 py-0.5 rounded bg-white text-darkBg font-black text-[10px] leading-none border border-gray-300">↑/↓</span>
                     <span>Выезд + заезд в 1 день (белый блок)</span>
                 </div>
                 <div class="flex items-center space-x-1.5">
@@ -834,14 +834,14 @@
                     <span>УБД (-10%)</span>
                 </div>
                 <div class="flex items-center space-x-1.5">
-                    <span class="text-white/75 font-bold">Без доп.</span>
-                    <span>Ни еды, ни УБД</span>
+                    <span class="text-white/75 font-bold">-</span>
+                    <span>Без доп. опций</span>
                 </div>
             </div>
 
             <div id="desktopMatrixTableContainer" class="hidden md:block overflow-x-auto pb-2"></div>
             <div id="mobileMatrixWrapper" class="block md:hidden overflow-x-auto pb-2 mb-6 border border-gray-800/70 rounded-2xl bg-darkBg/40">
-                <div id="mobileMatrixTableContainer" class="min-w-[680px]"></div>
+                <div id="mobileMatrixTableContainer" class="min-w-[780px]"></div>
             </div>
             <div id="adminMobileBookingsList" class="block md:hidden space-y-4"></div>
         </div>
@@ -2297,6 +2297,15 @@
                 return '';
             }
 
+            function getBookingOptionCompactLabel(b) {
+                const meals = isBookingMeals(b);
+                const ubd = isBookingUbd(b);
+                if (meals && ubd) return '🍽️+🛡️';
+                if (meals) return '🍽️';
+                if (ubd) return '🛡️';
+                return '-';
+            }
+
             function getBookingOptionBadgesHtml(b) {
                 const badges = [];
                 if (isBookingMeals(b)) {
@@ -2431,7 +2440,7 @@
                 const formatOptSummary = (b) => {
                     const parts = [];
                     parts.push(isBookingMeals(b) ? 'Еда: ДА' : 'Еда: нет');
-                    if (isBookingUbd(b)) parts.push('УБД: ДА');
+                    parts.push(isBookingUbd(b) ? 'УБД: ДА' : 'УБД: нет');
                     return parts.join(', ');
                 };
 
@@ -2446,16 +2455,21 @@
                         titleText = "Прошедший день";
                     }
                 } else if (checkoutBooking && checkinBooking) {
-                    // Выезд и заезд в один день — перекрашиваем блок в белый цвет
-                    bgClass = "bg-white text-darkBg border-gray-300 font-black shadow-md ring-2 ring-cyan-400";
+                    bgClass = "bg-white text-darkBg border-cyan-400 font-black shadow-md ring-2 ring-cyan-400";
                     const outOpt = formatOptSummary(checkoutBooking);
                     const inOpt = formatOptSummary(checkinBooking);
-                    titleText = `Смена гостей в 1 день: выезд ${checkoutBooking.guest_name} [${outOpt}] -> заезд ${checkinBooking.guest_name} [${inOpt}]`;
+                    const outCompact = getBookingOptionCompactLabel(checkoutBooking);
+                    const inCompact = getBookingOptionCompactLabel(checkinBooking);
+
+                    titleText = `Смена в 1 день: выезд ${checkoutBooking.guest_name} [${outOpt}] -> заезд ${checkinBooking.guest_name} [${inOpt}]`;
                     dataAttr = encodeBookingDataAttr(checkinBooking);
-                    const outTag = getBookingOptionShortTag(checkoutBooking);
-                    const inTag = getBookingOptionShortTag(checkinBooking);
-                    const optsLabel = (outTag || inTag) ? ` ${outTag ? outTag : ''}${outTag && inTag ? '/' : ''}${inTag ? inTag : ''}` : '';
-                    cellInner = `<span class="text-[10px] font-black leading-none text-darkBg">⇄${optsLabel}</span>`;
+
+                    cellInner = `
+                        <div class="flex flex-col items-center justify-center leading-none text-[10px] font-black text-darkBg w-full">
+                            <span class="text-sky-800 whitespace-nowrap">↑${outCompact}</span>
+                            <span class="text-emerald-800 whitespace-nowrap mt-0.5">↓${inCompact}</span>
+                        </div>
+                    `;
                 } else if (isTodayCell && (activeBooking || checkinBooking)) {
                     const currentB = activeBooking || checkinBooking;
                     bgClass = "bg-emerald-600 text-white border-emerald-400 font-bold shadow-sm";
@@ -2476,6 +2490,7 @@
                     bgClass = "bg-sky-600/85 text-white border-sky-400 font-semibold";
                     titleText = `Выезд до 10:00: ${checkoutBooking.guest_name} [${formatOptSummary(checkoutBooking)}]`;
                     dataAttr = encodeBookingDataAttr(checkoutBooking);
+                    cellInner = getBookingOptionShortTag(checkoutBooking);
                 }
 
                 return { bgClass, titleText, dataAttr, cellInner };
@@ -2514,8 +2529,8 @@
                         const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                         const isTodayCol = (colIso === todayIso);
                         const thClass = isTodayCol 
-                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[38px] bg-emerald-950/40 rounded-t" 
-                            : "p-1.5 text-center text-white font-medium min-w-[38px]";
+                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[54px] bg-emerald-950/40 rounded-t" 
+                            : "p-1.5 text-center text-white font-medium min-w-[54px]";
                         dHtml += `<th class="${thClass}">${d}</th>`;
                     }
                     dHtml += `</tr></thead><tbody>`;
@@ -2530,7 +2545,7 @@
                             for (let d = 1; d <= daysInMonth; d++) {
                                 const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                                 const state = getCellState(bookings, group.category, rNum, cellDateIso, todayIso);
-                                dHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-7 rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer hover:scale-110 transition-transform text-[10px] font-bold px-0.5 overflow-hidden" title="${state.titleText}">${state.cellInner}</div></td>`;
+                                dHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-9 min-w-[48px] rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer hover:scale-105 transition-transform text-[10px] font-bold px-1" title="${state.titleText}">${state.cellInner}</div></td>`;
                             }
                             dHtml += `</tr>`;
                         }
@@ -2549,8 +2564,8 @@
                         const isTodayCol = (colIso === todayIso);
                         const thId = isTodayCol ? 'id="mobileTodayMatrixCol"' : '';
                         const thClass = isTodayCol 
-                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[46px] bg-emerald-950/40 rounded-t" 
-                            : "p-1.5 text-center text-white font-medium min-w-[46px]";
+                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[58px] bg-emerald-950/40 rounded-t" 
+                            : "p-1.5 text-center text-white font-medium min-w-[58px]";
                         mTableHtml += `<th ${thId} class="${thClass}">${d}</th>`;
                     }
                     mTableHtml += `</tr></thead><tbody>`;
@@ -2575,7 +2590,7 @@
                             for (let d = 1; d <= daysInMonth; d++) {
                                 const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                                 const state = getCellState(bookings, group.category, rNum, cellDateIso, todayIso);
-                                mTableHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-9 min-w-[40px] rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer active:scale-95 transition-transform text-[10px] font-bold px-0.5 overflow-hidden" title="${state.titleText}">${state.cellInner}</div></td>`;
+                                mTableHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-10 min-w-[52px] rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer active:scale-95 transition-transform text-[10px] font-bold px-1" title="${state.titleText}">${state.cellInner}</div></td>`;
                             }
                             mTableHtml += `</tr>`;
                         }
@@ -2627,7 +2642,7 @@
                                 turnaroundTag = `
                                     <div class="mt-3 p-4 rounded-xl bg-white text-darkBg border-2 border-cyan-400 space-y-2 shadow-md">
                                         <div class="flex items-center gap-2 font-black text-base">
-                                            <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">⇄</span>
+                                            <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">↑/↓</span>
                                             <span>Смена гостей в день выезда:</span>
                                         </div>
                                         <div class="text-xs font-semibold">Выезжает: <strong>${b.guest_name}</strong> (${currMealText}, ${currUbdText})</div>
@@ -2759,7 +2774,7 @@
                     immediateCheckinHtml = `
                         <div class="p-4 rounded-2xl bg-white text-darkBg border-2 border-cyan-400 text-sm sm:text-base font-semibold mt-3 space-y-2 shadow-lg">
                             <div class="flex items-center space-x-2 font-black">
-                                <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">⇄</span>
+                                <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">↑/↓</span>
                                 <span>Смена гостей в один день (сразу заезжает другая семья):</span>
                             </div>
                             <button type="button" ${nextDataAttr} class="booking-details-btn w-full text-left bg-cardBg hover:bg-gray-900 border border-cyan-500/50 p-3.5 rounded-xl text-white transition-all flex flex-col gap-2 cursor-pointer shadow-md">
