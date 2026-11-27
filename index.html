@@ -449,7 +449,7 @@
                             <p class="text-white text-base mb-6 leading-relaxed">Просторий номер, оновлений ремонт, власний душ і туалет, є все необхідне для спокійного відпочинку.</p>
                             
                             <div class="space-y-3 mb-6 text-base text-white border-t border-b border-gray-800 py-4">
-                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-3 text-base"></i><span>Від 1 до 4 людей</span></div>
+                                <div class="flex items-center"><i class="fa-solid fa-users text-accentCyan mr-3 text-base"></i><span>Від 1 до 4 людей (+500 ₴ за 4-го гостя)</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-3 text-base"></i><span>Двоспальне ліжко, а також зручний диван</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-check text-accentCyan mr-3 text-base"></i><span>Кондиціонер</span></div>
                                 <div class="flex items-center"><i class="fa-solid fa-bath text-accentCyan mr-3 text-base"></i><span>Власний санвузол та душ у номері</span></div>
@@ -646,7 +646,7 @@
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»" data-min-guests="1" data-max-guests="4" data-default-guests="3">
                                         <div>
                                             <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-white/80">Підвищений комфорт, свій санвузол • за ніч</div>
+                                            <div class="text-xs text-white/80">Підвищений комфорт, свій санвузол • за ніч (+500 ₴ за 4-го гостя)</div>
                                         </div>
                                         <span class="text-priceYellow font-extrabold text-sm text-right flex-shrink-0 ml-4">1 500 ₴</span>
                                     </button>
@@ -727,7 +727,7 @@
                         <label class="flex items-center gap-2.5 bg-darkBg border border-gray-700/90 hover:border-accentCyan/70 rounded-xl px-3.5 py-2.5 cursor-pointer transition-all">
                             <input type="checkbox" id="includeMeals" class="w-4 h-4 rounded border-gray-600 text-accentCyan focus:ring-0 bg-cardBg cursor-pointer flex-shrink-0">
                             <span class="text-xs leading-snug select-none">
-                                <span class="text-white font-bold block">Харчування</span>
+                                <span class="text-white font-bold block">Харчування (на кожного гостя)</span>
                                 <span class="text-priceYellow font-bold whitespace-nowrap">350 ₴</span> <span class="text-white">/ день • виїзд: сніданок 100 ₴</span>
                             </span>
                         </label>
@@ -745,17 +745,26 @@
                     <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-2xl p-5 sm:p-4 mb-5">
                             <div class="flex justify-between text-sm text-white pb-2.5 mb-2.5 border-b border-gray-800/70">
-                                <span>Тривалість:</span>
-                                <span id="calcNightsCount" class="text-white font-bold">0 ночей</span>
+                                <span>Тривалість / гостей:</span>
+                                <span id="calcNightsCount" class="text-white font-bold">0 ночей • 2 гостей</span>
                             </div>
 
                             <!-- Плашка підвищеного тарифу для коротких заїздів (< 4 ночей) -->
-                            <div id="shortStayBadge" class="hidden mb-3 px-3.5 py-2.5 rounded-xl bg-amber-950/45 border border-amber-500/40 text-xs text-amber-200 flex items-center justify-between gap-2">
+                            <div id="shortStayBadge" class="hidden mb-2.5 px-3.5 py-2.5 rounded-xl bg-amber-950/45 border border-amber-500/40 text-xs text-amber-200 flex items-center justify-between gap-2">
                                 <span class="flex items-center gap-2 font-semibold">
                                     <i class="fa-solid fa-bolt text-priceYellow flex-shrink-0"></i>
                                     <span id="shortStayBadgeText">Надбавка за короткий заїзд (до 4 ночей)</span>
                                 </span>
                                 <span id="shortStayBadgeRate" class="font-black text-priceYellow whitespace-nowrap">+0 ₴</span>
+                            </div>
+
+                            <!-- Плашка надбавки за 4-го гостя в номері Люкс (+500 ₴) -->
+                            <div id="luxeFourGuestsBadge" class="hidden mb-3 px-3.5 py-2.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs text-cyan-200 flex items-center justify-between gap-2">
+                                <span class="flex items-center gap-2 font-semibold">
+                                    <i class="fa-solid fa-crown text-priceYellow flex-shrink-0"></i>
+                                    <span>Доплата за 4-го гостя у номері «Люкс»</span>
+                                </span>
+                                <span class="font-black text-priceYellow whitespace-nowrap">+500 ₴</span>
                             </div>
 
                             <div id="calcSortedRows" class="space-y-2.5 text-sm">
@@ -1342,12 +1351,19 @@
         const FULL_MEAL_DAY_RATE = 350;
         const EXIT_BREAKFAST_RATE = 100;
         const LONG_STAY_NIGHTS_THRESHOLD = 4;
+        const LUXE_FOUR_GUESTS_SURCHARGE = 500;
 
         function getShortStayNightSurcharge(roomName) {
             return normalizeRoomCategory(roomName) === 'номер люкс' ? 200 : 100;
         }
 
-        function calculateStayPricing(startDate, endDate, baseRate, roomName) {
+        function getLuxeFourGuestsSurcharge(roomName, guestCount) {
+            const isLuxe = normalizeRoomCategory(roomName) === 'номер люкс';
+            const guests = parseInt(guestCount, 10) || 1;
+            return (isLuxe && guests >= 4) ? LUXE_FOUR_GUESTS_SURCHARGE : 0;
+        }
+
+        function calculateStayPricing(startDate, endDate, baseRate, roomName, guestCount = 2) {
             const parsedBase = parseInt(baseRate, 10) || 800;
             let nights = 0;
             let cursor = new Date(startDate);
@@ -1364,6 +1380,7 @@
             const perNightSurcharge = isShortStay ? getShortStayNightSurcharge(roomName) : 0;
             const shortStaySurchargeTotal = perNightSurcharge * nights;
             const baseRoomSum = parsedBase * nights;
+            const luxeFourGuestsSum = nights > 0 ? getLuxeFourGuestsSurcharge(roomName, guestCount) : 0;
 
             return {
                 nights,
@@ -1371,18 +1388,21 @@
                 isShortStay,
                 perNightSurcharge,
                 shortStaySurchargeTotal,
+                luxeFourGuestsSum,
                 baseRoomSum,
                 firstNightRate: parsedBase
             };
         }
 
         function calculateMealsTotal(nights, guestCount) {
-            if (nights <= 0) return { total: 0, fullDays: nights, exitBreakfast: 0 };
-            const fullDaysSum = nights * guestCount * FULL_MEAL_DAY_RATE;
-            const exitBreakfastSum = guestCount * EXIT_BREAKFAST_RATE;
+            const guests = Math.max(1, parseInt(guestCount, 10) || 1);
+            if (nights <= 0) return { total: 0, fullDays: 0, guests, fullDaysSum: 0, exitBreakfastSum: 0 };
+            const fullDaysSum = nights * guests * FULL_MEAL_DAY_RATE;
+            const exitBreakfastSum = guests * EXIT_BREAKFAST_RATE;
             return {
                 total: fullDaysSum + exitBreakfastSum,
                 fullDays: nights,
+                guests,
                 fullDaysSum,
                 exitBreakfastSum
             };
@@ -1609,6 +1629,7 @@
             const shortStayBadge = document.getElementById('shortStayBadge');
             const shortStayBadgeText = document.getElementById('shortStayBadgeText');
             const shortStayBadgeRate = document.getElementById('shortStayBadgeRate');
+            const luxeFourGuestsBadge = document.getElementById('luxeFourGuestsBadge');
             const sortedRowsContainer = document.getElementById('calcSortedRows');
             const mealsBreakdownEl = document.getElementById('calcMealsBreakdown');
             const totalDisplay = document.getElementById('calcTotalPrice');
@@ -1625,6 +1646,12 @@
             const guestName = document.getElementById('guestName');
             const guestPhone = document.getElementById('guestPhone');
             const bookBtn = document.getElementById('bookNowBtn');
+
+            function pluralGuests(n) {
+                if (n === 1) return '1 гість';
+                if (n >= 2 && n <= 4) return `${n} гостей`;
+                return `${n} гостей`;
+            }
 
             function updateUbdAvailability() {
                 const isLuxe = normalizeRoomCategory(roomInput.value) === 'номер люкс';
@@ -1648,20 +1675,23 @@
 
             function updateGuestDropdown(minGuests, maxGuests, selectedGuestCount) {
                 guestInput.value = selectedGuestCount;
-                guestLabel.textContent = selectedGuestCount === 1 ? '1 гость' : `${selectedGuestCount} гостей`;
+                guestLabel.textContent = pluralGuests(selectedGuestCount);
 
                 guestOptionsContainer.innerHTML = '';
                 for (let i = minGuests; i <= maxGuests; i++) {
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.className = 'w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
+                    const isLuxeFour = normalizeRoomCategory(roomInput.value) === 'номер люкс' && i === 4;
                     btn.innerHTML = `
-                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">${i === 1 ? '1 гость' : `${i} гостей`}</span>
+                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">
+                            ${pluralGuests(i)}${isLuxeFour ? ' <span class="text-priceYellow font-extrabold">(+500 ₴ за номер)</span>' : ''}
+                        </span>
                         ${i === selectedGuestCount ? '<i class="fa-solid fa-check text-accentCyan"></i>' : ''}
                     `;
                     btn.addEventListener('click', () => {
                         guestInput.value = i;
-                        guestLabel.textContent = i === 1 ? '1 гость' : `${i} гостей`;
+                        guestLabel.textContent = pluralGuests(i);
                         guestMenu.classList.remove('open');
                         guestChevron.style.transform = 'rotate(0deg)';
                         updateGuestDropdown(minGuests, maxGuests, i);
@@ -1873,7 +1903,16 @@
                 }
             }
 
-            function renderSortedSummaryRows({ ubdDiscount = 0, prepaySum = 0, mealsSum = 0, roomSum = 0, shortStaySum = 0, hasMeals = false, hasUbd = false }) {
+            function updateLuxeFourGuestsBadge(pricing) {
+                if (!luxeFourGuestsBadge) return;
+                if (pricing && pricing.luxeFourGuestsSum > 0) {
+                    luxeFourGuestsBadge.classList.remove('hidden');
+                } else {
+                    luxeFourGuestsBadge.classList.add('hidden');
+                }
+            }
+
+            function renderSortedSummaryRows({ ubdDiscount = 0, prepaySum = 0, mealsSum = 0, roomSum = 0, shortStaySum = 0, luxeFourGuestsSum = 0, hasMeals = false, hasUbd = false }) {
                 if (!sortedRowsContainer) return;
 
                 const items = [
@@ -1886,7 +1925,7 @@
                     },
                     {
                         key: 'room',
-                        label: 'Проживання:',
+                        label: 'Проживання (за прайсом номера):',
                         amount: roomSum,
                         valueText: `${roomSum.toLocaleString()} ₴`,
                         valueClass: 'text-white font-bold'
@@ -1899,6 +1938,16 @@
                         label: 'Короткий заїзд:',
                         amount: shortStaySum,
                         valueText: `+${shortStaySum.toLocaleString()} ₴`,
+                        valueClass: 'text-priceYellow font-bold'
+                    });
+                }
+
+                if (luxeFourGuestsSum > 0) {
+                    items.push({
+                        key: 'luxeFour',
+                        label: '4-й гість у «Люксі»:',
+                        amount: luxeFourGuestsSum,
+                        valueText: `+${luxeFourGuestsSum.toLocaleString()} ₴`,
                         valueClass: 'text-priceYellow font-bold'
                     });
                 }
@@ -1916,7 +1965,7 @@
                 if (hasMeals) {
                     items.push({
                         key: 'meals',
-                        label: 'Харчування:',
+                        label: 'Харчування (на гостей):',
                         amount: mealsSum,
                         valueText: `${mealsSum.toLocaleString()} ₴`,
                         valueClass: 'text-white font-bold'
@@ -1942,21 +1991,23 @@
                 const opts = { day: 'numeric', month: 'short' };
 
                 if (checkIn && checkOut) {
-                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName);
+                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName, guestCount);
                     const nights = pricing.nights;
                     const baseRoomSum = pricing.baseRoomSum;
                     const shortStaySum = pricing.shortStaySurchargeTotal;
-                    const stayBeforeUbd = baseRoomSum + shortStaySum;
+                    const luxeFourGuestsSum = pricing.luxeFourGuestsSum;
+                    const stayBeforeUbd = baseRoomSum + shortStaySum + luxeFourGuestsSum;
 
                     const ubdDiscount = isUbd ? Math.round(stayBeforeUbd * 0.10) : 0;
                     const prepaySum = pricing.firstNightRate;
-                    const mealCalc = hasMeals ? calculateMealsTotal(nights, guestCount) : { total: 0, fullDays: 0, fullDaysSum: 0, exitBreakfastSum: 0 };
+                    const mealCalc = hasMeals ? calculateMealsTotal(nights, guestCount) : { total: 0, fullDays: 0, guests: guestCount, fullDaysSum: 0, exitBreakfastSum: 0 };
                     const mealsSum = mealCalc.total;
                     const totalSum = stayBeforeUbd - ubdDiscount + mealsSum;
 
                     btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
-                    nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
+                    nightsDisplay.textContent = `${nights} ${pluralNights(nights)} • ${pluralGuests(guestCount)}`;
                     updateShortStayBadge(pricing);
+                    updateLuxeFourGuestsBadge(pricing);
 
                     renderSortedSummaryRows({
                         ubdDiscount,
@@ -1964,13 +2015,14 @@
                         mealsSum,
                         roomSum: baseRoomSum,
                         shortStaySum,
+                        luxeFourGuestsSum,
                         hasMeals,
                         hasUbd: isUbd
                     });
 
                     if (mealsBreakdownEl) {
                         if (hasMeals && nights > 0) {
-                            mealsBreakdownEl.innerHTML = `Харчування: <b>${nights} дн.</b> комплексно (${mealCalc.fullDaysSum.toLocaleString()} ₴) + сніданок у день виїзду до 10:00 (${mealCalc.exitBreakfastSum.toLocaleString()} ₴)`;
+                            mealsBreakdownEl.innerHTML = `Харчування на <b>${guestCount} ос.</b>: <b>${nights} дн.</b> × ${guestCount} ос. × ${FULL_MEAL_DAY_RATE} ₴ (${mealCalc.fullDaysSum.toLocaleString()} ₴) + сніданок у день виїзду до 10:00 (${guestCount} × ${EXIT_BREAKFAST_RATE} ₴ = ${mealCalc.exitBreakfastSum.toLocaleString()} ₴)`;
                             mealsBreakdownEl.classList.remove('hidden');
                         } else {
                             mealsBreakdownEl.classList.add('hidden');
@@ -1981,19 +2033,21 @@
                     totalDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
                 } else if (checkIn) {
                     btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
-                    nightsDisplay.textContent = '0 ночей';
+                    nightsDisplay.textContent = `0 ночей • ${pluralGuests(guestCount)}`;
                     updateShortStayBadge(null);
+                    updateLuxeFourGuestsBadge(null);
                     renderSortedSummaryRows({
-                        ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, hasMeals, hasUbd: isUbd
+                        ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, luxeFourGuestsSum: 0, hasMeals, hasUbd: isUbd
                     });
                     if (mealsBreakdownEl) mealsBreakdownEl.classList.add('hidden');
                     totalDisplay.textContent = '0 ₴';
                 } else {
                     btnLabel.textContent = 'Обрати дати заїзду та виїзду';
-                    nightsDisplay.textContent = '0 ночей';
+                    nightsDisplay.textContent = `0 ночей • ${pluralGuests(guestCount)}`;
                     updateShortStayBadge(null);
+                    updateLuxeFourGuestsBadge(null);
                     renderSortedSummaryRows({
-                        ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, hasMeals, hasUbd: isUbd
+                        ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, luxeFourGuestsSum: 0, hasMeals, hasUbd: isUbd
                     });
                     if (mealsBreakdownEl) mealsBreakdownEl.classList.add('hidden');
                     totalDisplay.textContent = '0 ₴';
@@ -2119,11 +2173,12 @@
                         return;
                     }
 
-                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName);
+                    const pricing = calculateStayPricing(checkIn, checkOut, baseRate, selectedRoomName, guestCount);
                     const nights = pricing.nights;
                     const baseRoomSum = pricing.baseRoomSum;
                     const shortStaySum = pricing.shortStaySurchargeTotal;
-                    const stayBeforeUbd = baseRoomSum + shortStaySum;
+                    const luxeFourGuestsSum = pricing.luxeFourGuestsSum;
+                    const stayBeforeUbd = baseRoomSum + shortStaySum + luxeFourGuestsSum;
 
                     const ubdDiscount = hasUbd ? Math.round(stayBeforeUbd * 0.10) : 0;
                     const prepaySum = pricing.firstNightRate;
@@ -2133,7 +2188,8 @@
 
                     const tags = [];
                     if (pricing.isShortStay && shortStaySum > 0) tags.push('короткий заїзд');
-                    if (hasMeals) tags.push('+ харчування');
+                    if (luxeFourGuestsSum > 0) tags.push('+500 ₴ за 4-го гостя');
+                    if (hasMeals) tags.push(`+ харчування (${guestCount} ос.)`);
                     if (hasUbd) tags.push('+ УБД');
                     const roomTypeWithTags = tags.length > 0 ? `${selectedRoomName} (${tags.join(', ')})` : selectedRoomName;
 
@@ -2163,12 +2219,13 @@
 
                     const extraNotes = [];
                     if (pricing.isShortStay && shortStaySum > 0) extraNotes.push(`короткий заїзд +${shortStaySum.toLocaleString()} ₴`);
-                    if (hasMeals) extraNotes.push('з харчуванням');
+                    if (luxeFourGuestsSum > 0) extraNotes.push(`4-й гість у Люксі +${luxeFourGuestsSum.toLocaleString()} ₴`);
+                    if (hasMeals) extraNotes.push(`харчування на ${guestCount} ос. (${mealsSum.toLocaleString()} ₴)`);
                     if (hasUbd) extraNotes.push('знижка УБД -10%');
 
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${guestCount} осіб${extraNotes.length ? ', ' + extraNotes.join(', ') : ''}). Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${pluralGuests(guestCount)}${extraNotes.length ? ', ' + extraNotes.join(', ') : ''}). Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
                         badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -2196,6 +2253,7 @@
                 }
             });
 
+            recalculate();
             renderAll();
         })();
 
@@ -2751,7 +2809,7 @@
                         <span class="text-xl">${hasMeals ? '🍽️' : '-'}</span>
                         <div>
                             <div class="font-extrabold ${hasMeals ? 'text-accentCyan' : 'text-white/80'} text-sm">Комплексная еда: ${hasMeals ? 'ДА' : 'нет'}</div>
-                            ${hasMeals ? `<div class="text-xs text-white">${totalNights} дн. × ${FULL_MEAL_DAY_RATE} ₴ + завтрак в день выезда (до 10:00) × ${EXIT_BREAKFAST_RATE} ₴ за гостя.</div>` : ''}
+                            ${hasMeals ? `<div class="text-xs text-white">${totalNights} дн. × ${guestCount} чел. × ${FULL_MEAL_DAY_RATE} ₴ + завтрак в день выезда (до 10:00) × ${guestCount} чел. × ${EXIT_BREAKFAST_RATE} ₴.</div>` : ''}
                         </div>
                     </div>
                 `);
