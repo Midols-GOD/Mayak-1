@@ -646,7 +646,7 @@
                                     <button type="button" class="room-option w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group" data-name="Номер «Люкс»" data-price="1500" data-label="Номер «Люкс»" data-min-guests="1" data-max-guests="4" data-default-guests="3">
                                         <div>
                                             <div class="text-white font-bold text-sm group-hover:text-accentCyan transition-colors">Номер «Люкс»</div>
-                                            <div class="text-xs text-white/80">Підвищений комфорт, свій санвузол • за ніч (+500 ₴ за 4-го гостя)</div>
+                                            <div class="text-xs text-white/80">Підвищений комфорт, свій санвузол • за ніч</div>
                                         </div>
                                         <span class="text-priceYellow font-extrabold text-sm text-right flex-shrink-0 ml-4">1 500 ₴</span>
                                     </button>
@@ -727,7 +727,7 @@
                         <label class="flex items-center gap-2.5 bg-darkBg border border-gray-700/90 hover:border-accentCyan/70 rounded-xl px-3.5 py-2.5 cursor-pointer transition-all">
                             <input type="checkbox" id="includeMeals" class="w-4 h-4 rounded border-gray-600 text-accentCyan focus:ring-0 bg-cardBg cursor-pointer flex-shrink-0">
                             <span class="text-xs leading-snug select-none">
-                                <span class="text-white font-bold block">Харчування (на кожного гостя)</span>
+                                <span class="text-white font-bold block">Харчування</span>
                                 <span class="text-priceYellow font-bold whitespace-nowrap">350 ₴</span> <span class="text-white">/ день • виїзд: сніданок 100 ₴</span>
                             </span>
                         </label>
@@ -745,33 +745,13 @@
                     <div class="max-w-2xl mx-auto mt-2">
                         <div class="bg-darkBg border border-gray-800 rounded-2xl p-5 sm:p-4 mb-5">
                             <div class="flex justify-between text-sm text-white pb-2.5 mb-2.5 border-b border-gray-800/70">
-                                <span>Тривалість / гостей:</span>
-                                <span id="calcNightsCount" class="text-white font-bold">0 ночей • 2 гостей</span>
-                            </div>
-
-                            <!-- Плашка підвищеного тарифу для коротких заїздів (< 4 ночей) -->
-                            <div id="shortStayBadge" class="hidden mb-2.5 px-3.5 py-2.5 rounded-xl bg-amber-950/45 border border-amber-500/40 text-xs text-amber-200 flex items-center justify-between gap-2">
-                                <span class="flex items-center gap-2 font-semibold">
-                                    <i class="fa-solid fa-bolt text-priceYellow flex-shrink-0"></i>
-                                    <span id="shortStayBadgeText">Надбавка за короткий заїзд (до 4 ночей)</span>
-                                </span>
-                                <span id="shortStayBadgeRate" class="font-black text-priceYellow whitespace-nowrap">+0 ₴</span>
-                            </div>
-
-                            <!-- Плашка надбавки за 4-го гостя в номері Люкс (+500 ₴) -->
-                            <div id="luxeFourGuestsBadge" class="hidden mb-3 px-3.5 py-2.5 rounded-xl bg-cyan-950/50 border border-cyan-500/40 text-xs text-cyan-200 flex items-center justify-between gap-2">
-                                <span class="flex items-center gap-2 font-semibold">
-                                    <i class="fa-solid fa-crown text-priceYellow flex-shrink-0"></i>
-                                    <span>Доплата за 4-го гостя у номері «Люкс»</span>
-                                </span>
-                                <span class="font-black text-priceYellow whitespace-nowrap">+500 ₴</span>
+                                <span>Тривалість:</span>
+                                <span id="calcNightsCount" class="text-white font-bold">0 ночей</span>
                             </div>
 
                             <div id="calcSortedRows" class="space-y-2.5 text-sm">
                                 <!-- Динамічно сортуються від меншої суми до більшої -->
                             </div>
-
-                            <div id="calcMealsBreakdown" class="hidden text-xs text-white/90 mt-2 pt-2 border-t border-gray-800/60"></div>
 
                             <!-- Разом -->
                             <div class="flex justify-between items-center text-base border-t border-gray-800 pt-3 mt-3">
@@ -1408,11 +1388,6 @@
             };
         }
 
-        function formatMealsReceiptLine(nights, guestCount) {
-            const c = calculateMealsTotal(nights, guestCount);
-            return `${nights} дн. × ${c.guests} × ${FULL_MEAL_DAY_RATE} = ${c.fullDaysSum.toLocaleString()} ₴ + виїзд до 10:00: ${c.guests} × ${EXIT_BREAKFAST_RATE} = ${c.exitBreakfastSum.toLocaleString()} ₴ (${c.total.toLocaleString()} ₴)`;
-        }
-
         const SUPABASE_URL = 'https://ayemtrpizbzfpylzefhh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_QPxXpSn4wzYoaQFBUTepyw_xUO-k0Re';
         let supabaseClient = null;
@@ -1631,12 +1606,7 @@
             const btnLabel = document.getElementById('calendarBtnLabel');
 
             const nightsDisplay = document.getElementById('calcNightsCount');
-            const shortStayBadge = document.getElementById('shortStayBadge');
-            const shortStayBadgeText = document.getElementById('shortStayBadgeText');
-            const shortStayBadgeRate = document.getElementById('shortStayBadgeRate');
-            const luxeFourGuestsBadge = document.getElementById('luxeFourGuestsBadge');
             const sortedRowsContainer = document.getElementById('calcSortedRows');
-            const mealsBreakdownEl = document.getElementById('calcMealsBreakdown');
             const totalDisplay = document.getElementById('calcTotalPrice');
 
             const prevBtn = document.getElementById('calPrevMonth');
@@ -1687,11 +1657,8 @@
                     const btn = document.createElement('button');
                     btn.type = 'button';
                     btn.className = 'w-full px-4 py-3 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
-                    const isLuxeFour = normalizeRoomCategory(roomInput.value) === 'номер люкс' && i === 4;
                     btn.innerHTML = `
-                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">
-                            ${pluralGuests(i)}${isLuxeFour ? ' <span class="text-priceYellow font-extrabold">(+500 ₴ за номер)</span>' : ''}
-                        </span>
+                        <span class="text-white font-bold text-sm group-hover:text-accentCyan">${pluralGuests(i)}</span>
                         ${i === selectedGuestCount ? '<i class="fa-solid fa-check text-accentCyan"></i>' : ''}
                     `;
                     btn.addEventListener('click', () => {
@@ -1896,27 +1863,6 @@
                 renderAll();
             }
 
-            function updateShortStayBadge(pricing) {
-                if (!shortStayBadge || !shortStayBadgeText || !shortStayBadgeRate) return;
-
-                if (pricing && pricing.isShortStay && pricing.perNightSurcharge > 0) {
-                    shortStayBadgeText.textContent = `Надбавка за короткий заїзд (< 4 ночей): +${pricing.perNightSurcharge} ₴ × ${pricing.nights} ${pluralNights(pricing.nights)}`;
-                    shortStayBadgeRate.textContent = `+${pricing.shortStaySurchargeTotal.toLocaleString()} ₴`;
-                    shortStayBadge.classList.remove('hidden');
-                } else {
-                    shortStayBadge.classList.add('hidden');
-                }
-            }
-
-            function updateLuxeFourGuestsBadge(pricing) {
-                if (!luxeFourGuestsBadge) return;
-                if (pricing && pricing.luxeFourGuestsSum > 0) {
-                    luxeFourGuestsBadge.classList.remove('hidden');
-                } else {
-                    luxeFourGuestsBadge.classList.add('hidden');
-                }
-            }
-
             function renderSortedSummaryRows({ ubdDiscount = 0, prepaySum = 0, mealsSum = 0, roomSum = 0, shortStaySum = 0, luxeFourGuestsSum = 0, hasMeals = false, hasUbd = false }) {
                 if (!sortedRowsContainer) return;
 
@@ -1950,7 +1896,7 @@
                 if (luxeFourGuestsSum > 0) {
                     items.push({
                         key: 'luxeFour',
-                        label: '4-й гість у «Люксі»:',
+                        label: 'Доплата (4 гостя в «Люксі»):',
                         amount: luxeFourGuestsSum,
                         valueText: `+${luxeFourGuestsSum.toLocaleString()} ₴`,
                         valueClass: 'text-priceYellow font-bold'
@@ -2010,9 +1956,7 @@
                     const totalSum = stayBeforeUbd - ubdDiscount + mealsSum;
 
                     btnLabel.textContent = `${checkIn.toLocaleDateString('uk-UA', opts)} - ${checkOut.toLocaleDateString('uk-UA', opts)}`;
-                    nightsDisplay.textContent = `${nights} ${pluralNights(nights)} • ${pluralGuests(guestCount)}`;
-                    updateShortStayBadge(pricing);
-                    updateLuxeFourGuestsBadge(pricing);
+                    nightsDisplay.textContent = `${nights} ${pluralNights(nights)}`;
 
                     renderSortedSummaryRows({
                         ubdDiscount,
@@ -2025,36 +1969,20 @@
                         hasUbd: isUbd
                     });
 
-                    if (mealsBreakdownEl) {
-                        if (hasMeals && nights > 0) {
-                            mealsBreakdownEl.textContent = `Харчування: ${formatMealsReceiptLine(nights, guestCount)}`;
-                            mealsBreakdownEl.classList.remove('hidden');
-                        } else {
-                            mealsBreakdownEl.classList.add('hidden');
-                            mealsBreakdownEl.textContent = '';
-                        }
-                    }
-
                     totalDisplay.textContent = `${totalSum.toLocaleString()} ₴`;
                 } else if (checkIn) {
                     btnLabel.textContent = `Заїзд: ${checkIn.toLocaleDateString('uk-UA', opts)} (оберіть виїзд)`;
-                    nightsDisplay.textContent = `0 ночей • ${pluralGuests(guestCount)}`;
-                    updateShortStayBadge(null);
-                    updateLuxeFourGuestsBadge(null);
+                    nightsDisplay.textContent = `0 ночей`;
                     renderSortedSummaryRows({
                         ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, luxeFourGuestsSum: 0, hasMeals, hasUbd: isUbd
                     });
-                    if (mealsBreakdownEl) mealsBreakdownEl.classList.add('hidden');
                     totalDisplay.textContent = '0 ₴';
                 } else {
                     btnLabel.textContent = 'Обрати дати заїзду та виїзду';
-                    nightsDisplay.textContent = `0 ночей • ${pluralGuests(guestCount)}`;
-                    updateShortStayBadge(null);
-                    updateLuxeFourGuestsBadge(null);
+                    nightsDisplay.textContent = `0 ночей`;
                     renderSortedSummaryRows({
                         ubdDiscount: 0, prepaySum: 0, mealsSum: 0, roomSum: 0, shortStaySum: 0, luxeFourGuestsSum: 0, hasMeals, hasUbd: isUbd
                     });
-                    if (mealsBreakdownEl) mealsBreakdownEl.classList.add('hidden');
                     totalDisplay.textContent = '0 ₴';
                 }
             }
@@ -2222,15 +2150,9 @@
 
                     if (insertError) throw insertError;
 
-                    const extraNotes = [];
-                    if (pricing.isShortStay && shortStaySum > 0) extraNotes.push(`короткий заїзд +${shortStaySum.toLocaleString()} ₴`);
-                    if (luxeFourGuestsSum > 0) extraNotes.push(`4-й гість у Люксі +${luxeFourGuestsSum.toLocaleString()} ₴`);
-                    if (hasMeals) extraNotes.push(`харчування: ${formatMealsReceiptLine(nights, guestCount)}`);
-                    if (hasUbd) extraNotes.push('знижка УБД -10%');
-
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${pluralGuests(guestCount)}${extraNotes.length ? ', ' + extraNotes.join('; ') : ''}). Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано. Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
                         badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -2528,9 +2450,9 @@
                     dataAttr = encodeBookingDataAttr(checkinBooking);
 
                     cellInner = `
-                        <div class="flex flex-col items-center justify-center leading-none text-[10px] font-black text-darkBg w-full">
+                        <div class="flex flex-col items-center justify-center leading-none text-[8px] font-black text-darkBg w-full">
                             <span class="text-sky-800 whitespace-nowrap">↑${outCompact}</span>
-                            <span class="text-emerald-800 whitespace-nowrap mt-0.5">↓${inCompact}</span>
+                            <span class="text-emerald-800 whitespace-nowrap">↓${inCompact}</span>
                         </div>
                     `;
                 } else if (isTodayCell && (activeBooking || checkinBooking)) {
@@ -2585,30 +2507,30 @@
                 globalBookingsCache = bookings;
 
                 if (desktopContainer) {
-                    let dHtml = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
-                    dHtml += `<th class="p-2 text-left text-white font-semibold w-40">Номер</th>`;
+                    let dHtml = `<table class="w-full border-collapse text-[11px]"><thead><tr class="border-b border-gray-800">`;
+                    dHtml += `<th class="p-1.5 text-left text-white font-semibold w-28">Номер</th>`;
 
                     for (let d = 1; d <= daysInMonth; d++) {
                         const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                         const isTodayCol = (colIso === todayIso);
                         const thClass = isTodayCol 
-                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[54px] bg-emerald-950/40 rounded-t" 
-                            : "p-1.5 text-center text-white font-medium min-w-[54px]";
+                            ? "p-1 text-center text-emerald-400 font-extrabold min-w-[28px] bg-emerald-950/40 rounded-t" 
+                            : "p-1 text-center text-white font-medium min-w-[28px]";
                         dHtml += `<th class="${thClass}">${d}</th>`;
                     }
                     dHtml += `</tr></thead><tbody>`;
 
                     roomsStructure.forEach(group => {
-                        dHtml += `<tr class="bg-darkBg/60"><td colspan="${daysInMonth + 1}" class="p-2 font-bold text-accentCyan text-xs uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
+                        dHtml += `<tr class="bg-darkBg/60"><td colspan="${daysInMonth + 1}" class="px-2 py-1 font-bold text-accentCyan text-[10px] uppercase tracking-wider border-t border-gray-800">${group.category}</td></tr>`;
 
                         for (let rNum = 1; rNum <= group.count; rNum++) {
                             dHtml += `<tr class="border-b border-gray-800/40 hover:bg-gray-800/20">`;
-                            dHtml += `<td class="p-2 text-white font-semibold">Комната №${rNum}</td>`;
+                            dHtml += `<td class="px-1.5 py-1 text-white font-semibold whitespace-nowrap">№${rNum}</td>`;
 
                             for (let d = 1; d <= daysInMonth; d++) {
                                 const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                                 const state = getCellState(bookings, group.category, rNum, cellDateIso, todayIso);
-                                dHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-9 min-w-[48px] rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer hover:scale-105 transition-transform text-[10px] font-bold px-1" title="${state.titleText}">${state.cellInner}</div></td>`;
+                                dHtml += `<td class="p-0.5 text-center"><div ${state.dataAttr} class="matrix-cell h-7 min-w-[26px] rounded border ${state.bgClass} flex items-center justify-center cursor-pointer hover:scale-105 transition-transform text-[9px] font-bold" title="${state.titleText}">${state.cellInner}</div></td>`;
                             }
                             dHtml += `</tr>`;
                         }
@@ -2619,16 +2541,16 @@
                 }
 
                 if (mobileContainer) {
-                    let mTableHtml = `<table class="w-full border-collapse text-xs"><thead><tr class="border-b border-gray-800">`;
-                    mTableHtml += `<th class="p-2 text-left text-white font-semibold w-24 sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">Номер</th>`;
+                    let mTableHtml = `<table class="w-full border-collapse text-[11px]"><thead><tr class="border-b border-gray-800">`;
+                    mTableHtml += `<th class="p-1.5 text-left text-white font-semibold w-20 sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">Номер</th>`;
 
                     for (let d = 1; d <= daysInMonth; d++) {
                         const colIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                         const isTodayCol = (colIso === todayIso);
                         const thId = isTodayCol ? 'id="mobileTodayMatrixCol"' : '';
                         const thClass = isTodayCol 
-                            ? "p-1.5 text-center text-emerald-400 font-extrabold min-w-[58px] bg-emerald-950/40 rounded-t" 
-                            : "p-1.5 text-center text-white font-medium min-w-[58px]";
+                            ? "p-1 text-center text-emerald-400 font-extrabold min-w-[30px] bg-emerald-950/40 rounded-t" 
+                            : "p-1 text-center text-white font-medium min-w-[30px]";
                         mTableHtml += `<th ${thId} class="${thClass}">${d}</th>`;
                     }
                     mTableHtml += `</tr></thead><tbody>`;
@@ -2642,18 +2564,18 @@
                                 .replace('2-х місний номер', '2-місн.');
 
                         mTableHtml += `<tr class="bg-darkBg/60">
-                            <td class="p-2 font-bold text-accentCyan text-[11px] uppercase tracking-wider border-t border-gray-800 sticky left-0 bg-[#0d1322] z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">${shortCat}</td>
+                            <td class="px-1.5 py-1 font-bold text-accentCyan text-[10px] uppercase tracking-wider border-t border-gray-800 sticky left-0 bg-[#0d1322] z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">${shortCat}</td>
                             <td colspan="${daysInMonth}" class="border-t border-gray-800 bg-darkBg/40"></td>
                         </tr>`;
 
                         for (let rNum = 1; rNum <= group.count; rNum++) {
                             mTableHtml += `<tr class="border-b border-gray-800/40">`;
-                            mTableHtml += `<td class="p-2 text-white font-bold sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">№${rNum}</td>`;
+                            mTableHtml += `<td class="px-1.5 py-1 text-white font-bold sticky left-0 bg-cardBg z-20 border-r border-gray-800 shadow-[2px_0_8px_rgba(0,0,0,0.4)]">№${rNum}</td>`;
 
                             for (let d = 1; d <= daysInMonth; d++) {
                                 const cellDateIso = `${year}-${String(month + 1).padStart(2, '0')}-${String(d).padStart(2, '0')}`;
                                 const state = getCellState(bookings, group.category, rNum, cellDateIso, todayIso);
-                                mTableHtml += `<td class="p-1 text-center"><div ${state.dataAttr} class="matrix-cell h-10 min-w-[52px] rounded-md border ${state.bgClass} flex items-center justify-center cursor-pointer active:scale-95 transition-transform text-[10px] font-bold px-1" title="${state.titleText}">${state.cellInner}</div></td>`;
+                                mTableHtml += `<td class="p-0.5 text-center"><div ${state.dataAttr} class="matrix-cell h-7 min-w-[28px] rounded border ${state.bgClass} flex items-center justify-center cursor-pointer active:scale-95 transition-transform text-[9px] font-bold" title="${state.titleText}">${state.cellInner}</div></td>`;
                             }
                             mTableHtml += `</tr>`;
                         }
@@ -2661,14 +2583,6 @@
 
                     mTableHtml += `</tbody></table>`;
                     mobileContainer.innerHTML = mTableHtml;
-
-                    const todayColEl = document.getElementById('mobileTodayMatrixCol');
-                    if (todayColEl && mobileMatrixWrapper) {
-                        const offsetLeft = todayColEl.offsetLeft - 110;
-                        if (offsetLeft > 0) {
-                            mobileMatrixWrapper.scrollTo({ left: offsetLeft, behavior: 'smooth' });
-                        }
-                    }
                 }
 
                 if (mobileListContainer) {
@@ -2814,7 +2728,6 @@
                         <span class="text-xl">${hasMeals ? '🍽️' : '-'}</span>
                         <div>
                             <div class="font-extrabold ${hasMeals ? 'text-accentCyan' : 'text-white/80'} text-sm">Комплексная еда: ${hasMeals ? 'ДА' : 'нет'}</div>
-                            ${hasMeals ? `<div class="text-xs text-white">${formatMealsReceiptLine(totalNights, guestCount)}</div>` : ''}
                         </div>
                     </div>
                 `);
@@ -2823,7 +2736,6 @@
                         <span class="text-xl">${hasUbd ? '🛡️' : '-'}</span>
                         <div>
                             <div class="font-extrabold ${hasUbd ? 'text-priceYellow' : 'text-white/80'} text-sm">УБД (скидка -10%): ${hasUbd ? 'ДА' : 'нет'}</div>
-                            ${hasUbd ? `<div class="text-xs text-white">Проверить удостоверение УБД при заезде.</div>` : ''}
                         </div>
                     </div>
                 `);
@@ -2886,7 +2798,7 @@
                         </div>
                         ${hasMeals ? `
                         <div class="flex justify-between items-center">
-                            <span class="text-white">Питание (${totalNights} дн. × ${guestCount} × 350 + выезд ${guestCount} × 100):</span>
+                            <span class="text-white">Питание:</span>
                             <span class="text-accentCyan font-semibold">${mealsSum.toLocaleString()} ₴</span>
                         </div>` : ''}
                         <div class="flex justify-between items-center border-t border-gray-700/80 pt-2.5 mt-1">
