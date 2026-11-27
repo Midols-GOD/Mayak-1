@@ -771,7 +771,7 @@
                                 <!-- Динамічно сортуються від меншої суми до більшої -->
                             </div>
 
-                            <div id="calcMealsBreakdown" class="hidden text-xs text-white mt-2.5 pt-2 border-t border-gray-800/60"></div>
+                            <div id="calcMealsBreakdown" class="hidden text-xs text-white/90 mt-2 pt-2 border-t border-gray-800/60"></div>
 
                             <!-- Разом -->
                             <div class="flex justify-between items-center text-base border-t border-gray-800 pt-3 mt-3">
@@ -832,7 +832,7 @@
                 </div>
                 <div class="flex items-center space-x-1.5">
                     <span class="px-1.5 py-0.5 rounded bg-white text-darkBg font-black text-[10px] leading-none border border-gray-300">↑/↓</span>
-                    <span>Выезд + заезд в 1 день (белый блок)</span>
+                    <span>Выезд + заезд в 1 день</span>
                 </div>
                 <div class="flex items-center space-x-1.5">
                     <span>🍽️</span>
@@ -1408,6 +1408,11 @@
             };
         }
 
+        function formatMealsReceiptLine(nights, guestCount) {
+            const c = calculateMealsTotal(nights, guestCount);
+            return `${nights} дн. × ${c.guests} × ${FULL_MEAL_DAY_RATE} = ${c.fullDaysSum.toLocaleString()} ₴ + виїзд до 10:00: ${c.guests} × ${EXIT_BREAKFAST_RATE} = ${c.exitBreakfastSum.toLocaleString()} ₴ (${c.total.toLocaleString()} ₴)`;
+        }
+
         const SUPABASE_URL = 'https://ayemtrpizbzfpylzefhh.supabase.co';
         const SUPABASE_ANON_KEY = 'sb_publishable_QPxXpSn4wzYoaQFBUTepyw_xUO-k0Re';
         let supabaseClient = null;
@@ -1681,7 +1686,7 @@
                 for (let i = minGuests; i <= maxGuests; i++) {
                     const btn = document.createElement('button');
                     btn.type = 'button';
-                    btn.className = 'w-full px-4 py-3.5 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
+                    btn.className = 'w-full px-4 py-3 text-left hover:bg-cyan-950/60 transition-colors flex items-center justify-between group';
                     const isLuxeFour = normalizeRoomCategory(roomInput.value) === 'номер люкс' && i === 4;
                     btn.innerHTML = `
                         <span class="text-white font-bold text-sm group-hover:text-accentCyan">
@@ -1925,7 +1930,7 @@
                     },
                     {
                         key: 'room',
-                        label: 'Проживання (за прайсом номера):',
+                        label: 'Проживання:',
                         amount: roomSum,
                         valueText: `${roomSum.toLocaleString()} ₴`,
                         valueClass: 'text-white font-bold'
@@ -1965,7 +1970,7 @@
                 if (hasMeals) {
                     items.push({
                         key: 'meals',
-                        label: 'Харчування (на гостей):',
+                        label: 'Харчування:',
                         amount: mealsSum,
                         valueText: `${mealsSum.toLocaleString()} ₴`,
                         valueClass: 'text-white font-bold'
@@ -2000,7 +2005,7 @@
 
                     const ubdDiscount = isUbd ? Math.round(stayBeforeUbd * 0.10) : 0;
                     const prepaySum = pricing.firstNightRate;
-                    const mealCalc = hasMeals ? calculateMealsTotal(nights, guestCount) : { total: 0, fullDays: 0, guests: guestCount, fullDaysSum: 0, exitBreakfastSum: 0 };
+                    const mealCalc = hasMeals ? calculateMealsTotal(nights, guestCount) : { total: 0 };
                     const mealsSum = mealCalc.total;
                     const totalSum = stayBeforeUbd - ubdDiscount + mealsSum;
 
@@ -2022,11 +2027,11 @@
 
                     if (mealsBreakdownEl) {
                         if (hasMeals && nights > 0) {
-                            mealsBreakdownEl.innerHTML = `Харчування на <b>${guestCount} ос.</b>: <b>${nights} дн.</b> × ${guestCount} ос. × ${FULL_MEAL_DAY_RATE} ₴ (${mealCalc.fullDaysSum.toLocaleString()} ₴) + сніданок у день виїзду до 10:00 (${guestCount} × ${EXIT_BREAKFAST_RATE} ₴ = ${mealCalc.exitBreakfastSum.toLocaleString()} ₴)`;
+                            mealsBreakdownEl.textContent = `Харчування: ${formatMealsReceiptLine(nights, guestCount)}`;
                             mealsBreakdownEl.classList.remove('hidden');
                         } else {
                             mealsBreakdownEl.classList.add('hidden');
-                            mealsBreakdownEl.innerHTML = '';
+                            mealsBreakdownEl.textContent = '';
                         }
                     }
 
@@ -2220,12 +2225,12 @@
                     const extraNotes = [];
                     if (pricing.isShortStay && shortStaySum > 0) extraNotes.push(`короткий заїзд +${shortStaySum.toLocaleString()} ₴`);
                     if (luxeFourGuestsSum > 0) extraNotes.push(`4-й гість у Люксі +${luxeFourGuestsSum.toLocaleString()} ₴`);
-                    if (hasMeals) extraNotes.push(`харчування на ${guestCount} ос. (${mealsSum.toLocaleString()} ₴)`);
+                    if (hasMeals) extraNotes.push(`харчування: ${formatMealsReceiptLine(nights, guestCount)}`);
                     if (hasUbd) extraNotes.push('знижка УБД -10%');
 
                     showCustomNotice({
                         title: 'Бронювання створено!',
-                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${pluralGuests(guestCount)}${extraNotes.length ? ', ' + extraNotes.join(', ') : ''}). Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
+                        message: `Дякуємо, ${guestName.value.trim()}! Номер №${assignedRoomNumber} успішно заброньовано (${pluralGuests(guestCount)}${extraNotes.length ? ', ' + extraNotes.join('; ') : ''}). Передоплата становить ${prepaySum.toLocaleString()} ₴.`,
                         badgeText: `Категорія: ${selectedRoomName}`,
                         type: 'success'
                     });
@@ -2513,7 +2518,7 @@
                         titleText = "Прошедший день";
                     }
                 } else if (checkoutBooking && checkinBooking) {
-                    bgClass = "bg-white text-darkBg border-cyan-400 font-black shadow-md ring-2 ring-cyan-400";
+                    bgClass = "bg-white text-darkBg border-gray-200 font-black shadow-md";
                     const outOpt = formatOptSummary(checkoutBooking);
                     const inOpt = formatOptSummary(checkinBooking);
                     const outCompact = getBookingOptionCompactLabel(checkoutBooking);
@@ -2698,7 +2703,7 @@
                                 const currMealText = isBookingMeals(b) ? '🍽️ Комплексная еда: ДА' : 'Комплексная еда: нет';
                                 const currUbdText = isBookingUbd(b) ? '🛡️ УБД: ДА' : 'УБД: нет';
                                 turnaroundTag = `
-                                    <div class="mt-3 p-4 rounded-xl bg-white text-darkBg border-2 border-cyan-400 space-y-2 shadow-md">
+                                    <div class="mt-3 p-4 rounded-xl bg-white text-darkBg border border-gray-300 space-y-2 shadow-md">
                                         <div class="flex items-center gap-2 font-black text-base">
                                             <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">↑/↓</span>
                                             <span>Смена гостей в день выезда:</span>
@@ -2799,7 +2804,7 @@
                 const guestCount = bookingObj.guest_count || 2;
                 const guestsText = bookingObj.guest_count ? `${bookingObj.guest_count} гостей` : 'Не указано';
 
-                const mealCalc = hasMeals ? calculateMealsTotal(totalNights, guestCount) : { total: 0, fullDaysSum: 0, exitBreakfastSum: 0 };
+                const mealCalc = hasMeals ? calculateMealsTotal(totalNights, guestCount) : { total: 0 };
                 const mealsSum = mealCalc.total;
                 const roomSum = Math.max(0, total - mealsSum);
 
@@ -2809,7 +2814,7 @@
                         <span class="text-xl">${hasMeals ? '🍽️' : '-'}</span>
                         <div>
                             <div class="font-extrabold ${hasMeals ? 'text-accentCyan' : 'text-white/80'} text-sm">Комплексная еда: ${hasMeals ? 'ДА' : 'нет'}</div>
-                            ${hasMeals ? `<div class="text-xs text-white">${totalNights} дн. × ${guestCount} чел. × ${FULL_MEAL_DAY_RATE} ₴ + завтрак в день выезда (до 10:00) × ${guestCount} чел. × ${EXIT_BREAKFAST_RATE} ₴.</div>` : ''}
+                            ${hasMeals ? `<div class="text-xs text-white">${formatMealsReceiptLine(totalNights, guestCount)}</div>` : ''}
                         </div>
                     </div>
                 `);
@@ -2830,12 +2835,12 @@
                     const nextMealBadge = isBookingMeals(matchedNext) ? '🍽️ Еда: ДА' : 'Еда: нет';
                     const nextUbdBadge = isBookingUbd(matchedNext) ? '🛡️ УБД: ДА' : '';
                     immediateCheckinHtml = `
-                        <div class="p-4 rounded-2xl bg-white text-darkBg border-2 border-cyan-400 text-sm sm:text-base font-semibold mt-3 space-y-2 shadow-lg">
+                        <div class="p-4 rounded-2xl bg-white text-darkBg border border-gray-300 text-sm sm:text-base font-semibold mt-3 space-y-2 shadow-lg">
                             <div class="flex items-center space-x-2 font-black">
                                 <span class="px-2 py-0.5 rounded bg-darkBg text-white font-black text-xs">↑/↓</span>
                                 <span>Смена гостей в один день (сразу заезжает другая семья):</span>
                             </div>
-                            <button type="button" ${nextDataAttr} class="booking-details-btn w-full text-left bg-cardBg hover:bg-gray-900 border border-cyan-500/50 p-3.5 rounded-xl text-white transition-all flex flex-col gap-2 cursor-pointer shadow-md">
+                            <button type="button" ${nextDataAttr} class="booking-details-btn w-full text-left bg-cardBg hover:bg-gray-900 border border-gray-700 p-3.5 rounded-xl text-white transition-all flex flex-col gap-2 cursor-pointer shadow-md">
                                 <div class="flex items-center justify-between gap-2 flex-wrap">
                                     <span class="text-base sm:text-lg font-bold text-white flex items-center"><i class="fa-solid fa-user mr-2 text-accentCyan"></i>${matchedNext.guest_name}</span>
                                     <div class="flex items-center gap-1.5">
@@ -2881,7 +2886,7 @@
                         </div>
                         ${hasMeals ? `
                         <div class="flex justify-between items-center">
-                            <span class="text-white">Питание (${totalNights} дн. + завтрак выезда, ${guestCount} чел.):</span>
+                            <span class="text-white">Питание (${totalNights} дн. × ${guestCount} × 350 + выезд ${guestCount} × 100):</span>
                             <span class="text-accentCyan font-semibold">${mealsSum.toLocaleString()} ₴</span>
                         </div>` : ''}
                         <div class="flex justify-between items-center border-t border-gray-700/80 pt-2.5 mt-1">
